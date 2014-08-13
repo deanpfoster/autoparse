@@ -9,12 +9,14 @@
 
 namespace auto_parse
 {
+  typedef int Node;
+  typedef std::pair<Node,Node> Link;
+
   class Dependency
   {
   public:
-    typedef int Node;
     typedef std::vector<std::string> Words;
-    typedef std::vector<std::pair<Node, Node> > Links;
+    typedef std::vector<Link> Links;
     typedef Words::const_iterator const_word_iterator;
     typedef Links::const_iterator const_link_iterator;
 

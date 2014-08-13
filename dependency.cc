@@ -57,7 +57,7 @@ auto_parse::Dependency::operator=(const auto_parse::Dependency & rhs)
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                               A C C E S S O R S                                 accessors
-auto_parse::Dependency::Node
+auto_parse::Node
 auto_parse::Dependency::root() const
 {
   return m_root;
