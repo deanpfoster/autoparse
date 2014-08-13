@@ -109,6 +109,9 @@ onlyI:
 #
 ##########################################################################################################
 
+SOURCES = dependency.cc
+
+
 -include utilities/Makefile.rules
 
 #  Put things here that aren't caught by a "make clean" that should be deleted
