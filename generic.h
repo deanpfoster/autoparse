@@ -5,7 +5,7 @@
 
 #include <iosfwd>
 
-namespace library
+namespace auto_parse
 {
   class Generic
   {
@@ -28,6 +28,6 @@ namespace library
   };
 }
 
-std::ostream& operator<<(std::ostream &,const library::Generic &);
+std::ostream& operator<<(std::ostream &,const auto_parse::Generic &);
 
 #endif

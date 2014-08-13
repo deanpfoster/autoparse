@@ -6,13 +6,13 @@
 
 #include "generic.h"
 
-namespace library
+namespace auto_parse
 {
   void test_generic()
   {
     std::cout << "\n\n\n\t\t\t GENERIC  GENERIC  GENERIC\n\n\n"<< std::endl;
     {
-      library::Generic g;  // testing construction
+      auto_parse::Generic g;  // testing construction
       std::cout << "constructed!" << std::endl;
     };
   }
@@ -22,7 +22,7 @@ namespace library
 int
 main()
 {
-  library::test_generic();  
+  auto_parse::test_generic();  
   std::cout << "\n\nDONE." << std::endl;  
 };
 #endif
