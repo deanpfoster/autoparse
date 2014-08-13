@@ -1,0 +1,19 @@
+
+
+
+			 DEPENDENCY  DEPENDENCY  DEPENDENCY
+
+
+
+constructed!
+		%	 Include in header: \usepackage{tikz-dependency}
+\begin{dependency}[theme = simple]
+\begin{deptext}[column sep=1em]
+       \\
+\end{deptext}
+\deproot{0}{ROOT}
+\end{dependency}
+
+
+
+DONE.
