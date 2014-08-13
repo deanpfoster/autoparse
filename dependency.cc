@@ -19,10 +19,16 @@ auto_parse::Dependency::~Dependency()
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Dependency::Dependency()
+  : m_words(),
+    m_root(),
+    m_links()
 {
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-auto_parse::Dependency::Dependency(const Dependency & other) 
+auto_parse::Dependency::Dependency(const Dependency & other)
+  : m_words(other.m_words),
+    m_root(other.m_root),
+    m_links(other.m_links)
 {
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -40,6 +46,9 @@ auto_parse::Dependency::clone() const
 auto_parse::Dependency&
 auto_parse::Dependency::operator=(const auto_parse::Dependency & rhs)
 {
+  m_words = rhs.m_words;
+  m_root  = rhs.m_root;
+  m_links = rhs.m_links;
   // add code here
   return *this; 
 };
@@ -57,6 +66,7 @@ auto_parse::Dependency::root() const
 void
 auto_parse::Dependency::latex(std::ostream & ostrm) const
 {
+  ostrm << "\t\t%\t Include in header: \\usepackage{tikz-dependency}" << std::endl;
   ostrm << "\\begin{dependency}[theme = simple]" << std::endl;
   ostrm << "\\begin{deptext}[column sep=1em]" << std::endl;
   ostrm << "     ";
@@ -69,7 +79,7 @@ auto_parse::Dependency::latex(std::ostream & ostrm) const
 	ostrm << " \\& ";
     };
   ostrm << "  \\\\" << std::endl;
-  ostrm << "\end{deptext}" << std::endl;
+  ostrm << "\\end{deptext}" << std::endl;
   ostrm << "\\deproot{" << root() << "}{ROOT}" << std::endl;
   for(const_link_iterator i = m_links.begin(); i != m_links.end();++i)
     {

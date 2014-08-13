@@ -23,7 +23,7 @@ namespace auto_parse
 int
 main()
 {
-  //  auto_parse::test_generic();  
+ auto_parse::test_Dependency();  
   std::cout << "\n\nDONE." << std::endl;  
 };
 #endif
