@@ -22,24 +22,37 @@ auto_parse::Dependency::~Dependency()
 auto_parse::Dependency::Dependency(const Word& w)
   : m_words(),
     m_root(),
-    m_links()
+    m_links(),
+    m_full_parse(true)
 {
   m_words.push_back(w);
   m_root = m_words.begin();
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+auto_parse::Dependency::Dependency(const Words& w)
+  : m_words(w),
+    m_root(),
+    m_links(),
+    m_full_parse(false)
+{
+};
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Dependency::Dependency(const Dependency & other)
   : m_words(other.m_words),
     m_root(other.m_root),
-    m_links(other.m_links)
+    m_links(other.m_links),
+    m_full_parse(other.m_full_parse)
 {
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Dependency::Dependency(const Dependency & left, Right_arrow, const Dependency& right)
   : m_words(),
     m_root(),
-    m_links()
+    m_links(),
+    m_full_parse(true)
 {
+  assert(left.m_full_parse);
+  assert(right.m_full_parse);
   add_words_and_links(left,right);
   Node left_root = (left.m_root - left.m_words.begin()) + m_words.begin();
   Node right_offset = m_words.begin() + left.m_words.size();
@@ -51,8 +64,11 @@ auto_parse::Dependency::Dependency(const Dependency & left, Right_arrow, const D
 auto_parse::Dependency::Dependency(const Dependency & left, Left_arrow, const Dependency& right)
   : m_words(),
     m_root(),
-    m_links()
+    m_links(),
+    m_full_parse(true)
 {
+  assert(left.m_full_parse);
+  assert(right.m_full_parse);
   add_words_and_links(left,right);
   Node left_root = (left.m_root - left.m_words.begin()) + m_words.begin();
   Node right_offset = m_words.begin() + left.m_words.size();
@@ -139,6 +155,33 @@ auto_parse::Dependency::print_on(std::ostream & ostrm) const
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
+bool
+auto_parse::Dependency::full_parse() const
+{
+  if(!m_full_parse)
+    {
+      // Bummer--we ahve to compute it ourselves
+      if(m_root == Node())
+	return false; // root isn't set yet
+      std::vector<bool> is_pointed_to(m_words.size());
+      is_pointed_to[m_root - m_words.begin()] = true;
+      for(const_link_iterator i = m_links.begin(); i != m_links.end(); ++i)
+	{
+	  int from_index = i->first - m_words.begin();
+	  int to_index = i->second - m_words.begin();
+	  assert(!is_pointed_to[to_index]);  // might as well check double pointers
+	  is_pointed_to[to_index] = true;
+	}
+      m_full_parse = true;
+      for(std::vector<bool>::const_iterator i = is_pointed_to.begin(); i != is_pointed_to.end();++i)
+	if(!*i)
+	  m_full_parse = false;
+    }
+  return(m_full_parse);
+
+};
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                           P R O T E C T E D                                     protected
 
@@ -198,5 +241,14 @@ operator>(const auto_parse::Dependency& l, const auto_parse::Dependency& r)
   return (auto_parse::Dependency(l,auto_parse::Right_arrow(),r));
 }
 
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+auto_parse::Words
+operator+(const auto_parse::Words& W, auto_parse::Word w)
+{
+  auto_parse::Words result = W;
+  result.push_back(w);
+  return(result);
+}
+  
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
