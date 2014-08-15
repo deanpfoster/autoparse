@@ -26,30 +26,50 @@ namespace auto_parse
     };
     {
       typedef auto_parse::Dependency D;
-     D complex =  (D("A") < D("hearing") > (D("on") > (D("the") < D("issue"))))
-       < ((D("is") > (D("scheduled") > D("today"))) > D("."));
-     std::cout << complex;
-     std::ofstream latex("dependency.test.tex");
-     latex << "\\documentclass{article}\n\\usepackage{tikz-dependency}\n\\begin{document}\n";
-     latex << "Original sentence--which has crosses in it:\n\n" << std::endl;
-     latex << "\\begin{dependency}[theme = simple]\
-   \\begin{deptext}[column sep=1em]\
-      A \\& hearing \\& is \\& scheduled \\& on \\& the \\& issue \\& today \\& . \\\\\
-   \\end{deptext}\
-   \\deproot{3}{ROOT}\
-   \\depedge{2}{1}{ATT}\
-   \\depedge[edge start x offset=-6pt]{2}{5}{ATT}\
-   \\depedge{3}{2}{SBJ}\
-   \\depedge{3}{9}{PU}\
-   \\depedge{3}{4}{VC}\
-   \\depedge{4}{8}{TMP}\
-   \\depedge{5}{7}{PC}\
-   \\depedge[arc angle=50]{7}{6}{ATT}\
-\\end{dependency}\n\n\n";
-     latex << "The best we could do since we don't do crosses:\n\n" 
-<< complex << "\\end{document}" << std::endl;
+      D complex =  (D("A") < D("hearing") > (D("on") > (D("the") < D("issue"))))
+	< ((D("is") > (D("scheduled") > D("today"))) > D("."));
+      std::cout << complex;
+      std::ofstream latex("dependency.test.tex");
+      latex << "\\documentclass{article}\n\\usepackage{tikz-dependency}\n\\begin{document}\n";
+      latex << "Original sentence--which has crosses in it:\n\n" << std::endl;
+      latex << "\\begin{dependency}[theme = simple]\
+                \\begin{deptext}[column sep=1em]					\
+                 A \\& hearing \\& is \\& scheduled \\& on \\& the \\& issue \\& today \\& . \\\\ \
+                \\end{deptext}\
+                \\deproot{3}{ROOT}\
+                \\depedge{2}{1}{ATT}\
+                \\depedge[edge start x offset=-6pt]{2}{5}{ATT}\
+                \\depedge{3}{2}{SBJ}\
+                \\depedge{3}{9}{PU}\
+                \\depedge{3}{4}{VC}\
+                \\depedge{4}{8}{TMP}\
+                \\depedge{5}{7}{PC}\
+                \\depedge[arc angle=50]{7}{6}{ATT}\
+                \\end{dependency}\n\n\n";
+      latex << "The best we could do since we don't do crosses:\n\n" 
+	    << complex << "\\end{document}" << std::endl;
      
     }	
+    {
+      // Partial parsing example
+      Words w = Words() + "A" + "hearing" + "on" + "the" + "issue" + "is" + "scheduled" + "today" + ".";
+      auto_parse::Dependency d(w);
+      std::cout << d << std::endl;
+      assert(!d.full_parse());
+      d.set_root(5);  // Zero based indexing
+      assert(!d.full_parse());
+      d.add(0,Left_arrow(),1);
+      assert(!d.full_parse());  // Note: this check is redundent since it is checked by add()
+      d.add(3,Left_arrow(),4);
+      d.add(2,Right_arrow(),4);
+      d.add(1,Right_arrow(),2);
+      d.add(6,Right_arrow(),7);
+      d.add(5,Right_arrow(),6);
+      d.add(5,Right_arrow(),8);
+      d.add(1,Left_arrow(),5);
+      std::cout << d << std::endl;
+      assert(d.full_parse());
+    }
   }
 }
 

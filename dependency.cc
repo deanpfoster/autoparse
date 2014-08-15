@@ -98,7 +98,50 @@ auto_parse::Dependency::operator=(const auto_parse::Dependency & rhs)
   return *this; 
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
+void
+auto_parse::Dependency::set_root(const Node& root)
+{
+  assert(m_root == Node());// confirm we haven't set it yet
+  m_root = root;
+}
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+void
+auto_parse::Dependency::add(const auto_parse::Node& left,
+			    auto_parse::Left_arrow ,
+			    const auto_parse::Node& right)
+{
+  assert(right - left > 0); // make sure we got them in the right order
+  assert(!full_parse());
+  m_links.push_back(std::make_pair(right,left));
+}
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+void
+auto_parse::Dependency::add(const auto_parse::Node& left,
+			    auto_parse::Right_arrow,
+			    const auto_parse::Node& right)
+{
+  assert(right - left > 0); // make sure we got them in the right order
+  assert(!full_parse());
+  m_links.push_back(std::make_pair(left,right));
+}
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+void
+auto_parse::Dependency::set_root(int root)
+{
+  set_root(m_words.begin() + root);
+}
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+void
+auto_parse::Dependency::add(int left, auto_parse::Left_arrow , int right)
+{
+  add(m_words.begin() + left, Left_arrow(), m_words.begin() + right);
+}
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+void
+auto_parse::Dependency::add(int left, auto_parse::Right_arrow, int right)
+{
+  add(m_words.begin() + left, Right_arrow(), m_words.begin() + right);
+}
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                               A C C E S S O R S                                 accessors
