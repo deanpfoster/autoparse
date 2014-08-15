@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <assert.h>
-
+#include <fstream>
 #include "dependency.h"
 
 namespace auto_parse
@@ -12,10 +12,44 @@ namespace auto_parse
   {
     std::cout << "\n\n\n\t\t\t DEPENDENCY  DEPENDENCY  DEPENDENCY\n\n\n"<< std::endl;
     {
-      auto_parse::Dependency g;  // testing construction
+      Word wa = "four";
+      Word wb = "five";
+      Word wc = "six";
+      auto_parse::Dependency a(wa);  // testing construction
+      auto_parse::Dependency b(wb);  // testing construction
+      auto_parse::Dependency c(wc);  // testing construction
+      auto_parse::Dependency d(a,auto_parse::Right_arrow(),b);  // testing construction
+      auto_parse::Dependency e(d,auto_parse::Left_arrow(),c);  // testing construction
+      
       std::cout << "constructed!" << std::endl;
-      std::cout << g;
+      std::cout << e;
     };
+    {
+      typedef auto_parse::Dependency D;
+     D complex =  (D("A") < D("hearing") > (D("on") > (D("the") < D("issue"))))
+       < ((D("is") > (D("scheduled") > D("today"))) > D("."));
+     std::cout << complex;
+     std::ofstream latex("dependency.test.tex");
+     latex << "\\documentclass{article}\n\\usepackage{tikz-dependency}\n\\begin{document}\n";
+     latex << "Original sentence--which has crosses in it:\n\n" << std::endl;
+     latex << "\\begin{dependency}[theme = simple]\
+   \\begin{deptext}[column sep=1em]\
+      A \\& hearing \\& is \\& scheduled \\& on \\& the \\& issue \\& today \\& . \\\\\
+   \\end{deptext}\
+   \\deproot{3}{ROOT}\
+   \\depedge{2}{1}{ATT}\
+   \\depedge[edge start x offset=-6pt]{2}{5}{ATT}\
+   \\depedge{3}{2}{SBJ}\
+   \\depedge{3}{9}{PU}\
+   \\depedge{3}{4}{VC}\
+   \\depedge{4}{8}{TMP}\
+   \\depedge{5}{7}{PC}\
+   \\depedge[arc angle=50]{7}{6}{ATT}\
+\\end{dependency}\n\n\n";
+     latex << "The best we could do since we don't do crosses:\n\n" 
+<< complex << "\\end{document}" << std::endl;
+     
+    }	
   }
 }
 

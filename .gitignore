@@ -32,3 +32,4 @@ git_cloned_by_make
 utilities
 *.aux
 *.log
+dependency.test.tex
