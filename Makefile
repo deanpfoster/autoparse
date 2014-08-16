@@ -55,9 +55,11 @@ dependency.test:
 #
 #          (This code can depend on level zero code)
 #
-only1: 
+only1:  lr.OK
 #
 ################################################################################
+
+lr.test: dependency.o lr.o
 
 ################################################################################
 #
@@ -119,6 +121,6 @@ SOURCES = dependency.cc
 clean.local:
 
 
-flags: utilities/flags.sample
-	if [  -f ../flags ];  then touch ../flags; ln -s ../flags; else cp $< $@; fi
+# flags: utilities/flags.sample
+#	if [  -f ../flags ];  then touch ../flags; ln -s ../flags; else cp $< $@; fi
 

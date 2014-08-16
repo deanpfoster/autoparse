@@ -5,6 +5,7 @@
 
 #include <iosfwd>
 #include "dependency.h"
+#include <stack>
 
 namespace auto_parse
 {
@@ -17,11 +18,11 @@ namespace auto_parse
 
     // MANIPULATORS
     void shift();
-    void left_reduce(const Node&);
-    void right_reduce(const Node&);
+    void left_reduce();
+    void right_reduce();
 
     // ACCESSORS
-    virtual void print_on(std::ostream &) const;
+    void print_on(std::ostream &) const;
     Word next_input() const;
     Node stack_top() const;
     Node stack_2() const;  // first item under the top
@@ -29,11 +30,13 @@ namespace auto_parse
     Dependency parse() const;
 
   protected:
-
+    
+    
   private:
-    Words m_sentence;
+    Words m_sentence; // These are also stored in the m_parse.  This duplication is wrong!
     std::stack<Node> m_stack;
-    const_word_iterator m_next_input;
+    auto_parse::Dependency::const_word_iterator m_next_input;
+    Dependency m_parse;
     
     LR(const LR &);            // Don't delete this.
     LR& operator=(const LR &); // Don't delete this.
