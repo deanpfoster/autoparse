@@ -124,6 +124,8 @@ auto_parse::Dependency::add(const auto_parse::Node& left,
 			    const auto_parse::Node& right)
 {
   assert(right - left > 0); // make sure we got them in the right order
+  assert(left - m_words.begin() >= 0);
+  assert(m_words.end() - right > 0);
   assert(!full_parse());
   m_links.push_back(std::make_pair(left,right));
 }
@@ -131,18 +133,28 @@ auto_parse::Dependency::add(const auto_parse::Node& left,
 void
 auto_parse::Dependency::set_root(int root)
 {
+  assert(root < m_words.size());
+  assert(root >= 0);
   set_root(m_words.begin() + root);
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 void
 auto_parse::Dependency::add(int left, auto_parse::Left_arrow , int right)
 {
+  assert(left < m_words.size());
+  assert(right < m_words.size());
+  assert(left >= 0);
+  assert(right >= 0);
   add(m_words.begin() + left, Left_arrow(), m_words.begin() + right);
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 void
 auto_parse::Dependency::add(int left, auto_parse::Right_arrow, int right)
 {
+  assert(left < m_words.size());
+  assert(right < m_words.size());
+  assert(left >= 0);
+  assert(right >= 0);
   add(m_words.begin() + left, Right_arrow(), m_words.begin() + right);
 }
 
