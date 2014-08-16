@@ -5,7 +5,10 @@
 // put other includes here
 #include "assert.h"
 #include <iostream>
+#include <iomanip>
 #include <iterator>
+#include <map>
+#include <sstream>
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                          U S I N G   D I R E C T I V E S                            using
@@ -194,7 +197,65 @@ auto_parse::Dependency:: link_description(const Link& l) const
 void
 auto_parse::Dependency::print_on(std::ostream & ostrm) const
 {
-  latex(ostrm);
+  std::map<Node, Node> parrent;
+  std::multimap<Node, Node> children;
+  for(const_link_iterator i = m_links.begin(); i != m_links.end(); ++i)
+    {
+      assert(parrent.find(i->second) == parrent.end());
+      parrent[i->second] = i->first;
+      children.insert(*i);
+    }
+  copy(m_words.begin(), m_words.end(),std::ostream_iterator<std::string>(ostrm," "));
+  ostrm << std::endl;
+  for(const_word_iterator i = m_words.begin(); i != m_words.end(); ++i)
+    {
+      //       foo    <---    bar     (foo --> A, B, C)
+      ostrm << "\t" << std::setw(15) << *i;
+      if(i == root())
+	ostrm  << "  <---  " << std::left << std::setw(15) << "ROOT" << std::right;
+      else
+	{
+	  if(parrent.find(i) != parrent.end())
+	    ostrm << "  <---  " << std::left << std::setw(15) << *parrent[i] << std::right;
+	  else
+	    ostrm << "  <---  " << std::setw(15) << " " ;
+	};
+      auto start = children.lower_bound(i);
+      auto end   = children.upper_bound(i);
+      if(start != end)
+	{  // We've got kids to deal with
+	  std::stringstream left_kids,right_kids;
+	  bool first_left = true;
+	  bool first_right = true;
+	  for(auto j = start; j != end; ++j)
+	    {
+	      if(j->second < i) // we are a left kid
+		{
+		  if(!first_left)
+		    left_kids << ", ";
+		  left_kids << *(j->second);
+		  first_left = false;
+		}
+	      if(j->second > i)
+		{
+		  if(!first_right)
+		    right_kids << ", ";
+		  else
+		    right_kids << "   --->  ";
+		  right_kids << *(j->second);
+		  first_right = false;
+		}
+	    }
+	  if(!first_left)
+	    left_kids << "  <---   ";
+	  right_kids;
+	  ostrm << std::setw(40) << left_kids.str() << *i << right_kids.str();
+	}
+      else
+	ostrm << std::setw(40) << " " << *i;
+      ostrm << std::endl;
+    }
+  ostrm << std::endl;
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
