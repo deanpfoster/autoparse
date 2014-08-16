@@ -133,7 +133,7 @@ auto_parse::Dependency::add(const auto_parse::Node& left,
 void
 auto_parse::Dependency::set_root(int root)
 {
-  assert(root < m_words.size());
+  assert(root < int(m_words.size()));
   assert(root >= 0);
   set_root(m_words.begin() + root);
 }
@@ -141,8 +141,8 @@ auto_parse::Dependency::set_root(int root)
 void
 auto_parse::Dependency::add(int left, auto_parse::Left_arrow , int right)
 {
-  assert(left < m_words.size());
-  assert(right < m_words.size());
+  assert(left < int(m_words.size()));
+  assert(right < int(m_words.size()));
   assert(left >= 0);
   assert(right >= 0);
   add(m_words.begin() + left, Left_arrow(), m_words.begin() + right);
@@ -151,8 +151,8 @@ auto_parse::Dependency::add(int left, auto_parse::Left_arrow , int right)
 void
 auto_parse::Dependency::add(int left, auto_parse::Right_arrow, int right)
 {
-  assert(left < m_words.size());
-  assert(right < m_words.size());
+  assert(left < int(m_words.size()));
+  assert(right < int(m_words.size()));
   assert(left >= 0);
   assert(right >= 0);
   add(m_words.begin() + left, Right_arrow(), m_words.begin() + right);
@@ -198,7 +198,7 @@ auto_parse::Dependency::latex(std::ostream & ostrm) const
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 std::string
-auto_parse::Dependency:: link_description(const Link& l) const
+auto_parse::Dependency:: link_description(const Link& ) const
 {
   // when we end up with probabilities--these should be stuffed in here
   return("");
@@ -260,7 +260,6 @@ auto_parse::Dependency::print_on(std::ostream & ostrm) const
 	    }
 	  if(!first_left)
 	    left_kids << "  <---   ";
-	  right_kids;
 	  ostrm << std::setw(40) << left_kids.str() << *i << right_kids.str();
 	}
       else
@@ -283,7 +282,7 @@ auto_parse::Dependency::full_parse() const
       is_pointed_to[m_root - m_words.begin()] = true;
       for(const_link_iterator i = m_links.begin(); i != m_links.end(); ++i)
 	{
-	  int from_index = i->first - m_words.begin();
+	  //	  int from_index = i->first - m_words.begin();
 	  int to_index = i->second - m_words.begin();
 	  assert(!is_pointed_to[to_index]);  // might as well check double pointers
 	  is_pointed_to[to_index] = true;

@@ -6,13 +6,45 @@
 
 
 constructed!
-		%	 Include in header: \usepackage{tikz-dependency}
-\begin{dependency}[theme = simple]
-\begin{deptext}[column sep=1em]
-       \\
-\end{deptext}
-\deproot{0}{ROOT}
-\end{dependency}
+four five six 
+	           four  <---  six                                                    four   --->  five
+	           five  <---  four                                                   five
+	            six  <---  ROOT                                      four  <---   six
+
+A hearing on the issue is scheduled today . 
+	              A  <---  hearing                                                A
+	        hearing  <---  is                                           A  <---   hearing   --->  on
+	             on  <---  hearing                                                on   --->  issue
+	            the  <---  issue                                                  the
+	          issue  <---  on                                         the  <---   issue
+	             is  <---  ROOT                                   hearing  <---   is   --->  scheduled, .
+	      scheduled  <---  is                                                     scheduled   --->  today
+	          today  <---  scheduled                                              today
+	              .  <---  is                                                     .
+
+A hearing on the issue is scheduled today . 
+	              A  <---                                                         A
+	        hearing  <---                                                         hearing
+	             on  <---                                                         on
+	            the  <---                                                         the
+	          issue  <---                                                         issue
+	             is  <---                                                         is
+	      scheduled  <---                                                         scheduled
+	          today  <---                                                         today
+	              .  <---                                                         .
+
+
+A hearing on the issue is scheduled today . 
+	              A  <---  hearing                                                A
+	        hearing  <---  is                                           A  <---   hearing   --->  on
+	             on  <---  hearing                                                on   --->  issue
+	            the  <---  issue                                                  the
+	          issue  <---  on                                         the  <---   issue
+	             is  <---  ROOT                                   hearing  <---   is   --->  scheduled, .
+	      scheduled  <---  is                                                     scheduled   --->  today
+	          today  <---  scheduled                                              today
+	              .  <---  is                                                     .
+
 
 
 
