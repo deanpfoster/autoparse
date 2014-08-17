@@ -19,6 +19,7 @@ namespace auto_parse
     // MANIPULATORS
     void shift();
     void left_reduce();
+    void head_reduce();  // used only to pop last item off the stack and set it as the head
     void right_reduce();
 
     // ACCESSORS
@@ -27,7 +28,7 @@ namespace auto_parse
     Node stack_top() const;
     Node stack_2() const;  // first item under the top
     bool empty() const; // even the S has been pop-ed off the stack
-    Dependency parse() const;
+    const Dependency& parse() const;
 
   protected:
     

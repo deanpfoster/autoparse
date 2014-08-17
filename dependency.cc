@@ -42,10 +42,15 @@ auto_parse::Dependency::Dependency(const Words& w)
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Dependency::Dependency(const Dependency & other)
   : m_words(other.m_words),
-    m_root(other.m_root),
-    m_links(other.m_links),
+    m_root(),
+    m_links(),
     m_full_parse(other.m_full_parse)
 {
+  int shift = m_words.begin() - other.m_words.begin();
+  m_root = other.m_root + shift;
+  for(auto i = other.m_links.begin(); i != other.m_links.end(); ++i)
+    m_links.push_back(std::make_pair(i->first + shift, i->second + shift));
+  assert(0);
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Dependency::Dependency(const Dependency & left, Right_arrow, const Dependency& right)
@@ -114,6 +119,8 @@ auto_parse::Dependency::add(const auto_parse::Node& left,
 			    const auto_parse::Node& right)
 {
   assert(right - left > 0); // make sure we got them in the right order
+  assert(left - m_words.begin() >= 0);
+  assert(m_words.end() - right > 0);
   assert(!full_parse());
   m_links.push_back(std::make_pair(right,left));
 }
@@ -209,16 +216,25 @@ auto_parse::Dependency:: link_description(const Link& ) const
 void
 auto_parse::Dependency::print_on(std::ostream & ostrm) const
 {
-  std::map<Node, Node> parrent;
+  std::map<Node, Node> parent;
   std::multimap<Node, Node> children;
   for(const_link_iterator i = m_links.begin(); i != m_links.end(); ++i)
     {
-      assert(parrent.find(i->second) == parrent.end());
-      parrent[i->second] = i->first;
+      assert(parent.find(i->second) == parent.end());
+      parent[i->second] = i->first;
       children.insert(*i);
     }
   copy(m_words.begin(), m_words.end(),std::ostream_iterator<std::string>(ostrm," "));
   ostrm << std::endl;
+  if(!full_parse())
+    {
+      ostrm << "\t\t\t * * * * Incomplete parse structure:   " << m_links.size() << " / " << m_words.size() << " * * * *" << std::endl;
+      // The following was used for debugging the incomplete parse
+      //      ostrm << "\t\t\t parents size: " << parent.size() << std::endl;
+      //      ostrm << "\t\t\t children size: " << children.size() << std::endl;
+      //      for(auto i = parent.begin(); i != parent.end();++i)
+      //	ostrm << i->first - m_words.begin() << " --> " << i->second - m_words.begin() << std::endl;
+    }
   for(const_word_iterator i = m_words.begin(); i != m_words.end(); ++i)
     {
       //       foo    <---    bar     (foo --> A, B, C)
@@ -227,8 +243,8 @@ auto_parse::Dependency::print_on(std::ostream & ostrm) const
 	ostrm  << "  <---  " << std::left << std::setw(15) << "ROOT" << std::right;
       else
 	{
-	  if(parrent.find(i) != parrent.end())
-	    ostrm << "  <---  " << std::left << std::setw(15) << *parrent[i] << std::right;
+	  if(parent.find(i) != parent.end())
+	    ostrm << "  <---  " << std::left << std::setw(15) << *parent[i] << std::right;
 	  else
 	    ostrm << "  <---  " << std::setw(15) << " " ;
 	};
@@ -330,7 +346,6 @@ auto_parse::Dependency::add_words_and_links(const Dependency & left, const Depen
       int end_index = end - right.m_words.begin();
       m_links.push_back(std::make_pair(start_index+right_offset, end_index+right_offset));
     }
-
 }
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */

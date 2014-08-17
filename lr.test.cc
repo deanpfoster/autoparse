@@ -18,7 +18,9 @@ namespace auto_parse
       assert(g.next_input() == "hearing");
       g.shift(); // hearing
       assert(*(g.stack_top()) == "hearing");
+      std::cout << g.parse();
       g.left_reduce();
+      std::cout << g.parse();
       assert(*(g.stack_top()) == "hearing");
       g.shift(); // on
       assert(*(g.stack_2()) == "hearing");
@@ -37,6 +39,7 @@ namespace auto_parse
       g.right_reduce();
       g.shift(); // "."
       g.right_reduce();
+      g.head_reduce();
       std::cout << g.parse();
       
       std::cout << "constructed!" << std::endl;

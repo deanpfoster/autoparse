@@ -34,9 +34,6 @@ namespace auto_parse
 
     Dependency* clone() const;
     // MANIPULATORS
-    void set_root(const Node&);
-    void add(const Node& left, Left_arrow ,  const Node& right);
-    void add(const Node& left, Right_arrow , const Node& right);
     void set_root(int);
     void add(int left, Left_arrow ,  int right);
     void add(int left, Right_arrow , int right);
@@ -49,6 +46,9 @@ namespace auto_parse
     bool full_parse() const;
 
   protected:
+    void set_root(const Node&); // if you can't see our internal data structure, you probably shouldn't be using these
+    void add(const Node& left, Left_arrow ,  const Node& right);
+    void add(const Node& left, Right_arrow , const Node& right);
 
   private:
     void add_words_and_links(const Dependency & left, const Dependency& right);

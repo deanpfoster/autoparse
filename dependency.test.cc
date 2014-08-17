@@ -54,7 +54,6 @@ namespace auto_parse
       // Partial parsing example
       Words w = Words() + "A" + "hearing" + "on" + "the" + "issue" + "is" + "scheduled" + "today" + ".";
       auto_parse::Dependency d(w);
-      std::cout << d << std::endl;
       assert(!d.full_parse());
       d.set_root(5);  // Zero based indexing
       assert(!d.full_parse());
@@ -62,6 +61,10 @@ namespace auto_parse
       assert(!d.full_parse());  // Note: this check is redundent since it is checked by add()
       d.add(3,Left_arrow(),4);
       d.add(2,Right_arrow(),4);
+
+      // checking what a partial parse print out looks like
+      std::cout << d << std::endl;
+
       d.add(1,Right_arrow(),2);
       d.add(6,Right_arrow(),7);
       d.add(5,Right_arrow(),6);

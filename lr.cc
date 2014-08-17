@@ -1,7 +1,7 @@
 // -*- c++ -*-
 
 
-#include "LR.h"
+#include "lr.h"
 
 // put other includes here
 #include "assert.h"
@@ -47,6 +47,15 @@ auto_parse::LR::shift()
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 void
+auto_parse::LR::head_reduce()
+{
+  Node right = m_stack.top();
+  m_stack.pop();
+  assert(m_stack.empty());
+  m_parse.set_root(right - m_sentence.begin());
+}
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+void
 auto_parse::LR::left_reduce()
 {
   Node right = m_stack.top();
@@ -54,7 +63,7 @@ auto_parse::LR::left_reduce()
   assert(!m_stack.empty());
   Node left = m_stack.top();
   m_stack.pop();
-  m_parse.add(left,Left_arrow(),right);
+  m_parse.add(left - m_sentence.begin(),Left_arrow(),right - m_sentence.begin());
   m_stack.push(right);
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -63,12 +72,9 @@ auto_parse::LR::right_reduce()
 {
   Node right = m_stack.top();
   m_stack.pop();
-  if(m_stack.empty())
-    { // we have the root
-      m_parse.set_root(right);
-    }
+  assert(!m_stack.empty());
   Node left = m_stack.top();
-  m_parse.add(left,Right_arrow(),right);
+  m_parse.add(left - m_sentence.begin(), Right_arrow(), right - m_sentence.begin());
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////
@@ -101,7 +107,7 @@ auto_parse::LR::stack_2() const
   return result;
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-auto_parse::Dependency
+const auto_parse::Dependency&
 auto_parse::LR::parse() const
 {
   //  assert(m_parse.full_parse());
@@ -109,7 +115,7 @@ auto_parse::LR::parse() const
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 void
-auto_parse::LR::print_on(std::ostream & ostrm) const
+auto_parse::LR::print_on(std::ostream & ) const
 {
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
