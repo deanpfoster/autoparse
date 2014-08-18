@@ -312,6 +312,12 @@ auto_parse::Dependency::full_parse() const
 
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+const auto_parse::Links&
+auto_parse::Dependency::links() const
+{
+  return m_links;
+}
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                           P R O T E C T E D                                     protected

@@ -5,6 +5,7 @@
 
 #include <iosfwd>
 #include "dependency.h"
+#include "transition_probability.h"
 #include <stack>
 
 namespace auto_parse
@@ -14,25 +15,22 @@ namespace auto_parse
   public:
     // CONSTRUCTORS
     ~Likelihood();
-    Likelihood(const Probability& e); // read model from file
+    Likelihood(const Transition_probability& left, const Transition_probability& right); // read model from file
 
     // MANIPULATORS
     // ACCESSORS
     double operator()(const Dependency&) const;
-
+    void print_on(std::ostream & ostrm) const;
     
   private:
-    Eigen_dictionary m_eigens; // These are also stored in the m_parse.  This duplication is wrong!
-    Double
-    std::stack<Node> m_stack;
-    auto_parse::Dependency::const_word_iterator m_next_input;
-    Dependency m_parse;
+    Transition_probability m_left;
+    Transition_probability m_right;
     
-    LIKELIHOOD(const LIKELIHOOD &);            // Don't delete this.
-    LIKELIHOOD& operator=(const LIKELIHOOD &); // Don't delete this.
+    Likelihood(const Likelihood &);            // Don't delete this.
+    Likelihood& operator=(const Likelihood &); // Don't delete this.
   };
 }
 
-std::ostream& operator<<(std::ostream &,const auto_parse::LIKELIHOOD &);
+std::ostream& operator<<(std::ostream &,const auto_parse::Likelihood &);
 
 #endif

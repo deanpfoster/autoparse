@@ -19,6 +19,7 @@ namespace auto_parse
     // CONSTRUCTORS
     ~Transition_probability();
     Transition_probability();
+    Transition_probability(const Transition_probability &);          
 
     // MANIPULATORS
     // ACCESSORS
@@ -27,7 +28,6 @@ namespace auto_parse
 
   protected:
   private:
-    Transition_probability(const Transition_probability &);            // Don't delete this.
     Transition_probability& operator=(const Transition_probability &); // Don't delete this.
   };
 }

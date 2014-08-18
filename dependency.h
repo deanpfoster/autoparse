@@ -12,12 +12,12 @@ namespace auto_parse
   class Right_arrow{};
   class Left_arrow{};
 
+  typedef std::pair<Node,Node>  Link;  // Node is a pointer to a Word
+  typedef std::vector<Link> Links;
 
   class Dependency
   {
   public:
-    typedef std::pair<Node,Node>  Link;
-    typedef std::vector<Link> Links;
     typedef Links::const_iterator const_link_iterator;
 
     // CONSTRUCTORS
@@ -40,6 +40,7 @@ namespace auto_parse
     void print_on(std::ostream &) const;
     std::string link_description(const Link&) const;
     bool full_parse() const;
+    const Links& links() const;
 
   protected:
     void set_root(const Node&); // if you can't see our internal data structure, you probably shouldn't be using these
