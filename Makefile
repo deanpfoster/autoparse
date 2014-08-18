@@ -44,10 +44,9 @@ current_target: dependency.OK
 #
 #          (This code should not depend on any other code)
 #
-only0: dependency.OK
+only0: word.OK 
 ################################################################################
-
-dependency.test: dependency.o
+word.test: word.o
 
 ################################################################################
 #
@@ -55,11 +54,12 @@ dependency.test: dependency.o
 #
 #          (This code can depend on level zero code)
 #
-only1:  lr.OK
+only1:  dependency.OK transition_probability.OK
 #
 ################################################################################
+dependency.test: dependency.o 
 
-lr.test: dependency.o lr.o
+transition_probability.test: word.o transition_probability.o
 
 ################################################################################
 #
@@ -67,9 +67,11 @@ lr.test: dependency.o lr.o
 #
 #          (This code can depend on level zero or level one code)
 #
-only2:  
+only2:  lr.OK
 #
 ################################################################################
+lr.test: dependency.o lr.o
+
 
 ################################################################################
 #

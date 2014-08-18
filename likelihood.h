@@ -14,7 +14,7 @@ namespace auto_parse
   public:
     // CONSTRUCTORS
     ~Likelihood();
-    Likelihood(iostream&); // read model from file
+    Likelihood(const Probability& e); // read model from file
 
     // MANIPULATORS
     // ACCESSORS
