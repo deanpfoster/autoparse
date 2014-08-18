@@ -12,7 +12,6 @@ namespace auto_parse
   {
     std::cout << "\n\n\n\t\t\t LIKELIHOOD  LIKELIHOOD  LIKELIHOOD\n\n\n"<< std::endl;
     {
-      Words w = Words() + "A" + "hearing" + "on" + "the" + "issue" + "is" + "scheduled" + "today" + ".";
       auto_parse::Transition_probability left;
       auto_parse::Transition_probability right;
       auto_parse::Likelihood lambda(left,right); 
@@ -22,8 +21,21 @@ namespace auto_parse
 	< ((D("is") > (D("scheduled") > D("today"))) > D("."));
       std::cout << lambda(complex) << std::endl;
       std::cout << "constructed!" << std::endl;
+
+      D sorted = D("A") < D("B") < D("C") < D("D") < D("E");
+      std::cout << sorted;
+      std::cout << "Sorted: " << lambda(sorted) << std::endl;
+      D r = D("A") > D("B") > D("C") > D("D") > D("E");
+      std::cout << r;
+      std::cout << "right hanging: " << lambda(r) << std::endl;
+      D reverse = D("E") < D("D") < D("C") < D("B") < D("A");
+      std::cout << reverse;
+      std::cout << "reverse: " << lambda(reverse) << std::endl;
+      
+
     };
   }
+  
 }
 
 #ifndef NO_MAIN

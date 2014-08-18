@@ -41,6 +41,7 @@ namespace auto_parse
     std::string link_description(const Link&) const;
     bool full_parse() const;
     const Links& links() const;
+    const Words& sentence() const{return m_words;}
 
   protected:
     void set_root(const Node&); // if you can't see our internal data structure, you probably shouldn't be using these

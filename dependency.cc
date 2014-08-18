@@ -377,14 +377,6 @@ operator>(const auto_parse::Dependency& l, const auto_parse::Dependency& r)
   return (auto_parse::Dependency(l,auto_parse::Right_arrow(),r));
 }
 
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-auto_parse::Words
-operator+(const auto_parse::Words& W, auto_parse::Word w)
-{
-  auto_parse::Words result = W;
-  result.push_back(w);
-  return(result);
-}
   
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 

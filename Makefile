@@ -72,7 +72,7 @@ only2:  lr.OK likelihood.OK
 ################################################################################
 lr.test: dependency.o lr.o
 
-likelihood.test: dependency.o transition_probability.o likelihood.o
+likelihood.test: dependency.o transition_probability.o likelihood.o word.o
 
 ################################################################################
 #

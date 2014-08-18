@@ -47,12 +47,27 @@ auto_parse::Likelihood::print_on(std::ostream & ostrm) const
 double
 auto_parse::Likelihood::operator()(const Dependency& parse) const
 {
-  double result = 0; // we will work with log likelihoods
+  assert(parse.full_parse());
+  double result = 0.0; // we will work with log likelihoods
   for(auto i = parse.links().begin(); i != parse.links().end(); ++i)
-    if(i->first < i->second)
-      result += m_left(*i->first, *i->second);
-    else
-      result += m_right(*i->first, *i->second);
+    {
+      double delta = 0.0;
+      if(i->first < i->second)
+	delta = m_left(*i->first, *i->second);
+      else
+	delta = m_right(*i->first, *i->second);
+      bool debugging = false;
+      if(debugging)
+	{
+	  std::cout << *i->first;
+	  if(i->first < i->second)
+	    std::cout << " <-- ";
+	  else
+	    std::cout << " --> ";
+	  std::cout << *i->second << " = " << delta << std::endl;
+	};
+      result += delta;
+    }
   return result;
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
