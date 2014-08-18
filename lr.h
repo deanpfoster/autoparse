@@ -36,7 +36,7 @@ namespace auto_parse
   private:
     Words m_sentence; // These are also stored in the m_parse.  This duplication is wrong!
     std::stack<Node> m_stack;
-    auto_parse::Dependency::const_word_iterator m_next_input;
+    auto_parse::const_word_iterator m_next_input;
     Dependency m_parse;
     
     LR(const LR &);            // Don't delete this.

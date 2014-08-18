@@ -22,7 +22,7 @@ auto_parse::Transition_probability::Transition_probability()
 {
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-auto_parse::Transition_probability::Transition_probability(const Transition_probability & other) 
+auto_parse::Transition_probability::Transition_probability(const Transition_probability & )
 {
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */

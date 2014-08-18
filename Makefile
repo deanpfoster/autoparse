@@ -25,7 +25,7 @@ include flags
 #
 ################################################################################
 
-current_target: dependency.OK
+current_target: test
 
 
 ################################################################################
@@ -57,7 +57,7 @@ word.test: word.o
 only1:  dependency.OK transition_probability.OK
 #
 ################################################################################
-dependency.test: dependency.o 
+dependency.test: dependency.o  word.o
 
 transition_probability.test: word.o transition_probability.o
 
@@ -70,7 +70,7 @@ transition_probability.test: word.o transition_probability.o
 only2:  lr.OK likelihood.OK
 #
 ################################################################################
-lr.test: dependency.o lr.o
+lr.test: dependency.o lr.o word.o
 
 likelihood.test: dependency.o transition_probability.o likelihood.o word.o
 
