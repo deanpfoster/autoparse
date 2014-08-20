@@ -40,7 +40,17 @@ A hearing on the issue is scheduled today .
 	          today  <---  scheduled                                              today
 	              .  <---  is                                                     .
 
-constructed!
+A hearing is scheduled on the issue today . 
+	              A  <---  hearing                                                A
+	        hearing  <---  is                                           A  <---   hearing   --->  on
+	             is  <---  ROOT                                   hearing  <---   is   --->  scheduled, .
+	      scheduled  <---  is                                                     scheduled   --->  today
+	             on  <---  hearing                                                on   --->  issue
+	            the  <---  issue                                                  the
+	          issue  <---  on                                         the  <---   issue
+	          today  <---  scheduled                                              today
+	              .  <---  is                                                     .
+
 
 
 DONE.

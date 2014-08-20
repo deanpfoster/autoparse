@@ -21,13 +21,13 @@ namespace auto_parse
     void left_reduce();
     void head_reduce();  // used only to pop last item off the stack and set it as the head
     void right_reduce();
-    //    void right_cross_reduce();
+    void right_cross_reduce(int depth); // (depth=1) is the same as right_reduce
 
     // ACCESSORS
     void print_on(std::ostream &) const;
     Word next_input() const;
     Node stack_top() const;
-    Node stack_2() const;  // first item under the top
+    Node stack(int depth) const;  // ith item under top 0=stack_top, 1=second item, 2=third item, etc
     bool empty() const; // even the S has been pop-ed off the stack
     const Dependency& parse() const;
 

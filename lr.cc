@@ -79,6 +79,16 @@ auto_parse::LR::right_reduce()
   Node left = *m_stack.rbegin();
   m_parse.add(left - m_sentence.begin(), Right_arrow(), right - m_sentence.begin());
 }
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+void
+auto_parse::LR::right_cross_reduce(int skip)
+{
+  assert(m_stack.size() >= static_cast<unsigned int>(skip)+1);
+  Node top = *m_stack.rbegin();
+  Node deep = *(m_stack.rbegin() + skip);
+  m_parse.add(deep - m_sentence.begin(), Right_arrow(), top - m_sentence.begin());
+  m_stack.pop_back();
+}
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                               A C C E S S O R S                                 accessors
@@ -98,12 +108,10 @@ auto_parse::LR::stack_top() const
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Node
-auto_parse::LR::stack_2() const
+auto_parse::LR::stack(int depth) const
 {
-  assert(m_stack.size() >= 2);
-  auto last = m_stack.rbegin();
-  last++;
-  return *last;
+  assert(m_stack.size() >= static_cast<unsigned int>(depth)+1);
+  return *(m_stack.rbegin() + depth);;
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 const auto_parse::Dependency&

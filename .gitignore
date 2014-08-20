@@ -33,3 +33,4 @@ utilities
 *.aux
 *.log
 dependency.test.tex
+lr.test.tex
