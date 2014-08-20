@@ -5,7 +5,7 @@
 
 #include <iosfwd>
 #include "dependency.h"
-#include <stack>
+#include <vector>
 
 namespace auto_parse
 {
@@ -21,6 +21,7 @@ namespace auto_parse
     void left_reduce();
     void head_reduce();  // used only to pop last item off the stack and set it as the head
     void right_reduce();
+    //    void right_cross_reduce();
 
     // ACCESSORS
     void print_on(std::ostream &) const;
@@ -35,7 +36,7 @@ namespace auto_parse
     
   private:
     Words m_sentence; // These are also stored in the m_parse.  This duplication is wrong!
-    std::stack<Node> m_stack;  // this should be switched to a vector where we have reserved enough places to hold everything
+    std::vector<Node> m_stack;  // this should be switched to a vector where we have reserved enough places to hold everything
     auto_parse::const_word_iterator m_next_input;
     Dependency m_parse;
     

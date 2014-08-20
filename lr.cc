@@ -42,15 +42,16 @@ void
 auto_parse::LR::shift()
 {
   assert(m_next_input != m_sentence.end()); // can't shift if we are already at the end
-  m_stack.push(m_next_input);
+  m_stack.push_back(m_next_input);
   ++m_next_input;
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 void
 auto_parse::LR::head_reduce()
 {
-  Node right = m_stack.top();
-  m_stack.pop();
+  assert(!m_stack.empty());
+  Node right = *m_stack.rbegin();
+  m_stack.pop_back();
   assert(m_stack.empty());
   m_parse.set_root(right - m_sentence.begin());
 }
@@ -58,22 +59,24 @@ auto_parse::LR::head_reduce()
 void
 auto_parse::LR::left_reduce()
 {
-  Node right = m_stack.top();
-  m_stack.pop();
   assert(!m_stack.empty());
-  Node left = m_stack.top();
-  m_stack.pop();
+  Node right = *m_stack.rbegin();
+  m_stack.pop_back();
+  assert(!m_stack.empty());
+  Node left = *m_stack.rbegin();
+  m_stack.pop_back();
   m_parse.add(left - m_sentence.begin(),Left_arrow(),right - m_sentence.begin());
-  m_stack.push(right);
+  m_stack.push_back(right);
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 void
 auto_parse::LR::right_reduce()
 {
-  Node right = m_stack.top();
-  m_stack.pop();
   assert(!m_stack.empty());
-  Node left = m_stack.top();
+  Node right = *m_stack.rbegin();
+  m_stack.pop_back();
+  assert(!m_stack.empty());
+  Node left = *m_stack.rbegin();
   m_parse.add(left - m_sentence.begin(), Right_arrow(), right - m_sentence.begin());
 }
 
@@ -91,20 +94,16 @@ auto_parse::LR::next_input() const
 auto_parse::Node
 auto_parse::LR::stack_top() const
 {
-  return m_stack.top();
+  return *m_stack.rbegin();
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Node
 auto_parse::LR::stack_2() const
 {
-  // This isn't a natural operation. It should be: tmp=pop;result=top;push(tmp);
   assert(m_stack.size() >= 2);
-  std::stack<Node>& evil_stack = const_cast<std::stack<Node>&>(m_stack);
-  auto_parse::Node tmp = evil_stack.top();
-  evil_stack.pop();
-  auto_parse::Node result = evil_stack.top();
-  evil_stack.push(tmp);
-  return result;
+  auto last = m_stack.rbegin();
+  last++;
+  return *last;
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 const auto_parse::Dependency&
