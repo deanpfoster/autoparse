@@ -34,7 +34,7 @@ auto_parse::Dependency::Dependency(const Word& w)
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Dependency::Dependency(const Words& w)
   : m_words(w),
-    m_root(),
+    m_root(m_words.end()),
     m_links(),
     m_full_parse(false)
 {
@@ -42,15 +42,15 @@ auto_parse::Dependency::Dependency(const Words& w)
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Dependency::Dependency(const Dependency & other)
   : m_words(other.m_words),
-    m_root(),
+    m_root(m_words.end()),
     m_links(),
     m_full_parse(other.m_full_parse)
 {
   int shift = m_words.begin() - other.m_words.begin();
-  m_root = other.m_root + shift;
+  if(other.m_root != other.m_words.end())
+    m_root = other.m_root + shift;
   for(auto i = other.m_links.begin(); i != other.m_links.end(); ++i)
     m_links.push_back(std::make_pair(i->first + shift, i->second + shift));
-  assert(0);
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Dependency::Dependency(const Dependency & left, Right_arrow, const Dependency& right)
@@ -109,7 +109,7 @@ auto_parse::Dependency::operator=(const auto_parse::Dependency & rhs)
 void
 auto_parse::Dependency::set_root(const Node& root)
 {
-  assert(m_root == Node());// confirm we haven't set it yet
+  assert(m_root == m_words.end());// confirm we haven't set it yet
   m_root = root;
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */

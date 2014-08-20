@@ -71,7 +71,9 @@ namespace auto_parse
       d.add(5,Right_arrow(),8);
       d.add(1,Left_arrow(),5);
       std::cout << d << std::endl;
+      auto_parse::Dependency copy(d);
       assert(d.full_parse());
+      assert(copy.full_parse());
     }
   }
 }

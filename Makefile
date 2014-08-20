@@ -44,9 +44,11 @@ current_target: test
 #
 #          (This code should not depend on any other code)
 #
-only0: word.OK 
+only0: word.OK  history.OK
 ################################################################################
 word.test: word.o
+
+history.test: history.o
 
 ################################################################################
 #
@@ -54,7 +56,7 @@ word.test: word.o
 #
 #          (This code can depend on level zero code)
 #
-only1:  dependency.OK transition_probability.OK
+only1:  dependency.OK transition_probability.OK 
 #
 ################################################################################
 dependency.test: dependency.o  word.o
@@ -80,14 +82,16 @@ likelihood.test: dependency.o transition_probability.o likelihood.o word.o
 #
 #          (This code can depend on level 0, 1, or 2 code)
 #
-only3: 
+only3: redo_parse.OK
 #
 ################################################################################
+
+redo_parse.test: history.o dependency.o lr.o word.o redo_parse.o
 
 ################################################################################
 #           L E V E L     F O U R    T E S T I N G     C O D E
 #          (This code can depend on level 0, 1, 2 or 3 code)
-only4: 
+only4: contrast.OK
 ################################################################################
 
 ################################################################################
