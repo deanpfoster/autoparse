@@ -3,6 +3,7 @@
 
 #include "model.h"
 #include "forecast.h"
+#include "value_of_forecasts.h"
 
 // put other includes here
 #include "assert.h"
@@ -47,23 +48,21 @@ auto_parse::Model::operator()(const LR& parser) const
 {
   Value_of_forecasts result;
   for(Action a: all_actions)
-    result[a] = (*m_forecasts[a])(parser);
+    result[a] = (*m_forecasts.find(a)->second)(parser);
   double max = result[Action::shift];
-  double arg_max = Action::shift
-  for(Action a: all_actions)
+  Action arg_max = Action::shift;
+  for(Action a: auto_parse::all_actions)
     if(result[a] > max)
       {
 	max = result[a];
 	arg_max = a;
       }
   double second_best = -1e10;
-  double arg_second_best = Action::shift;
   for(Action a: all_actions)
     if(result[a] > second_best)
       if(a != arg_max)
 	{
 	  second_best = result[a];
-	  arg_second_best = a;
 	}
   for(Action a: all_actions)
     result[a] = result[a] - second_best;

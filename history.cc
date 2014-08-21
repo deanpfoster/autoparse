@@ -81,6 +81,27 @@ operator<<(std::ostream& os, auto_parse::Action a)
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
+std::istream&
+operator>>(std::istream& in, auto_parse::Action & a)
+{
+  std::string name;
+  in >> name >> std::ws;
+  if(name == "shift")
+    a = auto_parse::Action::shift;
+  else if(name == "<--")
+    a = auto_parse::Action::left_reduce;
+  else if(name == "-->")
+    a = auto_parse::Action::right_reduce;
+  else if(name == "HEAD")
+    a = auto_parse::Action::head_reduce;
+  else if(name == "-3->")
+    a = auto_parse::Action::head_reduce;
+  else
+    assert(0);
+  return in;
+}
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
 
 std::ostream & operator<<(std::ostream & ostrm, const auto_parse::History & object)
 {

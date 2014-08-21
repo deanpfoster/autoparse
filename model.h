@@ -11,7 +11,7 @@ namespace auto_parse
 {
   class Forecast;
   class LR;
-  class Delta_forecasts;
+  class Value_of_forecasts;
   
   class Model
   {
@@ -22,7 +22,7 @@ namespace auto_parse
 
     // MANIPULATORS
     // ACCESSORS
-    Delta_forecasts operator()(const LR&) const;
+    Value_of_forecasts operator()(const LR&) const;
 
     void print_on(std::ostream &) const;
     void save(std::ostream & ) const;
