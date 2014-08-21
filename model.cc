@@ -39,6 +39,17 @@ auto_parse::Model::Model(const auto_parse::Model & other)
 {
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+auto_parse::Model::Model()
+  :
+  m_forecasts()
+{
+};
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+void
+auto_parse::Model::add_forecast(Action a, const Forecast* p_f)
+{
+  m_forecasts[a] = p_f;
+}
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                             M A N I P U L A T O R S                          manipulators
 ////////////////////////////////////////////////////////////////////////////////////////////

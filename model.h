@@ -19,6 +19,9 @@ namespace auto_parse
     // CONSTRUCTORS
     ~Model();
     Model(std::istream&);
+    Model(const Model &);
+    Model(); // creates an empty and broken model.  Use add_forecast to repair
+    void add_forecast(Action, const Forecast*);
 
     // MANIPULATORS
     // ACCESSORS
@@ -28,10 +31,9 @@ namespace auto_parse
     void save(std::ostream & ) const;
 
   protected:
-    std::map<Action, Forecast*> m_forecasts;
+    std::map<Action, const Forecast*> m_forecasts;
 
   private:
-    Model(const Model &);            // Don't delete this.
     Model& operator=(const Model &); // Don't delete this.
   };
 }

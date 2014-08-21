@@ -36,7 +36,11 @@ namespace auto_parse
     Forecast::register_forecast(new Sample);
     {
       Sample example(10);
-
+      Model m;
+      for(Action a : all_actions)
+	{
+	  m.add_forecast(a,&example);
+	};
       std::cout << "constructed!" << std::endl;
     };
   }
