@@ -2,6 +2,7 @@
 
 
 #include "model.h"
+#include "forecast.h"
 
 // put other includes here
 #include "assert.h"
@@ -21,10 +22,17 @@ auto_parse::Model::Model(std::istream& in)
   : m_forecasts()  
 {
   for(Action a: all_actions)
-    m_forecasts[a] = Forecast(in);
+    {
+      Action check;
+      in >> check >> std::ws;
+      assert(check == a);
+      Forecast* p_forecast;
+      in >> p_forecast;
+      m_forecasts[a] = p_forecast;
+    }
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-auto_parse::Model::Model(const Model & other)
+auto_parse::Model::Model(const auto_parse::Model & other)
   :
   m_forecasts(other.m_forecasts)
 {
@@ -34,12 +42,12 @@ auto_parse::Model::Model(const Model & other)
 //                             M A N I P U L A T O R S                          manipulators
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                               A C C E S S O R S                                 accessors
-auto_parse::Delta_forecast
+auto_parse::Value_of_forecasts
 auto_parse::Model::operator()(const LR& parser) const
 {
-  Delta_forecast result;
+  Value_of_forecasts result;
   for(Action a: all_actions)
-    result[a] = m_forecasts[a](parser);
+    result[a] = (*m_forecasts[a])(parser);
   double max = result[Action::shift];
   double arg_max = Action::shift
   for(Action a: all_actions)
@@ -67,7 +75,18 @@ void
 auto_parse::Model::print_on(std::ostream & ostrm) const
 {
   for(Action a : all_actions)
-    ostrm << "Forecast " << a << ":  " << m_forecasts[a];
+    ostrm << "Forecast " << a << ":  " << *m_forecasts.find(a)->second;
+};
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+void
+auto_parse::Model::save(std::ostream & ostrm) const
+{
+  for(Action a : all_actions)
+    {
+      ostrm << a << std::endl;
+      ostrm << *m_forecasts.find(a)->second;
+    }
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 

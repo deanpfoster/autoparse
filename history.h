@@ -9,10 +9,10 @@
 namespace auto_parse
 {
   enum class Action {shift=-5, left_reduce, head_reduce, right_reduce, right_2=2, right_3, right_4, right_5 };
-  const Action All_legal_actions[] = { Action::shift,
+  const Action all_legal_actions[] = { Action::shift,
 					Action::left_reduce, Action::right_reduce, Action::head_reduce,
 					Action::right_2, Action::right_3, Action::right_4, Action::right_5};
-  const Action All_actions[] = { Action::shift,
+  const Action all_actions[] = { Action::shift,
 				  Action::left_reduce, Action::right_reduce, Action::head_reduce};
   
 
@@ -39,6 +39,7 @@ namespace auto_parse
 }
 
 std::ostream& operator<<(std::ostream & , auto_parse::Action);
+std::istream& operator>>(std::istream & , auto_parse::Action&);
 std::ostream& operator<<(std::ostream & , const auto_parse::History &);
 
 #endif

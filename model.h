@@ -9,6 +9,10 @@
 
 namespace auto_parse
 {
+  class Forecast;
+  class LR;
+  class Delta_forecasts;
+  
   class Model
   {
   public:
@@ -20,10 +24,11 @@ namespace auto_parse
     // ACCESSORS
     Delta_forecasts operator()(const LR&) const;
 
-    virtual void print_on(std::ostream &) const;
+    void print_on(std::ostream &) const;
+    void save(std::ostream & ) const;
 
   protected:
-    std::map<Action, Forecast> m_forecasts;
+    std::map<Action, Forecast*> m_forecasts;
 
   private:
     Model(const Model &);            // Don't delete this.

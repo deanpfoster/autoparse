@@ -72,7 +72,7 @@ auto_parse::Statistical_parse::do_actual_parse(LR* p_parser) const
       Delta_forecasts suggestions = m_model(*p_parser);
       double max_delta = suggestions[head_reduce]; // this is always a legal action
       Action max_action = head_reduce;
-      for (Action a :All_actions)
+      for (Action a : all_actions)
 	{
 	  if(suggestions[a] > max_delta)
 	    {
