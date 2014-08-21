@@ -1,7 +1,7 @@
 // -*- c++ -*-
 
 
-#include "generic.h"
+#include "model.h"
 
 // put other includes here
 #include "assert.h"
@@ -10,48 +10,64 @@
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                          U S I N G   D I R E C T I V E S                            using
 
-using auto_parse;  // Lazy if you leave this in. Try not to do: "using foo;"  It adds too much
-
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                              C O N S T R U C T O R S                         constructors
 
-auto_parse::Generic::~Generic()
+auto_parse::Model::~Model()
 {
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-auto_parse::Generic::Generic()
+auto_parse::Model::Model(std::istream& in)
+  : m_forecasts()  
+{
+  for(Action a: all_actions)
+    m_forecasts[a] = Forecast(in);
+};
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+auto_parse::Model::Model(const Model & other)
+  :
+  m_forecasts(other.m_forecasts)
 {
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-auto_parse::Generic::Generic(const Generic & other) 
-{
-};
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-auto_parse::Generic*
-auto_parse::Generic::clone() const
-{
-  return new Generic(*this);
-};
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                             M A N I P U L A T O R S                          manipulators
- 
-
-auto_parse::Generic&
-auto_parse::Generic::operator=(const auto_parse::Generic & rhs)
-{
-  // add code here
-  return *this; 
-};
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                               A C C E S S O R S                                 accessors
-void
-auto_parse::Generic::print_on(std::ostream & ostrm) const
+auto_parse::Delta_forecast
+auto_parse::Model::operator()(const LR& parser) const
 {
+  Delta_forecast result;
+  for(Action a: all_actions)
+    result[a] = m_forecasts[a](parser);
+  double max = result[Action::shift];
+  double arg_max = Action::shift
+  for(Action a: all_actions)
+    if(result[a] > max)
+      {
+	max = result[a];
+	arg_max = a;
+      }
+  double second_best = -1e10;
+  double arg_second_best = Action::shift;
+  for(Action a: all_actions)
+    if(result[a] > second_best)
+      if(a != arg_max)
+	{
+	  second_best = result[a];
+	  arg_second_best = a;
+	}
+  for(Action a: all_actions)
+    result[a] = result[a] - second_best;
+  return result;
+}
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+void
+auto_parse::Model::print_on(std::ostream & ostrm) const
+{
+  for(Action a : all_actions)
+    ostrm << "Forecast " << a << ":  " << m_forecasts[a];
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
@@ -68,7 +84,7 @@ auto_parse::Generic::print_on(std::ostream & ostrm) const
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                     F R E E   F U N C T I O N S                            free functions
 
-std::ostream & operator<<(std::ostream & ostrm, const auto_parse::Generic & object)
+std::ostream & operator<<(std::ostream & ostrm, const auto_parse::Model & object)
 {
   object.print_on(ostrm);
   return ostrm;

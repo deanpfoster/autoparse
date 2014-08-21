@@ -1,0 +1,14 @@
+	                         -*- text -*-
+
+Bottom up:
+
+
+statistical_history (keeps track of forecasts)
+
+Forecast  (forecasts one thing)
+
+Model (agergates several forecasts)
+	Sketched
+
+Statistical_parse (uses model to predict)
+	skecthed			
