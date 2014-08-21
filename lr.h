@@ -5,6 +5,7 @@
 
 #include <iosfwd>
 #include "dependency.h"
+#include "history.h"
 #include <vector>
 
 namespace auto_parse
@@ -22,6 +23,7 @@ namespace auto_parse
     void head_reduce();  // used only to pop last item off the stack and set it as the head
     void right_reduce();
     void right_cross_reduce(int depth); // (depth=1) is the same as right_reduce
+    void take_action(auto_parse::Actions);
 
     // ACCESSORS
     void print_on(std::ostream &) const;

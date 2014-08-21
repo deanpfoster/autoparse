@@ -71,7 +71,11 @@ operator<<(std::ostream& os, auto_parse::Actions a)
     case auto_parse::Actions::left_reduce : os << "<--"; break;
     case auto_parse::Actions::right_reduce: os << "-->"; break;
     case auto_parse::Actions::head_reduce : os << "HEAD"; break;
-    default : os.setstate(std::ios_base::failbit);
+    default :
+      int i = static_cast<int>(a);
+      if(i < 0)
+	assert(0);
+      os << "-" << i << "->";
     }
   return os;
 }

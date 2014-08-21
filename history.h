@@ -8,7 +8,7 @@
 
 namespace auto_parse
 {
-  enum class Actions {shift, left_reduce, right_reduce, head_reduce};
+  enum class Actions {shift=-5, left_reduce, right_reduce, head_reduce};
 
   class History
   {

@@ -89,6 +89,23 @@ auto_parse::LR::right_cross_reduce(int skip)
   m_parse.add(deep - m_sentence.begin(), Right_arrow(), top - m_sentence.begin());
   m_stack.pop_back();
 }
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+void
+auto_parse::LR::take_action(Actions a)
+{
+  switch(a)
+    {
+    case auto_parse::Actions::shift       : shift(); break;
+    case auto_parse::Actions::left_reduce : left_reduce(); break;
+    case auto_parse::Actions::right_reduce: right_reduce(); break;
+    case auto_parse::Actions::head_reduce : head_reduce(); break;
+    default :
+            int i = static_cast<int>(a);
+	    if(i < 0)
+	      assert(0);
+	    right_cross_reduce(i);
+    }
+}
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                               A C C E S S O R S                                 accessors
