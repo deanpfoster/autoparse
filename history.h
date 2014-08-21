@@ -8,7 +8,7 @@
 
 namespace auto_parse
 {
-  enum class Action {shift=-5, left_reduce, head_reduce, right_reduce, right_2=2, right_3, right_4, right_5 };
+  enum class Action {shift=-5, left_reduce=-1, head_reduce=0, right_reduce=1, right_2=2, right_3, right_4, right_5 };
   const Action all_legal_actions[] = { Action::shift,
 					Action::left_reduce, Action::right_reduce, Action::head_reduce,
 					Action::right_2, Action::right_3, Action::right_4, Action::right_5};

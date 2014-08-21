@@ -94,8 +94,14 @@ operator>>(std::istream& in, auto_parse::Action & a)
     a = auto_parse::Action::right_reduce;
   else if(name == "HEAD")
     a = auto_parse::Action::head_reduce;
+  else if(name == "-2->")
+    a = auto_parse::Action::right_2;
   else if(name == "-3->")
-    a = auto_parse::Action::head_reduce;
+    a = auto_parse::Action::right_3;
+  else if(name == "-4->")
+    a = auto_parse::Action::right_4;
+  else if(name == "-5->")
+    a = auto_parse::Action::right_5;
   else
     assert(0);
   return in;
