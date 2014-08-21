@@ -1,11 +1,12 @@
 	                         -*- text -*-
 
 
-***  statistical_history (adds value_of_forecasts to history)
 
-*** Statistical_parse (uses model to predict)
-	skecthed			
 
+statistical_history (adds value_of_forecasts to history)
+	done
+Statistical_parse (uses model to predict)
+	done
 value_of_forecasts
 	done
 Forecast  (forecasts one thing)

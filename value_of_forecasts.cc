@@ -27,3 +27,10 @@ auto_parse::Value_of_forecasts::best_action() const
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
+double
+auto_parse::Value_of_forecasts::best_value() const
+{
+  return( find(best_action())->second);
+};
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
