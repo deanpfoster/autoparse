@@ -58,12 +58,14 @@ forecast.test:
 #
 #          (This code can depend on level zero code)
 #
-only1:  dependency.OK transition_probability.OK 
+only1:  dependency.OK transition_probability.OK forecast_constant.OK
 #
 ################################################################################
 dependency.test: dependency.o  word.o
 
 transition_probability.test: word.o transition_probability.o
+
+forecast_constant.test: forecast.o
 
 ################################################################################
 #

@@ -6,6 +6,9 @@ Bottom up:
 statistical_history (keeps track of forecasts)
 
 Forecast  (forecasts one thing)
+	Done
+Actual forecasts
+	forecast_constant
 
 Model (agergates several forecasts)
 	Sketched

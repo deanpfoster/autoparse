@@ -1,34 +1,61 @@
 // -*- c++ -*-
 
 
-#include "forecast.h"
-
-// put other includes here
+#include "forecast_constant.h"
 #include "assert.h"
 #include <iostream>
 
 ////////////////////////////////////////////////////////////////////////////////////////////
-//                          U S I N G   D I R E C T I V E S                            using
-
-//using namespace auto_parse;  // Lazy if you leave this in. Try not to do: "using foo;"  It adds too much
-
-std::map<std::string, const auto_parse::Forecast*> auto_parse::Forecast::s_singletons;
-
-
-////////////////////////////////////////////////////////////////////////////////////////////
 //                              C O N S T R U C T O R S                         constructors
 
-auto_parse::Forecast::~Forecast()
+auto_parse::Forecast_constant::~Forecast_constant()
 {
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-auto_parse::Forecast::Forecast()
+auto_parse::Forecast_constant::Forecast_constant()
+  :Forecast(),
+   m_constant()
 {
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-auto_parse::Forecast::Forecast(const Forecast & ) 
+auto_parse::Forecast_constant::Forecast_constant(const Forecast_constant & other) 
+  :   Forecast(),
+      m_constant(other.m_constant)
 {
 };
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+auto_parse::Forecast_constant::Forecast_constant(std::istream & in) 
+  : Forecast(),
+    m_constant()
+{
+  in >> m_constant >> std::ws;
+};
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+auto_parse::Forecast_constant::Forecast_constant(double d) 
+  : Forecast(),
+    m_constant(d)
+{
+};
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+void
+auto_parse::Forecast_constant::save(std::ostream & out) const
+{
+  out << m_constant << std::endl;
+};
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+// This is basically the name of the class as a virtual function
+std::string
+auto_parse::Forecast_constant::key() const
+{
+  return "auto_parse::Forecast_constant";
+};
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+auto_parse::Forecast*
+auto_parse::Forecast_constant::restore(std::istream& in) const
+{
+  return new auto_parse::Forecast_constant(in);
+}
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 ////////////////////////////////////////////////////////////////////////////////////////////
@@ -36,18 +63,14 @@ auto_parse::Forecast::Forecast(const Forecast & )
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                               A C C E S S O R S                                 accessors
-void
-auto_parse::Forecast::save(std::ostream & ) const
+
+double
+auto_parse::Forecast_constant::operator()(const auto_parse::LR&) const
 {
-};
+  return m_constant;
+}
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-void
-auto_parse::Forecast::register_forecast(const Forecast* p_value)
-{
-  assert(s_singletons[p_value->key()] == 0); // make sure we only register once
-  s_singletons[p_value->key()] = p_value;
-}
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                           P R O T E C T E D                                     protected
@@ -61,23 +84,3 @@ auto_parse::Forecast::register_forecast(const Forecast* p_value)
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                     F R E E   F U N C T I O N S                            free functions
-
-std::istream & operator>>(std::istream & istrm,  auto_parse::Forecast*& p_object)
-{
-  std::string key;
-  getline(istrm,key);
-  assert(auto_parse::Forecast::s_singletons.find(key) != auto_parse::Forecast::s_singletons.end());
-  p_object = auto_parse::Forecast::s_singletons.find(key)->second->restore(istrm);
-  return istrm;
-};
-
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-std::ostream & operator<<(std::ostream & ostrm, const auto_parse::Forecast & object)
-{
-  ostrm << object.key() << std::endl;
-  object.save(ostrm);
-  return ostrm;
-};
-
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */

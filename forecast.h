@@ -27,7 +27,7 @@ namespace auto_parse
   {
   public:
     // CONSTRUCTORS
-    static void register_forecast(const std::string&, const Forecast*);
+    static void register_forecast(const Forecast*);
     static std::map<std::string, const Forecast*> s_singletons;
     virtual ~Forecast();
     Forecast();

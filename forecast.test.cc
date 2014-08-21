@@ -64,7 +64,7 @@ namespace auto_parse
     // the main program.  The object that is registed isn't collected at the end
     // and will show up as lost space in a good garbage collector.
 
-    Forecast::register_forecast(Sample().key(), new Sample);
+    Forecast::register_forecast(new Sample);
     {
       //      auto_parse::Forecast g;  // testing construction
       Sample example(10);
@@ -73,7 +73,7 @@ namespace auto_parse
       std::cout << example << std::endl;
       Forecast* p_forecast;
       s >> p_forecast;
-      std::cout << example << std::endl; // confirm that it writes the same thing as before
+      std::cout << *p_forecast << std::endl; // confirm that it writes the same thing as before
 
       std::cout << "constructed!" << std::endl;
     };
