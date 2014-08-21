@@ -22,6 +22,7 @@ namespace auto_parse
     // CONSTRUCTORS
     virtual ~History();
     History();
+    History(const History &);
 
     // MANIPULATORS
     void push_back(Action);
@@ -31,7 +32,6 @@ namespace auto_parse
     virtual void print_on(std::ostream & ostrm) const;
     
   protected:
-    History(const History &);            // Don't delete this.
 
   private:
     std::vector<Action> m_actions;

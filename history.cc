@@ -103,7 +103,10 @@ operator>>(std::istream& in, auto_parse::Action & a)
   else if(name == "-5->")
     a = auto_parse::Action::right_5;
   else
-    assert(0);
+    {
+      std::cerr << "oops, can't read `" << name << "' as an action." << std::endl;
+      assert(0);
+    }
   return in;
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */

@@ -4,6 +4,9 @@
 #define INCLUDED_STATISTICAL_PARSE
 
 #include <iosfwd>
+#include "model.h"
+#include "statistical_history.h"
+#include "word.h"
 
 namespace auto_parse
 {
@@ -18,7 +21,7 @@ namespace auto_parse
     // ACCESSORS
 
     Statistical_history operator()(const Words&) const; 
-    History continue(const Words&, const History& prefix) const; 
+    History finish(const Words&, const History& prefix) const; 
 
   protected:
   private:

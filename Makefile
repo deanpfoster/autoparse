@@ -101,8 +101,11 @@ redo_parse.test: history.o dependency.o lr.o word.o redo_parse.o
 ################################################################################
 #           L E V E L     F O U R    T E S T I N G     C O D E
 #          (This code can depend on level 0, 1, 2 or 3 code)
-only4: 
+only4: statistical_parse.OK
 ################################################################################
+
+statistical_parse.test: history.o dependency.o lr.o word.o redo_parse.o model.o statistical_history.o value_of_forecasts.o forecast.o forecast_constant.o
+
 
 ################################################################################
 #           L E V E L     F I V E    T E S T I N G     C O D E

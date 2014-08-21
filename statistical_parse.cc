@@ -5,7 +5,10 @@
 
 // put other includes here
 #include "assert.h"
+#include <iterator>
 #include <iostream>
+#include "lr.h"
+#include "redo_parse.h"
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                          U S I N G   D I R E C T I V E S                            using
@@ -17,7 +20,7 @@ auto_parse::Statistical_parse::~Statistical_parse()
 {
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-auto_parse::Statistical_parse::Statistical_parse(const Model&)
+auto_parse::Statistical_parse::Statistical_parse(const Model&model)
   :
   m_model(model)
 {
@@ -47,13 +50,14 @@ auto_parse::Statistical_parse::operator()(const Words& w) const
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 auto_parse::History
-auto_parse::Statistical_parse::continue(const Words& w, const History& h) const
+auto_parse::Statistical_parse::finish(const Words& w, const History& h) const
 {
   LR parser = redo_parse(w, h);
-  Statistical_history sr = do_actual_parse();
-  History rest = r; // slice off the statistical part
+  Statistical_history sr = do_actual_parse(&parser);
+  History rest = sr; // slice off the statistical part
   History result = h;
-  std::copy(rest.begin(), rest.end(), back_inserter(result));
+  for(auto i = rest.begin(); i != rest.end();++i)
+    result.push_back(*i);
   return result;
 }
 
@@ -71,16 +75,16 @@ auto_parse::Statistical_parse::do_actual_parse(LR* p_parser) const
     {
       Value_of_forecasts values = m_model(*p_parser);
       for(Action a : all_actions)
-	if(!parser->legal(a))
+	if(!p_parser->legal(a))
 	  values[a] = -1e10;
       Action candidate = values.best_action();
-      assert(parser->legal(candidate));
-      result.add(candidate, values);
-      parser->take_action(candidate);
-      if(candidate == head_reduction)
+      assert(p_parser->legal(candidate));
+      result.push_back(candidate, values);
+      p_parser->take_action(candidate);
+      if(candidate == Action::head_reduce)
 	{
 	  done = true;
-	  assert(parser->parse().full_parse());
+	  assert(p_parser->parse().full_parse());
 	};
     }
   return(result);

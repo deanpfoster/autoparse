@@ -14,6 +14,7 @@ namespace auto_parse
     // CONSTRUCTORS
     ~Statistical_history();
     Statistical_history();
+    Statistical_history(const Statistical_history &);
 
     // MANIPULATORS
     void push_back(Action, const Value_of_forecasts&);
@@ -24,7 +25,6 @@ namespace auto_parse
 
   private:
     std::vector<Value_of_forecasts> m_values;
-    Statistical_history(const Statistical_history &);            // Don't delete this.
   };
 }
 
