@@ -77,12 +77,14 @@ value_of_forecasts.test: history.o
 #
 #          (This code can depend on level zero or level one code)
 #
-only2:  lr.OK likelihood.OK
+only2:  lr.OK likelihood.OK statistical_history.OK
 #
 ################################################################################
 lr.test: dependency.o lr.o word.o
 
 likelihood.test: dependency.o transition_probability.o likelihood.o word.o
+
+statistical_history.test: history.o value_of_forecasts.o
 
 ################################################################################
 #

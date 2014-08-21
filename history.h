@@ -20,7 +20,7 @@ namespace auto_parse
   {
   public:
     // CONSTRUCTORS
-    ~History();
+    virtual ~History();
     History();
 
     // MANIPULATORS
@@ -31,10 +31,10 @@ namespace auto_parse
     virtual void print_on(std::ostream & ostrm) const;
     
   protected:
+    History(const History &);            // Don't delete this.
 
   private:
     std::vector<Action> m_actions;
-    History(const History &);            // Don't delete this.
   };
 }
 
