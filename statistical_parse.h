@@ -21,7 +21,6 @@ namespace auto_parse
     History continue(const Words&, const History& prefix) const; 
 
   protected:
-
   private:
     Statistical_history do_actual_parse(LR*) const;
     Model m_model;

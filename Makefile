@@ -44,11 +44,13 @@ current_target: test
 #
 #          (This code should not depend on any other code)
 #
-only0: word.OK  history.OK
+only0: word.OK  history.OK forecast.OK
 ################################################################################
 word.test: word.o
 
 history.test: history.o history.test.o
+
+forecast.test:
 
 ################################################################################
 #
