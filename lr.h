@@ -34,11 +34,19 @@ namespace auto_parse
     bool empty_input() const; // even the S has been pop-ed off the stack
     bool empty_stack() const; // Nothing in the stack
     const Dependency& parse() const;
+    bool legal(auto_parse::Action) const;
 
   protected:
     
     
   private:
+    bool check_shift() const;
+    bool check_left_reduce() const;
+    bool check_right_reduce() const;
+    bool check_head_reduce() const;
+    bool check_right_cross_reduce(int) const;
+
+
     Dependency m_parse;
     std::vector<Node> m_stack; 
     auto_parse::const_word_iterator m_next_input;

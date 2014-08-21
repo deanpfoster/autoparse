@@ -148,6 +148,57 @@ auto_parse::LR::print_on(std::ostream & ostrm) const
   ostrm << "\n" << m_parse;  
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+bool
+auto_parse::LR::legal(auto_parse::Action a) const
+{
+  switch(a)
+    {
+    case auto_parse::Action::shift       : return check_shift(); break;
+    case auto_parse::Action::left_reduce : return check_left_reduce(); break;
+    case auto_parse::Action::right_reduce: return check_right_reduce(); break;
+    case auto_parse::Action::head_reduce : return check_head_reduce(); break;
+    default :
+            int i = static_cast<int>(a);
+	    if(i < 0)
+	      assert(0);
+	    return check_right_cross_reduce(i);
+    }
+
+};
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+bool
+auto_parse::LR::check_shift() const
+{
+  return(m_next_input != m_parse.sentence().end());
+}
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+bool
+auto_parse::LR::check_left_reduce() const
+{
+  return(m_stack.size() >= 2);
+}
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+bool
+auto_parse::LR::check_right_reduce() const
+{
+  return(m_stack.size() >= 2);
+} 
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+bool
+auto_parse::LR::check_head_reduce() const
+{
+  if(m_next_input != m_parse.sentence().end())
+    return false;
+  return(m_stack.size() == 1);
+}
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+bool
+auto_parse::LR::check_right_cross_reduce(int i) const
+{
+  return(m_stack.size() >= static_cast<unsigned int>(i)+1);
+}
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                           P R O T E C T E D                                     protected
