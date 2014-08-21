@@ -69,25 +69,15 @@ auto_parse::Statistical_parse::do_actual_parse(LR* p_parser) const
   bool done = false;
   while(!done)
     {
-      Delta_forecasts suggestions = m_model(*p_parser);
-      double max_delta = suggestions[head_reduce]; // this is always a legal action
-      Action max_action = head_reduce;
-      for (Action a : all_actions)
-	{
-	  if(suggestions[a] > max_delta)
-	    {
-	      if(parser->legal(a))
-		{
-		  max_delta = suggestions[a];
-		  max_action = a;
-		}
-	      else
-		suggestions[a] = -1e10;
-	    }
-	}
-      result.add(max_action, suggestions);
-      parser->take_action(a);
-      if(a == head_reduction)
+      Value_of_forecasts values = m_model(*p_parser);
+      for(Action a : all_actions)
+	if(!parser->legal(a))
+	  values[a] = -1e10;
+      Action candidate = values.best_action();
+      assert(parser->legal(candidate));
+      result.add(candidate, values);
+      parser->take_action(candidate);
+      if(candidate == head_reduction)
 	{
 	  done = true;
 	  assert(parser->parse().full_parse());
