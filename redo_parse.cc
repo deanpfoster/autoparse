@@ -8,7 +8,7 @@
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                     F R E E   F U N C T I O N S                            free functions
 
-auto_parse::Dependency
+auto_parse::LR
 auto_parse::redo_parse(const auto_parse::Words& w, const History& h)
 {
   LR result(w);
@@ -21,6 +21,6 @@ auto_parse::redo_parse(const auto_parse::Words& w, const History& h)
       case auto_parse::Action::head_reduce : result.head_reduce() ;break;
       default : assert(0);
       };
-  return result.parse();
+  return result;
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */

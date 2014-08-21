@@ -5,6 +5,8 @@
 
 
 
+
+Stack: 
 A hearing on the issue is scheduled today . 
 			 * * * * Incomplete parse structure:   0 / 9 * * * *
 	              A  <---                                                         A
@@ -17,6 +19,8 @@ A hearing on the issue is scheduled today .
 	          today  <---                                                         today
 	              .  <---                                                         .
 
+
+Stack: hearing on 
 A hearing on the issue is scheduled today . 
 			 * * * * Incomplete parse structure:   3 / 9 * * * *
 	              A  <---  hearing                                                A
@@ -29,6 +33,8 @@ A hearing on the issue is scheduled today .
 	          today  <---                                                         today
 	              .  <---                                                         .
 
+
+Stack: 
 A hearing on the issue is scheduled today . 
 	              A  <---  hearing                                                A
 	        hearing  <---  is                                           A  <---   hearing   --->  on

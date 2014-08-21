@@ -16,6 +16,7 @@ namespace auto_parse
     // CONSTRUCTORS
     ~LR();
     LR(const Words&);
+    LR(const LR &); 
 
     // MANIPULATORS
     void shift();
@@ -38,12 +39,10 @@ namespace auto_parse
     
     
   private:
-    Words m_sentence; // These are also stored in the m_parse.  This duplication is wrong!
-    std::vector<Node> m_stack;  // this should be switched to a vector where we have reserved enough places to hold everything
-    auto_parse::const_word_iterator m_next_input;
     Dependency m_parse;
+    std::vector<Node> m_stack; 
+    auto_parse::const_word_iterator m_next_input;
     
-    LR(const LR &);            // Don't delete this.
     LR& operator=(const LR &); // Don't delete this.
   };
 }

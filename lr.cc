@@ -19,20 +19,21 @@ auto_parse::LR::~LR()
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::LR::LR(const Words& w)
-  : m_sentence(w),
-    m_stack(),
-    m_next_input(m_sentence.begin()),
-    m_parse(w)
+  :     m_parse(w),
+	m_stack(),
+	m_next_input(m_parse.sentence().begin())
 {
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::LR::LR(const LR & other)
   :
-  m_sentence(other.m_sentence),
-  m_stack(other.m_stack),
-  m_next_input(other.m_next_input),
-  m_parse(other.m_parse)
+  m_parse(other.m_parse),
+  m_stack(),
+  m_next_input(other.m_next_input)
 {
+  for(auto i = other.m_stack.begin(); i != other.m_stack.end(); ++i)
+    m_stack.push_back(*i - other.m_parse.sentence().begin() + m_parse.sentence().begin());
+  m_next_input = other.m_next_input - other.m_parse.sentence().begin() + m_parse.sentence().begin();
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
@@ -41,7 +42,7 @@ auto_parse::LR::LR(const LR & other)
 void
 auto_parse::LR::shift()
 {
-  assert(m_next_input != m_sentence.end()); // can't shift if we are already at the end
+  assert(m_next_input != m_parse.sentence().end()); // can't shift if we are already at the end
   m_stack.push_back(m_next_input);
   ++m_next_input;
 }
@@ -53,7 +54,7 @@ auto_parse::LR::head_reduce()
   Node right = *m_stack.rbegin();
   m_stack.pop_back();
   assert(m_stack.empty());
-  m_parse.set_root(right - m_sentence.begin());
+  m_parse.set_root(right - m_parse.sentence().begin());
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 void
@@ -65,7 +66,7 @@ auto_parse::LR::left_reduce()
   assert(!m_stack.empty());
   Node left = *m_stack.rbegin();
   m_stack.pop_back();
-  m_parse.add(left - m_sentence.begin(),Left_arrow(),right - m_sentence.begin());
+  m_parse.add(left - m_parse.sentence().begin(),Left_arrow(),right - m_parse.sentence().begin());
   m_stack.push_back(right);
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -77,7 +78,7 @@ auto_parse::LR::right_reduce()
   m_stack.pop_back();
   assert(!m_stack.empty());
   Node left = *m_stack.rbegin();
-  m_parse.add(left - m_sentence.begin(), Right_arrow(), right - m_sentence.begin());
+  m_parse.add(left - m_parse.sentence().begin(), Right_arrow(), right - m_parse.sentence().begin());
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 void
@@ -86,7 +87,7 @@ auto_parse::LR::right_cross_reduce(int skip)
   assert(m_stack.size() >= static_cast<unsigned int>(skip)+1);
   Node top = *m_stack.rbegin();
   Node deep = *(m_stack.rbegin() + skip);
-  m_parse.add(deep - m_sentence.begin(), Right_arrow(), top - m_sentence.begin());
+  m_parse.add(deep - m_parse.sentence().begin(), Right_arrow(), top - m_parse.sentence().begin());
   m_stack.pop_back();
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -139,8 +140,12 @@ auto_parse::LR::parse() const
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 void
-auto_parse::LR::print_on(std::ostream & ) const
+auto_parse::LR::print_on(std::ostream & ostrm) const
 {
+  ostrm << "\nStack: ";
+  for(Node n : m_stack)
+    ostrm << *n << " ";
+  ostrm << "\n" << m_parse;  
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
