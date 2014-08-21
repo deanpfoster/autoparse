@@ -29,7 +29,7 @@ auto_parse::History::History(const History & other)
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                             M A N I P U L A T O R S                          manipulators
 void
-auto_parse::History::push_back(Actions a)
+auto_parse::History::push_back(Action a)
 {
   m_actions.push_back(a);
 }
@@ -63,14 +63,14 @@ auto_parse::History::print_on(std::ostream & ostrm) const
 
 
 std::ostream&
-operator<<(std::ostream& os, auto_parse::Actions a)
+operator<<(std::ostream& os, auto_parse::Action a)
 {
   switch(a)
     {
-    case auto_parse::Actions::shift       : os << "shift"; break;
-    case auto_parse::Actions::left_reduce : os << "<--"; break;
-    case auto_parse::Actions::right_reduce: os << "-->"; break;
-    case auto_parse::Actions::head_reduce : os << "HEAD"; break;
+    case auto_parse::Action::shift       : os << "shift"; break;
+    case auto_parse::Action::left_reduce : os << "<--"; break;
+    case auto_parse::Action::right_reduce: os << "-->"; break;
+    case auto_parse::Action::head_reduce : os << "HEAD"; break;
     default :
       int i = static_cast<int>(a);
       if(i < 0)

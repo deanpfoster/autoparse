@@ -91,14 +91,14 @@ auto_parse::LR::right_cross_reduce(int skip)
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 void
-auto_parse::LR::take_action(Actions a)
+auto_parse::LR::take_action(Action a)
 {
   switch(a)
     {
-    case auto_parse::Actions::shift       : shift(); break;
-    case auto_parse::Actions::left_reduce : left_reduce(); break;
-    case auto_parse::Actions::right_reduce: right_reduce(); break;
-    case auto_parse::Actions::head_reduce : head_reduce(); break;
+    case auto_parse::Action::shift       : shift(); break;
+    case auto_parse::Action::left_reduce : left_reduce(); break;
+    case auto_parse::Action::right_reduce: right_reduce(); break;
+    case auto_parse::Action::head_reduce : head_reduce(); break;
     default :
             int i = static_cast<int>(a);
 	    if(i < 0)

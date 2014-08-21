@@ -15,25 +15,25 @@ namespace auto_parse
       Words sentence = Words() + "A" + "hearing" + "on" + "the" + "issue" + "is" + "scheduled" + "today" + ".";
       auto_parse::History h;
       std::cout << redo_parse(sentence, h);
-      h.push_back(auto_parse::Actions::shift); // A
-      h.push_back(auto_parse::Actions::shift); // hearing
-      h.push_back(auto_parse::Actions::left_reduce);
-      h.push_back(auto_parse::Actions::shift); // on
-      h.push_back(auto_parse::Actions::shift); // the
-      h.push_back(auto_parse::Actions::shift); // issue
-      h.push_back(auto_parse::Actions::left_reduce);
-      h.push_back(auto_parse::Actions::right_reduce);
+      h.push_back(auto_parse::Action::shift); // A
+      h.push_back(auto_parse::Action::shift); // hearing
+      h.push_back(auto_parse::Action::left_reduce);
+      h.push_back(auto_parse::Action::shift); // on
+      h.push_back(auto_parse::Action::shift); // the
+      h.push_back(auto_parse::Action::shift); // issue
+      h.push_back(auto_parse::Action::left_reduce);
+      h.push_back(auto_parse::Action::right_reduce);
       std::cout << redo_parse(sentence, h);
-      h.push_back(auto_parse::Actions::right_reduce);  // stack = [hearing,S]
-      h.push_back(auto_parse::Actions::shift); // is
-      h.push_back(auto_parse::Actions::left_reduce);
-      h.push_back(auto_parse::Actions::shift); // schedule
-      h.push_back(auto_parse::Actions::shift); // today
-      h.push_back(auto_parse::Actions::right_reduce);
-      h.push_back(auto_parse::Actions::right_reduce);
-      h.push_back(auto_parse::Actions::shift); // "."
-      h.push_back(auto_parse::Actions::right_reduce);
-      h.push_back(auto_parse::Actions::head_reduce);
+      h.push_back(auto_parse::Action::right_reduce);  // stack = [hearing,S]
+      h.push_back(auto_parse::Action::shift); // is
+      h.push_back(auto_parse::Action::left_reduce);
+      h.push_back(auto_parse::Action::shift); // schedule
+      h.push_back(auto_parse::Action::shift); // today
+      h.push_back(auto_parse::Action::right_reduce);
+      h.push_back(auto_parse::Action::right_reduce);
+      h.push_back(auto_parse::Action::shift); // "."
+      h.push_back(auto_parse::Action::right_reduce);
+      h.push_back(auto_parse::Action::head_reduce);
 
       std::cout << redo_parse(sentence, h);
       std::cout << "constructed!" << std::endl;

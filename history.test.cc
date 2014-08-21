@@ -13,15 +13,15 @@ namespace auto_parse
     std::cout << "\n\n\n\t\t\t HISTORY  HISTORY  HISTORY\n\n\n"<< std::endl;
     {
       auto_parse::History h;
-      h.push_back(auto_parse::Actions::shift);
-      h.push_back(auto_parse::Actions::left_reduce);
-      h.push_back(auto_parse::Actions::right_reduce);
-      h.push_back(auto_parse::Actions::head_reduce);
+      h.push_back(auto_parse::Action::shift);
+      h.push_back(auto_parse::Action::left_reduce);
+      h.push_back(auto_parse::Action::right_reduce);
+      h.push_back(auto_parse::Action::head_reduce);
       std::cout << h << std::endl;
       std::cout << "constructed!" << std::endl;
 
-      auto_parse::Actions i = static_cast<auto_parse::Actions>(10);
-      int j = static_cast<int>(auto_parse::Actions::shift);
+      auto_parse::Action i = static_cast<auto_parse::Action>(10);
+      int j = static_cast<int>(auto_parse::Action::shift);
       std::cout << "\t 10 = " << i << "\n\t shift = "  << j << std::endl;
     };
   }
