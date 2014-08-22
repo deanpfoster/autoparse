@@ -73,6 +73,7 @@ model.test: forecast.o history.o
 
 value_of_forecasts.test: history.o
 
+
 ################################################################################
 #
 #           L E V E L     T W O    T E S T I N G     C O D E
@@ -105,10 +106,13 @@ suggest_alternative_history.test: statistical_history.o history.o value_of_forec
 ################################################################################
 #           L E V E L     F O U R    T E S T I N G     C O D E
 #          (This code can depend on level 0, 1, 2 or 3 code)
-only4: statistical_parse.OK
+only4: statistical_parse.OK  feature_generator.OK
 ################################################################################
 
 statistical_parse.test: history.o dependency.o lr.o word.o redo_parse.o model.o statistical_history.o value_of_forecasts.o forecast.o forecast_constant.o
+
+feature_generator.test: feature.o lr.o history.o redo_parse.o dependency.o
+
 
 
 ################################################################################

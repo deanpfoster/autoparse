@@ -32,6 +32,7 @@ namespace auto_parse
     std::vector<Action>::const_iterator end() const {return m_actions.end();};
     virtual void print_on(std::ostream & ostrm) const;
     Action last() const;
+    int size() const;
     
   protected:
 

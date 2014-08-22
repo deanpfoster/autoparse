@@ -1,11 +1,10 @@
 //   -*- c++ -*-
 
-
 #include <iostream>
 #include <assert.h>
 #include <sstream>
 
-#include "feature.h"
+#include "feature_generator.h"
 
 class Sample: public auto_parse::Feature
 {
@@ -59,14 +58,19 @@ private:
 };
 
 
+
 namespace auto_parse
 {
-  void test_feature()
+  void test_feature_generator()
   {
-    std::cout << "\n\n\n\t\t\t FEATURE  FEATURE  FEATURE\n\n\n"<< std::endl;
+    std::cout << "\n\n\n\t\t\t FEATURE_GENERATOR  FEATURE_GENERATOR  FEATURE_GENERATOR\n\n\n"<< std::endl;
     {
-      Sample s(10,3.14159);
-      std::cout << "constructed!" << std::endl;
+      Sample s(3,3.14159);
+      Sample e(2,3.14159);
+      Sample one(1,1);
+      auto_parse::Feature_generator generator{&one,&e,&s};
+      generator.print_on(std::cout);
+      std::cout << "\nconstructed!" << std::endl;
     };
   }
 }
@@ -75,7 +79,7 @@ namespace auto_parse
 int
 main()
 {
-  auto_parse::test_feature();  
+  auto_parse::test_feature_generator();  
   std::cout << "\n\nDONE." << std::endl;  
 };
 #endif

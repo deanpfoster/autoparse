@@ -29,7 +29,7 @@ namespace auto_parse
     virtual
       std::string name() const = 0;
     virtual
-      int number_of_features() const = 0;
+      int dimension() const = 0;
 
   protected:
   private:
