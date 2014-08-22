@@ -16,6 +16,7 @@ namespace auto_parse
     // CONSTRUCTORS
     ~Statistical_parse();
     Statistical_parse(const Model&);
+    Statistical_parse(const Statistical_parse &); 
 
     // MANIPULATORS
     // ACCESSORS
@@ -27,7 +28,6 @@ namespace auto_parse
   private:
     Statistical_history do_actual_parse(LR*) const;
     Model m_model;
-    Statistical_parse(const Statistical_parse &);            // Don't delete this.
     Statistical_parse& operator=(const Statistical_parse &); // Don't delete this.
   };
 }

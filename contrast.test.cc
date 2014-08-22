@@ -12,7 +12,7 @@
 #include "feature_generator.h"
 #include "forecast_constant.h"
 
-// #include "contrast.h"
+#include "contrast.h"
 
 #define REPRODUCIBLE
 #include "utilities/z.Template.h"
@@ -37,6 +37,9 @@ namespace auto_parse
       Feature_generator feature_generator;
       {
 	auto sentence = Words() + "A" + "hearing" + "on" + "the" + "issue" + "is" + "scheduled" + "today" + ".";
+
+	
+
 	Statistical_history h = parser(sentence);
 	History prefix = suggest_alternative_history(h);  // truncates and modifies the history
 	History h_prime = parser.finish(sentence, prefix);
@@ -58,14 +61,17 @@ namespace auto_parse
 				    common,
 				    a, l,
 				    a_prime, l_prime);
-      }
-      
+	
+	// And again using the contrast class
 
-      std::cout << "constructed!" << std::endl;
-    };
+	Contrast contrast(parser, likelihood, feature_generator);
+	contrast(std::cout, sentence);
+
+	std::cout << "constructed!" << std::endl;
+      };
+    }
   }
 }
-
 #ifndef NO_MAIN
 int
 main()

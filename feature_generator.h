@@ -21,7 +21,7 @@ namespace auto_parse
     Feature_generator(); // Wants to have an Eigen_Dictionary passed in
     Feature_generator(const std::vector<Feature*>&);
     Feature_generator(const std::initializer_list<Feature*>&);
-    
+    Feature_generator(const Feature_generator &);    
 
     // MANIPULATORS
     // ACCESSORS
@@ -40,7 +40,6 @@ namespace auto_parse
     int m_number_features;
     std::vector<Feature*> m_features;  // can't store features since ABC
 
-    Feature_generator(const Feature_generator &);            // Don't delete this.
     Feature_generator& operator=(const Feature_generator &); // Don't delete this.
   };
 }
