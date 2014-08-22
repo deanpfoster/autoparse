@@ -10,6 +10,9 @@
 #include "suggest_alternative_history.h"
 #include "redo_parse.h"
 #include "feature_generator.h"
+#include "feature_stack_size.h"
+#include "feature_sentence_length.h"
+#include "feature_words_left.h"
 #include "forecast_constant.h"
 
 #include "contrast.h"
@@ -34,7 +37,10 @@ namespace auto_parse
       auto_parse::Statistical_parse parser(m);
       Transition_probability markov;
       Likelihood likelihood(markov,markov);
-      Feature_generator feature_generator;
+      Feature_words_left f1;
+      Feature_stack_size f2;
+      Feature_sentence_length f3;
+      Feature_generator feature_generator {&f1, &f2, &f3};
       {
 	auto sentence = Words() + "A" + "hearing" + "on" + "the" + "issue" + "is" + "scheduled" + "today" + ".";
 

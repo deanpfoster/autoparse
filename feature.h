@@ -5,6 +5,7 @@
 
 #include <iosfwd>
 #include <vector>
+#include <Eigen/Core>
 
 namespace auto_parse
 {
@@ -23,13 +24,14 @@ namespace auto_parse
     // ACCESSORS
 
     // the following two are "visitors" which modifies the vector as it goes along
-    virtual data_iterator set_values(data_iterator, const LR&) const = 0;  
+    virtual Eigen::VectorXd operator()(const LR&) const;
     virtual name_iterator set_names(name_iterator) const = 0;
     virtual std::string   name() const = 0;
     virtual int           dimension() const = 0;
 
   protected:
   private:
+    virtual data_iterator set_values(data_iterator, const LR&) const;  
     Feature(const Feature &);            // Don't delete this.
     Feature& operator=(const Feature &); // Don't delete this.
   };

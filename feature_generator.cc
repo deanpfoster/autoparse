@@ -85,28 +85,32 @@ auto_parse::Feature_generator::write_row(std::ostream& out,
 					 Action a2, double v2) const
 {
   LR parse_state = redo_parse(w, common);
-  std::vector<double> X = features(parse_state);
+  Eigen::VectorXd X = features(parse_state);
   double diff = (v1 - v2)/2;
   // h1 row
   out << diff << ",\"" << a1 << "\"";
-  for(double d : X)
-    out << "," << d;
+  for(int i = 0; i < X.size(); ++i)
+    out << "," << X[i];
   out << std::endl;
   // h2 row
   out << -diff << ",\"" << a2 << "\"";
-  for(double d : X)
-    out << "," << d;
+  for(int i = 0; i < X.size(); ++i)
+    out << "," << X[i];
   out << std::endl;
   
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-std::vector<double>
+Eigen::VectorXd
 auto_parse::Feature_generator::features(const LR& parser) const
 {
-  std::vector<double> result(m_number_features,0);
-  auto current_location = result.begin();
+  Eigen::VectorXd result(m_number_features);
+  int current_location = 0;
   for(auto i  = m_features.begin(); i != m_features.end(); ++i)
-    current_location = (*i)->set_values(current_location, parser); // visitor pattern
+    {
+      int number_to_add = (*i)->dimension();
+      result.segment(current_location,number_to_add) = (**i)(parser);
+      current_location += number_to_add;
+    }
   return result;
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */

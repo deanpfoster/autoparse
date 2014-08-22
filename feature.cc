@@ -1,9 +1,7 @@
 // -*- c++ -*-
 
-
 #include "feature.h"
-
-// put other includes here
+#include <Eigen/Core>
 #include "assert.h"
 #include <iostream>
 
@@ -32,6 +30,25 @@ auto_parse::Feature::Feature(const Feature & )
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                               A C C E S S O R S                                 accessors
+Eigen::VectorXd
+auto_parse::Feature::operator()(const LR& parser) const
+{
+  std::vector<double> tmp(dimension(),0);
+  set_values(tmp.begin(), parser);
+  Eigen::VectorXd result(dimension());
+  for(int i = 0; i < dimension(); ++i)
+    result[i] = tmp[i];
+  return result;
+};
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+std::vector<double>::iterator
+auto_parse::Feature:: set_values(std::vector<double>::iterator, const LR&) const
+{
+  std::cout << "You should call operator()" << std::endl;
+  assert(0);
+};
+
+
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                           P R O T E C T E D                                     protected
 ////////////////////////////////////////////////////////////////////////////////////////////
