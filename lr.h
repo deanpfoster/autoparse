@@ -36,6 +36,7 @@ namespace auto_parse
     const Dependency& parse() const;
     bool legal(auto_parse::Action) const;
     int  number_words_left() const;
+    int  stack_size() const{return m_stack.size();};
 
   protected:
     

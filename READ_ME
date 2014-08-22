@@ -51,6 +51,11 @@ Redo_parse		A controller that will play a History on an LR
 
 Statistical_parse	An Oracle 
 Model			Model used by Oracle
+Feature			ABC of features
+	Feature_sentence_length
+	Feature_number_words_left
+	Feature_stack_size
+
 Forecast		Predicts action to take (pieces of the Model)
     Forecast_constant	Example forecast
 Value_of_forecasts	Bundle of the value of several actions

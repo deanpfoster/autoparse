@@ -95,7 +95,7 @@ statistical_history.test: history.o value_of_forecasts.o
 #
 #          (This code can depend on level 0, 1, or 2 code)
 #
-only3: redo_parse.OK suggest_alternative_history.OK feature_words_left.OK
+only3: redo_parse.OK suggest_alternative_history.OK feature_words_left.OK feature_stack_size.OK feature_sentence_length.OK
 #
 ################################################################################
 
@@ -104,6 +104,10 @@ redo_parse.test: history.o dependency.o lr.o word.o redo_parse.o
 suggest_alternative_history.test: statistical_history.o history.o value_of_forecasts.o word.o utilities/z.o
 
 feature_words_left.test: lr.o dependency.o word.o feature.o
+
+feature_stack_size.test: lr.o dependency.o word.o feature.o
+
+feature_sentence_length.test: lr.o dependency.o word.o feature.o
 
 ################################################################################
 #           L E V E L     F O U R    T E S T I N G     C O D E
