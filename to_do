@@ -1,3 +1,8 @@
 	                         -*- text -*-
 
 
+read eigenwords
+write real forecast function
+fit forecast (i.e. output of contrast)
+fit likelihood
+write some feature generators

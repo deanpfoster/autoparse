@@ -139,6 +139,12 @@ auto_parse::LR::parse() const
   return m_parse;
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+int
+auto_parse::LR::number_words_left() const
+{
+  return m_parse.sentence().end() - m_next_input;
+}
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 void
 auto_parse::LR::print_on(std::ostream & ostrm) const
 {

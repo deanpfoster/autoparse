@@ -29,7 +29,7 @@ public:
     return i;
   }
 
-  std::vector<std::string>::iterator names(std::vector<std::string>::iterator result) const
+  std::vector<std::string>::iterator set_names(std::vector<std::string>::iterator result) const
   {
     std::string prefix = "Sample";
     for(unsigned int i = 0; i < m_fixed.size(); ++i)

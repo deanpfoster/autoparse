@@ -17,7 +17,7 @@ Overall work flow.
 *	(a) Parse sentences using LR model
 *	(b) generate contrasts of alternatives parses
 *	(c) compute the likelihood for each of these parse
-	(d) put into a database of alternatives
+*	(d) put into a database of alternatives
 	(e) learn a better LR model from this database
 *	(f) Reparse all sentence using improved LR model
 	(g) Use these parsed sentences to fit a new likelihood
@@ -56,10 +56,10 @@ Forecast		Predicts action to take (pieces of the Model)
 Value_of_forecasts	Bundle of the value of several actions
 Statistical_history	Actions taken along with the Value_of_forecasts
 Suggest_alternative_history Uses the statistical_history to find alternative actions
+Contrast		Builds a database using LR and a Model
 
 
 		Evaluation
 
 Likelihood		likelihood of a dependency parse
 Transition_probability	Transition probabilities used in likelihood
-
