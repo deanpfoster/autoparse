@@ -26,10 +26,12 @@ namespace auto_parse
 
     // MANIPULATORS
     void push_back(Action);
+    void pop_back();
     // ACCESSORS
     std::vector<Action>::const_iterator begin() const {return m_actions.begin();};
     std::vector<Action>::const_iterator end() const {return m_actions.end();};
     virtual void print_on(std::ostream & ostrm) const;
+    Action last() const;
     
   protected:
 

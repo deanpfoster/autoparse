@@ -1,20 +1,9 @@
 	                         -*- text -*-
 
 
+Features
 
 
-statistical_history (adds value_of_forecasts to history)
-	done
-Statistical_parse (uses model to predict)
-	done
-value_of_forecasts
-	done
-Forecast  (forecasts one thing)
-	Done
-Actual forecasts
-	forecast_constant
-	done
-Model (agergates several forecasts)
-	done
-
+Feature_generator
+	draft
 

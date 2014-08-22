@@ -7,8 +7,10 @@
 #include "model.h"
 #include "likelihood.h"
 #include "statistical_parse.h"
+#include "suggest_alternative_history.h"
+#include "redo_parse.h"
 
-// #include "contrast.h"
+//#include "contrast.h"
 
 namespace auto_parse
 {
@@ -23,11 +25,11 @@ namespace auto_parse
       {
 	auto sentence = Words() + "A" + "hearing" + "on" + "the" + "issue" + "is" + "scheduled" + "today" + ".";
 	Statistical_history h = parser(sentence);
-	History prefix = suggest_alternative_prefix(h);  // truncates and modifies the history
-	History h_prime = parser(sentence, prefix);
-	double l       = likelihood(redo_parse(sentence, h      ));
-	double l_prime = likelihood(redo_parse(sentence, h_prime));
-	cout << parser.print_row(sentence, history, l, prefix, l_prime) << std::endl;
+	History prefix = suggest_alternative_history(h);  // truncates and modifies the history
+	History h_prime = parser.finish(sentence, prefix);
+	double l       = likelihood(redo_parse(sentence, h      ).parse());
+	double l_prime = likelihood(redo_parse(sentence, h_prime).parse());
+	std::cout << print_row(sentence, h, l, h_prime, l_prime) << std::endl;
       }
       
 

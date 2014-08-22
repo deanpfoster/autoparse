@@ -1,0 +1,65 @@
+				R E A D    M E		 -*- text -*-
+
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+Overall work flow.
+
+(1) External to this code, tokenize the corpus.
+
+(2) External to this code, create an eigen dictionary. (maybe random)
+
+(3) External to this code, come up with basic likelihood (maybe random)
+
+(3) External to this code, come up with basic LR model (maybe random)
+
+(4) Loop the following:
+
+*	(a) Parse sentences using LR model
+*	(b) generate contrasts of alternatives parses
+*	(c) compute the likelihood for each of these parse
+	(d) put into a database of alternatives
+	(e) learn a better LR model from this database
+*	(f) Reparse all sentence using improved LR model
+	(g) Use these parsed sentences to fit a new likelihood
+
+Note: the *'s mean I have code which does that already.
+
+(5) Alternatives are to generate an improved eigen dictionary in the
+    last step.
+
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+				Classes		
+
+Each class is in a file of that name.  (A few are in the wrong file,
+so the file where they are found is in parenthesis.)
+
+		basic
+
+Word			Basic word
+Words (word)		A sentence
+Action (history)	Basic possible parse actions
+
+		Parsing
+
+Dependency		The parse itself
+LR			A parser (without an Oracle)
+History			A sequence of Actions 
+Redo_parse		A controller that will play a History on an LR
+
+		Oracle
+
+Statistical_parse	An Oracle 
+Model			Model used by Oracle
+Forecast		Predicts action to take (pieces of the Model)
+    Forecast_constant	Example forecast
+Value_of_forecasts	Bundle of the value of several actions
+Statistical_history	Actions taken along with the Value_of_forecasts
+Suggest_alternative_history Uses the statistical_history to find alternative actions
+
+
+		Evaluation
+
+Likelihood		likelihood of a dependency parse
+Transition_probability	Transition probabilities used in likelihood
+

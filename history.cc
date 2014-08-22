@@ -34,6 +34,12 @@ auto_parse::History::push_back(Action a)
   m_actions.push_back(a);
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+void
+auto_parse::History::pop_back()
+{
+  m_actions.pop_back();
+}
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////
@@ -47,6 +53,13 @@ auto_parse::History::print_on(std::ostream & ostrm) const
     }
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+auto_parse::Action
+auto_parse::History::last() const
+{
+  return *m_actions.rbegin();
+}
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                           P R O T E C T E D                                     protected
