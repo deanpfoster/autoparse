@@ -80,23 +80,20 @@ auto_parse::Feature_generator::print_on(std::ostream & ostrm) const
 void
 auto_parse::Feature_generator::write_row(std::ostream& out,
 					 const auto_parse::Words& w,
-					 const auto_parse::History& h1, double v1,
-					 const auto_parse::History& h2, double v2) const
+					 const auto_parse::History& common,
+					 Action a1, double v1,
+					 Action a2, double v2) const
 {
-  assert(h1.size() == h2.size());
-  assert(h1.size() >= 1);
-  History common = h1;
-  common.pop_back();
   LR parse_state = redo_parse(w, common);
   std::vector<double> X = features(parse_state);
   double diff = (v1 - v2)/2;
   // h1 row
-  out << diff << ",\"" << h1.last() << "\"";
+  out << diff << ",\"" << a1 << "\"";
   for(double d : X)
     out << "," << d;
   out << std::endl;
   // h2 row
-  out << -diff << ",\"" << h2.last() << "\"";
+  out << -diff << ",\"" << a2 << "\"";
   for(double d : X)
     out << "," << d;
   out << std::endl;

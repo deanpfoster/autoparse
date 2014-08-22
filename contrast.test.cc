@@ -9,8 +9,14 @@
 #include "statistical_parse.h"
 #include "suggest_alternative_history.h"
 #include "redo_parse.h"
+#include "feature_generator.h"
+#include "forecast_constant.h"
 
-//#include "contrast.h"
+// #include "contrast.h"
+
+#define REPRODUCIBLE
+#include "utilities/z.Template.h"
+
 
 namespace auto_parse
 {
@@ -18,10 +24,17 @@ namespace auto_parse
   {
     std::cout << "\n\n\n\t\t\t CONTRAST  CONTRAST  CONTRAST\n\n\n"<< std::endl;
     {
-      Model m;
+      Forecast_constant example(10.0);
+      Model m
+      {   {Action::shift,&example},
+	  {Action::left_reduce,&example},
+	  {Action::right_reduce, &example},
+	  {Action::head_reduce, &example}
+      };
       auto_parse::Statistical_parse parser(m);
       Transition_probability markov;
       Likelihood likelihood(markov,markov);
+      Feature_generator feature_generator;
       {
 	auto sentence = Words() + "A" + "hearing" + "on" + "the" + "issue" + "is" + "scheduled" + "today" + ".";
 	Statistical_history h = parser(sentence);
@@ -29,7 +42,22 @@ namespace auto_parse
 	History h_prime = parser.finish(sentence, prefix);
 	double l       = likelihood(redo_parse(sentence, h      ).parse());
 	double l_prime = likelihood(redo_parse(sentence, h_prime).parse());
-	std::cout << print_row(sentence, h, l, h_prime, l_prime) << std::endl;
+	History common = prefix;
+	common.pop_back();
+	std::cout << "  common: " << common << std::endl;
+	std::cout << "original: " << h << std::endl;
+	std::cout << " new seq: " << h_prime << std::endl;
+	std::cout << "  prefix: " << prefix << std::endl;
+	Action a_prime = h_prime[common.size()];
+	Action a = h[common.size()];
+	std::cout << "    last: " << a << std::endl;
+	std::cout << "new last: " << a_prime << std::endl;
+	assert(a != a_prime);
+	feature_generator.write_row(std::cout,
+				    sentence,
+				    common,
+				    a, l,
+				    a_prime, l_prime);
       }
       
 

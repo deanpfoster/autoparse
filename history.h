@@ -12,7 +12,7 @@ namespace auto_parse
   const Action all_legal_actions[] = { Action::shift,
 					Action::left_reduce, Action::right_reduce, Action::head_reduce,
 					Action::right_2, Action::right_3, Action::right_4, Action::right_5};
-  const Action all_actions[] = { Action::shift,
+  const std::vector<Action> all_actions = { Action::shift,
 				  Action::left_reduce, Action::right_reduce, Action::head_reduce};
   
 
@@ -28,6 +28,7 @@ namespace auto_parse
     void push_back(Action);
     void pop_back();
     // ACCESSORS
+    Action operator[](int i) const{return m_actions[i];};
     std::vector<Action>::const_iterator begin() const {return m_actions.begin();};
     std::vector<Action>::const_iterator end() const {return m_actions.end();};
     virtual void print_on(std::ostream & ostrm) const;

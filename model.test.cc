@@ -41,7 +41,15 @@ namespace auto_parse
 	{
 	  m.add_forecast(a,&example);
 	};
-      std::cout << "constructed!" << std::endl;
+      std::cout << "constructed via old fashioned methods!" << std::endl;
+      Model cool
+      {   {Action::shift,&example},
+	  {Action::left_reduce,&example},
+	  {Action::right_reduce, &example},
+	  {Action::head_reduce, &example}
+      };
+
+
     };
   }
 }

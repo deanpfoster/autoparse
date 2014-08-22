@@ -72,6 +72,9 @@ namespace auto_parse
       generator.print_on(std::cout);
       std::cout << "\nconstructed!" << std::endl;
     };
+    // see contrast.test.cc for a test of the write_row member function
+    // putting it here would be a pain in the butt.
+
   }
 }
 

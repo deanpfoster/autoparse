@@ -15,6 +15,7 @@ namespace auto_parse
     // ACCESSORS
     Action best_action() const;
     double best_value() const;
+    Action alternative_action() const;
   };
   
 }

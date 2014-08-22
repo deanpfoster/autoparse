@@ -8,6 +8,7 @@
 // put other includes here
 #include "assert.h"
 #include <iostream>
+#include <set>
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                          U S I N G   D I R E C T I V E S                            using
@@ -43,6 +44,19 @@ auto_parse::Model::Model()
   :
   m_forecasts()
 {
+};
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+auto_parse::Model::Model(const std::initializer_list<std::pair<auto_parse::Action,Forecast*> >& args)
+  :
+  m_forecasts()
+{
+  std::set<auto_parse::Action> check;
+  for(std::pair<auto_parse::Action,Forecast*> p : args)
+    {
+      m_forecasts[p.first] = p.second;
+      check.insert(p.first);
+    }
+  assert(check.size() == all_actions.size()); // there are better tests, but this will catch some errors
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 void

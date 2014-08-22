@@ -48,6 +48,7 @@ namespace auto_parse
       h.push_back(auto_parse::Action::right_reduce,randomize());
       h.push_back(auto_parse::Action::head_reduce,randomize());
 
+      std::cout << h << std::endl;
       std::cout << suggest_alternative_history(h) << std::endl;
       std::cout << "code ran!" << std::endl;
     };

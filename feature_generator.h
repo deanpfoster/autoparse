@@ -8,11 +8,10 @@
 #include "feature.h"
 #include "word.h"
 #include <initializer_list>
-
+#include "history.h"
 
 namespace auto_parse
 {
-  class History;
   class LR;
   class Feature_generator
   {
@@ -29,8 +28,9 @@ namespace auto_parse
     void print_on(std::ostream &) const;
     void write_row(std::ostream&,
 		   const Words&,
-		   const History&, double,
-		   const History&, double) const;
+		   const History&,
+		   Action, double,
+		   Action, double) const;
     std::vector<double> features(const LR&) const;
     std::vector<std::string> feature_names() const;     // one word per feature: "TOS_1", "TOS_2", "TOS_3", ..., "size_of_stack", etc
     std::vector<std::string> feature_summaries() const; // one word per class: "Eigenword(top of stack)", "size of stack", etc

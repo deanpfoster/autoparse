@@ -22,6 +22,8 @@ namespace auto_parse
     Model(const Model &);
     Model(); // creates an empty and broken model.  Use add_forecast to repair
     void add_forecast(Action, const Forecast*);
+    Model(const std::initializer_list<std::pair<auto_parse::Action,Forecast*> >&);
+    
 
     // MANIPULATORS
     // ACCESSORS
