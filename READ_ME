@@ -57,6 +57,7 @@ Feature			ABC of features
    Feature_stack_size
 Forecast		Predicts action to take (pieces of the Model)
    Forecast_constant	Example forecast
+   Forecast_linear	linear weights of features
 Value_of_forecasts	Bundle of the value of several actions
 Statistical_history	Actions taken along with the Value_of_forecasts
 Suggest_alternative_history Uses the statistical_history to find alternative actions
