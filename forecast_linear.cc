@@ -68,6 +68,12 @@ auto_parse::Forecast_linear::restore(std::istream& in) const
   return new auto_parse::Forecast_linear(in);
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+auto_parse::Forecast_linear*
+auto_parse::Forecast_linear::clone() const
+{
+  return new Forecast_linear(*this);
+};
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                             M A N I P U L A T O R S                          manipulators

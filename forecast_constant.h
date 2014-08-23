@@ -27,6 +27,7 @@ namespace auto_parse
     virtual Forecast* restore(std::istream&) const ;
     virtual void save(std::ostream &) const ;
     virtual std::string key() const;
+    virtual Forecast_constant* clone() const;
 
     // MANIPULATORS
     // ACCESSORS

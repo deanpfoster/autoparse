@@ -57,6 +57,12 @@ auto_parse::Forecast_constant::restore(std::istream& in) const
   return new auto_parse::Forecast_constant(in);
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+auto_parse::Forecast_constant*
+auto_parse::Forecast_constant::clone() const
+{
+  return new Forecast_constant(*this);
+};
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                             M A N I P U L A T O R S                          manipulators

@@ -34,9 +34,10 @@ namespace auto_parse
       
       //////////////////////////////////////////////////////////////////////////////////
       //
-      //                    Eigenwords (used in several palces)
+      //                    Eigenwords (used in both LR and likelihood)
       //
       //////////////////////////////////////////////////////////////////////////////////
+
       std::ifstream in("pretty_5_c_sample.csv");
       auto_parse::Eigenwords eigenwords(in,5); 
       int dim = eigenwords.dimension();
@@ -46,6 +47,7 @@ namespace auto_parse
       //                            LR Parser setup
       //
       //////////////////////////////////////////////////////////////////////////////////
+
       Feature_words_left f1;
       Feature_stack_size f2;
       Feature_sentence_length f3;
@@ -53,7 +55,7 @@ namespace auto_parse
       Feature_eigenwords<Stack_top> f5(eigenwords);
       Feature_eigenwords<Stack_1> f6(eigenwords);
       Feature_generator feature_generator {&f1, &f2, &f3, &f4, &f5, &f6};
-      Forecast_constant example(10.0);
+      Forecast_linear example();
       Model m(
       {   {Action::shift,&example},           // must have a shift to read words
 	  {Action::left_reduce,&example},
@@ -67,6 +69,7 @@ namespace auto_parse
       //                            Likelihood setup
       //
       //////////////////////////////////////////////////////////////////////////////////
+
       Eigen::MatrixXd t = Eigen::MatrixXd::Zero(dim,dim); // This needs to be estimated
       for(int i = 0; i < dim; ++i)
 	t(i,i) = 1;
@@ -79,7 +82,6 @@ namespace auto_parse
       //                            MAIN LOOP
       //
       //////////////////////////////////////////////////////////////////////////////////
-
       
       bool converged = false;
       while(!converged)
@@ -91,17 +93,28 @@ namespace auto_parse
 	//                                           //
 	///////////////////////////////////////////////
 
+	std::map<Action, Train_forecast_linear> training;
+	for(Action a: all_actions)
+	  training[a] = Train_forecast_linear(m.forecast(a));
+
 	for(int i = 1; i < 100; ++i)
 	  {
 	    auto sentence = Words() + "A" + "hearing" + "on" + "the" + "issue" + "is" + "scheduled" + "today" + ".";
 	    auto_parse::Contrast contrast(parser, likelihood, feature_generator);
-	    contrast(std::cout, sentence);
+	    std::vector<foo> contrast_pair = contrast(sentence);
+	    for(auto i = contrast_pair.begin(); i != contrast_pair.end(); ++i)
+	      {
+		for(Action a: all_actions)
+		  {
+		    if(action_taken(*i) == a)
+		      training[a](*i);
+		  }
+	      }
 	  };
-
-	// train model
-
-	// **** I N S E R T    C O D E   H E R E   *****
-
+	Model new_model(feature_generator);
+	for(a : all_actions)
+	  new_model.add_forecast(a,training[a].result());
+	parser.new_model(new_model);
 
 	///////////////////////////////////////////////
 	//                                           //

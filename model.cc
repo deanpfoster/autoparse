@@ -70,6 +70,16 @@ auto_parse::Model::add_forecast(Action a, const Forecast* p_f)
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                             M A N I P U L A T O R S                          manipulators
+auto_parse::Model&
+auto_parse::Model::operator=(const auto_parse::Model& rhs)
+{
+  for(Action a : all_actions)
+    delete m_forecasts[a];
+  for(Action a : all_actions)
+    m_forecasts[a] = rhs.m_forecasts.find(a)->second->clone();
+  return *this;
+}
+
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                               A C C E S S O R S                                 accessors
 auto_parse::Value_of_forecasts

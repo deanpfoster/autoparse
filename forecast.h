@@ -35,7 +35,7 @@ namespace auto_parse
     virtual Forecast* restore(std::istream&) const = 0;
     virtual void save(std::ostream &) const = 0;
     virtual std::string key() const = 0;
-
+    virtual Forecast* clone() const = 0;
     // MANIPULATORS
 
     // ACCESSORS
