@@ -11,12 +11,12 @@
 namespace auto_parse
 {
   class Likelihood;
-  class Maximum_Likelihood
+  class Maximum_likelihood
   {
   public:
     // CONSTRUCTORS
-    ~Maximum_Likelihood();
-    Maximum_Likelihood(const Transition_probability& left,
+    ~Maximum_likelihood();
+    Maximum_likelihood(const Transition_probability& left,
 		       const Transition_probability& right);
 
     // MANIPULATORS
@@ -28,9 +28,9 @@ namespace auto_parse
     Transition_probability* mp_left;
     Transition_probability* mp_right;
 
-    Maximum_Likelihood(); // read model from file
-    Maximum_Likelihood(const Maximum_Likelihood &);          
-    Maximum_Likelihood& operator=(const Maximum_Likelihood &); // Don't delete this. 
+    Maximum_likelihood(); // read model from file
+    Maximum_likelihood(const Maximum_likelihood &);          
+    Maximum_likelihood& operator=(const Maximum_likelihood &); // Don't delete this. 
   };
 }
 

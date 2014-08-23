@@ -31,6 +31,17 @@ auto_parse::Likelihood::Likelihood(const Likelihood & other)
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
+auto_parse::Likelihood&
+auto_parse::Likelihood::operator=(const Likelihood & rhs)
+{
+  delete mp_left;
+  delete mp_right;
+  mp_left = rhs.mp_left->clone();
+  mp_right =rhs.mp_right->clone();
+  return *this;
+};
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                             M A N I P U L A T O R S                          manipulators
 

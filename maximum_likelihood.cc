@@ -14,18 +14,18 @@
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                              C O N S T R U C T O R S                         constructors
 
-auto_parse::Maximum_Likelihood::~Maximum_Likelihood()
+auto_parse::Maximum_likelihood::~Maximum_likelihood()
 {
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-auto_parse::Maximum_Likelihood::Maximum_Likelihood(const Transition_probability& left, const Transition_probability& right)
+auto_parse::Maximum_likelihood::Maximum_likelihood(const Transition_probability& left, const Transition_probability& right)
   :
   mp_left(left.clone()),
   mp_right(right.clone())
 {
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-auto_parse::Maximum_Likelihood::Maximum_Likelihood(const Maximum_Likelihood & other)
+auto_parse::Maximum_likelihood::Maximum_likelihood(const Maximum_likelihood & other)
   :
   mp_left(other.mp_left->clone()),
   mp_right(other.mp_right->clone())
@@ -37,7 +37,7 @@ auto_parse::Maximum_Likelihood::Maximum_Likelihood(const Maximum_Likelihood & ot
 //                             M A N I P U L A T O R S                          manipulators
 
 void
-auto_parse::Maximum_Likelihood::operator()(const auto_parse::Dependency& parse)
+auto_parse::Maximum_likelihood::operator()(const auto_parse::Dependency& parse)
 {
   assert(parse.full_parse());
   for(auto i = parse.links().begin(); i != parse.links().end(); ++i)
@@ -54,7 +54,7 @@ auto_parse::Maximum_Likelihood::operator()(const auto_parse::Dependency& parse)
 //                               A C C E S S O R S                                 accessors
 
 auto_parse::Likelihood
-auto_parse::Maximum_Likelihood::output() const
+auto_parse::Maximum_likelihood::output() const
 {
   return Likelihood(*mp_left, *mp_right);
 }

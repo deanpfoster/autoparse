@@ -21,7 +21,7 @@ namespace auto_parse
       Eigen::MatrixXd t = Eigen::MatrixXd::Random(dim,dim);
       auto_parse::TP_eigenwords left(g,t);  // testing construction
       auto_parse::TP_eigenwords right(g,t);  // testing construction
-      auto_parse::Maximum_Likelihood lambda(left,right); 
+      auto_parse::Maximum_likelihood lambda(left,right); 
       typedef auto_parse::Dependency D;
       D complex =  (D("A") < D("hearing") > (D("on") > (D("the") < D("issue"))))
 	< ((D("is") > (D("scheduled") > D("today"))) > D("."));

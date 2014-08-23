@@ -1,10 +1,4 @@
 	                         -*- text -*-
 
 
-add clone to virtual classes.  
-Also only save by pointer since they can't be default copied
-Add distructor for those that use the pointer.
-	forecast
-
-
 fit forecast (i.e. output of contrast)

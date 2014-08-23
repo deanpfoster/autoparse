@@ -17,6 +17,7 @@ namespace auto_parse
     ~Likelihood();
     Likelihood(const Transition_probability& left, const Transition_probability& right); // read model from file
     Likelihood(const Likelihood &);          
+    Likelihood& operator=(const Likelihood &);
 
     // MANIPULATORS
     // ACCESSORS
@@ -27,7 +28,6 @@ namespace auto_parse
     Transition_probability* mp_left;
     Transition_probability* mp_right;
     
-    Likelihood& operator=(const Likelihood &); // Don't delete this.
   };
 }
 

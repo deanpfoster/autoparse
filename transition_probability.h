@@ -17,7 +17,7 @@ namespace auto_parse
   {
   public:
     // CONSTRUCTORS
-    ~Transition_probability();
+    virtual ~Transition_probability();
     Transition_probability();
     Transition_probability(const Transition_probability &);          
     virtual Transition_probability* clone() const = 0;

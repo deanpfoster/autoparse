@@ -17,6 +17,7 @@
 #include "eigenwords.h"
 #include "TP_eigenwords.h"
 #include "maximum_likelihood.h"
+#include "feature_eigenwords.h"
 
 #include "contrast.h"
 
@@ -33,13 +34,25 @@ namespace auto_parse
       
       //////////////////////////////////////////////////////////////////////////////////
       //
+      //                    Eigenwords (used in several palces)
+      //
+      //////////////////////////////////////////////////////////////////////////////////
+      std::ifstream in("pretty_5_c_sample.csv");
+      auto_parse::Eigenwords eigenwords(in,5); 
+      int dim = eigenwords.dimension();
+
+      //////////////////////////////////////////////////////////////////////////////////
+      //
       //                            LR Parser setup
       //
       //////////////////////////////////////////////////////////////////////////////////
       Feature_words_left f1;
       Feature_stack_size f2;
       Feature_sentence_length f3;
-      Feature_generator feature_generator {&f1, &f2, &f3};
+      Feature_eigenwords<Next_word> f4(eigenwords);
+      Feature_eigenwords<Stack_top> f5(eigenwords);
+      Feature_eigenwords<Stack_1> f6(eigenwords);
+      Feature_generator feature_generator {&f1, &f2, &f3, &f4, &f5, &f6};
       Forecast_constant example(10.0);
       Model m(
       {   {Action::shift,&example},           // must have a shift to read words
@@ -54,13 +67,10 @@ namespace auto_parse
       //                            Likelihood setup
       //
       //////////////////////////////////////////////////////////////////////////////////
-      std::ifstream in("pretty_5_c_sample.csv");
-      auto_parse::Eigenwords g(in,5); 
-      int dim = g.dimension();
       Eigen::MatrixXd t = Eigen::MatrixXd::Zero(dim,dim); // This needs to be estimated
       for(int i = 0; i < dim; ++i)
 	t(i,i) = 1;
-      auto_parse::TP_eigenwords tp(g,t);  
+      auto_parse::TP_eigenwords tp(eigenwords,t);  
       auto_parse::Likelihood likelihood(tp,tp);
 
 
@@ -72,7 +82,7 @@ namespace auto_parse
 
       
       bool converged = false;
-      While(!converged)
+      while(!converged)
       {
 
 	///////////////////////////////////////////////
@@ -86,7 +96,7 @@ namespace auto_parse
 	    auto sentence = Words() + "A" + "hearing" + "on" + "the" + "issue" + "is" + "scheduled" + "today" + ".";
 	    auto_parse::Contrast contrast(parser, likelihood, feature_generator);
 	    contrast(std::cout, sentence);
-	  }
+	  };
 
 	// train model
 
@@ -99,12 +109,14 @@ namespace auto_parse
 	//                                           //
 	///////////////////////////////////////////////
 
-	Maximum_likelihood mle(left, right);
+	auto_parse::TP_eigenwords left(eigenwords,t); 
+	auto_parse::TP_eigenwords right(eigenwords,t); 
+	auto_parse::Maximum_likelihood mle(left, right);
 	for(int i = 1; i < 100; ++i)
 	  {
 	    auto sentence = Words() + "A" + "hearing" + "on" + "the" + "issue" + "is" + "scheduled" + "today" + ".";
-	    Dependency = parser(sentence);
-	    mle(parser);  // adds to database
+	    Dependency d = redo_parse(sentence,parser(sentence)).parse();
+	    mle(d);  // adds to database
 	  }
 	likelihood = mle.output();
 
