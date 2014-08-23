@@ -10,16 +10,18 @@
 
 namespace auto_parse
 {
-  struct stack_top
+  struct Stack_top
   {
-    Word operator()(const LR& parser){return *(parser.stack_top());}
+    Word operator()(const LR& parser) const{return *(parser.stack_top());}
+    std::string name() const{return "stack_top";};
   };
   // next_input(), *stack(1), 
     
 
-    class Feature_eigenwords: public Feature
-    {
-    public:
+  template<class T>
+  class Feature_eigenwords: public Feature
+  {
+  public:
     // CONSTRUCTORS
     virtual ~Feature_eigenwords();
     Feature_eigenwords(const Eigenwords&);
