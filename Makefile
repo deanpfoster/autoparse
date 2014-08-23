@@ -81,7 +81,7 @@ eigenwords.test: word.o
 #
 #          (This code can depend on level zero or level one code)
 #
-only2:  lr.OK likelihood.OK statistical_history.OK   feature_generator.OK
+only2:  lr.OK likelihood.OK statistical_history.OK   feature_generator.OK tp_eigenwords.OK
 #
 ################################################################################
 lr.test: dependency.o lr.o word.o
@@ -91,6 +91,8 @@ feature_generator.test: feature.o history.o dependency.o
 likelihood.test: dependency.o transition_probability.o likelihood.o word.o
 
 statistical_history.test: history.o value_of_forecasts.o
+
+tp_eigenwords.test: eigenwords.o word.o transition_probability.o
 
 ################################################################################
 #
