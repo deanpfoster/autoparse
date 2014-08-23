@@ -100,7 +100,7 @@ tp_eigenwords.test: eigenwords.o word.o transition_probability.o
 #
 #          (This code can depend on level 0, 1, or 2 code)
 #
-only3: redo_parse.OK suggest_alternative_history.OK feature_words_left.OK feature_stack_size.OK feature_sentence_length.OK  model.OK
+only3: redo_parse.OK suggest_alternative_history.OK feature_words_left.OK feature_stack_size.OK feature_sentence_length.OK  model.OK maximum_likelihood.OK
 #
 ################################################################################
 
@@ -115,6 +115,9 @@ feature_words_left.test: lr.o dependency.o word.o feature.o
 feature_stack_size.test: lr.o dependency.o word.o feature.o
 
 feature_sentence_length.test: lr.o dependency.o word.o feature.o
+
+maximum_likelihood.test: dependency.o transition_probability.o likelihood.o word.o likelihood.o tp_eigenwords.o eigenwords.o
+
 
 ################################################################################
 #           L E V E L     F O U R    T E S T I N G     C O D E
