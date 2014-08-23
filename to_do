@@ -6,10 +6,6 @@ Also only save by pointer since they can't be default copied
 Add distructor for those that use the pointer.
 	feature
 	forecast
-	transition_probability
 
-
-write main code (this will show what need yet to be done)
 
 fit forecast (i.e. output of contrast)
-fit likelihood

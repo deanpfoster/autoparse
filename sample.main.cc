@@ -16,6 +16,7 @@
 #include "forecast_constant.h"
 #include "eigenwords.h"
 #include "TP_eigenwords.h"
+#include "maximum_likelihood.h"
 
 #include "contrast.h"
 
@@ -63,16 +64,54 @@ namespace auto_parse
       auto_parse::Likelihood likelihood(tp,tp);
 
 
+      //////////////////////////////////////////////////////////////////////////////////
+      //
+      //                            MAIN LOOP
+      //
+      //////////////////////////////////////////////////////////////////////////////////
+
+      
+      bool converged = false;
+      While(!converged)
       {
-	auto sentence = Words() + "A" + "hearing" + "on" + "the" + "issue" + "is" + "scheduled" + "today" + ".";
 
-	// And again using the contrast class
+	///////////////////////////////////////////////
+	//                                           //
+	//           Likelihood --> Model            //
+	//                                           //
+	///////////////////////////////////////////////
 
-	auto_parse::Contrast contrast(parser, likelihood, feature_generator);
-	contrast(std::cout, sentence);
+	for(int i = 1; i < 100; ++i)
+	  {
+	    auto sentence = Words() + "A" + "hearing" + "on" + "the" + "issue" + "is" + "scheduled" + "today" + ".";
+	    auto_parse::Contrast contrast(parser, likelihood, feature_generator);
+	    contrast(std::cout, sentence);
+	  }
 
-	std::cout << "constructed!" << std::endl;
-      };
+	// train model
+
+	// **** I N S E R T    C O D E   H E R E   *****
+
+
+	///////////////////////////////////////////////
+	//                                           //
+	//  Model  --> Parsed corpus -->  MLE        //
+	//                                           //
+	///////////////////////////////////////////////
+
+	Maximum_likelihood mle(left, right);
+	for(int i = 1; i < 100; ++i)
+	  {
+	    auto sentence = Words() + "A" + "hearing" + "on" + "the" + "issue" + "is" + "scheduled" + "today" + ".";
+	    Dependency = parser(sentence);
+	    mle(parser);  // adds to database
+	  }
+	likelihood = mle.output();
+
+	// Add some convergence criterion here
+	converged = true;
+
+      }
     }
   }
 }

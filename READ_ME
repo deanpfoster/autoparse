@@ -68,3 +68,6 @@ Contrast		Builds a database using LR and a Model
 
 Likelihood		likelihood of a dependency parse
 Transition_probability	Transition probabilities used in likelihood
+    TP_eigenwords	Uses eigenwords to compute Transition probabilities
+       Eigenwords	Reads in "pretty_*.csv" file
+Maximum_likelihood	processes dependency parses and fits the likelihood

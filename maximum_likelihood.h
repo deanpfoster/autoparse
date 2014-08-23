@@ -16,10 +16,8 @@ namespace auto_parse
   public:
     // CONSTRUCTORS
     ~Maximum_Likelihood();
-    Maximum_Likelihood(); // read model from file
     Maximum_Likelihood(const Transition_probability& left,
 		       const Transition_probability& right);
-    Maximum_Likelihood(const Maximum_Likelihood &);          
 
     // MANIPULATORS
     void operator()(const Dependency&);
@@ -30,6 +28,8 @@ namespace auto_parse
     Transition_probability* mp_left;
     Transition_probability* mp_right;
 
+    Maximum_Likelihood(); // read model from file
+    Maximum_Likelihood(const Maximum_Likelihood &);          
     Maximum_Likelihood& operator=(const Maximum_Likelihood &); // Don't delete this. 
   };
 }
