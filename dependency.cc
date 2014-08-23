@@ -85,12 +85,6 @@ auto_parse::Dependency::Dependency(const Dependency & left, Left_arrow, const De
   m_root = right_root;
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-auto_parse::Dependency*
-auto_parse::Dependency::clone() const
-{
-  return new Dependency(*this);
-};
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                             M A N I P U L A T O R S                          manipulators

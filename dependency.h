@@ -28,7 +28,6 @@ namespace auto_parse
     Dependency(const Dependency& left, Left_arrow, const Dependency& right);
     Dependency(const Dependency &);            // Don't delete this.
 
-    Dependency* clone() const;
     // MANIPULATORS
     void set_root(int);
     void add(int left, Left_arrow ,  int right);

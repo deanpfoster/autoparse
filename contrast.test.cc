@@ -14,6 +14,9 @@
 #include "feature_sentence_length.h"
 #include "feature_words_left.h"
 #include "forecast_constant.h"
+#include <fstream>
+#include "eigenwords.h"
+#include "tp_eigenwords.h"
 
 #include "contrast.h"
 
@@ -36,7 +39,11 @@ namespace auto_parse
 	  {Action::head_reduce, &example}
       },gen);
       auto_parse::Statistical_parse parser(m);
-      Transition_probability markov;
+      std::ifstream in("pretty_5_c_sample.csv");
+      auto_parse::Eigenwords g(in,5);  // testing construction
+      int dim = g.dimension();
+      Eigen::MatrixXd matrix = Eigen::MatrixXd::Random(dim,dim);
+      auto_parse::TP_eigenwords markov(g,matrix);  // testing construction
       Likelihood likelihood(markov,markov);
       Feature_words_left f1;
       Feature_stack_size f2;

@@ -5,6 +5,18 @@
 #include <assert.h>
 
 #include "likelihood.h"
+class sample: public auto_parse::Transition_probability
+{ public:
+  ~sample(){};
+  sample(){};
+  sample* clone() const  { return new sample(*this);};
+  void accumulate(const auto_parse::Word&, const auto_parse::Word&){};
+  void renormalize(){};
+ double operator()(const auto_parse::Word& parent,const auto_parse::Word& child) const
+  {    if(parent < child) return 1.0; else return 0.0; };
+  void print_on(std::ostream & ostrm) const
+  { ostrm << "Heap: left is less than right." << std::endl;  };
+};
 
 namespace auto_parse
 {
@@ -12,8 +24,8 @@ namespace auto_parse
   {
     std::cout << "\n\n\n\t\t\t LIKELIHOOD  LIKELIHOOD  LIKELIHOOD\n\n\n"<< std::endl;
     {
-      auto_parse::Transition_probability left;
-      auto_parse::Transition_probability right;
+      sample left;
+      sample right;
       auto_parse::Likelihood lambda(left,right); 
       std::cout << lambda << std::endl;
       typedef auto_parse::Dependency D;

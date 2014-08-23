@@ -24,8 +24,8 @@ namespace auto_parse
     void print_on(std::ostream & ostrm) const;
     
   private:
-    Transition_probability m_left;
-    Transition_probability m_right;
+    Transition_probability* mp_left;
+    Transition_probability* mp_right;
     
     Likelihood& operator=(const Likelihood &); // Don't delete this.
   };

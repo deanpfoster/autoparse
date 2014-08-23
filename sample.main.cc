@@ -41,10 +41,10 @@ namespace auto_parse
       Feature_generator feature_generator {&f1, &f2, &f3};
       Forecast_constant example(10.0);
       Model m(
-      {   {Action::shift,&example},
+      {   {Action::shift,&example},           // must have a shift to read words
 	  {Action::left_reduce,&example},
 	  {Action::right_reduce, &example},
-	  {Action::head_reduce, &example}
+	  {Action::head_reduce, &example}   // must have a head reduce to end a sentence
       },feature_generator);
       auto_parse::Statistical_parse parser(m);
 

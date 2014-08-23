@@ -20,11 +20,15 @@ namespace auto_parse
     ~Transition_probability();
     Transition_probability();
     Transition_probability(const Transition_probability &);          
+    virtual Transition_probability* clone() const = 0;
 
     // MANIPULATORS
+    virtual void accumulate(const Word&, const Word&) = 0;
+    virtual void renormalize() = 0;
+    
     // ACCESSORS
-    virtual double operator()(const Word&,  const Word&) const;
-    virtual void print_on(std::ostream &) const;
+    virtual double operator()(const Word&,  const Word&) const = 0;
+    virtual void print_on(std::ostream &) const = 0;
 
   protected:
   private:

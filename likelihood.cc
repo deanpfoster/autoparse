@@ -18,15 +18,15 @@ auto_parse::Likelihood::~Likelihood()
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Likelihood::Likelihood(const Transition_probability& left, const Transition_probability& right)
   :
-  m_left(left),
-  m_right(right)
+  mp_left(left.clone()),
+  mp_right(right.clone())
 {
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Likelihood::Likelihood(const Likelihood & other)
   :
-  m_left(other.m_left),
-  m_right(other.m_right)
+  mp_left(other.mp_left->clone()),
+  mp_right(other.mp_right->clone())
 {
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -40,8 +40,8 @@ void
 auto_parse::Likelihood::print_on(std::ostream & ostrm) const
 {
   ostrm << "Likelihood model:" << std::endl;
-  ostrm << "\t" << m_left;
-  ostrm << "\t" << m_right;
+  ostrm << "\t" << (*mp_left);
+  ostrm << "\t" << (*mp_right);
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 double
@@ -53,9 +53,9 @@ auto_parse::Likelihood::operator()(const Dependency& parse) const
     {
       double delta = 0.0;
       if(i->first < i->second)
-	delta = m_left(*i->first, *i->second);
+	delta = (*mp_left)(*i->first, *i->second);
       else
-	delta = m_right(*i->first, *i->second);
+	delta = (*mp_right)(*i->first, *i->second);
       bool debugging = false;
       if(debugging)
 	{

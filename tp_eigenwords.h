@@ -18,9 +18,14 @@ namespace auto_parse
     ~TP_eigenwords();
     TP_eigenwords(const Eigenwords&,
 		  const Eigen::MatrixXd&);
+    TP_eigenwords(const Eigenwords&);
     TP_eigenwords(const TP_eigenwords &);          
+    virtual TP_eigenwords* clone() const;
 
     // MANIPULATORS
+    virtual void accumulate(const Word&, const Word&);
+    virtual void renormalize();
+    
     // ACCESSORS
     virtual double operator()(const Word&,  const Word&) const;
     virtual void print_on(std::ostream &) const;

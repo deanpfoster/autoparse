@@ -31,23 +31,6 @@ auto_parse::Transition_probability::Transition_probability(const Transition_prob
 //                             M A N I P U L A T O R S                          manipulators
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                               A C C E S S O R S                                 accessors
-double
-auto_parse::Transition_probability::operator()(const auto_parse::Word& parent,const auto_parse::Word& child) const
-{
-  if(parent < child)
-    return 1.0;
-  else
-    return 0.0;
-};
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-void
-auto_parse::Transition_probability::print_on(std::ostream & ostrm) const
-{
-  ostrm << "Heap: left is less than right." << std::endl;
-};
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                           P R O T E C T E D                                     protected
 
