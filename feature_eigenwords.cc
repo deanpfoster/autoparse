@@ -3,6 +3,7 @@
 
 #include "feature_eigenwords.h"
 #include "lr.h"
+#include <sstream>
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                              C O N S T R U C T O R S                         constructors
@@ -42,8 +43,13 @@ auto_parse::Feature_eigenwords::operator()(const auto_parse::LR& parser) const
 std::vector<std::string>::iterator
 auto_parse::Feature_eigenwords::set_names(std::vector<std::string>::iterator i) const
 {
-  *i = "eigenwords";
-  ++i;
+  for(int j = 0; j < m_eigenwords.dimension(); ++j)
+    {
+      std::stringstream s;
+      s << "eigenwords_" << j;
+      *i = s.str();
+      ++i;
+    }
   return i;
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -56,7 +62,7 @@ auto_parse::Feature_eigenwords::name() const
 int
 auto_parse::Feature_eigenwords::dimension() const
 {
-  return 1;
+  return m_eigenwords.dimension();
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 
