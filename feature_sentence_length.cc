@@ -14,16 +14,22 @@ auto_parse::Feature_sentence_length::~Feature_sentence_length()
 auto_parse::Feature_sentence_length::Feature_sentence_length()
 {
 };
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+auto_parse::Feature_sentence_length*
+auto_parse::Feature_sentence_length::clone() const
+{
+  return new Feature_sentence_length(); // can use default constructor since no state (except v-table)
+};
+
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                               A C C E S S O R S                                 accessors
-std::vector<double>::iterator
-auto_parse::Feature_sentence_length::set_values(std::vector<double>::iterator i,
-					   const auto_parse::LR& parser) const
+Eigen::VectorXd
+auto_parse::Feature_sentence_length::operator()(const auto_parse::LR& parser) const
 {
   const Words& sentence = parser.parse().sentence();;
-  *i = sentence.end() - sentence.begin();
-  ++i;
-  return i;
+  Eigen::VectorXd result(1);
+  result[0] = sentence.end() - sentence.begin();
+  return result;
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 std::vector<std::string>::iterator

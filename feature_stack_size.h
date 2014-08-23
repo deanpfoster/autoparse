@@ -13,9 +13,9 @@ namespace auto_parse
     // CONSTRUCTORS
     virtual ~Feature_stack_size();
     Feature_stack_size();
-
+    Feature_stack_size* clone() const;
     // ACCESSORS
-    data_iterator set_values(data_iterator, const LR&) const;  
+    Eigen::VectorXd operator()(const LR&) const;  
     name_iterator set_names(name_iterator) const;
     std::string   name() const;
     int           dimension() const;

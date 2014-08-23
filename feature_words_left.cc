@@ -14,15 +14,23 @@ auto_parse::Feature_words_left::~Feature_words_left()
 auto_parse::Feature_words_left::Feature_words_left()
 {
 };
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+auto_parse::Feature_words_left*
+auto_parse::Feature_words_left::clone() const
+{
+  return new Feature_words_left(); // can use default constructor since no state (except v-table)
+};
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                               A C C E S S O R S                                 accessors
-std::vector<double>::iterator
-auto_parse::Feature_words_left::set_values(std::vector<double>::iterator i,
-					   const auto_parse::LR& parser) const
+Eigen::VectorXd
+auto_parse::Feature_words_left::operator()(const auto_parse::LR& parser) const
 {
-  *i = parser.number_words_left();
-  ++i;
-  return i;
+  Eigen::VectorXd result(1);
+  result[0] = parser.number_words_left();
+  return result;
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 std::vector<std::string>::iterator

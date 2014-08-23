@@ -79,6 +79,7 @@ Eigen::VectorXd
 auto_parse::Feature_generator::features(const LR& parser) const
 {
   Eigen::VectorXd result(m_number_features);
+
   int current_location = 0;
   for(auto i  = m_features.begin(); i != m_features.end(); ++i)
     {

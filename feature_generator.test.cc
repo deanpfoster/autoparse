@@ -17,6 +17,17 @@ public:
       m_fixed[i] = d + i;
   };
 
+  Sample(const Sample&other)
+    : Feature(other),
+      m_fixed(other.m_fixed)
+  {
+  };
+
+  Sample* clone() const
+  {
+    return new Sample(*this);
+  };
+
   std::vector<double>::iterator
   set_values(std::vector<double>::iterator i, const auto_parse::LR&) const
   {

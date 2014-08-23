@@ -19,20 +19,19 @@ namespace auto_parse
     // CONSTRUCTORS
     virtual ~Feature();
     Feature();
-
+    virtual Feature* clone() const = 0;
     // MANIPULATORS
     // ACCESSORS
-
-    // the following two are "visitors" which modifies the vector as it goes along
     virtual Eigen::VectorXd operator()(const LR&) const;
+    // the following use "visitor". SHould be changed to just return list
     virtual name_iterator set_names(name_iterator) const = 0;
     virtual std::string   name() const = 0;
     virtual int           dimension() const = 0;
 
   protected:
+    Feature(const Feature &);            // Don't delete this.
   private:
     virtual data_iterator set_values(data_iterator, const LR&) const;  
-    Feature(const Feature &);            // Don't delete this.
     Feature& operator=(const Feature &); // Don't delete this.
   };
 }

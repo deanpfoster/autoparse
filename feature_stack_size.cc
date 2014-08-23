@@ -14,15 +14,24 @@ auto_parse::Feature_stack_size::~Feature_stack_size()
 auto_parse::Feature_stack_size::Feature_stack_size()
 {
 };
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+auto_parse::Feature_stack_size*
+auto_parse::Feature_stack_size::clone() const
+{
+  return new Feature_stack_size(); // can use default constructor since no state (except v-table)
+};
+
+
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                               A C C E S S O R S                                 accessors
-std::vector<double>::iterator
-auto_parse::Feature_stack_size::set_values(std::vector<double>::iterator i,
-					   const auto_parse::LR& parser) const
+
+
+Eigen::VectorXd
+auto_parse::Feature_stack_size::operator()(const auto_parse::LR& parser) const
 {
-  *i = parser.stack_size();
-  ++i;
-  return i;
+  Eigen::VectorXd result(1);
+  result[0] = parser.stack_size();
+  return result;
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 std::vector<std::string>::iterator

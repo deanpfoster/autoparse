@@ -12,10 +12,22 @@ class Sample: public auto_parse::Feature
 public:
   ~Sample(){};
   Sample(int length,double d)
-    : m_fixed(length,d)
+    : Feature(),
+      m_fixed(length,d)
   {
     for(int i=0; i < length; ++i)
       m_fixed[i] = d + i;
+  };
+
+  Sample(const Sample&other)
+    : Feature(other),
+      m_fixed(other.m_fixed)
+  {
+  };
+
+  Sample* clone() const
+  {
+    return new Sample(*this);
   };
 
   std::vector<double>::iterator

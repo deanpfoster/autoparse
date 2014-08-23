@@ -5,6 +5,7 @@
 #include "lr.h"
 #include "assert.h"
 #include "feature_generator.h"
+#include <iostream>
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                     F R E E   F U N C T I O N S                            free functions

@@ -13,9 +13,10 @@ namespace auto_parse
     // CONSTRUCTORS
     virtual ~Feature_words_left();
     Feature_words_left();
+    Feature_words_left* clone() const;
 
     // ACCESSORS
-    data_iterator set_values(data_iterator, const LR&) const;  
+    virtual Eigen::VectorXd operator()(const LR&) const;
     name_iterator set_names(name_iterator) const;
     std::string   name() const;
     int           dimension() const;
