@@ -5,6 +5,7 @@
 
 #include <iosfwd>
 #include <map>
+#include <Eigen/Core>
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -38,7 +39,7 @@ namespace auto_parse
     // MANIPULATORS
 
     // ACCESSORS
-    virtual double operator()(const LR&) const = 0;
+    virtual double operator()(const Eigen::VectorXd&) const = 0;
 
   protected:
   private:

@@ -43,11 +43,8 @@ auto_parse::Contrast::operator()(std::ostream& out, const Words& sentence) const
   common.pop_back();
   Action a_prime = h_prime[common.size()];
   Action a = h[common.size()];
-  m_feature_generator.write_row(out,
-			      sentence,
-			      common,
-			      a, l,
-			      a_prime, l_prime);
+  write_row(out, m_feature_generator,sentence,common,
+	    a, l, a_prime, l_prime);
 }
 
 

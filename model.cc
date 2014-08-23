@@ -20,8 +20,10 @@ auto_parse::Model::~Model()
 {
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-auto_parse::Model::Model(std::istream& in)
-  : m_forecasts()  
+auto_parse::Model::Model(std::istream& in,const Feature_generator& features)
+  : m_forecasts(),
+    m_features(features)
+    
 {
   for(Action a: all_actions)
     {
@@ -73,7 +75,7 @@ auto_parse::Model::operator()(const LR& parser) const
 {
   Value_of_forecasts result;
   for(Action a: all_actions)
-    result[a] = (*m_forecasts.find(a)->second)(parser);
+    result[a] = (*m_forecasts.find(a)->second)(m_features(parser));
   double max = result[Action::shift];
   Action arg_max = Action::shift;
   for(Action a: auto_parse::all_actions)

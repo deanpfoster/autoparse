@@ -62,11 +62,8 @@ namespace auto_parse
 	std::cout << "    last: " << a << std::endl;
 	std::cout << "new last: " << a_prime << std::endl;
 	assert(a != a_prime);
-	feature_generator.write_row(std::cout,
-				    sentence,
-				    common,
-				    a, l,
-				    a_prime, l_prime);
+	write_row(std::cout, feature_generator, sentence, common,
+		 a, l, a_prime, l_prime);
 	
 	// And again using the contrast class
 

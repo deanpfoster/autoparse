@@ -59,7 +59,7 @@ feature.test:
 #
 #          (This code can depend on level zero code)
 #
-only1:  dependency.OK transition_probability.OK forecast_constant.OK model.OK value_of_forecasts.OK
+only1:  dependency.OK transition_probability.OK forecast_constant.OK value_of_forecasts.OK
 #
 ################################################################################
 dependency.test: dependency.o  word.o
@@ -67,8 +67,6 @@ dependency.test: dependency.o  word.o
 transition_probability.test: word.o transition_probability.o
 
 forecast_constant.test: forecast.o
-
-model.test: forecast.o history.o
 
 value_of_forecasts.test: history.o
 
@@ -79,10 +77,12 @@ value_of_forecasts.test: history.o
 #
 #          (This code can depend on level zero or level one code)
 #
-only2:  lr.OK likelihood.OK statistical_history.OK
+only2:  lr.OK likelihood.OK statistical_history.OK   feature_generator.OK
 #
 ################################################################################
 lr.test: dependency.o lr.o word.o
+
+feature_generator.test: feature.o history.o dependency.o
 
 likelihood.test: dependency.o transition_probability.o likelihood.o word.o
 
@@ -94,13 +94,15 @@ statistical_history.test: history.o value_of_forecasts.o
 #
 #          (This code can depend on level 0, 1, or 2 code)
 #
-only3: redo_parse.OK suggest_alternative_history.OK feature_words_left.OK feature_stack_size.OK feature_sentence_length.OK
+only3: redo_parse.OK suggest_alternative_history.OK feature_words_left.OK feature_stack_size.OK feature_sentence_length.OK  model.OK
 #
 ################################################################################
 
-redo_parse.test: history.o dependency.o lr.o word.o redo_parse.o
+redo_parse.test: history.o dependency.o lr.o word.o redo_parse.o feature_generator.o
 
 suggest_alternative_history.test: statistical_history.o history.o value_of_forecasts.o word.o utilities/z.o
+
+model.test: forecast.o history.o feature_generator.o
 
 feature_words_left.test: lr.o dependency.o word.o feature.o
 
@@ -111,30 +113,29 @@ feature_sentence_length.test: lr.o dependency.o word.o feature.o
 ################################################################################
 #           L E V E L     F O U R    T E S T I N G     C O D E
 #          (This code can depend on level 0, 1, 2 or 3 code)
-only4: statistical_parse.OK  feature_generator.OK
+only4:
 ################################################################################
-
-statistical_parse.test: history.o dependency.o lr.o word.o redo_parse.o model.o statistical_history.o value_of_forecasts.o forecast.o forecast_constant.o
-
-feature_generator.test: feature.o lr.o history.o redo_parse.o dependency.o
 
 
 
 ################################################################################
 #           L E V E L     F I V E    T E S T I N G     C O D E
 #          (This code can depend on level 0, 1, 2, 3 or 4 code)
-only5: contrast.OK
+only5: statistical_parse.OK
+################################################################################
+
+statistical_parse.test: history.o dependency.o lr.o word.o redo_parse.o model.o statistical_history.o value_of_forecasts.o forecast.o forecast_constant.o feature_generator.o
+
+
+################################################################################
+#           L E V E L     S I X    T E S T I N G     C O D E
+only6: contrast.OK
 ################################################################################
 
 contrast.test: history.o dependency.o lr.o word.o redo_parse.o model.o suggest_alternative_history.o \
                statistical_history.o  statistical_parse.o value_of_forecasts.o \
                forecast.o forecast_constant.o  transition_probability.o likelihood.o \
                feature_generator.o feature.o feature_words_left.o feature_stack_size.o feature_sentence_length.o
-
-################################################################################
-#           L E V E L     S I X    T E S T I N G     C O D E
-only6: 
-################################################################################
 
 ################################################################################
 #           L E V E L     !!! I N F I N I T Y !!!    T E S T I N G     C O D E

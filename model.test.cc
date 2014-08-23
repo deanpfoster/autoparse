@@ -18,7 +18,7 @@ public:
   Forecast* restore(std::istream& in) const  {    return new Sample(in);}
   void save(std::ostream& out) const  {out << m_d << std::endl; }
   std::string key() const {return "sample";};
-  double operator()(const auto_parse::LR&) const{ return m_d;}
+  double operator()(const Eigen::VectorXd&) const{ return m_d;}
 private:
   double m_d;
 };

@@ -6,6 +6,7 @@
 #include <iosfwd>
 #include <map>
 #include "history.h"
+#include "feature_generator.h"
 
 namespace auto_parse
 {
@@ -18,7 +19,7 @@ namespace auto_parse
   public:
     // CONSTRUCTORS
     ~Model();
-    Model(std::istream&);
+    Model(std::istream&,const Feature_generator&);
     Model(const Model &);
     Model(); // creates an empty and broken model.  Use add_forecast to repair
     void add_forecast(Action, const Forecast*);
@@ -34,6 +35,7 @@ namespace auto_parse
 
   protected:
     std::map<Action, const Forecast*> m_forecasts;
+    Feature_generator m_features;
 
   private:
     Model& operator=(const Model &); // Don't delete this.

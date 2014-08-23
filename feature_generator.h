@@ -26,12 +26,8 @@ namespace auto_parse
 
     // MANIPULATORS
     // ACCESSORS
+    Eigen::VectorXd operator()(const LR& lr) const{return features(lr);};
     void print_on(std::ostream &) const;
-    void write_row(std::ostream&,
-		   const Words&,
-		   const History&,
-		   Action, double,
-		   Action, double) const;
     
     Eigen::VectorXd features(const LR&) const;
     std::vector<std::string> feature_names() const;     // one word per feature: "TOS_1", "TOS_2", "TOS_3", ..., "size_of_stack", etc

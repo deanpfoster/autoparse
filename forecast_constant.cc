@@ -65,7 +65,7 @@ auto_parse::Forecast_constant::restore(std::istream& in) const
 //                               A C C E S S O R S                                 accessors
 
 double
-auto_parse::Forecast_constant::operator()(const auto_parse::LR&) const
+auto_parse::Forecast_constant::operator()(const Eigen::VectorXd&) const
 {
   return m_constant;
 }
