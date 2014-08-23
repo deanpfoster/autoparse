@@ -28,12 +28,13 @@ namespace auto_parse
     std::cout << "\n\n\n\t\t\t CONTRAST  CONTRAST  CONTRAST\n\n\n"<< std::endl;
     {
       Forecast_constant example(10.0);
-      Model m
+      Feature_generator gen;
+      Model m(
       {   {Action::shift,&example},
 	  {Action::left_reduce,&example},
 	  {Action::right_reduce, &example},
 	  {Action::head_reduce, &example}
-      };
+      },gen);
       auto_parse::Statistical_parse parser(m);
       Transition_probability markov;
       Likelihood likelihood(markov,markov);
