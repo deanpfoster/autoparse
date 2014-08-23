@@ -23,7 +23,6 @@ auto_parse::Model::~Model()
 auto_parse::Model::Model(std::istream& in,const Feature_generator& features)
   : m_forecasts(),
     m_features(features)
-    
 {
   for(Action a: all_actions)
     {
@@ -38,19 +37,22 @@ auto_parse::Model::Model(std::istream& in,const Feature_generator& features)
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Model::Model(const auto_parse::Model & other)
   :
-  m_forecasts(other.m_forecasts)
+  m_forecasts(other.m_forecasts),
+  m_features(other.m_features)
 {
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Model::Model()
   :
-  m_forecasts()
+  m_forecasts(),
+  m_features()
 {
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-auto_parse::Model::Model(const std::initializer_list<std::pair<auto_parse::Action,Forecast*> >& args)
+auto_parse::Model::Model(const std::initializer_list<std::pair<auto_parse::Action,Forecast*> >& args, const auto_parse::Feature_generator& gen)
   :
-  m_forecasts()
+  m_forecasts(),
+  m_features(gen)
 {
   std::set<auto_parse::Action> check;
   for(std::pair<auto_parse::Action,Forecast*> p : args)

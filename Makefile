@@ -152,6 +152,20 @@ onlyI:
 
 ##########################################################################################################
 #
+#                       M A I N S
+#
+##########################################################################################################
+
+sample.main: history.o dependency.o lr.o word.o redo_parse.o model.o suggest_alternative_history.o \
+             statistical_history.o  statistical_parse.o value_of_forecasts.o \
+             forecast.o forecast_constant.o  transition_probability.o likelihood.o \
+             feature_generator.o feature.o feature_words_left.o feature_stack_size.o feature_sentence_length.o \
+             contrast.o eigenwords.o tp_eigenwords.o
+
+
+
+##########################################################################################################
+#
 #  Makefile.rules has the following code I don't look at or edit very often.
 #
 ##########################################################################################################
