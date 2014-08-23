@@ -114,7 +114,7 @@ auto_parse::LR::take_action(Action a)
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Word
-auto_parse::LR::next_input() const
+auto_parse::LR::next_word() const
 {
   return *m_next_input;
 }

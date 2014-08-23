@@ -1,0 +1,78 @@
+// -*- c++ -*-
+
+
+#include "feature_eigenwords.h"
+#include "lr.h"
+#include <sstream>
+
+////////////////////////////////////////////////////////////////////////////////////////////
+//                              C O N S T R U C T O R S                         constructors
+template<class T>
+auto_parse::Feature_eigenwords<T>::~Feature_eigenwords()
+{
+};
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+template<class T>
+auto_parse::Feature_eigenwords<T>::Feature_eigenwords(const Eigenwords& e)
+  :
+  Feature(),
+  m_eigenwords(e)
+{
+};
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+template<class T>
+auto_parse::Feature_eigenwords<T>::Feature_eigenwords(const auto_parse::Feature_eigenwords<T>& other)
+  :
+  Feature(other),
+  m_eigenwords(other.m_eigenwords)
+{
+};
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+template<class T>
+auto_parse::Feature_eigenwords<T>*
+auto_parse::Feature_eigenwords<T>::clone() const
+{
+  return new Feature_eigenwords<T>(*this); 
+};
+
+////////////////////////////////////////////////////////////////////////////////////////////
+//                               A C C E S S O R S                                 accessors
+template<class T>
+Eigen::VectorXd
+auto_parse::Feature_eigenwords<T>::operator()(const auto_parse::LR& parser) const
+{
+  return m_eigenwords(T()(parser));
+}
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+template<class T>
+std::vector<std::string>::iterator
+auto_parse::Feature_eigenwords<T>::set_names(std::vector<std::string>::iterator i) const
+{
+  for(int j = 0; j < m_eigenwords.dimension(); ++j)
+    {
+      std::stringstream s;
+      s << T().name() << "_eigenwords_" << j;
+      *i = s.str();
+      ++i;
+    }
+  return i;
+}
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+template<class T>
+std::string
+auto_parse::Feature_eigenwords<T>::name() const
+{
+  std::stringstream s;
+  s << T().name() << " as an Eigenword.";
+  return s.str();
+}
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+template<class T>
+int
+auto_parse::Feature_eigenwords<T>::dimension() const
+{
+  return m_eigenwords.dimension();
+}
+////////////////////////////////////////////////////////////////////////////////////////////
+
+

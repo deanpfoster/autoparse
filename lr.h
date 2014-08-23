@@ -28,7 +28,7 @@ namespace auto_parse
 
     // ACCESSORS
     void print_on(std::ostream &) const;
-    Word next_input() const;
+    Word next_word() const;
     Node stack_top() const;
     Node stack(int depth) const;  // ith item under top 0=stack_top, 1=second item, 2=third item, etc
     bool empty_input() const; // even the S has been pop-ed off the stack

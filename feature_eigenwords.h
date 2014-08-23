@@ -10,11 +10,28 @@
 
 namespace auto_parse
 {
+  struct Next_word
+  {
+    Word operator()(const LR& parser) const{return parser.next_word();}
+    std::string name() const{return "next_word";};
+  };
   struct Stack_top
   {
     Word operator()(const LR& parser) const{return *(parser.stack_top());}
     std::string name() const{return "stack_top";};
   };
+  struct Stack_1
+  {
+    Word operator()(const LR& parser) const{return *(parser.stack(1));}
+    std::string name() const{return "stack_1";};
+  };
+  struct Stack_2
+  {
+    Word operator()(const LR& parser) const{return *(parser.stack(2));}
+    std::string name() const{return "stack_2";};
+  };
+
+
   // next_input(), *stack(1), 
     
 
