@@ -19,6 +19,7 @@ namespace auto_parse
 
     // MANIPULATORS
     // ACCESSORS
+    const Eigen::VectorXd& operator()(const Word&w) const{return (*this)[w];};
     const Eigen::VectorXd& operator[](const Word&) const;
     int dimension() const;
 

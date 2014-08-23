@@ -36,10 +36,7 @@ auto_parse::Feature_eigenwords::clone() const
 Eigen::VectorXd
 auto_parse::Feature_eigenwords::operator()(const auto_parse::LR& parser) const
 {
-  const Words& sentence = parser.parse().sentence();;
-  Eigen::VectorXd result(1);
-  result[0] = sentence.end() - sentence.begin();
-  return result;
+  return m_eigenwords(*(parser.stack_top()));
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 std::vector<std::string>::iterator
