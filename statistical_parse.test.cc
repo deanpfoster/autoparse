@@ -15,10 +15,11 @@ namespace auto_parse
     std::cout << "\n\n\n\t\t\t STATISTICAL_PARSE  STATISTICAL_PARSE  STATISTICAL_PARSE\n\n\n"<< std::endl;
     {
       Forecast_constant example(10);
-      Model m;
+      Feature_generator fg;
+      Model m(fg);
       for(Action a : all_actions)
 	{
-	  m.add_forecast(a,&example);
+	  m.add_forecast(a,example);
 	};
       auto_parse::Statistical_parse g(m);  // testing construction
       std::cout << "constructed!" << std::endl;

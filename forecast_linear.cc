@@ -39,6 +39,14 @@ auto_parse::Forecast_linear::Forecast_linear(std::istream & in)
     }
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+auto_parse::Forecast_linear&
+auto_parse::Forecast_linear::operator=(const Forecast_linear &rhs)
+{
+  m_weights = rhs.m_weights;
+  return *this;
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Forecast_linear::Forecast_linear(const Eigen::VectorXd& d) 
   : Forecast(),
     m_weights(d)

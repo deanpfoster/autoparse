@@ -42,10 +42,10 @@ auto_parse::Model::Model(const auto_parse::Model & other)
 {
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-auto_parse::Model::Model()
+auto_parse::Model::Model(const auto_parse::Feature_generator& gen)
   :
   m_forecasts(),
-  m_features()
+  m_features(gen)
 {
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -64,9 +64,9 @@ auto_parse::Model::Model(const std::initializer_list<std::pair<auto_parse::Actio
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 void
-auto_parse::Model::add_forecast(Action a, const Forecast* p_f)
+auto_parse::Model::add_forecast(Action a, const Forecast& f)
 {
-  m_forecasts[a] = p_f;
+  m_forecasts[a] = f.clone();
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                             M A N I P U L A T O R S                          manipulators

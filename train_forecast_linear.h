@@ -13,6 +13,7 @@ namespace auto_parse
     // CONSTRUCTORS
     ~Train_forecast_linear();
     Train_forecast_linear(const Forecast&);  
+    Train_forecast_linear& operator=(const Train_forecast_linear &);
 
     // MANIPULATORS
     void operator()(const Eigen::VectorXd&, double Y);

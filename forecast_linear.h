@@ -29,6 +29,7 @@ namespace auto_parse
     virtual void save(std::ostream &) const ;
     virtual std::string key() const;
     virtual Forecast_linear* clone() const;
+    Forecast_linear& operator=(const Forecast_linear &);
     
     // MANIPULATORS
     // ACCESSORS
@@ -38,7 +39,6 @@ namespace auto_parse
   protected:
   private:
     Eigen::VectorXd m_weights;
-    Forecast_linear& operator=(const Forecast_linear &); // Don't delete this.
   };
 }
 

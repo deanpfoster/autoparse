@@ -29,6 +29,15 @@ auto_parse::Train_forecast_linear::Train_forecast_linear(const Train_forecast_li
 {
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+auto_parse::Train_forecast_linear&
+auto_parse::Train_forecast_linear::operator=(const Train_forecast_linear & other)
+{
+  m_old_model = other.m_old_model;
+  m_XtX = other.m_XtX;
+  m_XtY =other.m_XtY;
+  return *this;
+};
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                             M A N I P U L A T O R S                          manipulators
  

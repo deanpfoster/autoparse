@@ -19,7 +19,7 @@
 #include "maximum_likelihood.h"
 #include "feature_eigenwords.h"
 #include "train_forecast_linear.h"
-
+#include "row.h"
 #include "contrast.h"
 
 #define REPRODUCIBLE
@@ -102,18 +102,18 @@ namespace auto_parse
 	  {
 	    auto sentence = Words() + "A" + "hearing" + "on" + "the" + "issue" + "is" + "scheduled" + "today" + ".";
 	    auto_parse::Contrast contrast(parser, likelihood, feature_generator);
-	    std::vector<foo> contrast_pair = contrast(sentence);
+	    std::vector<Row> contrast_pair = contrast(sentence);
 	    for(auto i = contrast_pair.begin(); i != contrast_pair.end(); ++i)
 	      {
 		for(Action a: all_actions)
 		  {
-		    if(action_taken(*i) == a)
-		      training[a](*i);
+		    if(i->m_a == a)
+		      training[a](i->m_X, i->m_Y);
 		  }
 	      }
 	  };
 	Model new_model(feature_generator);
-	for(a : all_actions)
+	for(Action a : all_actions)
 	  new_model.add_forecast(a,training[a].result());
 	parser.new_model(new_model);
 
