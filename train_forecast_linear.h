@@ -3,7 +3,7 @@
 #ifndef INCLUDED_TRAIN_FORECAST_LINEAR
 #define INCLUDED_TRAIN_FORECAST_LINEAR
 
-#include "forecast.h"
+#include "forecast_linear.h"
 
 namespace auto_parse
 {
@@ -24,6 +24,7 @@ namespace auto_parse
     Forecast_linear m_old_model;
     Eigen::MatrixXd m_XtX;  // X'X
     Eigen::VectorXd m_XtY;  // X'Y
+    Train_forecast_linear(const     Train_forecast_linear&);  
   };
 }
 #endif

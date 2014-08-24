@@ -4,6 +4,7 @@
 #include "train_forecast_linear.h"
 #include "assert.h"
 #include <iostream>
+#include <Eigen/Dense>
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                              C O N S T R U C T O R S                         constructors
@@ -14,12 +15,10 @@ auto_parse::Train_forecast_linear::~Train_forecast_linear()
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Train_forecast_linear::Train_forecast_linear(const Forecast& f)
   :
-  m_old_model(std::dynamic_cast<Forecast_linear&>(&f)),
-  m_XtX,  // X'X
-  m_XtY   // X'Y
+  m_old_model(dynamic_cast<const auto_parse::Forecast_linear&>(f)),
+  m_XtX(m_old_model.dimension(),m_old_model.dimension()),  // X'X
+  m_XtY(m_old_model.dimension())   // X'Y
 {
-  m_XtX = Eigen::MatrixXd(f.dimension(), f.dimension());
-  m_XtY = Eigen::VectorXd(f.dimension());
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Train_forecast_linear::Train_forecast_linear(const Train_forecast_linear & other)
@@ -38,7 +37,7 @@ void
 auto_parse::Train_forecast_linear::operator()(const Eigen::VectorXd& X, double Y)
 {
   m_XtX += X * (X.transpose());
-  mXtY += X * Y;
+  m_XtY += X * Y;
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
@@ -48,7 +47,7 @@ auto_parse::Train_forecast_linear::operator()(const Eigen::VectorXd& X, double Y
 auto_parse::Forecast_linear
 auto_parse::Train_forecast_linear::result() const
 {
-  Eigen::VectorXd beta = m_XtXF.colPivHouseholderQr().solve(Y);
+  Eigen::VectorXd beta = m_XtX.colPivHouseholderQr().solve(m_XtY);
   return Forecast_linear(beta);
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -66,10 +65,3 @@ auto_parse::Train_forecast_linear::result() const
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                     F R E E   F U N C T I O N S                            free functions
 
-std::ostream & operator<<(std::ostream & ostrm, const auto_parse::Train_forecast_linear & object)
-{
-  object.print_on(ostrm);
-  return ostrm;
-};
-
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
