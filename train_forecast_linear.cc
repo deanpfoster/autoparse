@@ -45,12 +45,11 @@ auto_parse::Train_forecast_linear::operator()(const Eigen::VectorXd& X, double Y
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                               A C C E S S O R S                                 accessors
-void
+auto_parse::Forecast_linear
 auto_parse::Train_forecast_linear::result() const
 {
-  Eigen::MatrixXd inv = m_XtX.inverse();  // how do we compute this?
-  Eigen::VectorXd result = inv * m_XtY;
-  return result;
+  Eigen::VectorXd beta = m_XtXF.colPivHouseholderQr().solve(Y);
+  return Forecast_linear(beta);
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 

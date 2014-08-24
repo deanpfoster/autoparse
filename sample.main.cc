@@ -15,7 +15,7 @@
 #include "feature_words_left.h"
 #include "forecast_linear.h"
 #include "eigenwords.h"
-#include "TP_eigenwords.h"
+#include "tp_eigenwords.h"
 #include "maximum_likelihood.h"
 #include "feature_eigenwords.h"
 #include "train_forecast_linear.h"
