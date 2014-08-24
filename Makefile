@@ -124,30 +124,32 @@ feature_eigenwords.test: lr.o dependency.o word.o feature.o eigenwords.o
 ################################################################################
 #           L E V E L     F O U R    T E S T I N G     C O D E
 #          (This code can depend on level 0, 1, 2 or 3 code)
-only4:
+only4: statistical_parse.OK row.OK
 ################################################################################
 
+
+statistical_parse.test: history.o dependency.o lr.o word.o redo_parse.o model.o statistical_history.o value_of_forecasts.o forecast.o forecast_constant.o feature_generator.o
+
+row.test: feature_generator.o lr.o word.o redo_parse.o dependency.o history.o
 
 
 ################################################################################
 #           L E V E L     F I V E    T E S T I N G     C O D E
 #          (This code can depend on level 0, 1, 2, 3 or 4 code)
-only5: statistical_parse.OK
-################################################################################
-
-statistical_parse.test: history.o dependency.o lr.o word.o redo_parse.o model.o statistical_history.o value_of_forecasts.o forecast.o forecast_constant.o feature_generator.o
-
-
-################################################################################
-#           L E V E L     S I X    T E S T I N G     C O D E
-only6: contrast.OK
+only5: contrast.OK
 ################################################################################
 
 contrast.test: history.o dependency.o lr.o word.o redo_parse.o model.o suggest_alternative_history.o \
                statistical_history.o  statistical_parse.o value_of_forecasts.o \
                forecast.o forecast_constant.o  transition_probability.o likelihood.o \
                feature_generator.o feature.o feature_words_left.o feature_stack_size.o\
-               feature_sentence_length.o eigenwords.o tp_eigenwords.o
+               feature_sentence_length.o eigenwords.o tp_eigenwords.o row.o
+
+################################################################################
+#           L E V E L     S I X    T E S T I N G     C O D E
+only6:
+################################################################################
+
 
 ################################################################################
 #           L E V E L     !!! I N F I N I T Y !!!    T E S T I N G     C O D E

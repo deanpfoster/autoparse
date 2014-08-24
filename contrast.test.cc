@@ -17,6 +17,7 @@
 #include <fstream>
 #include "eigenwords.h"
 #include "tp_eigenwords.h"
+#include "row.h"
 
 #include "contrast.h"
 
@@ -70,8 +71,7 @@ namespace auto_parse
 	std::cout << "    last: " << a << std::endl;
 	std::cout << "new last: " << a_prime << std::endl;
 	assert(a != a_prime);
-	write_row(std::cout, feature_generator, sentence, common,
-		 a, l, a_prime, l_prime);
+	std::cout << rows(feature_generator, sentence, common, a, l, a_prime, l_prime);
 	
 	// And again using the contrast class
 

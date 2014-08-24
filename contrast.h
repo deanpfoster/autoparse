@@ -10,6 +10,7 @@
 
 namespace auto_parse
 {
+  class Row;
   class Contrast
   {
   public:
@@ -22,6 +23,7 @@ namespace auto_parse
     // MANIPULATORS
     // ACCESSORS
     void operator()(std::ostream&, const Words&) const;
+    std::vector<Row> operator()(const Words&) const;
 
   protected:
 

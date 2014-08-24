@@ -26,25 +26,3 @@ auto_parse::redo_parse(const auto_parse::Words& w, const History& h)
   return result;
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-void
-auto_parse::write_row(std::ostream& out,
-		      const auto_parse::Feature_generator& features,
-		      const auto_parse::Words& w,
-		      const auto_parse::History& common,
-		      Action a1, double v1,
-		      Action a2, double v2) 
-{
-  LR parse_state = redo_parse(w, common);
-  Eigen::VectorXd X = features(parse_state);
-  double diff = (v1 - v2)/2;
-  // h1 row
-  out << diff << ",\"" << a1 << "\"";
-  for(int i = 0; i < X.size(); ++i)
-    out << "," << X[i];
-  out << std::endl;
-  // h2 row
-  out << -diff << ",\"" << a2 << "\"";
-  for(int i = 0; i < X.size(); ++i)
-    out << "," << X[i];
-  out << std::endl;
-};

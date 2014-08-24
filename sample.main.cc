@@ -13,11 +13,12 @@
 #include "feature_stack_size.h"
 #include "feature_sentence_length.h"
 #include "feature_words_left.h"
-#include "forecast_constant.h"
+#include "forecast_linear.h"
 #include "eigenwords.h"
 #include "TP_eigenwords.h"
 #include "maximum_likelihood.h"
 #include "feature_eigenwords.h"
+#include "train_forecast_linear.h"
 
 #include "contrast.h"
 
@@ -55,13 +56,13 @@ namespace auto_parse
       Feature_eigenwords<Stack_top> f5(eigenwords);
       Feature_eigenwords<Stack_1> f6(eigenwords);
       Feature_generator feature_generator {&f1, &f2, &f3, &f4, &f5, &f6};
-      Forecast_linear example();
+      Forecast_linear example;
       Model m(
-      {   {Action::shift,&example},           // must have a shift to read words
+      {   {Action::shift, &example},           // must have a shift to read words
 	  {Action::left_reduce,&example},
 	  {Action::right_reduce, &example},
 	  {Action::head_reduce, &example}   // must have a head reduce to end a sentence
-      },feature_generator);
+      }, feature_generator);
       auto_parse::Statistical_parse parser(m);
 
       //////////////////////////////////////////////////////////////////////////////////

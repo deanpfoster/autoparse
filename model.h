@@ -30,6 +30,7 @@ namespace auto_parse
     // MANIPULATORS
     // ACCESSORS
     Value_of_forecasts operator()(const LR&) const;
+    const Forecast& forecast(Action a) const{return *(m_forecasts.find(a)->second);};
 
     void print_on(std::ostream &) const;
     void save(std::ostream & ) const;
