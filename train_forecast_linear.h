@@ -12,6 +12,7 @@ namespace auto_parse
   public:
     // CONSTRUCTORS
     ~Train_forecast_linear();
+    Train_forecast_linear();  // evil default constructor, used by std::map, fill with operator=
     Train_forecast_linear(const Forecast&);  
     Train_forecast_linear& operator=(const Train_forecast_linear &);
 

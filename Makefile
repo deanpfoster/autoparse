@@ -170,7 +170,8 @@ sample.main: history.o dependency.o lr.o word.o redo_parse.o model.o suggest_alt
              statistical_history.o  statistical_parse.o value_of_forecasts.o \
              forecast.o forecast_constant.o  transition_probability.o likelihood.o \
              feature_generator.o feature.o feature_words_left.o feature_stack_size.o feature_sentence_length.o \
-             contrast.o eigenwords.o tp_eigenwords.o feature_eigenwords.o maximum_likelihood.o
+             contrast.o eigenwords.o tp_eigenwords.o feature_eigenwords.o maximum_likelihood.o \
+             train_forecast_linear.o forecast_linear.o row.o
 
 
 

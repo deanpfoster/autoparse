@@ -21,6 +21,14 @@ auto_parse::Train_forecast_linear::Train_forecast_linear(const Forecast& f)
 {
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+auto_parse::Train_forecast_linear::Train_forecast_linear()
+  :
+  m_old_model(),
+  m_XtX(),
+  m_XtY()
+{
+};
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Train_forecast_linear::Train_forecast_linear(const Train_forecast_linear & other)
   :
   m_old_model(other.m_old_model),
