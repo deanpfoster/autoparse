@@ -73,8 +73,8 @@ auto_parse::Model::add_forecast(Action a, const Forecast& f)
 auto_parse::Model&
 auto_parse::Model::operator=(const auto_parse::Model& rhs)
 {
-  for(Action a : all_actions)
-    delete m_forecasts[a];
+  //  for(Action a : all_actions)
+  //    delete m_forecasts[a];
   for(Action a : all_actions)
     m_forecasts[a] = rhs.m_forecasts.find(a)->second->clone();
   return *this;

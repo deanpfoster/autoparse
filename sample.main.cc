@@ -56,12 +56,15 @@ namespace auto_parse
       Feature_eigenwords<Stack_top> f5(eigenwords);
       Feature_eigenwords<Stack_1> f6(eigenwords);
       Feature_generator feature_generator {&f1, &f2, &f3, &f4, &f5, &f6};
-      Forecast_linear example;
+      Forecast_linear example_shift(Eigen::VectorXd(feature_generator.dimension()));
+      Forecast_linear example_left(Eigen::VectorXd(feature_generator.dimension()));
+      Forecast_linear example_right(Eigen::VectorXd(feature_generator.dimension()));
+      Forecast_linear example_reduce(Eigen::VectorXd(feature_generator.dimension()));
       Model m(
-      {   {Action::shift, &example},           // must have a shift to read words
-	  {Action::left_reduce,&example},
-	  {Action::right_reduce, &example},
-	  {Action::head_reduce, &example}   // must have a head reduce to end a sentence
+      {   {Action::shift, &example_shift},           // must have a shift to read words
+	  {Action::left_reduce,&example_left},
+	  {Action::right_reduce, &example_right},
+	  {Action::head_reduce, &example_reduce}   // must have a head reduce to end a sentence
       }, feature_generator);
       auto_parse::Statistical_parse parser(m);
 
@@ -97,7 +100,7 @@ namespace auto_parse
 	std::map<Action, Train_forecast_linear> training;
 	for(Action a: all_actions)
 	  training[a] = Train_forecast_linear(m.forecast(a));
-
+	std::cout << "Training" << std::endl;
 	for(int i = 1; i < 100; ++i)
 	  {
 	    auto sentence = Words() + "A" + "hearing" + "on" + "the" + "issue" + "is" + "scheduled" + "today" + ".";
@@ -122,6 +125,8 @@ namespace auto_parse
 	//  Model  --> Parsed corpus -->  MLE        //
 	//                                           //
 	///////////////////////////////////////////////
+
+	std::cout << "MLE" << std::endl;
 
 	auto_parse::TP_eigenwords left(eigenwords,t); 
 	auto_parse::TP_eigenwords right(eigenwords,t); 

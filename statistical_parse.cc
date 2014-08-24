@@ -70,7 +70,7 @@ auto_parse::Statistical_history
 auto_parse::Statistical_parse::do_actual_parse(LR* p_parser) const
 {
   Statistical_history result;
-  bool done = false;
+  bool done = p_parser->parse().full_parse();
   while(!done)
     {
       Value_of_forecasts values = m_model(*p_parser);

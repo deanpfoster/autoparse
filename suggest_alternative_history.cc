@@ -30,7 +30,8 @@ auto_parse::suggest_alternative_history(const auto_parse::Statistical_history& h
       ++i;
       ++j;
     }
-  assert(i != v.end());
+  if(i == v.end())
+    return History();  // bail out
   assert(i - v.begin() == j - h.begin());
   result.push_back((*i).alternative_action());
   return result;

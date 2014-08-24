@@ -12,17 +12,34 @@ namespace auto_parse
 {
   struct Next_word
   {
-    Word operator()(const LR& parser) const{return parser.next_word();}
+    Word operator()(const LR& parser) const
+    {
+      if(parser.number_words_left() > 0)
+	return parser.next_word();
+      else
+	return "";
+    }
     std::string name() const{return "next_word";};
   };
   struct Stack_top
   {
-    Word operator()(const LR& parser) const{return *(parser.stack_top());}
+    Word operator()(const LR& parser) const
+    {
+      if(parser.stack_size() > 0)
+	return *(parser.stack_top());
+      else
+	return Word();
+    }
     std::string name() const{return "stack_top";};
   };
   struct Stack_1
   {
-    Word operator()(const LR& parser) const{return *(parser.stack(1));}
+    Word operator()(const LR& parser) const{
+      if(parser.stack_size() > 1)
+	return *(parser.stack(1));
+      else
+	return "";
+    }
     std::string name() const{return "stack_1";};
   };
   struct Stack_2
