@@ -1,53 +1,61 @@
 // -*- c++ -*-
 
 
-#include "feature_sentence_length.h"
+#include "feature_one_dimensional.h"
 #include "lr.h"
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                              C O N S T R U C T O R S                         constructors
 
-auto_parse::Feature_sentence_length::~Feature_sentence_length()
+template<class T>
+auto_parse::Feature_one_dimensional<T>::~Feature_one_dimensional()
 {
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-auto_parse::Feature_sentence_length::Feature_sentence_length()
+template<class T>
+auto_parse::Feature_one_dimensional<T>::Feature_one_dimensional()
 {
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-auto_parse::Feature_sentence_length*
-auto_parse::Feature_sentence_length::clone() const
+template<class T>
+auto_parse::Feature_one_dimensional<T>*
+auto_parse::Feature_one_dimensional<T>::clone() const
 {
-  return new Feature_sentence_length(); // can use default constructor since no state (except v-table)
+  return new Feature_one_dimensional<T>(); // can use default constructor since no state (except v-table)
 };
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                               A C C E S S O R S                                 accessors
+template<class T>
 Eigen::VectorXd
-auto_parse::Feature_sentence_length::operator()(const auto_parse::LR& parser) const
+auto_parse::Feature_one_dimensional<T>::operator()(const auto_parse::LR& parser) const
 {
-  const Words& sentence = parser.parse().sentence();;
   Eigen::VectorXd result(1);
-  result[0] = sentence.end() - sentence.begin();
+  result[0] = T()(parser);
   return result;
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+template<class T>
 std::vector<std::string>::iterator
-auto_parse::Feature_sentence_length::set_names(std::vector<std::string>::iterator i) const
+auto_parse::Feature_one_dimensional<T>::set_names(std::vector<std::string>::iterator i) const
 {
-  *i = "sentence_length";
+  *i = T().variable_name();
   ++i;
   return i;
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+template<class T>
 std::string
-auto_parse::Feature_sentence_length::name() const
+auto_parse::Feature_one_dimensional<T>::name() const
 {
-  return "Full sentence length.";
+return T().descriptive_name();
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+template<class T>
 int
-auto_parse::Feature_sentence_length::dimension() const
+auto_parse::Feature_one_dimensional<T>::dimension() const
 {
   return 1;
 }
