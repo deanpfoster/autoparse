@@ -102,8 +102,7 @@ train_forecast_linear.test: forecast_linear.o forecast.o
 #
 #          (This code can depend on level 0, 1, or 2 code)
 #
-only3: redo_parse.OK suggest_alternative_history.OK feature_words_left.OK\
-       feature_stack_size.OK feature_sentence_length.OK  model.OK \
+only3: redo_parse.OK suggest_alternative_history.OK model.OK \
        maximum_likelihood.OK feature_eigenwords.OK feature_one_dimensional.OK
 #
 ################################################################################
@@ -114,14 +113,7 @@ suggest_alternative_history.test: statistical_history.o history.o value_of_forec
 
 model.test: forecast.o history.o feature_generator.o
 
-feature_words_left.test: lr.o dependency.o word.o feature.o
-
 feature_one_dimensional.test: lr.o dependency.o word.o feature.o
-
-
-feature_stack_size.test: lr.o dependency.o word.o feature.o
-
-feature_sentence_length.test: lr.o dependency.o word.o feature.o
 
 maximum_likelihood.test: dependency.o transition_probability.o likelihood.o word.o likelihood.o tp_eigenwords.o eigenwords.o
 
@@ -149,8 +141,8 @@ only5: contrast.OK
 contrast.test: history.o dependency.o lr.o word.o redo_parse.o model.o suggest_alternative_history.o \
                statistical_history.o  statistical_parse.o value_of_forecasts.o \
                forecast.o forecast_constant.o  transition_probability.o likelihood.o \
-               feature_generator.o feature.o feature_words_left.o feature_stack_size.o\
-               feature_sentence_length.o eigenwords.o tp_eigenwords.o row.o
+               feature_generator.o feature.o feature_one_dimensional.o\
+               eigenwords.o tp_eigenwords.o row.o
 
 ################################################################################
 #           L E V E L     S I X    T E S T I N G     C O D E
@@ -174,7 +166,7 @@ onlyI:
 sample.main: history.o dependency.o lr.o word.o redo_parse.o model.o suggest_alternative_history.o \
              statistical_history.o  statistical_parse.o value_of_forecasts.o \
              forecast.o forecast_constant.o  transition_probability.o likelihood.o \
-             feature_generator.o feature.o feature_words_left.o feature_stack_size.o feature_sentence_length.o \
+             feature_generator.o feature.o feature_one_dimensional.o \
              contrast.o eigenwords.o tp_eigenwords.o feature_eigenwords.o maximum_likelihood.o \
              train_forecast_linear.o forecast_linear.o row.o 
 

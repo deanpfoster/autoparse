@@ -10,9 +10,7 @@
 #include "suggest_alternative_history.h"
 #include "redo_parse.h"
 #include "feature_generator.h"
-#include "feature_stack_size.h"
-#include "feature_sentence_length.h"
-#include "feature_words_left.h"
+#include "feature_one_dimensional.h"
 #include "forecast_constant.h"
 #include <fstream>
 #include "eigenwords.h"
@@ -46,9 +44,9 @@ namespace auto_parse
       Eigen::MatrixXd matrix = Eigen::MatrixXd::Random(dim,dim);
       auto_parse::TP_eigenwords markov(g,matrix);  // testing construction
       Likelihood likelihood(markov,markov);
-      Feature_words_left f1;
-      Feature_stack_size f2;
-      Feature_sentence_length f3;
+      Feature_one_dimensional<Words_left> f1;
+      Feature_one_dimensional<Stack_size> f2;
+      Feature_one_dimensional<Sentence_length> f3;
       Feature_generator feature_generator {&f1, &f2, &f3};
       {
 	auto sentence = Words() + "A" + "hearing" + "on" + "the" + "issue" + "is" + "scheduled" + "today" + ".";
