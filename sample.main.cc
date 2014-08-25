@@ -47,9 +47,9 @@ namespace auto_parse
       //
       //////////////////////////////////////////////////////////////////////////////////
 
-      Feature_words_left f1;
-      Feature_stack_size f2;
-      Feature_sentence_length f3;
+      Feature_one_dimensional<Words_left> f1;
+      Feature_one_dimensional<Stack_size> f2;
+      Feature_one_dimensional<Sentence_length> f3;
       Feature_eigenwords<Next_word> f4(eigenwords);
       Feature_eigenwords<Stack_top> f5(eigenwords);
       Feature_eigenwords<Stack_1> f6(eigenwords);

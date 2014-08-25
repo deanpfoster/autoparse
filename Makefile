@@ -24,7 +24,7 @@ include flags
 #   very_clean  kills everything we can think of.  Back to the beginning.
 #
 ################################################################################
-current_target: test
+current_target: test sample.main
 
 
 ################################################################################
