@@ -19,6 +19,7 @@
 #include "train_forecast_linear.h"
 #include "row.h"
 #include "contrast.h"
+#include "tokenize.h"
 
 #define REPRODUCIBLE
 #include "utilities/z.Template.h"
@@ -67,6 +68,14 @@ main()
 {
   std::cout << "\n\n\n\t\t\t SAMPLE  SAMPLE  SAMPLE\n\n\n"<< std::endl;
   {
+      
+    //////////////////////////////////////////////////////////////////////////////////
+    //
+    //                    Crude tokenizer and cruder input file!
+    //
+    //////////////////////////////////////////////////////////////////////////////////
+
+    auto_parse::Tokenize corpus("sample_corpus");
       
     //////////////////////////////////////////////////////////////////////////////////
     //
@@ -120,9 +129,10 @@ main()
 	for(auto_parse::Action a: auto_parse::all_actions)
 	  training[a] = auto_parse::Train_forecast_linear(lr_model.forecast(a));
 	std::cout << "Training" << std::endl;
-	for(int i = 1; i < 100; ++i)
+	corpus.reset();
+	while(!corpus.eof())
 	  {
-	    auto sentence = auto_parse::Words() + "A" + "hearing" + "on" + "the" + "issue" + "is" + "scheduled" + "today" + ".";
+	    auto sentence = corpus.next_sentence();
 	    auto_parse::Contrast contrast(parser, likelihood, feature_generator);
 	    std::vector<auto_parse::Row> contrast_pair = contrast(sentence);
 	    for(auto i = contrast_pair.begin(); i != contrast_pair.end(); ++i)
@@ -150,9 +160,10 @@ main()
 	auto_parse::TP_eigenwords left(dictionary,t); 
 	auto_parse::TP_eigenwords right(dictionary,t); 
 	auto_parse::Maximum_likelihood mle(left, right);
-	for(int i = 1; i < 100; ++i)
+	corpus.reset();
+	while(!corpus.eof())
 	  {
-	    auto sentence = auto_parse::Words() + "A" + "hearing" + "on" + "the" + "issue" + "is" + "scheduled" + "today" + ".";
+	    auto sentence = corpus.next_sentence();
 	    auto_parse::Dependency d = redo_parse(sentence,parser(sentence)).parse();
 	    mle(d);  // adds to database
 	  }
