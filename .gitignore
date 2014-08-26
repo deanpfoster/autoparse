@@ -35,3 +35,5 @@ utilities
 dependency.test.tex
 lr.test.tex
 sample.output
+eng_only*
+pretty.csv
