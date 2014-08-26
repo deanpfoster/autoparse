@@ -57,6 +57,13 @@ auto_parse::Train_forecast_linear::operator()(const Eigen::VectorXd& X, double Y
   m_XtY += X * Y;
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+void
+auto_parse::Train_forecast_linear::merge(const auto_parse::Train_forecast_linear& other)
+{
+  m_XtX += other.m_XtX;
+  m_XtY += other.m_XtY;
+};
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////

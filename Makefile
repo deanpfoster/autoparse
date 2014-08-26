@@ -24,7 +24,7 @@ include flags
 #   very_clean  kills everything we can think of.  Back to the beginning.
 #
 ################################################################################
-current_target: test sample.main
+current_target: test sample.output
 
 
 ################################################################################
@@ -173,6 +173,9 @@ sample.main: history.o dependency.o lr.o word.o redo_parse.o model.o suggest_alt
              contrast.o eigenwords.o tp_eigenwords.o feature_eigenwords.o maximum_likelihood.o \
              train_forecast_linear.o forecast_linear.o row.o value_of_forecasts.o tokenize.o
 
+sample.output: sample.main
+	./sample.main > sample.output
+	cat sample.output
 
 
 ##########################################################################################################

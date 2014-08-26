@@ -116,6 +116,11 @@ main()
       
     //    bool converged = false;
     //    while(!converged)
+    std::vector<auto_parse::Words> corpus_in_memory;
+    corpus.reset();
+    while(!corpus.eof())
+      corpus_in_memory.push_back(corpus.next_sentence());
+
     for(int rounds = 0; rounds < 100; ++rounds)
       {
 
@@ -129,10 +134,10 @@ main()
 	for(auto_parse::Action a: auto_parse::all_actions)
 	  training[a] = auto_parse::Train_forecast_linear(lr_model.forecast(a));
 	std::cout << "Training" << std::endl;
-	corpus.reset();
-	while(!corpus.eof())
+
+	for(unsigned int i = 0; i < corpus_in_memory.size(); ++i)
 	  {
-	    auto sentence = corpus.next_sentence();
+	    auto sentence = corpus_in_memory[i];
 	    auto_parse::Contrast contrast(parser, likelihood, feature_generator);
 	    std::vector<auto_parse::Row> contrast_pair = contrast(sentence);
 	    for(auto i = contrast_pair.begin(); i != contrast_pair.end(); ++i)
