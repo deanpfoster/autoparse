@@ -109,7 +109,7 @@ main()
       
     //    bool converged = false;
     //    while(!converged)
-    for(int i = 0; i < 10; ++i)
+    for(int rounds = 0; rounds < 100; ++rounds)
       {
 
 	///////////////////////////////////////////////
@@ -160,11 +160,12 @@ main()
 	  }
 	likelihood = mle.output();
 
-	std::cout <<  likelihood << std::endl;
+	std::cout << rounds << "   " <<  likelihood << std::endl;
 
 	// Add some convergence criterion here
 	//	converged = true;
 
       }
+    std::cout << "Finished!" << std::endl;
   }
 }

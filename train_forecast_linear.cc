@@ -65,6 +65,7 @@ auto_parse::Forecast_linear
 auto_parse::Train_forecast_linear::result() const
 {
   Eigen::VectorXd beta = m_XtX.colPivHouseholderQr().solve(m_XtY);
+  std::cout << beta << std::endl;
   return Forecast_linear(beta);
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */

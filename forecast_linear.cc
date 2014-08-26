@@ -52,6 +52,10 @@ auto_parse::Forecast_linear::Forecast_linear(const Eigen::VectorXd& d)
   : Forecast(),
     m_weights(d)
 {
+  for(int i = 0; i < d.size(); ++i)
+    {
+      assert(!isnan(d[i] ));
+    }
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 void

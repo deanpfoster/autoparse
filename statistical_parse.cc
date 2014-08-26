@@ -76,7 +76,7 @@ auto_parse::Statistical_parse::do_actual_parse(LR* p_parser) const
       Value_of_forecasts values = m_model(*p_parser);
       for(Action a : all_actions)
 	if(!p_parser->legal(a))
-	  values[a] = -1e10;
+	  values[a] = -1e100;
       values.zero_second_best();
       Action candidate = values.best_action();
       assert(p_parser->legal(candidate));
