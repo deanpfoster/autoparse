@@ -22,7 +22,7 @@ namespace auto_parse
 
     // MANIPULATORS
     // ACCESSORS
-    void operator()(std::ostream&, const Words&) const;
+    //    void operator()(std::ostream&, const Words&) const;
     std::vector<Row> operator()(const Words&) const;
 
   protected:

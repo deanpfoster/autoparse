@@ -74,7 +74,7 @@ namespace auto_parse
 	// And again using the contrast class
 
 	Contrast contrast(parser, likelihood, feature_generator);
-	contrast(std::cout, sentence);
+	std::cout << contrast(sentence);
 
 	std::cout << "constructed!" << std::endl;
       };
