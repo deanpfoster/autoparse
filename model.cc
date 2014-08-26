@@ -32,7 +32,7 @@ auto_parse::Model::Model(std::istream& in,const Feature_generator& features)
       assert(check == a);
       Forecast* p_forecast;
       in >> p_forecast;
-      m_forecasts[a] = p_forecast;
+      m_forecasts[a] = p_forecast->clone();
     }
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -41,6 +41,11 @@ auto_parse::Model::Model(const auto_parse::Model & other)
   m_forecasts(other.m_forecasts),
   m_features(other.m_features)
 {
+    for(Action a: all_actions)
+    {
+      m_forecasts[a] = other.m_forecasts.find(a)->second->clone();
+    }
+      
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Model::Model(const auto_parse::Feature_generator& gen)
@@ -89,8 +94,13 @@ auto_parse::Model::operator()(const LR& parser) const
   Value_of_forecasts result;
   for(Action a: all_actions)
     {
-      result[a] = (*m_forecasts.find(a)->second)(m_features(parser));
-      assert(!isnan(result[a]));
+      double value = (*m_forecasts.find(a)->second)(m_features(parser));
+      assert(!isnan(value));
+      if(value < -1e10)
+	value = -1e10;
+      if(value > 100)  // no large positive forecasts make sense
+	value = 100;
+      result[a] = value;
     }
   result.zero_second_best();
   return result;
