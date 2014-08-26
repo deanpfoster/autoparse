@@ -67,6 +67,7 @@ auto_parse::LR::left_reduce()
   Node left = *m_stack.rbegin();
   m_stack.pop_back();
   m_parse.add(left - m_parse.sentence().begin(),Left_arrow(),right - m_parse.sentence().begin());
+  assert(left != right);
   m_stack.push_back(right);
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -78,6 +79,7 @@ auto_parse::LR::right_reduce()
   m_stack.pop_back();
   assert(!m_stack.empty());
   Node left = *m_stack.rbegin();
+  assert(left != right);
   m_parse.add(left - m_parse.sentence().begin(), Right_arrow(), right - m_parse.sentence().begin());
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -87,6 +89,7 @@ auto_parse::LR::right_cross_reduce(int skip)
   assert(m_stack.size() >= static_cast<unsigned int>(skip)+1);
   Node top = *m_stack.rbegin();
   Node deep = *(m_stack.rbegin() + skip);
+  assert(top != deep);
   m_parse.add(deep - m_parse.sentence().begin(), Right_arrow(), top - m_parse.sentence().begin());
   m_stack.pop_back();
 }
