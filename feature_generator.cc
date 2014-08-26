@@ -28,26 +28,37 @@ auto_parse::Feature_generator::Feature_generator()
 auto_parse::Feature_generator::Feature_generator(const std::vector<Feature*>& vec)
   :
   m_number_features(0),
-  m_features(vec)
+  m_features()
 {
-  for(auto i = m_features.begin(); i != m_features.end(); ++i)
-    m_number_features += (*i)->dimension();
+  for(auto i = vec.begin(); i != vec.end(); ++i)
+    {
+      m_number_features += (*i)->dimension();
+      m_features.push_back((*i)->clone());
+    }
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Feature_generator::Feature_generator(const std::initializer_list<Feature*>& cool_shit)
   :
   m_number_features(0),
-  m_features(cool_shit)
+  m_features()
 {
-  for(auto i = m_features.begin(); i != m_features.end(); ++i)
-    m_number_features += (*i)->dimension();
+  std::vector<Feature*> tmp = cool_shit;
+  for(auto i = cool_shit.begin(); i != cool_shit.end(); ++i)
+    {
+      m_number_features += (*i)->dimension();
+      m_features.push_back((*i)->clone());
+    }
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Feature_generator::Feature_generator(const Feature_generator & other)
   :
   m_number_features(other.m_number_features),
-  m_features(other.m_features)
+  m_features()
 {
+    for(auto i = other.m_features.begin(); i != other.m_features.end(); ++i)
+    {
+      m_features.push_back((*i)->clone());
+    }
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 

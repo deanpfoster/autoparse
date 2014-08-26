@@ -39,7 +39,8 @@ auto_parse::Maximum_likelihood::Maximum_likelihood(const Maximum_likelihood & ot
 void
 auto_parse::Maximum_likelihood::operator()(const auto_parse::Dependency& parse)
 {
-  assert(parse.full_parse());
+  if(!parse.full_parse())
+    std::cout << "Warning:"  << parse << std::endl;
   for(auto i = parse.links().begin(); i != parse.links().end(); ++i)
     {
       if(i->first < i->second)

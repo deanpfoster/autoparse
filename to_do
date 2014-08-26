@@ -3,3 +3,11 @@
 
 fit forecast (i.e. output of contrast)
 i.e. get sample_main running
+
+
+
+speedups:
+
+There is a map in value_of_forecasts which should be replaced
+by an vector for speed.
+
