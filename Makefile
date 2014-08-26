@@ -111,7 +111,7 @@ redo_parse.test: history.o dependency.o lr.o word.o redo_parse.o feature_generat
 
 suggest_alternative_history.test: statistical_history.o history.o value_of_forecasts.o word.o utilities/z.o
 
-model.test: forecast.o history.o feature_generator.o
+model.test: forecast.o history.o feature_generator.o value_of_forecasts.o
 
 feature_one_dimensional.test: lr.o dependency.o word.o feature.o
 
@@ -168,7 +168,7 @@ sample.main: history.o dependency.o lr.o word.o redo_parse.o model.o suggest_alt
              forecast.o forecast_constant.o  transition_probability.o likelihood.o \
              feature_generator.o feature.o feature_one_dimensional.o \
              contrast.o eigenwords.o tp_eigenwords.o feature_eigenwords.o maximum_likelihood.o \
-             train_forecast_linear.o forecast_linear.o row.o 
+             train_forecast_linear.o forecast_linear.o row.o value_of_forecasts.o
 
 
 

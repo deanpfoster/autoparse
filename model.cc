@@ -88,23 +88,7 @@ auto_parse::Model::operator()(const LR& parser) const
   Value_of_forecasts result;
   for(Action a: all_actions)
     result[a] = (*m_forecasts.find(a)->second)(m_features(parser));
-  double max = result[Action::shift];
-  Action arg_max = Action::shift;
-  for(Action a: auto_parse::all_actions)
-    if(result[a] > max)
-      {
-	max = result[a];
-	arg_max = a;
-      }
-  double second_best = -1e10;
-  for(Action a: all_actions)
-    if(result[a] > second_best)
-      if(a != arg_max)
-	{
-	  second_best = result[a];
-	}
-  for(Action a: all_actions)
-    result[a] = result[a] - second_best;
+  result.zero_second_best();
   return result;
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */

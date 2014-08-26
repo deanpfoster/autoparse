@@ -77,6 +77,7 @@ auto_parse::Statistical_parse::do_actual_parse(LR* p_parser) const
       for(Action a : all_actions)
 	if(!p_parser->legal(a))
 	  values[a] = -1e10;
+      values.zero_second_best();
       Action candidate = values.best_action();
       assert(p_parser->legal(candidate));
       result.push_back(candidate, values);
