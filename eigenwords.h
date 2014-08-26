@@ -22,7 +22,7 @@ namespace auto_parse
     const Eigen::VectorXd& operator()(const Word&w) const{return (*this)[w];};
     const Eigen::VectorXd& operator[](const Word&) const;
     int dimension() const;
-
+    int size() const{return m_eigenwords.size();};
   private:
     std::map<std::string,Eigen::VectorXd> m_eigenwords;
   };

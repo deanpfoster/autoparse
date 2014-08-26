@@ -64,9 +64,17 @@ namespace auto_parse
 };
 
 int
-main()
+main(int argc,char** argv)
 {
-  std::cout << "\n\n\n\t\t\t SAMPLE  SAMPLE  SAMPLE\n\n\n"<< std::endl;
+  std::string sentence_file = "sample_corpus";
+  std::string eigen_file = "pretty_5_c_sample.csv";
+  if(argc == 3)
+    {
+      sentence_file = argv[1];
+      eigen_file = argv[2];
+    }
+  std::cout << "  sentence = " << sentence_file << std::endl;
+  std::cout << "eigenwords = " << eigen_file << std::endl;
   {
       
     //////////////////////////////////////////////////////////////////////////////////
@@ -75,7 +83,7 @@ main()
     //
     //////////////////////////////////////////////////////////////////////////////////
 
-    auto_parse::Tokenize corpus("sample_corpus");
+    auto_parse::Tokenize corpus(sentence_file);
       
     //////////////////////////////////////////////////////////////////////////////////
     //
@@ -83,9 +91,13 @@ main()
     //
     //////////////////////////////////////////////////////////////////////////////////
 
-    std::ifstream in("pretty_5_c_sample.csv");
+    time_t start_time = time(0);
+    std::ifstream in(eigen_file);
     auto_parse::Eigenwords dictionary(in,5); 
     int dim = dictionary.dimension();
+    std::cout << "Read a dictionary of size: " << dictionary.size()<< " x " << dim;
+    std::cout << " (time " << time(0) - start_time << " sec)" << std::endl;      start_time = time(0);
+    
 
     //////////////////////////////////////////////////////////////////////////////////
     //
@@ -130,9 +142,11 @@ main()
 	  training[a] = auto_parse::Train_forecast_linear(lr_model.forecast(a));
 	std::cout << "Training" << std::endl;
 	corpus.reset();
+	int count_sentences = 0;
 	while(!corpus.eof())
 	  {
 	    auto sentence = corpus.next_sentence();
+	    //	    std::cout << sentence << std::endl;
 	    auto_parse::Contrast contrast(parser, likelihood, feature_generator);
 	    std::vector<auto_parse::Row> contrast_pair = contrast(sentence);
 	    for(auto i = contrast_pair.begin(); i != contrast_pair.end(); ++i)
@@ -143,7 +157,10 @@ main()
 		      training[a](i->m_X, i->m_Y);
 		  }
 	      }
+	    ++count_sentences;
 	  };
+	std::cout << "parsed " << count_sentences << " sentence.     (time " << time(0) - start_time << " sec)" << std::endl;      start_time = time(0);
+
 	auto_parse::Model new_model(feature_generator);
 	for(auto_parse::Action a : auto_parse::all_actions)
 	  new_model.add_forecast(a,training[a].result());
@@ -167,7 +184,9 @@ main()
 	    auto_parse::Dependency d = redo_parse(sentence,parser(sentence)).parse();
 	    mle(d);  // adds to database
 	  }
+	std::cout << "Finished redoing parse." << std::endl;
 	likelihood = mle.output();
+	std::cout << "Likelihood computed.     (time " << time(0) - start_time << " sec)" << std::endl;      start_time = time(0);
 
 	std::cout << rounds << "   " <<  likelihood << std::endl;
 
