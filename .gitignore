@@ -34,3 +34,4 @@ utilities
 *.log
 dependency.test.tex
 lr.test.tex
+sample.output

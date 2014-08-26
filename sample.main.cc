@@ -160,9 +160,8 @@ main(int argc,char** argv)
 		      training[a](i->m_X, i->m_Y);
 		  }
 	      }
-	    ++count_sentences;
 	  };
-	std::cout << "parsed " << count_sentences << " sentence.     (time " << time(0) - start_time << " sec)" << std::endl;      start_time = time(0);
+	std::cout << "parsed " << training.size() << " sentence.     (time " << time(0) - start_time << " sec)" << std::endl;      start_time = time(0);
 
 	auto_parse::Model new_model(feature_generator);
 	for(auto_parse::Action a : auto_parse::all_actions)
@@ -180,10 +179,9 @@ main(int argc,char** argv)
 	auto_parse::TP_eigenwords left(dictionary,t); 
 	auto_parse::TP_eigenwords right(dictionary,t); 
 	auto_parse::Maximum_likelihood mle(left, right);
-	corpus.reset();
-	while(!corpus.eof())
-	  {
-	    auto sentence = corpus.next_sentence();
+	for(unsigned int i = 0; i < corpus_in_memory.size(); ++i)
+	  {	
+	    auto sentence = corpus_in_memory[i];
 	    auto_parse::Dependency d = redo_parse(sentence,parser(sentence)).parse();
 	    mle(d);  // adds to database
 	  }

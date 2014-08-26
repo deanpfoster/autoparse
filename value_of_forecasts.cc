@@ -56,8 +56,12 @@ auto_parse::Value_of_forecasts::zero_second_best()
 	{
 	  second_best = m_values[a];
 	}
-  for(Action a: all_actions)
-    m_values[a] = m_values[a] - second_best;
+  if(second_best > -1e9)
+    for(Action a: all_actions)
+      m_values[a] = m_values[a] - second_best;
+  else
+    for(Action a: all_actions)
+      m_values[a] = m_values[a] - max;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////
