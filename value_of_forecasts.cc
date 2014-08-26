@@ -5,6 +5,7 @@
 
 // put other includes here
 #include "assert.h"
+#include <math.h>
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                              C O N S T R U C T O R S                         constructors
@@ -40,11 +41,14 @@ auto_parse::Value_of_forecasts::zero_second_best()
   double max = m_values[Action::shift];
   Action arg_max = Action::shift;
   for(Action a: auto_parse::all_actions)
+    {
+      assert(!isnan(m_values[a]));
     if(m_values[a] > max)
       {
 	max = m_values[a];
 	arg_max = a;
       }
+    }
   double second_best = -1e10;
   for(Action a: all_actions)
     if(m_values[a] > second_best)

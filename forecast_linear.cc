@@ -4,6 +4,7 @@
 #include "forecast_linear.h"
 #include "assert.h"
 #include <iostream>
+#include <math.h>
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                              C O N S T R U C T O R S                         constructors
@@ -92,7 +93,9 @@ auto_parse::Forecast_linear::clone() const
 double
 auto_parse::Forecast_linear::operator()(const Eigen::VectorXd& row) const
 {
-  return m_weights.transpose() * row;
+  double result = m_weights.transpose() * row;
+  assert(!isnan(result));
+  return result;
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 

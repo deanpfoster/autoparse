@@ -16,7 +16,7 @@ auto_parse::Train_forecast_linear::~Train_forecast_linear()
 auto_parse::Train_forecast_linear::Train_forecast_linear(const Forecast& f)
   :
   m_old_model(dynamic_cast<const auto_parse::Forecast_linear&>(f)),
-  m_XtX(m_old_model.dimension(),m_old_model.dimension()),  // X'X
+  m_XtX(Eigen::MatrixXd::Identity(m_old_model.dimension(),m_old_model.dimension())),  // X'X
   m_XtY(m_old_model.dimension())   // X'Y
 {
 };

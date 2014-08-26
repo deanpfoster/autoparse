@@ -9,6 +9,7 @@
 #include "assert.h"
 #include <iostream>
 #include <set>
+#include <math.h>
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                          U S I N G   D I R E C T I V E S                            using
@@ -87,7 +88,10 @@ auto_parse::Model::operator()(const LR& parser) const
 {
   Value_of_forecasts result;
   for(Action a: all_actions)
-    result[a] = (*m_forecasts.find(a)->second)(m_features(parser));
+    {
+      result[a] = (*m_forecasts.find(a)->second)(m_features(parser));
+      assert(!isnan(result[a]));
+    }
   result.zero_second_best();
   return result;
 }

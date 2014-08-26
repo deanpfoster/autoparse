@@ -85,6 +85,29 @@ void
 auto_parse::TP_eigenwords::print_on(std::ostream & ostrm) const
 {
   ostrm << "Eigenword with transition matrix." << std::endl;
+  double max = -1e100;
+  double min = 1e100;
+  double sum = 0;
+  double sum2 = 0;
+  for(int i = 0; i < m_matrix.rows(); ++i)
+    for(int j = 0; j < m_matrix.rows(); ++j)
+      {
+	double v = m_matrix(i,j);
+	double a = fabs(v);
+	if(a > max)
+	  max = a;
+	if(a < min)
+	  min = a;
+	sum += v;
+	sum2+= v * v;
+      }
+  ostrm << "\tmax = " << max << std::endl;
+  ostrm << "\tmin = " << min << std::endl;
+  double n = m_matrix.rows()*m_matrix.cols();
+  ostrm << "\tmean= " << sum/n << std::endl;
+  double var = sum2/n - (sum/n)*(sum/n);
+  ostrm << "\t sd = " << sqrt(var) << std::endl;
+  
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 

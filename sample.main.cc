@@ -107,8 +107,9 @@ main()
     //
     //////////////////////////////////////////////////////////////////////////////////
       
-    bool converged = false;
-    while(!converged)
+    //    bool converged = false;
+    //    while(!converged)
+    for(int i = 0; i < 10; ++i)
       {
 
 	///////////////////////////////////////////////
@@ -159,8 +160,10 @@ main()
 	  }
 	likelihood = mle.output();
 
+	std::cout <<  likelihood << std::endl;
+
 	// Add some convergence criterion here
-	converged = true;
+	//	converged = true;
 
       }
   }
