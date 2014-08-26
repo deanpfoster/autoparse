@@ -94,9 +94,7 @@ main()
     //
     //////////////////////////////////////////////////////////////////////////////////
 
-    Eigen::MatrixXd t = Eigen::MatrixXd::Zero(dim,dim); // This needs to be estimated
-    for(int i = 0; i < dim; ++i)
-      t(i,i) = 1;
+    Eigen::MatrixXd t = Eigen::MatrixXd::Identity(dim,dim); // This needs to be estimated
     auto_parse::TP_eigenwords tp(dictionary,t);  
     auto_parse::Likelihood likelihood(tp,tp);
 

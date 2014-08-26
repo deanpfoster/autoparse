@@ -16,6 +16,6 @@ operator+(const auto_parse::Words& W, auto_parse::Word w)
 std::ostream&
 operator<<(std::ostream & ostrm,const auto_parse::Words & w)
 {
-  std::copy(w.begin(), w.end(), std::ostream_iterator<std::string>(ostrm," "));
+  std::copy(w.begin(), w.end(), std::ostream_iterator<std::string>(ostrm," , "));
   return ostrm;
 }
