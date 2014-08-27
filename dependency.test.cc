@@ -30,7 +30,7 @@ namespace auto_parse
 	< ((D("is") > (D("scheduled") > D("today"))) > D("."));
       std::cout << complex;
       std::ofstream latex("dependency.test.tex");
-      latex << "\\documentclass{article}\n\\usepackage{tikz-dependency}\n\\begin{document}\n";
+      auto_parse::latex_header(latex);
       latex << "Original sentence--which has crosses in it:\n\n" << std::endl;
       latex << "\\begin{dependency}[theme = simple]\
                 \\begin{deptext}[column sep=1em]					\
@@ -47,7 +47,8 @@ namespace auto_parse
                 \\depedge[arc angle=50]{7}{6}{ATT}\
                 \\end{dependency}\n\n\n";
       latex << "The best we could do since we don't do crosses:\n\n" 
-	    << complex << "\\end{document}" << std::endl;
+	    << complex;
+      latex_footer(latex);
      
     }	
     {

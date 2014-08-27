@@ -58,7 +58,8 @@ namespace auto_parse
     Dependency& operator=(const Dependency &); // Don't delete this.
   };
 
-
+  void latex_header(std::ostream&);
+  void latex_footer(std::ostream&);
 };
 
 std::ostream& operator<<(std::ostream &,const auto_parse::Dependency &);

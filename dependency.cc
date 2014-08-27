@@ -373,4 +373,19 @@ operator>(const auto_parse::Dependency& l, const auto_parse::Dependency& r)
 
   
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+void
+auto_parse::latex_header(std::ostream& out)
+{
+  out << "\\documentclass{article}\n\n\\usepackage{tikz-dependency}\n\n\\begin{document}\n\n" << std::endl;
+}
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+void
+auto_parse::latex_footer(std::ostream& out)
+{
+  out << "\n\n\\end{document}" << std::endl;
+}
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 

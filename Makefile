@@ -183,8 +183,6 @@ sample.output.10k: sample.main eng_only.10k pretty.csv
 sample.output.all: sample.main eng_only pretty.csv
 	./$^ |tee $@
 
-where.am.i:
-	echo ${HOST}
 
 ##########################################################################################################
 #

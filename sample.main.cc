@@ -11,6 +11,8 @@ main(int argc,char** argv)
 {
   time_t start_time = time(0);  // used for timing 
   std::ostream& debugging(std::cout);
+  std::ofstream latex("sample.output.tex");
+  auto_parse::latex_header(latex);
   //////////////////////////////////////////////////////////////////////////////////
   //
   //                    Read which eigendictionary and corpus to use
@@ -95,6 +97,7 @@ main(int argc,char** argv)
 	std::stringstream s;
 	s << "  " << rounds << "    ";
 	std::string debugging_prefix = s.str();
+	// the following uses OpenMP to run faster
 	auto_parse::Model new_model = likelihood_to_model(likelihood,
 							  parser,
 							  feature_generator,
@@ -119,6 +122,31 @@ main(int argc,char** argv)
 					  debugging_prefix);
 
 	debugging << " (time " << time(0) - start_time << " sec)" << std::endl;      start_time = time(0);
+
+	///////////////////////////////////////////////
+	//                                           //
+	//               EVALUATION                  //
+	//                                           //
+	///////////////////////////////////////////////
+
+	double sqrt_sum = 0;
+	for(auto_parse::Words sentence : corpus_in_memory)
+	  {
+	    auto_parse::Dependency parse = redo_parse(sentence, parser(sentence)).parse();
+	    double prob = likelihood(parse);
+	    sqrt_sum += sqrt(fabs(prob));
+	  }
+	std::cout << debugging_prefix << " * * * * " << sqrt_sum << " * * * * " << std::endl;
+
+	auto_parse::Dependency parse1 = redo_parse(corpus_in_memory[1], parser(corpus_in_memory[1])).parse();
+	auto_parse::Dependency parse3 = redo_parse(corpus_in_memory[3], parser(corpus_in_memory[3])).parse();
+	auto_parse::Dependency parse5 = redo_parse(corpus_in_memory[5], parser(corpus_in_memory[5])).parse();
+	parse1.latex(latex);
+	parse3.latex(latex);
+	parse5.latex(latex);
+	
+
 	}
+    auto_parse::latex_footer(latex);
     debugging << "Finished!" << std::endl;
 }
