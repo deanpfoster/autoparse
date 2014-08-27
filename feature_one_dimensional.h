@@ -34,6 +34,78 @@ namespace auto_parse
     std::string descriptive_name() const{return "Full sentence length.";};
   };
 
+  template<int i>
+  struct Distance_to
+  {
+    double operator()(const LR& parser) const
+    {
+      if(parser.stack_size() <= i)
+	return 0; // we don't have a stack of sufficient depth
+      const Words& sentence = parser.parse().sentence();
+      const Node& location = parser.stack(i);
+      return location - sentence.begin();
+    }
+    std::string variable_name() const
+    {
+      std::stringstream s;
+      s << "distance_to_" << i;
+      return s.str();
+    };
+    std::string descriptive_name() const
+    {
+      std::stringstream s;
+      s << "Distance to stack location " << i << ".";
+      return s.str();
+    }
+  };
+
+  template<class T>
+  struct Squared
+  {
+    double operator()(const LR& parser) const
+    {
+      double tmp = Squared()(parser);
+      return tmp * tmp;
+    }
+    std::string variable_name() const
+    {
+      std::stringstream s;
+      s << T().variable_name() << "_squared";
+      return s.str();
+    };
+    std::string descriptive_name() const
+    {
+      std::stringstream s;
+      s << "The square of `" << T().descriptive_name() << "'.";
+      return s.str();
+    }
+  };
+  
+  template<class T1, class T2>
+  struct Interaction
+  {
+    double operator()(const LR& parser) const
+    {
+      double tmp1 = T1()(parser);
+      double tmp2 = T2()(parser);
+      return tmp1 * tmp2;
+    }
+    std::string variable_name() const
+    {
+      std::stringstream s;
+      s << T1().variable_name() << "_x_" << T2().variable_name();
+      return s.str();
+    };
+    std::string descriptive_name() const
+    {
+      std::stringstream s;
+      s << "`" << T1().descriptive_name()
+	<< "' times `" << T2().descriptive_name() << "'.";
+      return s.str();
+    }
+  };
+  
+
 
 
   template <class T>

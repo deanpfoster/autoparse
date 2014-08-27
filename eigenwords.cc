@@ -143,7 +143,7 @@ read_CSV(std::istream& in, int pos, int gram_number)
   std::map<std::string,Eigen::VectorXd> result;
   for(auto i = tmp.begin(); i != tmp.end(); ++i)
     {
-      result[i->first] = i->second.m_counts.segment(0, state_size); // segment(start, length)
+      result[i->first] = i->second.m_counts.segment(pos * state_size, (pos+1) * state_size); // segment(start, length)
     };
   return result;
 }

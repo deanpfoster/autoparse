@@ -22,7 +22,7 @@ namespace auto_parse
     virtual Feature* clone() const = 0;
     // MANIPULATORS
     // ACCESSORS
-    virtual Eigen::VectorXd operator()(const LR&) const;
+    virtual Eigen::VectorXd operator()(const LR&) const = 0;
     // the following use "visitor". SHould be changed to just return list
     virtual name_iterator set_names(name_iterator) const = 0;
     virtual std::string   name() const = 0;
@@ -31,7 +31,6 @@ namespace auto_parse
   protected:
     Feature(const Feature &);            // Don't delete this.
   private:
-    virtual data_iterator set_values(data_iterator, const LR&) const;  
     Feature& operator=(const Feature &); // Don't delete this.
   };
 }

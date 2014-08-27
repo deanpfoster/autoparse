@@ -28,15 +28,15 @@ public:
     return new Sample(*this);
   };
 
-  std::vector<double>::iterator
-  set_values(std::vector<double>::iterator i, const auto_parse::LR&) const
+  Eigen::VectorXd
+  operator()(const auto_parse::LR&) const
   {
-    for(double x : m_fixed)
+    Eigen::VectorXd result(dimension());
+    for(unsigned int i = 0; i <  m_fixed.size();++i)
       {
-	*i = x;
-	++i;
-      }
-    return i;
+	result[i] = m_fixed[i];
+      };
+    return result;
   }
 
   std::vector<std::string>::iterator set_names(std::vector<std::string>::iterator result) const
