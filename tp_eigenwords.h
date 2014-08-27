@@ -24,6 +24,7 @@ namespace auto_parse
 
     // MANIPULATORS
     virtual void accumulate(const Word&, const Word&);
+    virtual void merge(const Transition_probability&);
     virtual void renormalize();
     
     // ACCESSORS

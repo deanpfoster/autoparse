@@ -97,6 +97,7 @@ auto_parse::Forecast_linear::clone() const
 double
 auto_parse::Forecast_linear::operator()(const Eigen::VectorXd& row) const
 {
+  assert(row.size() == m_weights.size());
   double result = m_weights.transpose() * row;
   assert(!isnan(result));
   return result;

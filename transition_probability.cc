@@ -29,6 +29,13 @@ auto_parse::Transition_probability::Transition_probability(const Transition_prob
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                             M A N I P U L A T O R S                          manipulators
+void
+auto_parse::Transition_probability::merge(const Transition_probability & )
+{
+  // should be written in the dependent class.  
+  assert(0);
+};
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                               A C C E S S O R S                                 accessors
 ////////////////////////////////////////////////////////////////////////////////////////////

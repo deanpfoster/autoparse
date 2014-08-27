@@ -16,6 +16,8 @@
 
 auto_parse::Maximum_likelihood::~Maximum_likelihood()
 {
+  delete mp_left;
+  delete mp_right;
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Maximum_likelihood::Maximum_likelihood(const Transition_probability& left, const Transition_probability& right)
@@ -23,13 +25,41 @@ auto_parse::Maximum_likelihood::Maximum_likelihood(const Transition_probability&
   mp_left(left.clone()),
   mp_right(right.clone())
 {
+  assert(mp_left);
+  assert(mp_right);
+};
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+auto_parse::Maximum_likelihood::Maximum_likelihood()
+  :
+  mp_left(0),
+  mp_right(0)
+{
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Maximum_likelihood::Maximum_likelihood(const Maximum_likelihood & other)
   :
-  mp_left(other.mp_left->clone()),
-  mp_right(other.mp_right->clone())
+  mp_left(0),
+  mp_right(0)
 {
+  if(other.mp_right)
+    {
+      mp_left = other.mp_left->clone();
+      mp_right= other.mp_right->clone();
+    }
+};
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+auto_parse::Maximum_likelihood&
+auto_parse::Maximum_likelihood::operator=(const Maximum_likelihood & other)
+{
+  delete(mp_left);
+  delete(mp_right);
+  assert(other.mp_left);  // why would we copy an empty MLE?
+  if(other.mp_left)
+    {
+      mp_left = other.mp_left->clone();
+      mp_right = other.mp_right->clone();
+    };
+  return *this;
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
@@ -39,6 +69,8 @@ auto_parse::Maximum_likelihood::Maximum_likelihood(const Maximum_likelihood & ot
 void
 auto_parse::Maximum_likelihood::operator()(const auto_parse::Dependency& parse)
 {
+  assert(mp_right);
+  assert(mp_left);
   if(!parse.full_parse())
     std::cout << "Warning:"  << parse << std::endl;
   for(auto i = parse.links().begin(); i != parse.links().end(); ++i)
@@ -48,6 +80,14 @@ auto_parse::Maximum_likelihood::operator()(const auto_parse::Dependency& parse)
       else
 	mp_right->accumulate(*i->first, *i->second);
     }
+};
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+void
+auto_parse::Maximum_likelihood::merge(const auto_parse::Maximum_likelihood& other)
+{
+  mp_left->merge(*other.mp_left);
+  mp_right->merge(*other.mp_right);
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 

@@ -24,7 +24,7 @@ include flags
 #   very_clean  kills everything we can think of.  Back to the beginning.
 #
 ################################################################################
-current_target: test sample.output.10k
+current_target: test sample.output.all
 
 
 ################################################################################
@@ -178,6 +178,9 @@ sample.output: sample.main
 	cat sample.output
 
 sample.output.10k: sample.main eng_only.10k pretty.csv
+	./$^ |tee $@
+
+sample.output.all: sample.main eng_only pretty.csv
 	./$^ |tee $@
 
 ##########################################################################################################

@@ -152,10 +152,10 @@ main(int argc,char** argv)
 	std::map<auto_parse::Action, auto_parse::Train_forecast_linear> training;
 	for(auto_parse::Action a: auto_parse::all_actions)
 	  training[a] = auto_parse::Train_forecast_linear(lr_model.forecast(a));
-	std::cout << "Training" << std::endl;
+	std::cout << rounds << "   " << "Training" << std::endl;
 
-
-	std::vector<std::map<auto_parse::Action, auto_parse::Train_forecast_linear> > bundle(0);
+	std::vector<std::map<auto_parse::Action, auto_parse::Train_forecast_linear> > training_bundle(0);
+	std::vector<auto_parse::Maximum_likelihood> mle_bundle(0);
 	int num_threads;
 	auto_parse::Contrast contrast(parser, likelihood, feature_generator);
 
@@ -164,11 +164,10 @@ main(int argc,char** argv)
 #pragma omp single
 	  {
 	    num_threads = omp_get_num_threads();
-	    bundle = std::vector<std::map<auto_parse::Action, auto_parse::Train_forecast_linear> >(num_threads);
+	    training_bundle = std::vector<std::map<auto_parse::Action, auto_parse::Train_forecast_linear> >(num_threads);
 	    for(int i = 0; i < num_threads; ++i)
-	      bundle[i] = training;
+	      training_bundle[i] = training;
 	  }
-	  
 #pragma omp for 
 	  for(unsigned int i = 0; i < corpus_in_memory.size(); ++i)
 	    {
@@ -177,49 +176,60 @@ main(int argc,char** argv)
 	    auto sentence = corpus_in_memory[i];
 	    std::vector<auto_parse::Row> contrast_pair = contrast(sentence);
 	    for(auto i = contrast_pair.begin(); i != contrast_pair.end(); ++i)
-	      bundle[thread_ID][i->m_a](i->m_X, i->m_Y);
+	      training_bundle[thread_ID][i->m_a](i->m_X, i->m_Y);
 	  };
 #pragma omp single
 	  {
 	    for(int i = 1; i < num_threads;++i)
 	      for(auto_parse::Action a: auto_parse::all_actions)
-		bundle[0][a].merge(bundle[i][a]);
+		training_bundle[0][a].merge(training_bundle[i][a]);
 
-	    std::cout << "parsed " << corpus_in_memory.size() << " sentence.     (time " << time(0) - start_time << " sec * " << num_threads << " threads)" << std::endl;      start_time = time(0);
+	    std::cout << rounds << "   " << "parsed " << corpus_in_memory.size() << " sentence.     (time " << time(0) - start_time << " sec * " << num_threads << " threads)" << std::endl;      start_time = time(0);
 
 	    auto_parse::Model new_model(feature_generator);
 	    for(auto_parse::Action a : auto_parse::all_actions)
-	      new_model.add_forecast(a,bundle[0][a].result());
+	      new_model.add_forecast(a,training_bundle[0][a].result());
 	    parser.new_model(new_model);
+	    ///////////////////////////////////////////////
+	    //                                           //
+	    //  Model  --> Parsed corpus -->  MLE        //
+	    //                                           //
+	    ///////////////////////////////////////////////
+
+	    std::cout << rounds << "   " << "MLE" << std::endl;
+	
+	    auto_parse::TP_eigenwords left(dictionary,t); 
+	    auto_parse::TP_eigenwords right(dictionary,t); 
+	    mle_bundle = std::vector<auto_parse::Maximum_likelihood>(num_threads);
+	    assert(mle_bundle.size() == num_threads);
+	    for(unsigned int i = 0; i < mle_bundle.size(); ++i)
+	      mle_bundle[i] = auto_parse::Maximum_likelihood(left, right);
+	    std::cout << rounds << "   "  << "Starting loop" << std::endl;
 	  }
-	  }
 
-	///////////////////////////////////////////////
-	//                                           //
-	//  Model  --> Parsed corpus -->  MLE        //
-	//                                           //
-	///////////////////////////////////////////////
-
-	std::cout << "MLE" << std::endl;
-
-	auto_parse::TP_eigenwords left(dictionary,t); 
-	auto_parse::TP_eigenwords right(dictionary,t); 
-	auto_parse::Maximum_likelihood mle(left, right);
+#pragma omp for 
 	for(unsigned int i = 0; i < corpus_in_memory.size(); ++i)
 	  {	
+	    int thread_ID = omp_get_thread_num();
+	    assert(thread_ID < num_threads);
 	    auto sentence = corpus_in_memory[i];
 	    auto_parse::Dependency d = redo_parse(sentence,parser(sentence)).parse();
-	    mle(d);  // adds to database
+	    mle_bundle[thread_ID](d);  // adds to database
 	  }
-	std::cout << "Finished redoing parse." << std::endl;
-	likelihood = mle.output();
-	std::cout << "Likelihood computed.     (time " << time(0) - start_time << " sec)" << std::endl;      start_time = time(0);
+#pragma omp single
+	{
+	  std::cout << rounds << "   " << "Done parsing, on to merging." << std::endl;
+	  for(int i = 1; i < num_threads;++i)
+	    mle_bundle[0].merge(mle_bundle[i]);
 
-	std::cout << rounds << "   " <<  likelihood << std::endl;
-
+	  std::cout << rounds << "   " << "Finished merging parse." << std::endl;
+	  likelihood = mle_bundle[0].output();
+	  std::cout << rounds << "   " << "Likelihood computed.     (time " << time(0) - start_time << " sec)" << std::endl;      start_time = time(0);
+	  std::cout << rounds << "   " <<  likelihood << std::endl;
+	}
+	}
 	// Add some convergence criterion here
 	//	converged = true;
-
       }
     std::cout << "Finished!" << std::endl;
   }

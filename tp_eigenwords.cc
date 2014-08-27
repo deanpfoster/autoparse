@@ -56,7 +56,16 @@ auto_parse::TP_eigenwords::accumulate(const Word& p, const Word& c)
 {
   const Eigen::VectorXd& pv = m_eigenwords[p];
   const Eigen::VectorXd& cv = m_eigenwords[c];
+  assert(pv.size() == m_matrix.rows());
+  assert(cv.size() == m_matrix.cols());
   m_matrix += pv * (cv.transpose());  // outerproduct
+};
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+void
+auto_parse::TP_eigenwords::merge(const Transition_probability& tp) 
+{
+  const TP_eigenwords& other = dynamic_cast<const TP_eigenwords&>(tp);
+  m_matrix += other.m_matrix;
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 void
