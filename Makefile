@@ -174,10 +174,11 @@ sample.main: history.o dependency.o lr.o word.o redo_parse.o model.o suggest_alt
              train_forecast_linear.o forecast_linear.o row.o value_of_forecasts.o tokenize.o
 
 sample.output: sample.main
-	./sample.main > sample.output
+	./sample.main | tee sample.output
 	cat sample.output
 
-
+sample.output.10k: sample.main eng_only.10k pretty.csv
+	./$^ |tee > $@
 
 ##########################################################################################################
 #

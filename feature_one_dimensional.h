@@ -64,7 +64,7 @@ namespace auto_parse
   {
     double operator()(const LR& parser) const
     {
-      double tmp = Squared()(parser);
+      double tmp = T()(parser);
       return tmp * tmp;
     }
     std::string variable_name() const
