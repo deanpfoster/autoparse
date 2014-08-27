@@ -154,40 +154,45 @@ main(int argc,char** argv)
 	  training[a] = auto_parse::Train_forecast_linear(lr_model.forecast(a));
 	std::cout << "Training" << std::endl;
 
-	//	int num_threads = omp_get_num_threads();
-	int num_threads = 1;
 
-	std::vector<std::map<auto_parse::Action, auto_parse::Train_forecast_linear> > bundle(num_threads);
-	for(int i = 0; i < num_threads; ++i)
-	  bundle[i] = training;
+	std::vector<std::map<auto_parse::Action, auto_parse::Train_forecast_linear> > bundle(0);
+	int num_threads;
 	auto_parse::Contrast contrast(parser, likelihood, feature_generator);
-	//#pragma omp parallel for default(shared)
-	
+
+#pragma omp parallel default(shared)
+	{
+#pragma omp single
+	  {
+	    num_threads = omp_get_num_threads();
+	    bundle = std::vector<std::map<auto_parse::Action, auto_parse::Train_forecast_linear> >(num_threads);
+	    for(int i = 0; i < num_threads; ++i)
+	      bundle[i] = training;
+	  }
+	  
+#pragma omp for 
 	  for(unsigned int i = 0; i < corpus_in_memory.size(); ++i)
 	    {
-	      int thread_ID = omp_get_thread_num();
-	      auto sentence = corpus_in_memory[i];
-	      std::vector<auto_parse::Row> contrast_pair = contrast(sentence);
-	      for(auto i = contrast_pair.begin(); i != contrast_pair.end(); ++i)
-		{
-		  for(auto_parse::Action a: auto_parse::all_actions)
-		    {
-		      if(i->m_a == a)
-			bundle[thread_ID][a](i->m_X, i->m_Y);
-		    }
-		}
-	    };
+	    int thread_ID = omp_get_thread_num();
+	    assert(thread_ID < num_threads);
+	    auto sentence = corpus_in_memory[i];
+	    std::vector<auto_parse::Row> contrast_pair = contrast(sentence);
+	    for(auto i = contrast_pair.begin(); i != contrast_pair.end(); ++i)
+	      bundle[thread_ID][i->m_a](i->m_X, i->m_Y);
+	  };
+#pragma omp single
+	  {
+	    for(int i = 1; i < num_threads;++i)
+	      for(auto_parse::Action a: auto_parse::all_actions)
+		bundle[0][a].merge(bundle[i][a]);
 
-	for(int i = 1; i < num_threads;++i)
-	  for(auto_parse::Action a: auto_parse::all_actions)
-	    bundle[0][a].merge(bundle[i][a]);
+	    std::cout << "parsed " << corpus_in_memory.size() << " sentence.     (time " << time(0) - start_time << " sec * " << num_threads << " threads)" << std::endl;      start_time = time(0);
 
-	std::cout << "parsed " << corpus_in_memory.size() << " sentence.     (time " << time(0) - start_time << " sec * " << num_threads << " threads)" << std::endl;      start_time = time(0);
-
-	auto_parse::Model new_model(feature_generator);
-	for(auto_parse::Action a : auto_parse::all_actions)
-	  new_model.add_forecast(a,bundle[0][a].result());
-	parser.new_model(new_model);
+	    auto_parse::Model new_model(feature_generator);
+	    for(auto_parse::Action a : auto_parse::all_actions)
+	      new_model.add_forecast(a,bundle[0][a].result());
+	    parser.new_model(new_model);
+	  }
+	  }
 
 	///////////////////////////////////////////////
 	//                                           //
