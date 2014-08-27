@@ -171,7 +171,7 @@ sample.main: history.o dependency.o lr.o word.o redo_parse.o model.o suggest_alt
              forecast.o forecast_constant.o  transition_probability.o likelihood.o \
              feature_generator.o feature.o feature_one_dimensional.o \
              contrast.o eigenwords.o tp_eigenwords.o feature_eigenwords.o maximum_likelihood.o \
-             train_forecast_linear.o forecast_linear.o row.o value_of_forecasts.o tokenize.o
+             train_forecast_linear.o forecast_linear.o row.o value_of_forecasts.o tokenize.o sample.o
 
 sample.output: sample.main
 	./sample.main | tee sample.output
@@ -182,6 +182,9 @@ sample.output.10k: sample.main eng_only.10k pretty.csv
 
 sample.output.all: sample.main eng_only pretty.csv
 	./$^ |tee $@
+
+where.am.i:
+	echo ${HOST}
 
 ##########################################################################################################
 #

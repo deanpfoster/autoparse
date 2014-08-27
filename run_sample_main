@@ -1,0 +1,6 @@
+#!/bin/bash
+
+echo $HOST
+cd ~/nlp/auto_parse
+./sample.main eng_only pretty.csv
+

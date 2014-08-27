@@ -15,7 +15,7 @@ namespace auto_parse
   public:
     // CONSTRUCTORS
     ~Likelihood();
-    Likelihood(const Transition_probability& left, const Transition_probability& right); // read model from file
+    Likelihood(const Transition_probability& left_pointing, const Transition_probability& right_pointing); // read model from file
     Likelihood(const Likelihood &);          
     Likelihood& operator=(const Likelihood &);
 
