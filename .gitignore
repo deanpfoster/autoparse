@@ -34,9 +34,9 @@ utilities
 *.log
 dependency.test.tex
 lr.test.tex
-sample.output
+learn.output
 eng_only*
 pretty.csv
-sample.output.10k
-sample.output.all
-sample.output.tex
+learn.output.10k
+learn.output.all
+learn.output.tex

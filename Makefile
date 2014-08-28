@@ -24,7 +24,7 @@ include flags
 #   very_clean  kills everything we can think of.  Back to the beginning.
 #
 ################################################################################
-current_target: test sample.output
+current_target: test learn.output
 
 
 ################################################################################
@@ -151,9 +151,16 @@ contrast.test: history.o dependency.o lr.o word.o redo_parse.o model.o suggest_a
 
 ################################################################################
 #           L E V E L     S I X    T E S T I N G     C O D E
-only6:
+only6: learn.OK
 ################################################################################
 
+learn.test: history.o dependency.o lr.o word.o redo_parse.o model.o suggest_alternative_history.o \
+             statistical_history.o  statistical_parse.o value_of_forecasts.o \
+             forecast.o forecast_constant.o  transition_probability.o likelihood.o \
+             feature_generator.o feature.o feature_one_dimensional.o \
+             contrast.o eigenwords.o tp_eigenwords.o feature_eigenwords.o maximum_likelihood.o \
+             train_forecast_linear.o forecast_linear.o row.o value_of_forecasts.o tokenize.o learn.o \
+             feature_interaction.o
 
 ################################################################################
 #           L E V E L     !!! I N F I N I T Y !!!    T E S T I N G     C O D E
@@ -168,22 +175,22 @@ onlyI:
 #
 ##########################################################################################################
 
-sample.main: history.o dependency.o lr.o word.o redo_parse.o model.o suggest_alternative_history.o \
+learn.main: history.o dependency.o lr.o word.o redo_parse.o model.o suggest_alternative_history.o \
              statistical_history.o  statistical_parse.o value_of_forecasts.o \
              forecast.o forecast_constant.o  transition_probability.o likelihood.o \
              feature_generator.o feature.o feature_one_dimensional.o \
              contrast.o eigenwords.o tp_eigenwords.o feature_eigenwords.o maximum_likelihood.o \
-             train_forecast_linear.o forecast_linear.o row.o value_of_forecasts.o tokenize.o sample.o \
+             train_forecast_linear.o forecast_linear.o row.o value_of_forecasts.o tokenize.o learn.o \
              feature_interaction.o
 
-sample.output: sample.main
-	./sample.main | tee sample.output
-	cat sample.output
+learn.output: learn.main
+	./learn.main | tee learn.output
+	cat learn.output
 
-sample.output.10k: sample.main eng_only.10k pretty.csv
+learn.output.10k: learn.main eng_only.10k pretty.csv
 	./$^ |tee $@
 
-sample.output.all: sample.main eng_only pretty.csv
+learn.output.all: learn.main eng_only pretty.csv
 	./$^ |tee $@
 
 

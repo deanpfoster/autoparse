@@ -1,7 +1,7 @@
 // -*- c++ -*-
 
 
-#include "sample.h"
+#include "learn.h"
 #include "assert.h"
 #include <iostream>
 #include "feature_interaction.h"

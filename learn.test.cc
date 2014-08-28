@@ -1,13 +1,13 @@
 //   -*- c++ -*-
 
-#include "sample.h"
+#include "learn.h"
 
 #define REPRODUCIBLE
 #include "utilities/z.Template.h"
 
 
 int
-main(int argc,char** argv)
+main()
 {
   time_t start_time = time(0);  // used for timing 
   std::ostream& debugging(std::cout);
@@ -19,19 +19,8 @@ main(int argc,char** argv)
 
   std::string sentence_file = "sample_corpus";
   std::string eigen_file = "pretty_5_c_sample.csv";
-  std::string latex_file = "sample.output.tex";
+  std::string latex_file = "learn.output.tex";
   int gram_number = 5;
-  if(argc >= 3)
-    {
-      sentence_file = argv[1];
-      eigen_file = argv[2];
-      gram_number = 3;  // this is a guess
-    }
-  if(argc == 4)
-    latex_file = argv[3];
-  debugging << "  sentence = " << sentence_file << std::endl;
-  debugging << "eigenwords = " << eigen_file << std::endl;
-  debugging << "     latex = " << latex_file << std::endl;
   std::ofstream latex(latex_file);
   auto_parse::latex_header(latex);
       

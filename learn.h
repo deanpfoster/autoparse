@@ -1,13 +1,11 @@
 // -*- c++ -*-
 
-#ifndef INCLUDED_SAMPLE
-#define INCLUDED_SAMPLE
+#ifndef INCLUDED_LEARN
+#define INCLUDED_LEARN
 
 #include <iostream>
 #include <assert.h>
 #include <fstream>
-
-#include "sample.h"
 
 #include "model.h"
 #include "likelihood.h"
