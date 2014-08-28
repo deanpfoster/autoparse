@@ -1,1841 +1,1556 @@
-Read a dictionary of size: 100 x 30 (time 0 sec)
+Read a dictionary of size: 100 x 30
   0    Training
-  0    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  0    MLE
+  0    Trained on 89 sentence.    number threads = 1.  0    MLE
   0    Likelihood model:
 	Eigenword with transition matrix.
-	max = 24.0177
-	min = 3.30502e-08
-	mean= 0.80003
-	 sd = 4.30818
+	max = 1.66348
+	min = 1.46867e-06
+	mean= 0.0329964
+	 sd = 0.189893
 	Eigenword with transition matrix.
-	max = 29.2093
-	min = 1.41473e-05
-	mean= 0.800077
-	 sd = 4.35881
+	max = 10.662
+	min = 1.23322e-05
+	mean= 0.0384886
+	 sd = 0.653062
 
-  0     (time 0 sec)
-  0     * * * * 129.938 * * * * 
-  0     (time 0 sec)
+  0     * * * * 154.407 * * * * 
   1    Training
-auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
-  1    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  1    MLE
+  1    Trained on 89 sentence.    number threads = 1.  1    MLE
   1    Likelihood model:
 	Eigenword with transition matrix.
-	max = 25.6637
-	min = 3.81864e-06
-	mean= 0.80099
-	 sd = 4.33184
+	max = 1.49604
+	min = 2.22512e-06
+	mean= 0.0332521
+	 sd = 0.185786
 	Eigenword with transition matrix.
-	max = 27.8002
-	min = 4.87141e-05
-	mean= 0.801219
-	 sd = 4.34475
+	max = 14.1862
+	min = 1.03466e-05
+	mean= 0.0406074
+	 sd = 0.879959
 
-  1     (time 0 sec)
-  1     * * * * 140.779 * * * * 
-  1     (time 0 sec)
+  1     * * * * 208.084 * * * * 
   2    Training
-  2    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  2    MLE
+  2    Trained on 89 sentence.    number threads = 1.  2    MLE
   2    Likelihood model:
 	Eigenword with transition matrix.
-	max = 25.1216
-	min = 3.53067e-05
-	mean= 0.797405
-	 sd = 4.32206
+	max = 2.33522
+	min = 1.96136e-06
+	mean= 0.0356553
+	 sd = 0.208126
 	Eigenword with transition matrix.
-	max = 35.7058
-	min = 1.75339e-05
-	mean= 0.810432
-	 sd = 4.44752
+	max = 11.7966
+	min = 0.000448527
+	mean= 0.0359623
+	 sd = 0.793396
 
-  2     (time 0 sec)
-  2     * * * * 251.181 * * * * 
-  2     (time 0 sec)
+  2     * * * * 175.092 * * * * 
   3    Training
-auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
-auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
-auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
-  3    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  3    MLE
+  3    Trained on 89 sentence.    number threads = 1.  3    MLE
   3    Likelihood model:
 	Eigenword with transition matrix.
-	max = 24
-	min = 0
-	mean= 0.8
-	 sd = 4.30813
+	max = 2.64976
+	min = 1.51396e-05
+	mean= 0.0322283
+	 sd = 0.232124
 	Eigenword with transition matrix.
-	max = 32.993
-	min = 0.000301787
-	mean= 0.804001
-	 sd = 4.41007
+	max = 11.7966
+	min = 3.51757e-06
+	mean= 0.0415419
+	 sd = 0.693728
 
-  3     (time 0 sec)
-  3     * * * * 204.152 * * * * 
-  3     (time 0 sec)
+  3     * * * * 179.391 * * * * 
   4    Training
-  4    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  4    MLE
+  4    Trained on 89 sentence.    number threads = 1.  4    MLE
   4    Likelihood model:
 	Eigenword with transition matrix.
-	max = 26.6467
-	min = 8.23484e-06
-	mean= 0.80116
-	 sd = 4.33965
+	max = 2.65695
+	min = 7.08233e-06
+	mean= 0.033009
+	 sd = 0.279785
 	Eigenword with transition matrix.
-	max = 25.0426
-	min = 1.71847e-05
-	mean= 0.800737
-	 sd = 4.31702
+	max = 9.20181
+	min = 0.000229136
+	mean= 0.0400783
+	 sd = 0.567804
 
-  4     (time 0 sec)
-  4     * * * * 108.729 * * * * 
-  4     (time 0 sec)
+  4     * * * * 138.735 * * * * 
   5    Training
-auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
-  5    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  5    MLE
+  5    Trained on 89 sentence.    number threads = 1.  5    MLE
   5    Likelihood model:
 	Eigenword with transition matrix.
-	max = 24.6565
-	min = 2.35374e-06
-	mean= 0.8002
-	 sd = 4.31293
+	max = 2.29562
+	min = 1.32846e-05
+	mean= 0.0325868
+	 sd = 0.218529
 	Eigenword with transition matrix.
-	max = 34.5518
-	min = 2.94847e-05
-	mean= 0.805024
-	 sd = 4.43414
+	max = 3.69198
+	min = 5.35406e-05
+	mean= 0.0324937
+	 sd = 0.265882
 
-  5     (time 0 sec)
-  5     * * * * 222.984 * * * * 
-  5     (time 0 sec)
+  5     * * * * 55.2457 * * * * 
   6    Training
-  6    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  6    MLE
+auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
+auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
+  6    Trained on 89 sentence.    number threads = 1.  6    MLE
   6    Likelihood model:
 	Eigenword with transition matrix.
-	max = 25.6836
-	min = 2.65578e-05
-	mean= 0.801321
-	 sd = 4.32257
+	max = 4.41516
+	min = 3.54795e-06
+	mean= 0.034744
+	 sd = 0.306573
 	Eigenword with transition matrix.
-	max = 36.709
-	min = 3.89855e-06
-	mean= 0.800265
-	 sd = 4.48013
+	max = 2.603
+	min = 3.62993e-06
+	mean= 0.0355275
+	 sd = 0.238969
 
-  6     (time 0 sec)
-  6     * * * * 257.211 * * * * 
-  6     (time 0 sec)
+  6     * * * * 62.9694 * * * * 
   7    Training
-  7    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  7    MLE
+  7    Trained on 89 sentence.    number threads = 1.  7    MLE
   7    Likelihood model:
 	Eigenword with transition matrix.
-	max = 25.8213
-	min = 1.46632e-05
-	mean= 0.800783
-	 sd = 4.32186
+	max = 2.79789
+	min = 4.32954e-06
+	mean= 0.0315066
+	 sd = 0.257009
 	Eigenword with transition matrix.
-	max = 27.1795
-	min = 1.89342e-05
-	mean= 0.800045
-	 sd = 4.35368
+	max = 2.60603
+	min = 5.21781e-05
+	mean= 0.0350492
+	 sd = 0.227627
 
-  7     (time 0 sec)
-  7     * * * * 114.148 * * * * 
-  7     (time 0 sec)
+  7     * * * * 58.0923 * * * * 
   8    Training
-  8    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  8    MLE
+  8    Trained on 89 sentence.    number threads = 1.  8    MLE
   8    Likelihood model:
 	Eigenword with transition matrix.
-	max = 25.0092
-	min = 8.10536e-06
-	mean= 0.799688
-	 sd = 4.31818
+	max = 2.36732
+	min = 1.47142e-05
+	mean= 0.0319301
+	 sd = 0.259807
 	Eigenword with transition matrix.
-	max = 39.6125
-	min = 1.98546e-06
-	mean= 0.806396
-	 sd = 4.53707
+	max = 3.49316
+	min = 4.81929e-07
+	mean= 0.0346178
+	 sd = 0.281231
 
-  8     (time 0 sec)
-  8     * * * * 326.341 * * * * 
-  8     (time 0 sec)
+  8     * * * * 68.53 * * * * 
   9    Training
-  9    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  9    MLE
+  9    Trained on 89 sentence.    number threads = 1.  9    MLE
   9    Likelihood model:
 	Eigenword with transition matrix.
-	max = 24.8295
-	min = 3.93878e-06
-	mean= 0.799268
-	 sd = 4.31553
+	max = 1.09587
+	min = 5.94418e-06
+	mean= 0.0333051
+	 sd = 0.180391
 	Eigenword with transition matrix.
-	max = 32.6414
-	min = 0.000175855
-	mean= 0.794497
-	 sd = 4.42372
+	max = 5.58474
+	min = 1.72249e-05
+	mean= 0.0330328
+	 sd = 0.357308
 
-  9     (time 0 sec)
-  9     * * * * 192.28 * * * * 
-  9     (time 0 sec)
+  9     * * * * 80.3536 * * * * 
   10    Training
-  10    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  10    MLE
+  10    Trained on 89 sentence.    number threads = 1.  10    MLE
   10    Likelihood model:
 	Eigenword with transition matrix.
-	max = 26.4117
-	min = 2.1669e-05
-	mean= 0.801325
-	 sd = 4.34878
+	max = 3.495
+	min = 2.30769e-05
+	mean= 0.0357606
+	 sd = 0.275617
 	Eigenword with transition matrix.
-	max = 32.4324
-	min = 0.000124806
-	mean= 0.806079
-	 sd = 4.39907
+	max = 11.8017
+	min = 2.04239e-05
+	mean= 0.0375944
+	 sd = 0.7757
 
-  10     (time 0 sec)
-  10     * * * * 221.609 * * * * 
-  10     (time 0 sec)
+  10     * * * * 194.886 * * * * 
   11    Training
-  11    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  11    MLE
+  11    Trained on 89 sentence.    number threads = 1.  11    MLE
   11    Likelihood model:
 	Eigenword with transition matrix.
-	max = 24.1608
-	min = 4.16227e-07
-	mean= 0.799823
-	 sd = 4.30939
+	max = 1.79931
+	min = 5.09252e-07
+	mean= 0.035091
+	 sd = 0.194223
 	Eigenword with transition matrix.
-	max = 42.8942
-	min = 0.000122107
-	mean= 0.8079
-	 sd = 4.60503
+	max = 14.5601
+	min = 1.88275e-06
+	mean= 0.0336211
+	 sd = 0.934873
 
-  11     (time 0 sec)
-  11     * * * * 350.834 * * * * 
-  11     (time 0 sec)
+  11     * * * * 236.575 * * * * 
   12    Training
-  12    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  12    MLE
+  12    Trained on 89 sentence.    number threads = 1.  12    MLE
   12    Likelihood model:
 	Eigenword with transition matrix.
-	max = 26.6415
-	min = 3.35535e-05
-	mean= 0.798699
-	 sd = 4.33988
+	max = 1
+	min = 0
+	mean= 0.0333333
+	 sd = 0.179505
 	Eigenword with transition matrix.
-	max = 25.0012
-	min = 2.51319e-05
-	mean= 0.800164
-	 sd = 4.31727
+	max = 9.185
+	min = 6.98507e-05
+	mean= 0.0348193
+	 sd = 0.569342
 
-  12     (time 0 sec)
-  12     * * * * 102.476 * * * * 
-  12     (time 0 sec)
+  12     * * * * 132.723 * * * * 
   13    Training
-  13    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  13    MLE
+  13    Trained on 89 sentence.    number threads = 1.  13    MLE
   13    Likelihood model:
 	Eigenword with transition matrix.
-	max = 26.8187
-	min = 5.40029e-05
-	mean= 0.797988
-	 sd = 4.33429
+	max = 3.71993
+	min = 1.23125e-05
+	mean= 0.0346323
+	 sd = 0.275401
 	Eigenword with transition matrix.
-	max = 24.664
-	min = 3.29431e-06
-	mean= 0.800581
-	 sd = 4.31724
+	max = 2.59931
+	min = 4.49014e-06
+	mean= 0.0340491
+	 sd = 0.209301
 
-  13     (time 0 sec)
-  13     * * * * 104.915 * * * * 
-  13     (time 0 sec)
+  13     * * * * 56.5385 * * * * 
   14    Training
-  14    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  14    MLE
+  14    Trained on 89 sentence.    number threads = 1.  14    MLE
   14    Likelihood model:
 	Eigenword with transition matrix.
-	max = 24.1313
-	min = 6.92839e-07
-	mean= 0.800015
-	 sd = 4.30957
+	max = 3.70927
+	min = 1.84341e-05
+	mean= 0.0348236
+	 sd = 0.256293
 	Eigenword with transition matrix.
-	max = 28.6634
-	min = 1.71492e-05
-	mean= 0.803758
-	 sd = 4.35351
+	max = 4.88295
+	min = 2.37747e-06
+	mean= 0.0340009
+	 sd = 0.314339
 
-  14     (time 0 sec)
-  14     * * * * 116.356 * * * * 
-  14     (time 0 sec)
+  14     * * * * 79.2852 * * * * 
   15    Training
-  15    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  15    MLE
+  15    Trained on 89 sentence.    number threads = 1.  15    MLE
   15    Likelihood model:
 	Eigenword with transition matrix.
-	max = 24.1738
-	min = 5.21141e-07
-	mean= 0.799911
-	 sd = 4.30964
+	max = 1.2068
+	min = 6.24802e-06
+	mean= 0.0321843
+	 sd = 0.18333
 	Eigenword with transition matrix.
-	max = 37.9046
-	min = 5.35452e-05
-	mean= 0.799511
-	 sd = 4.50529
+	max = 6.62802
+	min = 0.000132133
+	mean= 0.0377684
+	 sd = 0.411256
 
-  15     (time 0 sec)
-  15     * * * * 282.282 * * * * 
-  15     (time 0 sec)
+  15     * * * * 91.8993 * * * * 
   16    Training
 auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
-  16    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  16    MLE
+auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
+  16    Trained on 89 sentence.    number threads = 1.  16    MLE
   16    Likelihood model:
 	Eigenword with transition matrix.
-	max = 24
+	max = 1
 	min = 0
-	mean= 0.8
-	 sd = 4.30813
+	mean= 0.0333333
+	 sd = 0.179505
 	Eigenword with transition matrix.
-	max = 43.2585
+	max = 20.2585
 	min = 0.000114455
-	mean= 0.807867
-	 sd = 4.61313
+	mean= 0.0412007
+	 sd = 1.25506
 
-  16     (time 0 sec)
-  16     * * * * 376.867 * * * * 
-  16     (time 0 sec)
+  16     * * * * 324.279 * * * * 
   17    Training
-  17    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  17    MLE
+  17    Trained on 89 sentence.    number threads = 1.  17    MLE
   17    Likelihood model:
 	Eigenword with transition matrix.
-	max = 24.1281
-	min = 2.95369e-07
-	mean= 0.800081
-	 sd = 4.3092
+	max = 1.4194
+	min = 1.3775e-05
+	mean= 0.0340742
+	 sd = 0.19241
 	Eigenword with transition matrix.
-	max = 27.8983
-	min = 3.92974e-05
-	mean= 0.800113
-	 sd = 4.35001
+	max = 8.76476
+	min = 3.39125e-05
+	mean= 0.0384429
+	 sd = 0.501314
 
-  17     (time 0 sec)
-  17     * * * * 116.219 * * * * 
-  17     (time 0 sec)
+  17     * * * * 120.66 * * * * 
   18    Training
-  18    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  18    MLE
+  18    Trained on 89 sentence.    number threads = 1.  18    MLE
   18    Likelihood model:
 	Eigenword with transition matrix.
-	max = 25.7322
-	min = 3.82588e-05
-	mean= 0.797257
-	 sd = 4.32837
+	max = 1
+	min = 0
+	mean= 0.0333333
+	 sd = 0.179505
 	Eigenword with transition matrix.
-	max = 25.7897
-	min = 1.15184e-05
-	mean= 0.79948
-	 sd = 4.32333
+	max = 18.4825
+	min = 1.06919e-05
+	mean= 0.0371641
+	 sd = 1.15241
 
-  18     (time 0 sec)
-  18     * * * * 92.8145 * * * * 
-  18     (time 0 sec)
+  18     * * * * 295.53 * * * * 
   19    Training
-auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
-  19    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  19    MLE
+  19    Trained on 89 sentence.    number threads = 1.  19    MLE
   19    Likelihood model:
 	Eigenword with transition matrix.
-	max = 25.5752
-	min = 4.59912e-06
-	mean= 0.800376
-	 sd = 4.3244
+	max = 3.62335
+	min = 2.22743e-05
+	mean= 0.0305508
+	 sd = 0.271992
 	Eigenword with transition matrix.
-	max = 26.5541
-	min = 5.02373e-05
-	mean= 0.798786
-	 sd = 4.34207
+	max = 2.68035
+	min = 1.3431e-05
+	mean= 0.0337199
+	 sd = 0.220297
 
-  19     (time 0 sec)
-  19     * * * * 106.32 * * * * 
-  19     (time 0 sec)
+  19     * * * * 59.6248 * * * * 
   20    Training
-  20    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  20    MLE
+  20    Trained on 89 sentence.    number threads = 1.  20    MLE
   20    Likelihood model:
 	Eigenword with transition matrix.
-	max = 27.4457
-	min = 8.86125e-05
-	mean= 0.801621
-	 sd = 4.34829
+	max = 1.88947
+	min = 8.82145e-06
+	mean= 0.0350387
+	 sd = 0.196443
 	Eigenword with transition matrix.
-	max = 24.0881
-	min = 5.2173e-06
-	mean= 0.800489
-	 sd = 4.3092
+	max = 4.3563
+	min = 6.59407e-05
+	mean= 0.0341863
+	 sd = 0.359496
 
-  20     (time 0 sec)
-  20     * * * * 107.958 * * * * 
-  20     (time 0 sec)
+  20     * * * * 77.7312 * * * * 
   21    Training
-auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
-auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
-auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
-  21    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  21    MLE
+  21    Trained on 89 sentence.    number threads = 1.  21    MLE
   21    Likelihood model:
 	Eigenword with transition matrix.
-	max = 24
-	min = 0
-	mean= 0.8
-	 sd = 4.30813
+	max = 1.69252
+	min = 6.84506e-06
+	mean= 0.0335577
+	 sd = 0.187524
 	Eigenword with transition matrix.
-	max = 42.2746
-	min = 5.98482e-06
-	mean= 0.807071
-	 sd = 4.59402
+	max = 7.50261
+	min = 5.89863e-05
+	mean= 0.0341206
+	 sd = 0.44834
 
-  21     (time 0 sec)
-  21     * * * * 349.625 * * * * 
-  21     (time 0 sec)
+  21     * * * * 108.396 * * * * 
   22    Training
-  22    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  22    MLE
+auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
+auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
+auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
+auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
+  22    Trained on 89 sentence.    number threads = 1.  22    MLE
   22    Likelihood model:
 	Eigenword with transition matrix.
-	max = 24.5903
-	min = 1.65841e-05
-	mean= 0.800791
-	 sd = 4.31236
+	max = 1
+	min = 0
+	mean= 0.0333333
+	 sd = 0.179505
 	Eigenword with transition matrix.
-	max = 38.6401
-	min = 2.1025e-05
-	mean= 0.804715
-	 sd = 4.51551
+	max = 20.2585
+	min = 0.000114455
+	mean= 0.0412007
+	 sd = 1.25506
 
-  22     (time 0 sec)
-  22     * * * * 313.875 * * * * 
-  22     (time 0 sec)
+  22     * * * * 324.279 * * * * 
   23    Training
 auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
-  23    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  23    MLE
+  23    Trained on 89 sentence.    number threads = 1.  23    MLE
   23    Likelihood model:
 	Eigenword with transition matrix.
-	max = 24.4592
-	min = 4.02488e-06
-	mean= 0.803017
-	 sd = 4.3146
+	max = 1
+	min = 0
+	mean= 0.0333333
+	 sd = 0.179505
 	Eigenword with transition matrix.
-	max = 29.3237
-	min = 3.25853e-06
-	mean= 0.797836
-	 sd = 4.36211
+	max = 15.9978
+	min = 8.75098e-05
+	mean= 0.0376181
+	 sd = 1.00765
 
-  23     (time 0 sec)
-  23     * * * * 149.223 * * * * 
-  23     (time 0 sec)
+  23     * * * * 257.353 * * * * 
   24    Training
-  24    Trained on 89 sentence.    number threads = 24. (time 1 sec)
-  24    MLE
+auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
+auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
+auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
+auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
+  24    Trained on 89 sentence.    number threads = 1.  24    MLE
   24    Likelihood model:
 	Eigenword with transition matrix.
-	max = 24
+	max = 1
 	min = 0
-	mean= 0.8
-	 sd = 4.30813
+	mean= 0.0333333
+	 sd = 0.179505
 	Eigenword with transition matrix.
-	max = 37.58
-	min = 0.000238662
-	mean= 0.800664
-	 sd = 4.49481
+	max = 20.2585
+	min = 0.000114455
+	mean= 0.0412007
+	 sd = 1.25506
 
-  24     (time 0 sec)
-  24     * * * * 282.866 * * * * 
-  24     (time 0 sec)
+  24     * * * * 324.279 * * * * 
   25    Training
-auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
-auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
-auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
-auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
-  25    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  25    MLE
+  25    Trained on 89 sentence.    number threads = 1.  25    MLE
   25    Likelihood model:
 	Eigenword with transition matrix.
-	max = 24
-	min = 0
-	mean= 0.8
-	 sd = 4.30813
+	max = 1.21393
+	min = 4.06802e-06
+	mean= 0.0335006
+	 sd = 0.181698
 	Eigenword with transition matrix.
-	max = 43.2585
-	min = 0.000114455
-	mean= 0.807867
-	 sd = 4.61313
+	max = 10.5788
+	min = 0.00014597
+	mean= 0.0353482
+	 sd = 0.682363
 
-  25     (time 0 sec)
-  25     * * * * 372.891 * * * * 
-  25     (time 0 sec)
+  25     * * * * 165.027 * * * * 
   26    Training
-  26    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  26    MLE
+  26    Trained on 89 sentence.    number threads = 1.  26    MLE
   26    Likelihood model:
 	Eigenword with transition matrix.
-	max = 24.2489
-	min = 2.9459e-06
-	mean= 0.798711
-	 sd = 4.31204
+	max = 2.52705
+	min = 4.65171e-05
+	mean= 0.0341169
+	 sd = 0.212963
 	Eigenword with transition matrix.
-	max = 35.695
-	min = 0.000184253
-	mean= 0.803176
-	 sd = 4.45421
+	max = 4.13313
+	min = 0.000119925
+	mean= 0.0326495
+	 sd = 0.309834
 
-  26     (time 0 sec)
-  26     * * * * 262.446 * * * * 
-  26     (time 0 sec)
+  26     * * * * 67.6279 * * * * 
   27    Training
-  27    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  27    MLE
+  27    Trained on 89 sentence.    number threads = 1.  27    MLE
   27    Likelihood model:
 	Eigenword with transition matrix.
-	max = 27.0523
-	min = 1.58152e-06
-	mean= 0.802573
-	 sd = 4.34288
+	max = 1.15732
+	min = 2.29534e-06
+	mean= 0.0335051
+	 sd = 0.18104
 	Eigenword with transition matrix.
-	max = 26.3906
-	min = 5.14534e-07
-	mean= 0.79948
-	 sd = 4.32667
+	max = 17.9543
+	min = 8.40366e-06
+	mean= 0.0377135
+	 sd = 1.10985
 
-  27     (time 0 sec)
-  27     * * * * 122.821 * * * * 
-  27     (time 0 sec)
+  27     * * * * 286.687 * * * * 
   28    Training
-  28    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  28    MLE
+  28    Trained on 89 sentence.    number threads = 1.  28    MLE
   28    Likelihood model:
 	Eigenword with transition matrix.
-	max = 24.2929
-	min = 8.66709e-07
-	mean= 0.799954
-	 sd = 4.31113
+	max = 2.87821
+	min = 2.66318e-05
+	mean= 0.034796
+	 sd = 0.238805
 	Eigenword with transition matrix.
-	max = 34.5702
-	min = 0.000148219
-	mean= 0.807175
-	 sd = 4.43323
+	max = 2.85557
+	min = 9.45439e-07
+	mean= 0.0327405
+	 sd = 0.230508
 
-  28     (time 0 sec)
-  28     * * * * 229.831 * * * * 
-  28     (time 0 sec)
+  28     * * * * 50.7047 * * * * 
   29    Training
-  29    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  29    MLE
+  29    Trained on 89 sentence.    number threads = 1.  29    MLE
   29    Likelihood model:
 	Eigenword with transition matrix.
-	max = 24.0656
-	min = 5.62899e-07
-	mean= 0.799991
-	 sd = 4.30858
+	max = 1.2245
+	min = 3.22397e-06
+	mean= 0.0343936
+	 sd = 0.184222
 	Eigenword with transition matrix.
-	max = 37.2707
-	min = 1.93467e-05
-	mean= 0.803782
-	 sd = 4.48924
+	max = 17.9669
+	min = 4.52638e-07
+	mean= 0.0408182
+	 sd = 1.07726
 
-  29     (time 0 sec)
-  29     * * * * 252.324 * * * * 
-  29     (time 0 sec)
+  29     * * * * 282.72 * * * * 
   30    Training
-  30    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  30    MLE
+  30    Trained on 89 sentence.    number threads = 1.  30    MLE
   30    Likelihood model:
 	Eigenword with transition matrix.
-	max = 26.4385
-	min = 6.78928e-05
-	mean= 0.798775
-	 sd = 4.33241
+	max = 1.61505
+	min = 1.41193e-05
+	mean= 0.0338878
+	 sd = 0.188632
 	Eigenword with transition matrix.
-	max = 31.1558
-	min = 6.33911e-05
-	mean= 0.805307
-	 sd = 4.38914
+	max = 12.5143
+	min = 9.38415e-06
+	mean= 0.0317176
+	 sd = 0.787355
 
-  30     (time 0 sec)
-  30     * * * * 187.935 * * * * 
-  30     (time 0 sec)
+  30     * * * * 194.565 * * * * 
   31    Training
-  31    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  31    MLE
+auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
+auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
+auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
+  31    Trained on 89 sentence.    number threads = 1.  31    MLE
   31    Likelihood model:
 	Eigenword with transition matrix.
-	max = 26.0206
-	min = 8.71136e-05
-	mean= 0.801694
-	 sd = 4.32966
+	max = 1
+	min = 0
+	mean= 0.0333333
+	 sd = 0.179505
 	Eigenword with transition matrix.
-	max = 26.3999
-	min = 1.51633e-05
-	mean= 0.80037
-	 sd = 4.33081
+	max = 12.7872
+	min = 0.000104185
+	mean= 0.0387417
+	 sd = 0.796983
 
-  31     (time 0 sec)
-  31     * * * * 116.128 * * * * 
-  31     (time 0 sec)
+  31     * * * * 203.273 * * * * 
   32    Training
 auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
-auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
-  32    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  32    MLE
+  32    Trained on 89 sentence.    number threads = 1.  32    MLE
   32    Likelihood model:
 	Eigenword with transition matrix.
-	max = 24
-	min = 0
-	mean= 0.8
-	 sd = 4.30813
+	max = 2.69201
+	min = 2.39045e-06
+	mean= 0.0299982
+	 sd = 0.22782
 	Eigenword with transition matrix.
-	max = 34.7197
-	min = 1.63141e-05
-	mean= 0.804522
-	 sd = 4.43217
+	max = 3.18991
+	min = 2.13136e-07
+	mean= 0.0329138
+	 sd = 0.247172
 
-  32     (time 0 sec)
-  32     * * * * 232.301 * * * * 
-  32     (time 0 sec)
+  32     * * * * 54.045 * * * * 
   33    Training
-  33    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  33    MLE
+auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
+  33    Trained on 89 sentence.    number threads = 1.  33    MLE
   33    Likelihood model:
 	Eigenword with transition matrix.
-	max = 25.6593
-	min = 3.01499e-05
-	mean= 0.806282
-	 sd = 4.33211
+	max = 2.70355
+	min = 2.57792e-06
+	mean= 0.0318901
+	 sd = 0.271714
 	Eigenword with transition matrix.
-	max = 25.8464
-	min = 9.86217e-06
-	mean= 0.798975
-	 sd = 4.32465
+	max = 3.12293
+	min = 1.26442e-05
+	mean= 0.0338644
+	 sd = 0.2307
 
-  33     (time 0 sec)
-  33     * * * * 105.944 * * * * 
-  33     (time 0 sec)
+  33     * * * * 56.1918 * * * * 
   34    Training
-  34    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  34    MLE
+  34    Trained on 89 sentence.    number threads = 1.  34    MLE
   34    Likelihood model:
 	Eigenword with transition matrix.
-	max = 25.8562
-	min = 9.19204e-05
-	mean= 0.799423
-	 sd = 4.32771
+	max = 2.43336
+	min = 9.33581e-06
+	mean= 0.0319717
+	 sd = 0.22053
 	Eigenword with transition matrix.
-	max = 30.886
-	min = 1.18178e-05
-	mean= 0.802829
-	 sd = 4.38232
+	max = 3.30752
+	min = 9.51618e-05
+	mean= 0.0337371
+	 sd = 0.237166
 
-  34     (time 0 sec)
-  34     * * * * 172.287 * * * * 
-  34     (time 0 sec)
+  34     * * * * 46.6625 * * * * 
   35    Training
-  35    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  35    MLE
+  35    Trained on 89 sentence.    number threads = 1.  35    MLE
   35    Likelihood model:
 	Eigenword with transition matrix.
-	max = 24
-	min = 0
-	mean= 0.8
-	 sd = 4.30813
+	max = 2.6492
+	min = 2.49655e-05
+	mean= 0.0368097
+	 sd = 0.212748
 	Eigenword with transition matrix.
-	max = 40.1186
-	min = 6.02183e-06
-	mean= 0.807351
-	 sd = 4.54814
+	max = 5.37947
+	min = 2.14737e-05
+	mean= 0.0328024
+	 sd = 0.355565
 
-  35     (time 0 sec)
-  35     * * * * 323.787 * * * * 
-  35     (time 0 sec)
+  35     * * * * 84.1226 * * * * 
   36    Training
-  36    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  36    MLE
+  36    Trained on 89 sentence.    number threads = 1.  36    MLE
   36    Likelihood model:
 	Eigenword with transition matrix.
-	max = 25.1883
-	min = 4.41124e-05
-	mean= 0.802293
-	 sd = 4.32435
+	max = 2.96715
+	min = 5.53279e-06
+	mean= 0.0320109
+	 sd = 0.228451
 	Eigenword with transition matrix.
-	max = 31.605
-	min = 3.26167e-05
-	mean= 0.799273
-	 sd = 4.38653
+	max = 4.02958
+	min = 4.68642e-05
+	mean= 0.034517
+	 sd = 0.280996
 
-  36     (time 0 sec)
-  36     * * * * 181.618 * * * * 
-  36     (time 0 sec)
+  36     * * * * 62.3642 * * * * 
   37    Training
-  37    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  37    MLE
+  37    Trained on 89 sentence.    number threads = 1.  37    MLE
   37    Likelihood model:
 	Eigenword with transition matrix.
-	max = 26.4475
-	min = 3.94351e-05
-	mean= 0.796093
-	 sd = 4.32982
+	max = 3.19572
+	min = 4.14832e-05
+	mean= 0.0337888
+	 sd = 0.278664
 	Eigenword with transition matrix.
-	max = 31.4513
-	min = 9.40196e-05
-	mean= 0.802098
-	 sd = 4.40047
+	max = 4.18841
+	min = 6.17219e-06
+	mean= 0.0327189
+	 sd = 0.303879
 
-  37     (time 0 sec)
-  37     * * * * 193.098 * * * * 
-  37     (time 0 sec)
+  37     * * * * 71.241 * * * * 
   38    Training
-auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
-auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
-auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
-auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
-  38    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  38    MLE
+  38    Trained on 89 sentence.    number threads = 1.  38    MLE
   38    Likelihood model:
 	Eigenword with transition matrix.
-	max = 24
-	min = 0
-	mean= 0.8
-	 sd = 4.30813
+	max = 2.57912
+	min = 9.09375e-06
+	mean= 0.0339877
+	 sd = 0.253879
 	Eigenword with transition matrix.
-	max = 43.2585
-	min = 0.000114455
-	mean= 0.807867
-	 sd = 4.61313
+	max = 3.336
+	min = 3.09186e-06
+	mean= 0.0326866
+	 sd = 0.244713
 
-  38     (time 0 sec)
-  38     * * * * 380.082 * * * * 
-  38     (time 0 sec)
+  38     * * * * 58.3611 * * * * 
   39    Training
-  39    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  39    MLE
+  39    Trained on 89 sentence.    number threads = 1.  39    MLE
   39    Likelihood model:
 	Eigenword with transition matrix.
-	max = 24.9261
-	min = 2.76473e-05
-	mean= 0.797665
-	 sd = 4.31711
+	max = 1.72632
+	min = 7.41504e-06
+	mean= 0.0327379
+	 sd = 0.189653
 	Eigenword with transition matrix.
-	max = 31.3114
-	min = 5.12362e-05
-	mean= 0.803016
-	 sd = 4.38997
+	max = 6.24457
+	min = 1.80235e-05
+	mean= 0.0348216
+	 sd = 0.383646
 
-  39     (time 0 sec)
-  39     * * * * 166.34 * * * * 
-  39     (time 0 sec)
+  39     * * * * 85.1763 * * * * 
   40    Training
-  40    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  40    MLE
+  40    Trained on 89 sentence.    number threads = 1.  40    MLE
   40    Likelihood model:
 	Eigenword with transition matrix.
-	max = 24.2791
-	min = 8.54246e-07
-	mean= 0.800016
-	 sd = 4.31086
+	max = 2.73935
+	min = 1.25073e-05
+	mean= 0.0343296
+	 sd = 0.231558
 	Eigenword with transition matrix.
-	max = 41.2618
-	min = 0.000119677
-	mean= 0.806663
-	 sd = 4.57039
+	max = 4.61996
+	min = 0.000116403
+	mean= 0.0338842
+	 sd = 0.295916
 
-  40     (time 0 sec)
-  40     * * * * 329.531 * * * * 
-  40     (time 0 sec)
+  40     * * * * 67.4618 * * * * 
   41    Training
-  41    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  41    MLE
+  41    Trained on 89 sentence.    number threads = 1.  41    MLE
   41    Likelihood model:
 	Eigenword with transition matrix.
-	max = 26.1736
-	min = 1.75173e-05
-	mean= 0.797754
-	 sd = 4.33027
+	max = 3.768
+	min = 1.49278e-05
+	mean= 0.0315228
+	 sd = 0.316433
 	Eigenword with transition matrix.
-	max = 25.5631
-	min = 1.1489e-05
-	mean= 0.799904
-	 sd = 4.32318
+	max = 2.50122
+	min = 2.23067e-05
+	mean= 0.0338174
+	 sd = 0.218998
 
-  41     (time 0 sec)
-  41     * * * * 102.291 * * * * 
-  41     (time 0 sec)
+  41     * * * * 62.5795 * * * * 
   42    Training
-  42    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  42    MLE
+  42    Trained on 89 sentence.    number threads = 1.  42    MLE
   42    Likelihood model:
 	Eigenword with transition matrix.
-	max = 26.0273
-	min = 1.32239e-05
-	mean= 0.801903
-	 sd = 4.32779
+	max = 2.86847
+	min = 7.51163e-07
+	mean= 0.0344708
+	 sd = 0.223007
 	Eigenword with transition matrix.
-	max = 39.871
-	min = 2.87515e-05
-	mean= 0.805587
-	 sd = 4.54013
+	max = 2.9877
+	min = 5.0904e-05
+	mean= 0.0333422
+	 sd = 0.235125
 
-  42     (time 0 sec)
-  42     * * * * 327.459 * * * * 
-  42     (time 0 sec)
+  42     * * * * 47.6703 * * * * 
   43    Training
-  43    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  43    MLE
+  43    Trained on 89 sentence.    number threads = 1.  43    MLE
   43    Likelihood model:
 	Eigenword with transition matrix.
-	max = 24.9622
-	min = 2.63249e-05
-	mean= 0.802727
-	 sd = 4.31617
+	max = 1.05918
+	min = 2.46375e-07
+	mean= 0.0334504
+	 sd = 0.180076
 	Eigenword with transition matrix.
-	max = 37.4394
-	min = 9.55409e-06
-	mean= 0.800722
-	 sd = 4.50728
+	max = 10.1393
+	min = 1.46249e-05
+	mean= 0.0423399
+	 sd = 0.623555
 
-  43     (time 0 sec)
-  43     * * * * 258.847 * * * * 
-  43     (time 0 sec)
+  43     * * * * 153.519 * * * * 
   44    Training
-  44    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  44    MLE
+  44    Trained on 89 sentence.    number threads = 1.  44    MLE
   44    Likelihood model:
 	Eigenword with transition matrix.
-	max = 25.4648
-	min = 6.79734e-06
-	mean= 0.799717
-	 sd = 4.32341
+	max = 2.55543
+	min = 4.7156e-05
+	mean= 0.0324041
+	 sd = 0.219984
 	Eigenword with transition matrix.
-	max = 30.2915
-	min = 1.11646e-05
-	mean= 0.801687
-	 sd = 4.37075
+	max = 6.78396
+	min = 1.17463e-05
+	mean= 0.0384241
+	 sd = 0.447538
 
-  44     (time 0 sec)
-  44     * * * * 162.641 * * * * 
-  44     (time 0 sec)
+  44     * * * * 105.548 * * * * 
   45    Training
-  45    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  45    MLE
+  45    Trained on 89 sentence.    number threads = 1.  45    MLE
   45    Likelihood model:
 	Eigenword with transition matrix.
-	max = 24.281
-	min = 1.24746e-06
-	mean= 0.800116
-	 sd = 4.31016
+	max = 2.0107
+	min = 1.10966e-05
+	mean= 0.0327751
+	 sd = 0.201676
 	Eigenword with transition matrix.
-	max = 40.1363
-	min = 2.96938e-05
-	mean= 0.803198
-	 sd = 4.54725
+	max = 8.71658
+	min = 6.87149e-05
+	mean= 0.0353673
+	 sd = 0.511223
 
-  45     (time 0 sec)
-  45     * * * * 326.181 * * * * 
-  45     (time 0 sec)
+  45     * * * * 123.983 * * * * 
   46    Training
-  46    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  46    MLE
+  46    Trained on 89 sentence.    number threads = 1.  46    MLE
   46    Likelihood model:
 	Eigenword with transition matrix.
-	max = 24.2454
-	min = 2.8931e-07
-	mean= 0.80027
-	 sd = 4.31409
+	max = 1.97713
+	min = 4.50039e-06
+	mean= 0.0329874
+	 sd = 0.199237
 	Eigenword with transition matrix.
-	max = 39.9404
-	min = 5.75296e-05
-	mean= 0.808746
-	 sd = 4.52816
+	max = 10.0383
+	min = 1.43165e-07
+	mean= 0.038484
+	 sd = 0.582903
 
-  46     (time 0 sec)
-  46     * * * * 312.976 * * * * 
-  46     (time 0 sec)
+  46     * * * * 138.325 * * * * 
   47    Training
-  47    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  47    MLE
+  47    Trained on 89 sentence.    number threads = 1.  47    MLE
   47    Likelihood model:
 	Eigenword with transition matrix.
-	max = 25.034
-	min = 6.43161e-06
-	mean= 0.800499
-	 sd = 4.31699
+	max = 1.8082
+	min = 4.0384e-07
+	mean= 0.033616
+	 sd = 0.190608
 	Eigenword with transition matrix.
-	max = 28.2962
-	min = 1.93826e-05
-	mean= 0.805311
-	 sd = 4.35483
+	max = 9.03423
+	min = 8.76621e-05
+	mean= 0.0399748
+	 sd = 0.53061
 
-  47     (time 0 sec)
-  47     * * * * 139.961 * * * * 
-  47     (time 0 sec)
+  47     * * * * 121.316 * * * * 
   48    Training
-  48    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  48    MLE
+auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
+  48    Trained on 89 sentence.    number threads = 1.  48    MLE
   48    Likelihood model:
 	Eigenword with transition matrix.
-	max = 27.2601
-	min = 1.46495e-05
-	mean= 0.801349
-	 sd = 4.34475
+	max = 1.23372
+	min = 2.87348e-06
+	mean= 0.0331952
+	 sd = 0.183964
 	Eigenword with transition matrix.
-	max = 24.4253
-	min = 5.25407e-07
-	mean= 0.800165
-	 sd = 4.31096
+	max = 10.3157
+	min = 1.30968e-05
+	mean= 0.0399648
+	 sd = 0.658923
 
-  48     (time 0 sec)
-  48     * * * * 110.221 * * * * 
-  48     (time 0 sec)
+  48     * * * * 157.353 * * * * 
   49    Training
-  49    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  49    MLE
+  49    Trained on 89 sentence.    number threads = 1.  49    MLE
   49    Likelihood model:
 	Eigenword with transition matrix.
-	max = 25.1858
-	min = 3.79112e-06
-	mean= 0.800645
-	 sd = 4.31848
+	max = 2.23129
+	min = 2.00469e-05
+	mean= 0.032306
+	 sd = 0.222919
 	Eigenword with transition matrix.
-	max = 26.2421
-	min = 6.26151e-05
-	mean= 0.800519
-	 sd = 4.33583
+	max = 9.52389
+	min = 2.35736e-05
+	mean= 0.0401551
+	 sd = 0.572771
 
-  49     (time 0 sec)
-  49     * * * * 100.123 * * * * 
-  49     (time 0 sec)
+  49     * * * * 141.016 * * * * 
   50    Training
-  50    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  50    MLE
+  50    Trained on 89 sentence.    number threads = 1.  50    MLE
   50    Likelihood model:
 	Eigenword with transition matrix.
-	max = 25.4804
-	min = 1.30521e-05
-	mean= 0.799351
-	 sd = 4.32039
+	max = 1.08531
+	min = 2.69501e-07
+	mean= 0.0333256
+	 sd = 0.180224
 	Eigenword with transition matrix.
-	max = 38.5364
-	min = 7.01427e-05
-	mean= 0.804154
-	 sd = 4.51321
+	max = 11.3269
+	min = 3.64605e-05
+	mean= 0.0335846
+	 sd = 0.700191
 
-  50     (time 0 sec)
-  50     * * * * 278.381 * * * * 
-  50     (time 0 sec)
+  50     * * * * 174.962 * * * * 
   51    Training
-  51    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  51    MLE
+  51    Trained on 89 sentence.    number threads = 1.  51    MLE
   51    Likelihood model:
 	Eigenword with transition matrix.
-	max = 25.6157
-	min = 8.86288e-06
-	mean= 0.798079
-	 sd = 4.32799
+	max = 1.5082
+	min = 2.91024e-05
+	mean= 0.031878
+	 sd = 0.192372
 	Eigenword with transition matrix.
-	max = 27.8758
-	min = 3.75945e-06
-	mean= 0.79932
-	 sd = 4.34301
+	max = 6.29909
+	min = 2.55274e-05
+	mean= 0.0332477
+	 sd = 0.393231
 
-  51     (time 0 sec)
-  51     * * * * 135.867 * * * * 
-  51     (time 0 sec)
+  51     * * * * 87.4923 * * * * 
   52    Training
-auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
-auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
-auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
-auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
-  52    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  52    MLE
+  52    Trained on 89 sentence.    number threads = 1.  52    MLE
   52    Likelihood model:
 	Eigenword with transition matrix.
-	max = 24
-	min = 0
-	mean= 0.8
-	 sd = 4.30813
+	max = 1.29619
+	min = 1.06251e-06
+	mean= 0.033147
+	 sd = 0.183578
 	Eigenword with transition matrix.
-	max = 43.2585
-	min = 0.000114455
-	mean= 0.807867
-	 sd = 4.61313
+	max = 14.0292
+	min = 0.000187079
+	mean= 0.0396471
+	 sd = 0.849253
 
-  52     (time 0 sec)
-  52     * * * * 364.627 * * * * 
-  52     (time 0 sec)
+  52     * * * * 208.02 * * * * 
   53    Training
 auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
-auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
-auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
-  53    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  53    MLE
+  53    Trained on 89 sentence.    number threads = 1.  53    MLE
   53    Likelihood model:
 	Eigenword with transition matrix.
-	max = 24
-	min = 0
-	mean= 0.8
-	 sd = 4.30813
+	max = 1.507
+	min = 3.03382e-08
+	mean= 0.0331902
+	 sd = 0.192453
 	Eigenword with transition matrix.
-	max = 37.8554
-	min = 3.99665e-05
-	mean= 0.807854
-	 sd = 4.48698
+	max = 4.5592
+	min = 0.000290021
+	mean= 0.0341959
+	 sd = 0.334633
 
-  53     (time 0 sec)
-  53     * * * * 282.551 * * * * 
-  53     (time 0 sec)
+  53     * * * * 72.867 * * * * 
   54    Training
-  54    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  54    MLE
+  54    Trained on 89 sentence.    number threads = 1.  54    MLE
   54    Likelihood model:
 	Eigenword with transition matrix.
-	max = 25.5501
-	min = 6.24104e-05
-	mean= 0.800938
-	 sd = 4.32207
+	max = 3.60538
+	min = 2.93371e-05
+	mean= 0.0343034
+	 sd = 0.294834
 	Eigenword with transition matrix.
-	max = 27.8141
-	min = 2.34449e-06
-	mean= 0.79873
-	 sd = 4.34777
+	max = 9.17203
+	min = 3.41089e-05
+	mean= 0.0401879
+	 sd = 0.607658
 
-  54     (time 0 sec)
-  54     * * * * 130.932 * * * * 
-  54     (time 0 sec)
+  54     * * * * 154.949 * * * * 
   55    Training
-  55    Trained on 89 sentence.    number threads = 24. (time 1 sec)
-  55    MLE
+auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
+auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
+auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
+auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
+  55    Trained on 89 sentence.    number threads = 1.  55    MLE
   55    Likelihood model:
 	Eigenword with transition matrix.
-	max = 26.1021
-	min = 9.42887e-06
-	mean= 0.801187
-	 sd = 4.33945
+	max = 1
+	min = 0
+	mean= 0.0333333
+	 sd = 0.179505
 	Eigenword with transition matrix.
-	max = 28.441
-	min = 7.19178e-05
-	mean= 0.79808
-	 sd = 4.35165
+	max = 20.2585
+	min = 0.000114455
+	mean= 0.0412007
+	 sd = 1.25506
 
-  55     (time 0 sec)
-  55     * * * * 156.044 * * * * 
-  55     (time 0 sec)
+  55     * * * * 324.279 * * * * 
   56    Training
-  56    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  56    MLE
+  56    Trained on 89 sentence.    number threads = 1.  56    MLE
   56    Likelihood model:
 	Eigenword with transition matrix.
-	max = 24.7681
-	min = 2.95132e-05
-	mean= 0.799704
-	 sd = 4.31689
+	max = 1.43408
+	min = 3.91795e-08
+	mean= 0.0333159
+	 sd = 0.186022
 	Eigenword with transition matrix.
-	max = 32.3961
-	min = 1.67986e-05
-	mean= 0.799418
-	 sd = 4.4107
+	max = 11.0193
+	min = 3.84632e-05
+	mean= 0.0364893
+	 sd = 0.715752
 
-  56     (time 0 sec)
-  56     * * * * 200.459 * * * * 
-  56     (time 0 sec)
+  56     * * * * 175.448 * * * * 
   57    Training
-  57    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  57    MLE
+auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
+  57    Trained on 89 sentence.    number threads = 1.  57    MLE
   57    Likelihood model:
 	Eigenword with transition matrix.
-	max = 26.5597
-	min = 3.98172e-05
-	mean= 0.800039
-	 sd = 4.32971
+	max = 2.45572
+	min = 1.80061e-05
+	mean= 0.0333435
+	 sd = 0.268678
 	Eigenword with transition matrix.
-	max = 24.888
-	min = 1.03962e-05
-	mean= 0.800344
-	 sd = 4.31774
+	max = 3.43254
+	min = 2.25948e-05
+	mean= 0.0282877
+	 sd = 0.277871
 
-  57     (time 0 sec)
-  57     * * * * 101.373 * * * * 
-  57     (time 0 sec)
+  57     * * * * 60.2142 * * * * 
   58    Training
-  58    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  58    MLE
+  58    Trained on 89 sentence.    number threads = 1.  58    MLE
   58    Likelihood model:
 	Eigenword with transition matrix.
-	max = 25.3155
-	min = 1.38937e-05
-	mean= 0.803036
-	 sd = 4.32114
+	max = 3.08381
+	min = 2.22664e-05
+	mean= 0.0392391
+	 sd = 0.237408
 	Eigenword with transition matrix.
-	max = 34.9046
-	min = 8.13956e-05
-	mean= 0.802415
-	 sd = 4.44103
+	max = 8.26302
+	min = 5.98801e-05
+	mean= 0.033113
+	 sd = 0.532508
 
-  58     (time 0 sec)
-  58     * * * * 250.06 * * * * 
-  58     (time 0 sec)
+  58     * * * * 135.593 * * * * 
   59    Training
-  59    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  59    MLE
+  59    Trained on 89 sentence.    number threads = 1.  59    MLE
   59    Likelihood model:
 	Eigenword with transition matrix.
-	max = 24.2668
-	min = 7.15397e-06
-	mean= 0.800536
-	 sd = 4.31058
+	max = 2.16828
+	min = 2.65443e-05
+	mean= 0.0351758
+	 sd = 0.207625
 	Eigenword with transition matrix.
-	max = 41.1232
-	min = 0.000139141
-	mean= 0.803595
-	 sd = 4.56795
+	max = 5.1396
+	min = 1.11757e-05
+	mean= 0.0393699
+	 sd = 0.382327
 
-  59     (time 0 sec)
-  59     * * * * 340.257 * * * * 
-  59     (time 0 sec)
+  59     * * * * 79.8655 * * * * 
   60    Training
-  60    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  60    MLE
+  60    Trained on 89 sentence.    number threads = 1.  60    MLE
   60    Likelihood model:
 	Eigenword with transition matrix.
-	max = 25.823
-	min = 5.27579e-05
-	mean= 0.79955
-	 sd = 4.33089
+	max = 3.61824
+	min = 7.8822e-06
+	mean= 0.0358778
+	 sd = 0.26269
 	Eigenword with transition matrix.
-	max = 29.2262
-	min = 5.59573e-05
-	mean= 0.800717
-	 sd = 4.36474
+	max = 2.42634
+	min = 2.43882e-05
+	mean= 0.0329967
+	 sd = 0.230934
 
-  60     (time 0 sec)
-  60     * * * * 158.606 * * * * 
-  60     (time 0 sec)
+  60     * * * * 52.3 * * * * 
   61    Training
-  61    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  61    MLE
+  61    Trained on 89 sentence.    number threads = 1.  61    MLE
   61    Likelihood model:
 	Eigenword with transition matrix.
-	max = 24.4086
-	min = 6.97989e-06
-	mean= 0.800544
-	 sd = 4.31208
+	max = 2.51672
+	min = 1.65754e-06
+	mean= 0.0324262
+	 sd = 0.239034
 	Eigenword with transition matrix.
-	max = 33.4578
-	min = 1.06165e-05
-	mean= 0.806878
-	 sd = 4.41713
+	max = 8.28585
+	min = 5.16455e-06
+	mean= 0.0346156
+	 sd = 0.501278
 
-  61     (time 0 sec)
-  61     * * * * 197.995 * * * * 
-  61     (time 0 sec)
+  61     * * * * 123.552 * * * * 
   62    Training
-  62    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  62    MLE
+  62    Trained on 89 sentence.    number threads = 1.  62    MLE
   62    Likelihood model:
 	Eigenword with transition matrix.
-	max = 24.9471
-	min = 4.25611e-05
-	mean= 0.798831
-	 sd = 4.31551
+	max = 2.46214
+	min = 1.4133e-05
+	mean= 0.033264
+	 sd = 0.208518
 	Eigenword with transition matrix.
-	max = 31.1141
-	min = 7.31431e-06
-	mean= 0.803313
-	 sd = 4.38255
+	max = 7.78405
+	min = 9.78518e-06
+	mean= 0.0335387
+	 sd = 0.576484
 
-  62     (time 0 sec)
-  62     * * * * 157.888 * * * * 
-  62     (time 0 sec)
+  62     * * * * 123.322 * * * * 
   63    Training
-  63    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  63    MLE
+  63    Trained on 89 sentence.    number threads = 1.  63    MLE
   63    Likelihood model:
 	Eigenword with transition matrix.
-	max = 24.8191
-	min = 4.9284e-06
-	mean= 0.800079
-	 sd = 4.31408
+	max = 1.54313
+	min = 1.09762e-05
+	mean= 0.0319273
+	 sd = 0.192285
 	Eigenword with transition matrix.
-	max = 33.6026
-	min = 7.35151e-05
-	mean= 0.803912
-	 sd = 4.42036
+	max = 11.1192
+	min = 3.81457e-05
+	mean= 0.04022
+	 sd = 0.688941
 
-  63     (time 0 sec)
-  63     * * * * 199.776 * * * * 
-  63     (time 0 sec)
+  63     * * * * 170.773 * * * * 
   64    Training
-  64    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  64    MLE
+  64    Trained on 89 sentence.    number threads = 1.  64    MLE
   64    Likelihood model:
 	Eigenword with transition matrix.
-	max = 24.3937
-	min = 4.20303e-05
-	mean= 0.800539
-	 sd = 4.31187
+	max = 3.52503
+	min = 4.02149e-05
+	mean= 0.0357908
+	 sd = 0.275894
 	Eigenword with transition matrix.
-	max = 40.5909
-	min = 6.61219e-06
-	mean= 0.801924
-	 sd = 4.55648
+	max = 1.9337
+	min = 6.06709e-05
+	mean= 0.032258
+	 sd = 0.222281
 
-  64     (time 0 sec)
-  64     * * * * 327.842 * * * * 
-  64     (time 0 sec)
+  64     * * * * 56.4569 * * * * 
   65    Training
-  65    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  65    MLE
+  65    Trained on 89 sentence.    number threads = 1.  65    MLE
   65    Likelihood model:
 	Eigenword with transition matrix.
-	max = 24.0467
-	min = 9.89983e-07
-	mean= 0.799962
-	 sd = 4.30848
+	max = 1.28569
+	min = 1.35419e-06
+	mean= 0.0334563
+	 sd = 0.182763
 	Eigenword with transition matrix.
-	max = 27.2157
-	min = 5.40361e-05
-	mean= 0.801292
-	 sd = 4.33764
+	max = 18.2139
+	min = 5.25091e-05
+	mean= 0.0370631
+	 sd = 1.1395
 
-  65     (time 0 sec)
-  65     * * * * 98.9749 * * * * 
-  65     (time 0 sec)
+  65     * * * * 290.161 * * * * 
   66    Training
-  66    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  66    MLE
+  66    Trained on 89 sentence.    number threads = 1.  66    MLE
   66    Likelihood model:
 	Eigenword with transition matrix.
-	max = 25.0186
-	min = 1.07345e-05
-	mean= 0.801178
-	 sd = 4.31841
+	max = 1.49069
+	min = 2.92871e-05
+	mean= 0.0334217
+	 sd = 0.187752
 	Eigenword with transition matrix.
-	max = 32.9099
-	min = 2.27915e-05
-	mean= 0.800059
-	 sd = 4.41644
+	max = 15.1916
+	min = 4.77595e-05
+	mean= 0.0408004
+	 sd = 0.887772
 
-  66     (time 0 sec)
-  66     * * * * 207.668 * * * * 
-  66     (time 0 sec)
+  66     * * * * 222.591 * * * * 
   67    Training
 auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
-  67    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  67    MLE
+auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
+auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
+  67    Trained on 89 sentence.    number threads = 1.  67    MLE
   67    Likelihood model:
 	Eigenword with transition matrix.
-	max = 25.8761
-	min = 1.48122e-05
-	mean= 0.798971
-	 sd = 4.32667
+	max = 1
+	min = 0
+	mean= 0.0333333
+	 sd = 0.179505
 	Eigenword with transition matrix.
-	max = 26.0998
-	min = 8.13331e-06
-	mean= 0.800919
-	 sd = 4.32807
+	max = 5.03984
+	min = 0.000227881
+	mean= 0.0337657
+	 sd = 0.335651
 
-  67     (time 0 sec)
-  67     * * * * 106.207 * * * * 
-  67     (time 0 sec)
+  67     * * * * 73.1635 * * * * 
   68    Training
-  68    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  68    MLE
+  68    Trained on 89 sentence.    number threads = 1.  68    MLE
   68    Likelihood model:
 	Eigenword with transition matrix.
-	max = 25.1085
-	min = 2.10383e-06
-	mean= 0.799709
-	 sd = 4.31751
+	max = 1.21685
+	min = 1.20407e-06
+	mean= 0.0334988
+	 sd = 0.181858
 	Eigenword with transition matrix.
-	max = 36.2077
-	min = 1.79416e-05
-	mean= 0.804412
-	 sd = 4.46715
+	max = 3.90407
+	min = 4.22894e-06
+	mean= 0.0317691
+	 sd = 0.286201
 
-  68     (time 0 sec)
-  68     * * * * 264.121 * * * * 
-  68     (time 0 sec)
+  68     * * * * 57.4553 * * * * 
   69    Training
-  69    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  69    MLE
+auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
+  69    Trained on 89 sentence.    number threads = 1.  69    MLE
   69    Likelihood model:
 	Eigenword with transition matrix.
-	max = 25.6174
-	min = 3.30684e-05
-	mean= 0.800608
-	 sd = 4.32474
+	max = 2.99662
+	min = 3.81563e-05
+	mean= 0.034624
+	 sd = 0.254191
 	Eigenword with transition matrix.
-	max = 28.0185
-	min = 2.8681e-05
-	mean= 0.79938
-	 sd = 4.35079
+	max = 2.62208
+	min = 1.70934e-05
+	mean= 0.0349128
+	 sd = 0.221639
 
-  69     (time 0 sec)
-  69     * * * * 132.996 * * * * 
-  69     (time 0 sec)
+  69     * * * * 46.799 * * * * 
   70    Training
-  70    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  70    MLE
+  70    Trained on 89 sentence.    number threads = 1.  70    MLE
   70    Likelihood model:
 	Eigenword with transition matrix.
-	max = 26.039
-	min = 8.87562e-05
-	mean= 0.801212
-	 sd = 4.34321
+	max = 1.49949
+	min = 3.44554e-06
+	mean= 0.0344645
+	 sd = 0.185244
 	Eigenword with transition matrix.
-	max = 26.0457
-	min = 6.9144e-05
-	mean= 0.799348
-	 sd = 4.32669
+	max = 7.55486
+	min = 4.2838e-06
+	mean= 0.0270462
+	 sd = 0.530478
 
-  70     (time 0 sec)
-  70     * * * * 117.775 * * * * 
-  70     (time 0 sec)
+  70     * * * * 105.55 * * * * 
   71    Training
-  71    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  71    MLE
+  71    Trained on 89 sentence.    number threads = 1.  71    MLE
   71    Likelihood model:
 	Eigenword with transition matrix.
-	max = 25.1441
-	min = 7.42532e-06
-	mean= 0.80019
-	 sd = 4.31797
+	max = 3.14169
+	min = 4.43545e-05
+	mean= 0.0312146
+	 sd = 0.269732
 	Eigenword with transition matrix.
-	max = 26.4521
-	min = 3.50815e-05
-	mean= 0.802259
-	 sd = 4.33633
+	max = 5.56607
+	min = 1.29793e-06
+	mean= 0.0337088
+	 sd = 0.357909
 
-  71     (time 0 sec)
-  71     * * * * 103.706 * * * * 
-  71     (time 0 sec)
+  71     * * * * 88.2631 * * * * 
   72    Training
-  72    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  72    MLE
+  72    Trained on 89 sentence.    number threads = 1.  72    MLE
   72    Likelihood model:
 	Eigenword with transition matrix.
-	max = 25.8541
-	min = 7.38414e-05
-	mean= 0.804345
-	 sd = 4.32615
+	max = 1.06347
+	min = 1.14072e-06
+	mean= 0.0332326
+	 sd = 0.180095
 	Eigenword with transition matrix.
-	max = 30.9432
-	min = 5.70763e-05
-	mean= 0.801929
-	 sd = 4.38418
+	max = 4.35947
+	min = 1.43211e-06
+	mean= 0.0331267
+	 sd = 0.315085
 
-  72     (time 0 sec)
-  72     * * * * 187.924 * * * * 
-  72     (time 0 sec)
+  72     * * * * 65.4283 * * * * 
   73    Training
 auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
-auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
-auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
-auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
-  73    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  73    MLE
+  73    Trained on 89 sentence.    number threads = 1.  73    MLE
   73    Likelihood model:
 	Eigenword with transition matrix.
-	max = 24
+	max = 1
 	min = 0
-	mean= 0.8
-	 sd = 4.30813
+	mean= 0.0333333
+	 sd = 0.179505
 	Eigenword with transition matrix.
-	max = 43.2585
-	min = 0.000114455
-	mean= 0.807867
-	 sd = 4.61313
+	max = 4.98397
+	min = 5.36883e-05
+	mean= 0.0322714
+	 sd = 0.3821
 
-  73     (time 0 sec)
-  73     * * * * 362.067 * * * * 
-  73     (time 0 sec)
+  73     * * * * 80.6497 * * * * 
   74    Training
-  74    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  74    MLE
+auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
+auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
+auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
+auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
+  74    Trained on 89 sentence.    number threads = 1.  74    MLE
   74    Likelihood model:
 	Eigenword with transition matrix.
-	max = 24
+	max = 1
 	min = 0
-	mean= 0.8
-	 sd = 4.30813
+	mean= 0.0333333
+	 sd = 0.179505
 	Eigenword with transition matrix.
-	max = 36.4734
-	min = 7.15783e-05
-	mean= 0.801569
-	 sd = 4.47713
+	max = 20.2585
+	min = 0.000114455
+	mean= 0.0412007
+	 sd = 1.25506
 
-  74     (time 0 sec)
-  74     * * * * 252.213 * * * * 
-  74     (time 0 sec)
+  74     * * * * 324.279 * * * * 
   75    Training
-  75    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  75    MLE
+auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
+  75    Trained on 89 sentence.    number threads = 1.  75    MLE
   75    Likelihood model:
 	Eigenword with transition matrix.
-	max = 24.122
-	min = 7.02843e-06
-	mean= 0.799174
-	 sd = 4.31018
+	max = 1.48736
+	min = 8.33247e-06
+	mean= 0.0346489
+	 sd = 0.20246
 	Eigenword with transition matrix.
-	max = 39.6324
-	min = 8.57756e-05
-	mean= 0.806134
-	 sd = 4.53043
+	max = 4.32268
+	min = 2.17461e-05
+	mean= 0.0319755
+	 sd = 0.319162
 
-  75     (time 0 sec)
-  75     * * * * 300.036 * * * * 
-  75     (time 0 sec)
+  75     * * * * 68.7491 * * * * 
   76    Training
-  76    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  76    MLE
+  76    Trained on 89 sentence.    number threads = 1.  76    MLE
   76    Likelihood model:
 	Eigenword with transition matrix.
-	max = 24.0993
-	min = 5.26955e-06
-	mean= 0.799894
-	 sd = 4.30943
+	max = 1.33564
+	min = 1.45881e-06
+	mean= 0.0340283
+	 sd = 0.185186
 	Eigenword with transition matrix.
-	max = 42.1063
-	min = 0.000107237
-	mean= 0.805511
-	 sd = 4.58622
+	max = 6.16928
+	min = 0.000119377
+	mean= 0.0351232
+	 sd = 0.39003
 
-  76     (time 0 sec)
-  76     * * * * 363.958 * * * * 
-  76     (time 0 sec)
+  76     * * * * 89.7962 * * * * 
   77    Training
-  77    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  77    MLE
+  77    Trained on 89 sentence.    number threads = 1.  77    MLE
   77    Likelihood model:
 	Eigenword with transition matrix.
-	max = 25.2199
-	min = 1.84359e-06
-	mean= 0.798302
-	 sd = 4.31983
+	max = 1.3397
+	min = 5.87377e-06
+	mean= 0.0337253
+	 sd = 0.184142
 	Eigenword with transition matrix.
-	max = 31.13
-	min = 2.06882e-05
-	mean= 0.803966
-	 sd = 4.37984
+	max = 8.6667
+	min = 3.72009e-05
+	mean= 0.0365761
+	 sd = 0.506953
 
-  77     (time 0 sec)
-  77     * * * * 172.05 * * * * 
-  77     (time 0 sec)
+  77     * * * * 124.785 * * * * 
   78    Training
-  78    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  78    MLE
+  78    Trained on 89 sentence.    number threads = 1.  78    MLE
   78    Likelihood model:
 	Eigenword with transition matrix.
-	max = 25.6632
-	min = 3.62345e-06
-	mean= 0.80036
-	 sd = 4.32536
+	max = 1.44427
+	min = 1.03895e-07
+	mean= 0.0324072
+	 sd = 0.186192
 	Eigenword with transition matrix.
-	max = 25.8423
-	min = 5.99021e-06
-	mean= 0.803586
-	 sd = 4.32854
+	max = 7.61092
+	min = 5.57582e-05
+	mean= 0.0354235
+	 sd = 0.511049
 
-  78     (time 0 sec)
-  78     * * * * 97.3027 * * * * 
-  78     (time 0 sec)
+  78     * * * * 113.442 * * * * 
   79    Training
 auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
-  79    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  79    MLE
+auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
+  79    Trained on 89 sentence.    number threads = 1.  79    MLE
   79    Likelihood model:
 	Eigenword with transition matrix.
-	max = 24
+	max = 1
 	min = 0
-	mean= 0.8
-	 sd = 4.30813
+	mean= 0.0333333
+	 sd = 0.179505
 	Eigenword with transition matrix.
-	max = 43.2585
+	max = 20.2585
 	min = 0.000114455
-	mean= 0.807867
-	 sd = 4.61313
+	mean= 0.0412007
+	 sd = 1.25506
 
-  79     (time 0 sec)
-  79     * * * * 366.509 * * * * 
-  79     (time 0 sec)
+  79     * * * * 324.279 * * * * 
   80    Training
-  80    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  80    MLE
+auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
+  80    Trained on 89 sentence.    number threads = 1.  80    MLE
   80    Likelihood model:
 	Eigenword with transition matrix.
-	max = 24.6559
-	min = 1.02093e-05
-	mean= 0.800263
-	 sd = 4.31313
+	max = 1.14968
+	min = 2.32025e-07
+	mean= 0.0332572
+	 sd = 0.180847
 	Eigenword with transition matrix.
-	max = 31.8992
-	min = 0.000116739
-	mean= 0.806105
-	 sd = 4.388
+	max = 5.33976
+	min = 9.01235e-05
+	mean= 0.0314122
+	 sd = 0.378213
 
-  80     (time 0 sec)
-  80     * * * * 170.954 * * * * 
-  80     (time 0 sec)
+  80     * * * * 85.8058 * * * * 
   81    Training
-  81    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  81    MLE
+  81    Trained on 89 sentence.    number threads = 1.  81    MLE
   81    Likelihood model:
 	Eigenword with transition matrix.
-	max = 24.7083
-	min = 1.24278e-05
-	mean= 0.798849
-	 sd = 4.31704
+	max = 2.51774
+	min = 1.09998e-05
+	mean= 0.0339851
+	 sd = 0.220224
 	Eigenword with transition matrix.
-	max = 30.3021
-	min = 4.73853e-05
-	mean= 0.801523
-	 sd = 4.3746
+	max = 4.22753
+	min = 2.8269e-05
+	mean= 0.0365745
+	 sd = 0.288687
 
-  81     (time 0 sec)
-  81     * * * * 171.631 * * * * 
-  81     (time 0 sec)
+  81     * * * * 62.6888 * * * * 
   82    Training
-  82    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  82    MLE
+auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
+  82    Trained on 89 sentence.    number threads = 1.  82    MLE
   82    Likelihood model:
 	Eigenword with transition matrix.
-	max = 24.8962
-	min = 4.19885e-06
-	mean= 0.801143
-	 sd = 4.32391
+	max = 1.90327
+	min = 3.65056e-05
+	mean= 0.0328173
+	 sd = 0.207975
 	Eigenword with transition matrix.
-	max = 31.9234
-	min = 5.9847e-05
-	mean= 0.801682
-	 sd = 4.39562
+	max = 5.8202
+	min = 0.000236372
+	mean= 0.039801
+	 sd = 0.369605
 
-  82     (time 0 sec)
-  82     * * * * 183.342 * * * * 
-  82     (time 0 sec)
+  82     * * * * 80.7313 * * * * 
   83    Training
-  83    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  83    MLE
+  83    Trained on 89 sentence.    number threads = 1.  83    MLE
   83    Likelihood model:
 	Eigenword with transition matrix.
-	max = 24
-	min = 0
-	mean= 0.8
-	 sd = 4.30813
+	max = 1.93089
+	min = 5.20108e-07
+	mean= 0.033906
+	 sd = 0.19946
 	Eigenword with transition matrix.
-	max = 38.4743
-	min = 4.55346e-05
-	mean= 0.802058
-	 sd = 4.51695
+	max = 3.9474
+	min = 5.97772e-05
+	mean= 0.0350788
+	 sd = 0.28107
 
-  83     (time 0 sec)
-  83     * * * * 300.013 * * * * 
-  83     (time 0 sec)
+  83     * * * * 55.4111 * * * * 
   84    Training
-  84    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  84    MLE
+  84    Trained on 89 sentence.    number threads = 1.  84    MLE
   84    Likelihood model:
 	Eigenword with transition matrix.
-	max = 24.3734
-	min = 4.21442e-07
-	mean= 0.799957
-	 sd = 4.31118
+	max = 1.23267
+	min = 7.61457e-07
+	mean= 0.0350176
+	 sd = 0.19591
 	Eigenword with transition matrix.
-	max = 27.2376
-	min = 3.30924e-06
-	mean= 0.800283
-	 sd = 4.3425
+	max = 6.36798
+	min = 1.73996e-05
+	mean= 0.0296241
+	 sd = 0.398356
 
-  84     (time 0 sec)
-  84     * * * * 106.041 * * * * 
-  84     (time 0 sec)
+  84     * * * * 94.9106 * * * * 
   85    Training
-  85    Trained on 89 sentence.    number threads = 24. (time 1 sec)
-  85    MLE
+auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
+auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
+  85    Trained on 89 sentence.    number threads = 1.  85    MLE
   85    Likelihood model:
 	Eigenword with transition matrix.
-	max = 24.9675
-	min = 1.55166e-05
-	mean= 0.800913
-	 sd = 4.31865
+	max = 3.46336
+	min = 8.28877e-05
+	mean= 0.0388968
+	 sd = 0.263992
 	Eigenword with transition matrix.
-	max = 26.6509
-	min = 5.11445e-06
-	mean= 0.799873
-	 sd = 4.33571
+	max = 2.8331
+	min = 5.33571e-06
+	mean= 0.0332411
+	 sd = 0.224183
 
-  85     (time 0 sec)
-  85     * * * * 103.65 * * * * 
-  85     (time 0 sec)
+  85     * * * * 55.9799 * * * * 
   86    Training
-  86    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  86    MLE
+  86    Trained on 89 sentence.    number threads = 1.  86    MLE
   86    Likelihood model:
 	Eigenword with transition matrix.
-	max = 27.0159
-	min = 6.37738e-05
-	mean= 0.80447
-	 sd = 4.33507
+	max = 1.68113
+	min = 4.30128e-06
+	mean= 0.0326983
+	 sd = 0.195824
 	Eigenword with transition matrix.
-	max = 25.4852
-	min = 2.14063e-05
-	mean= 0.800711
-	 sd = 4.32807
+	max = 9.44175
+	min = 0.000318777
+	mean= 0.0388144
+	 sd = 0.541888
 
-  86     (time 0 sec)
-  86     * * * * 119.357 * * * * 
-  86     (time 0 sec)
+  86     * * * * 121.417 * * * * 
   87    Training
-  87    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  87    MLE
+auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
+  87    Trained on 89 sentence.    number threads = 1.  87    MLE
   87    Likelihood model:
 	Eigenword with transition matrix.
-	max = 25.53
-	min = 4.45922e-06
-	mean= 0.801249
-	 sd = 4.32323
+	max = 2.55606
+	min = 3.28774e-05
+	mean= 0.033963
+	 sd = 0.233178
 	Eigenword with transition matrix.
-	max = 26.8383
-	min = 1.32979e-05
-	mean= 0.802744
-	 sd = 4.33635
+	max = 3.59536
+	min = 1.53034e-05
+	mean= 0.0334101
+	 sd = 0.256674
 
-  87     (time 0 sec)
-  87     * * * * 109.574 * * * * 
-  87     (time 0 sec)
+  87     * * * * 54.2421 * * * * 
   88    Training
-  88    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  88    MLE
+  88    Trained on 89 sentence.    number threads = 1.  88    MLE
   88    Likelihood model:
 	Eigenword with transition matrix.
-	max = 27.534
-	min = 2.89961e-06
-	mean= 0.801815
-	 sd = 4.34972
+	max = 1.10683
+	min = 8.95606e-06
+	mean= 0.0340162
+	 sd = 0.181299
 	Eigenword with transition matrix.
-	max = 27.1708
-	min = 2.75241e-05
-	mean= 0.800981
-	 sd = 4.33089
+	max = 5.30957
+	min = 7.82955e-05
+	mean= 0.0346932
+	 sd = 0.349443
 
-  88     (time 0 sec)
-  88     * * * * 142.833 * * * * 
-  88     (time 0 sec)
+  88     * * * * 78.0494 * * * * 
   89    Training
-  89    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  89    MLE
+auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
+  89    Trained on 89 sentence.    number threads = 1.  89    MLE
   89    Likelihood model:
 	Eigenword with transition matrix.
-	max = 24.9479
-	min = 3.34917e-06
-	mean= 0.799852
-	 sd = 4.31856
+	max = 1.35434
+	min = 1.08104e-06
+	mean= 0.0339048
+	 sd = 0.18776
 	Eigenword with transition matrix.
-	max = 33.1061
-	min = 0.000147465
-	mean= 0.80323
-	 sd = 4.41568
+	max = 3.63399
+	min = 7.19256e-06
+	mean= 0.0326763
+	 sd = 0.289949
 
-  89     (time 0 sec)
-  89     * * * * 201.317 * * * * 
-  89     (time 0 sec)
+  89     * * * * 59.0931 * * * * 
   90    Training
-  90    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  90    MLE
+  90    Trained on 89 sentence.    number threads = 1.  90    MLE
   90    Likelihood model:
 	Eigenword with transition matrix.
-	max = 24.0512
-	min = 2.36586e-07
-	mean= 0.799795
-	 sd = 4.30862
+	max = 3.21706
+	min = 1.71532e-05
+	mean= 0.0337441
+	 sd = 0.245901
 	Eigenword with transition matrix.
-	max = 31.1795
-	min = 6.14503e-05
-	mean= 0.802134
-	 sd = 4.38687
+	max = 5.75881
+	min = 6.01915e-05
+	mean= 0.0367738
+	 sd = 0.349695
 
-  90     (time 0 sec)
-  90     * * * * 167.469 * * * * 
-  90     (time 0 sec)
+  90     * * * * 87.8305 * * * * 
   91    Training
-  91    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  91    MLE
+  91    Trained on 89 sentence.    number threads = 1.  91    MLE
   91    Likelihood model:
 	Eigenword with transition matrix.
-	max = 26.2193
-	min = 2.37323e-05
-	mean= 0.799211
-	 sd = 4.32926
+	max = 2.03309
+	min = 4.08521e-05
+	mean= 0.0350538
+	 sd = 0.213654
 	Eigenword with transition matrix.
-	max = 25.7481
-	min = 3.82867e-05
-	mean= 0.800838
-	 sd = 4.32689
+	max = 5.17928
+	min = 4.46937e-05
+	mean= 0.0369227
+	 sd = 0.362708
 
-  91     (time 0 sec)
-  91     * * * * 111.87 * * * * 
-  91     (time 0 sec)
+  91     * * * * 84.7014 * * * * 
   92    Training
-  92    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  92    MLE
+  92    Trained on 89 sentence.    number threads = 1.  92    MLE
   92    Likelihood model:
 	Eigenword with transition matrix.
-	max = 26.6415
-	min = 0.000105514
-	mean= 0.800245
-	 sd = 4.33799
+	max = 1.38743
+	min = 6.39506e-07
+	mean= 0.034089
+	 sd = 0.185314
 	Eigenword with transition matrix.
-	max = 26.2643
-	min = 2.87074e-05
-	mean= 0.799206
-	 sd = 4.33103
+	max = 11.4027
+	min = 0.000121718
+	mean= 0.0347742
+	 sd = 0.665966
 
-  92     (time 0 sec)
-  92     * * * * 124.891 * * * * 
-  92     (time 0 sec)
+  92     * * * * 160.512 * * * * 
   93    Training
-  93    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  93    MLE
+  93    Trained on 89 sentence.    number threads = 1.  93    MLE
   93    Likelihood model:
 	Eigenword with transition matrix.
-	max = 25.8976
-	min = 3.78556e-05
-	mean= 0.80141
-	 sd = 4.33672
+	max = 1.32309
+	min = 5.49728e-06
+	mean= 0.0342194
+	 sd = 0.183674
 	Eigenword with transition matrix.
-	max = 27.6794
-	min = 1.32939e-05
-	mean= 0.801587
-	 sd = 4.34408
+	max = 4.36417
+	min = 4.02195e-05
+	mean= 0.0375408
+	 sd = 0.339782
 
-  93     (time 0 sec)
-  93     * * * * 139.268 * * * * 
-  93     (time 0 sec)
+  93     * * * * 61.8572 * * * * 
   94    Training
-  94    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  94    MLE
+  94    Trained on 89 sentence.    number threads = 1.  94    MLE
   94    Likelihood model:
 	Eigenword with transition matrix.
-	max = 25.7726
-	min = 3.38262e-06
-	mean= 0.799468
-	 sd = 4.3234
+	max = 1.33507
+	min = 4.66579e-06
+	mean= 0.0344783
+	 sd = 0.184527
 	Eigenword with transition matrix.
-	max = 25.4011
-	min = 2.73346e-05
-	mean= 0.799344
-	 sd = 4.31983
+	max = 8.73385
+	min = 5.06854e-05
+	mean= 0.0337577
+	 sd = 0.544028
 
-  94     (time 0 sec)
-  94     * * * * 90.959 * * * * 
-  94     (time 0 sec)
+  94     * * * * 133.364 * * * * 
   95    Training
-  95    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  95    MLE
+  95    Trained on 89 sentence.    number threads = 1.  95    MLE
   95    Likelihood model:
 	Eigenword with transition matrix.
-	max = 25.0309
-	min = 6.74008e-06
-	mean= 0.800533
-	 sd = 4.31756
+	max = 1.86189
+	min = 9.07542e-06
+	mean= 0.0345043
+	 sd = 0.202863
 	Eigenword with transition matrix.
-	max = 28.4378
-	min = 0.000272152
-	mean= 0.801274
-	 sd = 4.35759
+	max = 3.7716
+	min = 4.5357e-05
+	mean= 0.0315693
+	 sd = 0.276256
 
-  95     (time 0 sec)
-  95     * * * * 125.558 * * * * 
-  95     (time 0 sec)
+  95     * * * * 56.5388 * * * * 
   96    Training
-  96    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  96    MLE
+  96    Trained on 89 sentence.    number threads = 1.  96    MLE
   96    Likelihood model:
 	Eigenword with transition matrix.
-	max = 24.2072
-	min = 8.546e-07
-	mean= 0.799882
-	 sd = 4.31009
+	max = 1.9611
+	min = 5.4142e-07
+	mean= 0.0331261
+	 sd = 0.211909
 	Eigenword with transition matrix.
-	max = 30.3939
-	min = 7.13714e-06
-	mean= 0.804134
-	 sd = 4.38845
+	max = 3.35852
+	min = 5.87395e-06
+	mean= 0.0330075
+	 sd = 0.249572
 
-  96     (time 0 sec)
-  96     * * * * 167.739 * * * * 
-  96     (time 0 sec)
+  96     * * * * 49.7661 * * * * 
   97    Training
-  97    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  97    MLE
+auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
+auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
+auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
+  97    Trained on 89 sentence.    number threads = 1.  97    MLE
   97    Likelihood model:
 	Eigenword with transition matrix.
-	max = 25.2173
-	min = 7.84645e-05
-	mean= 0.797841
-	 sd = 4.31649
+	max = 1
+	min = 0
+	mean= 0.0333333
+	 sd = 0.179505
 	Eigenword with transition matrix.
-	max = 26.7592
-	min = 1.66446e-05
-	mean= 0.801589
-	 sd = 4.34134
+	max = 5.53183
+	min = 9.99291e-05
+	mean= 0.0347505
+	 sd = 0.352715
 
-  97     (time 0 sec)
-  97     * * * * 108.343 * * * * 
-  97     (time 0 sec)
+  97     * * * * 75.0738 * * * * 
   98    Training
-  98    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  98    MLE
+  98    Trained on 89 sentence.    number threads = 1.  98    MLE
   98    Likelihood model:
 	Eigenword with transition matrix.
-	max = 24.2559
-	min = 8.17733e-06
-	mean= 0.800472
-	 sd = 4.31419
+	max = 1.26041
+	min = 1.83253e-07
+	mean= 0.0332941
+	 sd = 0.182183
 	Eigenword with transition matrix.
-	max = 39.9668
-	min = 0.00017224
-	mean= 0.808415
-	 sd = 4.53574
+	max = 16.6774
+	min = 8.28861e-05
+	mean= 0.0379239
+	 sd = 1.07744
 
-  98     (time 0 sec)
-  98     * * * * 326.315 * * * * 
-  98     (time 0 sec)
+  98     * * * * 265.286 * * * * 
   99    Training
-  99    Trained on 89 sentence.    number threads = 24. (time 0 sec)
-  99    MLE
+auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
+auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
+auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
+  99    Trained on 89 sentence.    number threads = 1.  99    MLE
   99    Likelihood model:
 	Eigenword with transition matrix.
-	max = 25.0384
-	min = 1.31979e-05
-	mean= 0.798274
-	 sd = 4.31773
+	max = 2.68128
+	min = 7.5365e-06
+	mean= 0.0321146
+	 sd = 0.252698
 	Eigenword with transition matrix.
-	max = 37.0261
-	min = 2.05135e-05
-	mean= 0.804786
-	 sd = 4.48264
+	max = 2.8668
+	min = 3.52124e-05
+	mean= 0.0354349
+	 sd = 0.239638
 
-  99     (time 0 sec)
-  99     * * * * 281.316 * * * * 
-  99     (time 0 sec)
+  99     * * * * 59.3452 * * * * 
 Finished!

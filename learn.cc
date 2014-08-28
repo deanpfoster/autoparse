@@ -155,8 +155,8 @@ auto_parse::model_to_likelihood(const Eigenwords& dictionary,
 {
   int dim = dictionary.dimension();
   Eigen::MatrixXd identity = Eigen::MatrixXd::Identity(dim,dim); 
-  auto_parse::TP_eigenwords left(dictionary,identity); 
-  auto_parse::TP_eigenwords right(dictionary,identity); 
+  auto_parse::TP_eigenwords left(dictionary,dictionary,identity); 
+  auto_parse::TP_eigenwords right(dictionary,dictionary,identity); 
   int num_threads;
   std::vector<auto_parse::Maximum_likelihood> mle_bundle(0);
 #pragma omp parallel default(shared)

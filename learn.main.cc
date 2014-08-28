@@ -89,7 +89,7 @@ main(int argc,char** argv)
     //////////////////////////////////////////////////////////////////////////////////
 
     Eigen::MatrixXd t = Eigen::MatrixXd::Identity(dim,dim); // This needs to be estimated
-    auto_parse::TP_eigenwords tp(dictionary,t);  
+    auto_parse::TP_eigenwords tp(dictionary,dictionary,t);  
     auto_parse::Likelihood likelihood(tp,tp);
 
     //////////////////////////////////////////////////////////////////////////////////
@@ -144,7 +144,7 @@ main(int argc,char** argv)
 #pragma omp parallel for 
 	for(unsigned int i = 0; i <  corpus_in_memory.size(); ++i)
 	  {
-	auto_parse::Words sentence = corpus_in_memory[i];
+	    auto_parse::Words sentence = corpus_in_memory[i];
 	    auto_parse::Dependency parse = redo_parse(sentence, parser(sentence)).parse();
 	    double prob = likelihood(parse);
 	    sqrt_sum += sqrt(fabs(prob));

@@ -9,7 +9,7 @@
 int
 main()
 {
-  time_t start_time = time(0);  // used for timing 
+  omp_set_num_threads(1); // this makes the code reproducable (otherwise random numbers are called in different orders.
   std::ostream& debugging(std::cout);
   //////////////////////////////////////////////////////////////////////////////////
   //
@@ -50,8 +50,8 @@ main()
     std::ifstream in(eigen_file);
     auto_parse::Eigenwords dictionary(in,gram_number); 
     int dim = dictionary.dimension();
-    debugging << "Read a dictionary of size: " << dictionary.size()<< " x " << dim
-	      << " (time " << time(0) - start_time << " sec)" << std::endl;      start_time = time(0);
+    debugging << "Read a dictionary of size: " << dictionary.size()<< " x " << dim << std::endl;
+
 
     //////////////////////////////////////////////////////////////////////////////////
     //
@@ -70,7 +70,7 @@ main()
     //////////////////////////////////////////////////////////////////////////////////
 
     Eigen::MatrixXd t = Eigen::MatrixXd::Identity(dim,dim); // This needs to be estimated
-    auto_parse::TP_eigenwords tp(dictionary,t);  
+    auto_parse::TP_eigenwords tp(dictionary,dictionary,t);  
     auto_parse::Likelihood likelihood(tp,tp);
 
     //////////////////////////////////////////////////////////////////////////////////
@@ -101,7 +101,6 @@ main()
 							  corpus_in_memory,
 							  debugging,debugging_prefix);
 	parser.new_model(new_model);
-	debugging << " (time " << time(0) - start_time << " sec)" << std::endl;      start_time = time(0);
 	
 	///////////////////////////////////////////////
 	//                                           //
@@ -112,7 +111,6 @@ main()
 	debugging << debugging_prefix << "MLE" << std::endl;
 	likelihood = model_to_likelihood(dictionary, corpus_in_memory, parser);
 	debugging << debugging_prefix <<  likelihood << std::endl;
-	debugging << debugging_prefix << " (time " << time(0) - start_time << " sec)" << std::endl;      start_time = time(0);
 
 	///////////////////////////////////////////////
 	//                                           //
@@ -140,7 +138,6 @@ main()
 	parse1.latex(latex);
 	parse3.latex(latex);
 	parse5.latex(latex);
-	debugging << debugging_prefix << " (time " << time(0) - start_time << " sec)" << std::endl;      start_time = time(0);
 	
 
 	}

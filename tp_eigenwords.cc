@@ -19,26 +19,29 @@ auto_parse::TP_eigenwords::~TP_eigenwords()
 {
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-auto_parse::TP_eigenwords::TP_eigenwords(const auto_parse::Eigenwords& e,
+auto_parse::TP_eigenwords::TP_eigenwords(const auto_parse::Eigenwords& parent,const auto_parse::Eigenwords& child,
 					 const Eigen::MatrixXd& t)
   :
   Transition_probability(),
-  m_eigenwords(e),
+  m_parent(parent),
+  m_child(child),
   m_matrix(t)
 {
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-auto_parse::TP_eigenwords::TP_eigenwords(const auto_parse::Eigenwords& e)
+auto_parse::TP_eigenwords::TP_eigenwords(const auto_parse::Eigenwords& parent,const auto_parse::Eigenwords& child)
   : Transition_probability(),
-    m_eigenwords(e),
+    m_parent(parent),
+    m_child(child),
     m_matrix()  
 {
-  m_matrix = Eigen::MatrixXd(e.dimension(),e.dimension());
+  m_matrix = Eigen::MatrixXd(parent.dimension(),child.dimension());
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::TP_eigenwords::TP_eigenwords(const auto_parse::TP_eigenwords& other)
   : Transition_probability(other),
-    m_eigenwords(other.m_eigenwords),
+    m_parent(other.m_parent),
+    m_child(other.m_child),
     m_matrix(other.m_matrix)  
 {
 };
@@ -55,8 +58,8 @@ auto_parse::TP_eigenwords::clone() const
 void
 auto_parse::TP_eigenwords::accumulate(const Word& p, const Word& c) 
 {
-  const Eigen::VectorXd& pv = m_eigenwords[p];
-  const Eigen::VectorXd& cv = m_eigenwords[c];
+  const Eigen::VectorXd& pv = m_parent[p];
+  const Eigen::VectorXd& cv = m_child[c];
   assert(pv.size() == m_matrix.rows());
   assert(cv.size() == m_matrix.cols());
   m_matrix += pv * (cv.transpose());  // outerproduct
@@ -72,19 +75,19 @@ auto_parse::TP_eigenwords::merge(const Transition_probability& tp)
 void
 auto_parse::TP_eigenwords::renormalize() 
 {
-  Eigen::VectorXd weights = m_matrix * Eigen::VectorXd::Ones(m_eigenwords.dimension());
+  Eigen::VectorXd weights = m_matrix * Eigen::VectorXd::Ones(m_child.dimension());
   Eigen::VectorXd inverse_weights = weights.array().inverse();
-  m_matrix = inverse_weights.asDiagonal() * m_matrix;
+  m_matrix = m_matrix * inverse_weights.asDiagonal();
 };
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                               A C C E S S O R S                                 accessors
 double
-auto_parse::TP_eigenwords::operator()(const auto_parse::Word& parent,const auto_parse::Word& child) const
+auto_parse::TP_eigenwords::operator()(const auto_parse::Word& parent, const auto_parse::Word& child) const
 {
-  const Eigen::VectorXd& p = m_eigenwords[parent];
-  const Eigen::VectorXd& c = m_eigenwords[child];
+  const Eigen::VectorXd& p = m_parent[parent];
+  const Eigen::VectorXd& c = m_child[child];
   double result = p.transpose() * m_matrix * c;
   result = fabs(result);
   return result;
@@ -100,7 +103,7 @@ auto_parse::TP_eigenwords::print_on(std::ostream & ostrm) const
   double sum = 0;
   double sum2 = 0;
   for(int i = 0; i < m_matrix.rows(); ++i)
-    for(int j = 0; j < m_matrix.rows(); ++j)
+    for(int j = 0; j < m_matrix.cols(); ++j)
       {
 	double v = m_matrix(i,j);
 	double a = fabs(v);

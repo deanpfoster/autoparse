@@ -42,7 +42,7 @@ namespace auto_parse
       auto_parse::Eigenwords g(in,5);  // testing construction
       int dim = g.dimension();
       Eigen::MatrixXd matrix = Eigen::MatrixXd::Random(dim,dim);
-      auto_parse::TP_eigenwords markov(g,matrix);  // testing construction
+      auto_parse::TP_eigenwords markov(g,g,matrix);  // testing construction
       Likelihood likelihood(markov,markov);
       Feature_one_dimensional<Words_left> f1;
       Feature_one_dimensional<Stack_size> f2;

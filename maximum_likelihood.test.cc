@@ -19,8 +19,8 @@ namespace auto_parse
       auto_parse::Eigenwords g(in,5);  // testing construction
       int dim = g.dimension();
       Eigen::MatrixXd t = Eigen::MatrixXd::Random(dim,dim);
-      auto_parse::TP_eigenwords left(g,t);  // testing construction
-      auto_parse::TP_eigenwords right(g,t);  // testing construction
+      auto_parse::TP_eigenwords left(g,g,t);  // testing construction
+      auto_parse::TP_eigenwords right(g,g,t);  // testing construction
       auto_parse::Maximum_likelihood lambda(left,right); 
       typedef auto_parse::Dependency D;
       D complex =  (D("A") < D("hearing") > (D("on") > (D("the") < D("issue"))))

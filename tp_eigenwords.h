@@ -16,24 +16,25 @@ namespace auto_parse
   public:
     // CONSTRUCTORS
     ~TP_eigenwords();
-    TP_eigenwords(const Eigenwords&,
+    TP_eigenwords(const Eigenwords& parent,const Eigenwords& child,
 		  const Eigen::MatrixXd&);
-    TP_eigenwords(const Eigenwords&);
+    TP_eigenwords(const Eigenwords& parent, const Eigenwords& child);
     TP_eigenwords(const TP_eigenwords &);          
     virtual TP_eigenwords* clone() const;
 
     // MANIPULATORS
-    virtual void accumulate(const Word&, const Word&);
+    virtual void accumulate(const Word& parent, const Word& child);
     virtual void merge(const Transition_probability&);
     virtual void renormalize();
     
     // ACCESSORS
-    virtual double operator()(const Word&,  const Word&) const;
+    virtual double operator()(const Word& parent,  const Word& child) const;
     virtual void print_on(std::ostream &) const;
 
   protected:
   private:
-    Eigenwords m_eigenwords;
+    Eigenwords m_parent;
+    Eigenwords m_child;
     Eigen::MatrixXd m_matrix;
 
     TP_eigenwords& operator=(const TP_eigenwords &); // Don't delete this.
