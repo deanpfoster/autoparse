@@ -121,8 +121,12 @@ auto_parse::model_to_likelihood(const Eigenwords& dictionary,
     {
       num_threads = omp_get_num_threads();
       mle_bundle = std::vector<auto_parse::Maximum_likelihood>(num_threads);
-      for(unsigned int i = 0; i < mle_bundle.size(); ++i)
+    }
+#pragma omp for 
+    for(unsigned int i = 0; i < mle_bundle.size(); ++i)
 	mle_bundle[i] = auto_parse::Maximum_likelihood(left, right);
+#pragma omp single
+    {
       debugging << debugging_prefix << "Starting loop" << std::endl;
     }
 #pragma omp for 
