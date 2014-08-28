@@ -25,9 +25,11 @@ namespace auto_parse
     int dimension() const;
     int size() const{return mp_eigenwords->size();};
   private:
+    bool m_alive;
     int m_cache_index;
     std::map<std::string,Eigen::VectorXd>* mp_eigenwords;
-
+    void operator=(const Eigenwords&);     // can't be called
+    Eigenwords();                          // can't be called
 
     // STATIC
 

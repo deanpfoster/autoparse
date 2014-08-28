@@ -1,11 +1,19 @@
 #!/bin/bash
 
+################################################################################
 #
-#  Possible command
-#    qsub run_sample_main -pe parallel 12
+#  Possible command:
 #
+#    qsub run_sample_main -pe parallel 12  Comment to go in the output
+#
+################################################################################
+echo "******************************************************************************"
+echo $*
+date
+echo $HOST running $JOB_NAME.$JOB_ID
+echo
+echo "******************************************************************************"
 
-echo $HOST
 cd ~/nlp/auto_parse
-./sample.main eng_only pretty.csv
+./sample.main eng_only pretty.csv ~/run_sample_main.t$JOB_ID.tex
 

@@ -70,7 +70,6 @@ auto_parse::likelihood_to_model(const Likelihood& likelihood,
   std::map<auto_parse::Action, auto_parse::Train_forecast_linear> training;
   for(auto_parse::Action a: auto_parse::all_actions)
     training[a] = auto_parse::Train_forecast_linear(lr_model.forecast(a));
-  debugging << debugging_prefix << "Training setup" << std::endl;
 
   std::vector<std::map<auto_parse::Action, auto_parse::Train_forecast_linear> > training_bundle(0);
   int num_threads;
@@ -84,7 +83,6 @@ auto_parse::likelihood_to_model(const Likelihood& likelihood,
       training_bundle = std::vector<std::map<auto_parse::Action, auto_parse::Train_forecast_linear> >(num_threads);
       for(int i = 0; i < num_threads; ++i)
 	training_bundle[i] = training;
-      debugging << debugging_prefix  << "Training loop" << std::endl;
     }
 #pragma omp for 
     for(unsigned int i = 0; i < corpus_in_memory.size(); ++i)
@@ -113,8 +111,7 @@ auto_parse::likelihood_to_model(const Likelihood& likelihood,
 auto_parse::Likelihood
 auto_parse::model_to_likelihood(const Eigenwords& dictionary,
 				const std::vector<auto_parse::Words>& corpus_in_memory,
-				const auto_parse::Statistical_parse& parser,
-				std::ostream& debugging, std::string debugging_prefix)
+				const auto_parse::Statistical_parse& parser)
 {
   int dim = dictionary.dimension();
   Eigen::MatrixXd identity = Eigen::MatrixXd::Identity(dim,dim); 
@@ -128,13 +125,9 @@ auto_parse::model_to_likelihood(const Eigenwords& dictionary,
     {
       num_threads = omp_get_num_threads();
       mle_bundle = std::vector<auto_parse::Maximum_likelihood>(num_threads);
-    }
-#pragma omp for 
+      //#pragma omp for 
     for(unsigned int i = 0; i < mle_bundle.size(); ++i)
 	mle_bundle[i] = auto_parse::Maximum_likelihood(left, right);
-#pragma omp single
-    {
-      debugging << debugging_prefix << "Starting loop" << std::endl;
     }
 #pragma omp for 
     for(unsigned int i = 0; i < corpus_in_memory.size(); ++i)
@@ -146,14 +139,10 @@ auto_parse::model_to_likelihood(const Eigenwords& dictionary,
 	mle_bundle[thread_ID](d);  // adds to database
       }
   }
-  debugging << debugging_prefix << "Done parsing, on to merging." << std::endl;
   for(int i = 1; i < num_threads;++i)
     mle_bundle[0].merge(mle_bundle[i]);
 
-  debugging << debugging_prefix << "Finished merging parse." << std::endl;
   Likelihood likelihood = mle_bundle[0].output();
-  debugging << debugging_prefix  << "Likelihood computed." << std::endl;
-  debugging << debugging_prefix <<  likelihood << std::endl;
   return likelihood;
 }
 

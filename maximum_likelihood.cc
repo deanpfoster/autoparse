@@ -41,6 +41,7 @@ auto_parse::Maximum_likelihood::Maximum_likelihood(const Maximum_likelihood & ot
   mp_left(0),
   mp_right(0)
 {
+  assert(other.mp_right);  // why would we want to copy an empty object?
   if(other.mp_right)
     {
       mp_left = other.mp_left->clone();
@@ -54,11 +55,8 @@ auto_parse::Maximum_likelihood::operator=(const Maximum_likelihood & other)
   delete(mp_left);
   delete(mp_right);
   assert(other.mp_left);  // why would we copy an empty MLE?
-  if(other.mp_left)
-    {
-      mp_left = other.mp_left->clone();
-      mp_right = other.mp_right->clone();
-    };
+  mp_left = other.mp_left->clone();
+  mp_right = other.mp_right->clone();
   return *this;
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */

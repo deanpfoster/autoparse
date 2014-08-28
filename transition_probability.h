@@ -6,11 +6,6 @@
 #include <iosfwd>
 #include "word.h"
 
-// Currently the model is:
-// p=2/3 if Word1 < Word2
-// p=1/3 if Word1 > Word2
-// So it should look like a heap with high probability
-
 namespace auto_parse
 {
   class Transition_probability

@@ -22,6 +22,7 @@ auto_parse::TP_eigenwords::~TP_eigenwords()
 auto_parse::TP_eigenwords::TP_eigenwords(const auto_parse::Eigenwords& e,
 					 const Eigen::MatrixXd& t)
   :
+  Transition_probability(),
   m_eigenwords(e),
   m_matrix(t)
 {

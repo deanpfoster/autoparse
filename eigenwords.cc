@@ -11,8 +11,8 @@
 //
 ////////////////////////////////////////////////////////////////////////////////////////////
 
-std::vector<std::map<std::string, Eigen::VectorXd>*> auto_parse::Eigenwords::s_cache;
-std::vector<int> auto_parse::Eigenwords::s_cache_counter;
+std::vector<std::map<std::string, Eigen::VectorXd>*> auto_parse::Eigenwords::s_cache(0);
+std::vector<int> auto_parse::Eigenwords::s_cache_counter(0);
 
 
 
@@ -29,17 +29,26 @@ read_CSV(std::istream& in, int pos, int gram_number);
 
 auto_parse::Eigenwords::~Eigenwords()
 {
+  assert(m_alive);
+  m_alive = false;
+  assert(m_cache_index >= 0);
+  assert(m_cache_index < s_cache_counter.size());
+  assert(s_cache_counter.size() == s_cache.size());
+
+  assert(s_cache_counter.size() == 1); // this one should be removed when we have more than one eigendictionary
   s_cache_counter[m_cache_index]--;
   if(s_cache_counter[m_cache_index] == 0)
     {
-      std::cout << "Deleting a cached eigendictionary." << std::endl;
-      delete(s_cache[m_cache_index]);
-      s_cache[m_cache_index] = 0;  // we don't bother recovering the empty space left behind
+      std::cout << "Should delete a cached eigendictionary." << std::endl;
+      std::cout << "But we aren't going to since it seems to be having problems when we do so." << std::endl;
+      //      delete(s_cache[m_cache_index]);
+      //      s_cache[m_cache_index] = 0;  // we don't bother recovering the empty space left behind
     };
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Eigenwords::Eigenwords(std::istream& in, int gram_number)
-  :  m_cache_index(0),
+  :  m_alive(true),
+     m_cache_index(-1),
      mp_eigenwords()
 {
   m_cache_index = s_cache.size();
@@ -51,7 +60,8 @@ auto_parse::Eigenwords::Eigenwords(std::istream& in, int gram_number)
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Eigenwords::Eigenwords(const auto_parse::Eigenwords& other)
-  :  m_cache_index(other.m_cache_index),
+  :  m_alive(true),
+     m_cache_index(other.m_cache_index),
      mp_eigenwords(other.mp_eigenwords)
 {
   s_cache_counter[m_cache_index]++;
@@ -69,7 +79,11 @@ auto_parse::Eigenwords::operator[](const auto_parse::Word& w) const
   if(location != mp_eigenwords->end())
     return location->second;
   location = mp_eigenwords->find("<OOV>");
-  assert(location != mp_eigenwords->end());
+  if(location == mp_eigenwords->end())
+    {
+      std::cout << "Struggling with " << w << std::endl;
+      assert(0);
+    };
   return location->second;
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */

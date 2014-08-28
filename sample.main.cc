@@ -11,8 +11,6 @@ main(int argc,char** argv)
 {
   time_t start_time = time(0);  // used for timing 
   std::ostream& debugging(std::cout);
-  std::ofstream latex("sample.output.tex");
-  auto_parse::latex_header(latex);
   //////////////////////////////////////////////////////////////////////////////////
   //
   //                    Read which eigendictionary and corpus to use
@@ -21,15 +19,21 @@ main(int argc,char** argv)
 
   std::string sentence_file = "sample_corpus";
   std::string eigen_file = "pretty_5_c_sample.csv";
+  std::string latex_file = "sample.output.tex";
   int gram_number = 5;
-  if(argc == 3)
+  if(argc >= 3)
     {
       sentence_file = argv[1];
       eigen_file = argv[2];
       gram_number = 3;  // this is a guess
     }
+  if(argc == 4)
+    latex_file = argv[3];
   debugging << "  sentence = " << sentence_file << std::endl;
   debugging << "eigenwords = " << eigen_file << std::endl;
+  debugging << "     latex = " << latex_file << std::endl;
+  std::ofstream latex(latex_file);
+  auto_parse::latex_header(latex);
       
   //////////////////////////////////////////////////////////////////////////////////
   //
@@ -86,7 +90,7 @@ main(int argc,char** argv)
     //
     //////////////////////////////////////////////////////////////////////////////////
       
-    for(int rounds = 0; rounds < 10; ++rounds)
+    for(int rounds = 0; rounds < 100; ++rounds)
       {
 	///////////////////////////////////////////////
 	//                                           //
@@ -106,7 +110,7 @@ main(int argc,char** argv)
 							  debugging,
 							  debugging_prefix);
 	parser.new_model(new_model);
-	debugging << " (time " << time(0) - start_time << " sec " << std::endl;      start_time = time(0);
+	debugging << " (time " << time(0) - start_time << " sec)" << std::endl;      start_time = time(0);
 	
 	///////////////////////////////////////////////
 	//                                           //
@@ -121,7 +125,7 @@ main(int argc,char** argv)
 					  debugging,
 					  debugging_prefix);
 
-	debugging << " (time " << time(0) - start_time << " sec)" << std::endl;      start_time = time(0);
+	debugging << debugging_prefix << " (time " << time(0) - start_time << " sec)" << std::endl;      start_time = time(0);
 
 	///////////////////////////////////////////////
 	//                                           //
@@ -139,16 +143,17 @@ main(int argc,char** argv)
 	    auto_parse::Dependency parse = redo_parse(sentence, parser(sentence)).parse();
 	    double prob = likelihood(parse);
 	    sqrt_sum += sqrt(fabs(prob));
-      };
+	  };
 	std::cout << debugging_prefix << " * * * * " << sqrt_sum << " * * * * " << std::endl;
 
 	auto_parse::Dependency parse1 = redo_parse(corpus_in_memory[1], parser(corpus_in_memory[1])).parse();
 	auto_parse::Dependency parse3 = redo_parse(corpus_in_memory[3], parser(corpus_in_memory[3])).parse();
 	auto_parse::Dependency parse5 = redo_parse(corpus_in_memory[5], parser(corpus_in_memory[5])).parse();
+	latex << "\\section{likelihood index: " << sqrt_sum << "}\n\n" << std::endl;
 	parse1.latex(latex);
 	parse3.latex(latex);
 	parse5.latex(latex);
-	debugging << " (time " << time(0) - start_time << " sec)" << std::endl;      start_time = time(0);
+	debugging << debugging_prefix << " (time " << time(0) - start_time << " sec)" << std::endl;      start_time = time(0);
 	
 
 	}
