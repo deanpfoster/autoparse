@@ -102,8 +102,7 @@ main()
 							  feature_generator,
 							  lr_model,
 							  sampling_rate,
-							  corpus_in_memory,
-							  debugging,debugging_prefix);
+							  corpus_in_memory);
 	parser.new_model(new_model);
 	
 	///////////////////////////////////////////////

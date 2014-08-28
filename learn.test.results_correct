@@ -1,6 +1,6 @@
 Read a dictionary of size: 100 x 30
   0    Training
-  0    Trained on 89 sentence.    number threads = 1.  0    MLE
+  0    MLE
   0    Likelihood model:
 	Eigenword with transition matrix.
 	max = 1.66348
@@ -15,7 +15,7 @@ Read a dictionary of size: 100 x 30
 
   0     * * * * 154.407 * * * * 
   1    Training
-  1    Trained on 89 sentence.    number threads = 1.  1    MLE
+  1    MLE
   1    Likelihood model:
 	Eigenword with transition matrix.
 	max = 1.49604
@@ -30,7 +30,7 @@ Read a dictionary of size: 100 x 30
 
   1     * * * * 208.084 * * * * 
   2    Training
-  2    Trained on 89 sentence.    number threads = 1.  2    MLE
+  2    MLE
   2    Likelihood model:
 	Eigenword with transition matrix.
 	max = 2.33522
@@ -45,7 +45,7 @@ Read a dictionary of size: 100 x 30
 
   2     * * * * 175.092 * * * * 
   3    Training
-  3    Trained on 89 sentence.    number threads = 1.  3    MLE
+  3    MLE
   3    Likelihood model:
 	Eigenword with transition matrix.
 	max = 2.64976
@@ -60,7 +60,7 @@ Read a dictionary of size: 100 x 30
 
   3     * * * * 179.391 * * * * 
   4    Training
-  4    Trained on 89 sentence.    number threads = 1.  4    MLE
+  4    MLE
   4    Likelihood model:
 	Eigenword with transition matrix.
 	max = 2.65695
@@ -75,7 +75,7 @@ Read a dictionary of size: 100 x 30
 
   4     * * * * 138.735 * * * * 
   5    Training
-  5    Trained on 89 sentence.    number threads = 1.  5    MLE
+  5    MLE
   5    Likelihood model:
 	Eigenword with transition matrix.
 	max = 2.29562
@@ -92,7 +92,7 @@ Read a dictionary of size: 100 x 30
   6    Training
 auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
-  6    Trained on 89 sentence.    number threads = 1.  6    MLE
+  6    MLE
   6    Likelihood model:
 	Eigenword with transition matrix.
 	max = 4.41516
@@ -107,7 +107,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 
   6     * * * * 62.9694 * * * * 
   7    Training
-  7    Trained on 89 sentence.    number threads = 1.  7    MLE
+  7    MLE
   7    Likelihood model:
 	Eigenword with transition matrix.
 	max = 2.79789
@@ -122,7 +122,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 
   7     * * * * 58.0923 * * * * 
   8    Training
-  8    Trained on 89 sentence.    number threads = 1.  8    MLE
+  8    MLE
   8    Likelihood model:
 	Eigenword with transition matrix.
 	max = 2.36732
@@ -137,7 +137,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 
   8     * * * * 68.53 * * * * 
   9    Training
-  9    Trained on 89 sentence.    number threads = 1.  9    MLE
+  9    MLE
   9    Likelihood model:
 	Eigenword with transition matrix.
 	max = 1.09587
@@ -152,7 +152,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 
   9     * * * * 80.3536 * * * * 
   10    Training
-  10    Trained on 89 sentence.    number threads = 1.  10    MLE
+  10    MLE
   10    Likelihood model:
 	Eigenword with transition matrix.
 	max = 3.495
@@ -167,7 +167,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 
   10     * * * * 194.886 * * * * 
   11    Training
-  11    Trained on 89 sentence.    number threads = 1.  11    MLE
+  11    MLE
   11    Likelihood model:
 	Eigenword with transition matrix.
 	max = 1.79931
@@ -182,7 +182,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 
   11     * * * * 236.575 * * * * 
   12    Training
-  12    Trained on 89 sentence.    number threads = 1.  12    MLE
+  12    MLE
   12    Likelihood model:
 	Eigenword with transition matrix.
 	max = 1
@@ -197,7 +197,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 
   12     * * * * 132.723 * * * * 
   13    Training
-  13    Trained on 89 sentence.    number threads = 1.  13    MLE
+  13    MLE
   13    Likelihood model:
 	Eigenword with transition matrix.
 	max = 3.71993
@@ -212,7 +212,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 
   13     * * * * 56.5385 * * * * 
   14    Training
-  14    Trained on 89 sentence.    number threads = 1.  14    MLE
+  14    MLE
   14    Likelihood model:
 	Eigenword with transition matrix.
 	max = 3.70927
@@ -227,7 +227,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 
   14     * * * * 79.2852 * * * * 
   15    Training
-  15    Trained on 89 sentence.    number threads = 1.  15    MLE
+  15    MLE
   15    Likelihood model:
 	Eigenword with transition matrix.
 	max = 1.2068
@@ -246,7 +246,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
-  16    Trained on 89 sentence.    number threads = 1.  16    MLE
+  16    MLE
   16    Likelihood model:
 	Eigenword with transition matrix.
 	max = 1
@@ -261,7 +261,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 
   16     * * * * 324.279 * * * * 
   17    Training
-  17    Trained on 89 sentence.    number threads = 1.  17    MLE
+  17    MLE
   17    Likelihood model:
 	Eigenword with transition matrix.
 	max = 1.4194
@@ -276,7 +276,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 
   17     * * * * 120.66 * * * * 
   18    Training
-  18    Trained on 89 sentence.    number threads = 1.  18    MLE
+  18    MLE
   18    Likelihood model:
 	Eigenword with transition matrix.
 	max = 1
@@ -291,7 +291,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 
   18     * * * * 295.53 * * * * 
   19    Training
-  19    Trained on 89 sentence.    number threads = 1.  19    MLE
+  19    MLE
   19    Likelihood model:
 	Eigenword with transition matrix.
 	max = 3.62335
@@ -306,7 +306,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 
   19     * * * * 59.6248 * * * * 
   20    Training
-  20    Trained on 89 sentence.    number threads = 1.  20    MLE
+  20    MLE
   20    Likelihood model:
 	Eigenword with transition matrix.
 	max = 1.88947
@@ -321,7 +321,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 
   20     * * * * 77.7312 * * * * 
   21    Training
-  21    Trained on 89 sentence.    number threads = 1.  21    MLE
+  21    MLE
   21    Likelihood model:
 	Eigenword with transition matrix.
 	max = 1.69252
@@ -340,7 +340,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
-  22    Trained on 89 sentence.    number threads = 1.  22    MLE
+  22    MLE
   22    Likelihood model:
 	Eigenword with transition matrix.
 	max = 1
@@ -356,7 +356,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
   22     * * * * 324.279 * * * * 
   23    Training
 auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
-  23    Trained on 89 sentence.    number threads = 1.  23    MLE
+  23    MLE
   23    Likelihood model:
 	Eigenword with transition matrix.
 	max = 1
@@ -375,7 +375,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
-  24    Trained on 89 sentence.    number threads = 1.  24    MLE
+  24    MLE
   24    Likelihood model:
 	Eigenword with transition matrix.
 	max = 1
@@ -390,7 +390,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 
   24     * * * * 324.279 * * * * 
   25    Training
-  25    Trained on 89 sentence.    number threads = 1.  25    MLE
+  25    MLE
   25    Likelihood model:
 	Eigenword with transition matrix.
 	max = 1.21393
@@ -405,7 +405,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 
   25     * * * * 165.027 * * * * 
   26    Training
-  26    Trained on 89 sentence.    number threads = 1.  26    MLE
+  26    MLE
   26    Likelihood model:
 	Eigenword with transition matrix.
 	max = 2.52705
@@ -420,7 +420,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 
   26     * * * * 67.6279 * * * * 
   27    Training
-  27    Trained on 89 sentence.    number threads = 1.  27    MLE
+  27    MLE
   27    Likelihood model:
 	Eigenword with transition matrix.
 	max = 1.15732
@@ -435,7 +435,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 
   27     * * * * 286.687 * * * * 
   28    Training
-  28    Trained on 89 sentence.    number threads = 1.  28    MLE
+  28    MLE
   28    Likelihood model:
 	Eigenword with transition matrix.
 	max = 2.87821
@@ -450,7 +450,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 
   28     * * * * 50.7047 * * * * 
   29    Training
-  29    Trained on 89 sentence.    number threads = 1.  29    MLE
+  29    MLE
   29    Likelihood model:
 	Eigenword with transition matrix.
 	max = 1.2245
@@ -465,7 +465,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 
   29     * * * * 282.72 * * * * 
   30    Training
-  30    Trained on 89 sentence.    number threads = 1.  30    MLE
+  30    MLE
   30    Likelihood model:
 	Eigenword with transition matrix.
 	max = 1.61505
@@ -483,7 +483,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
-  31    Trained on 89 sentence.    number threads = 1.  31    MLE
+  31    MLE
   31    Likelihood model:
 	Eigenword with transition matrix.
 	max = 1
@@ -500,7 +500,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
   32    Training
 auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
-  32    Trained on 89 sentence.    number threads = 1.  32    MLE
+  32    MLE
   32    Likelihood model:
 	Eigenword with transition matrix.
 	max = 2.69201
@@ -516,7 +516,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
   32     * * * * 54.045 * * * * 
   33    Training
 auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
-  33    Trained on 89 sentence.    number threads = 1.  33    MLE
+  33    MLE
   33    Likelihood model:
 	Eigenword with transition matrix.
 	max = 2.70355
@@ -531,7 +531,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 
   33     * * * * 56.1918 * * * * 
   34    Training
-  34    Trained on 89 sentence.    number threads = 1.  34    MLE
+  34    MLE
   34    Likelihood model:
 	Eigenword with transition matrix.
 	max = 2.43336
@@ -546,7 +546,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 
   34     * * * * 46.6625 * * * * 
   35    Training
-  35    Trained on 89 sentence.    number threads = 1.  35    MLE
+  35    MLE
   35    Likelihood model:
 	Eigenword with transition matrix.
 	max = 2.6492
@@ -561,7 +561,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 
   35     * * * * 84.1226 * * * * 
   36    Training
-  36    Trained on 89 sentence.    number threads = 1.  36    MLE
+  36    MLE
   36    Likelihood model:
 	Eigenword with transition matrix.
 	max = 2.96715
@@ -576,7 +576,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 
   36     * * * * 62.3642 * * * * 
   37    Training
-  37    Trained on 89 sentence.    number threads = 1.  37    MLE
+  37    MLE
   37    Likelihood model:
 	Eigenword with transition matrix.
 	max = 3.19572
@@ -591,7 +591,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 
   37     * * * * 71.241 * * * * 
   38    Training
-  38    Trained on 89 sentence.    number threads = 1.  38    MLE
+  38    MLE
   38    Likelihood model:
 	Eigenword with transition matrix.
 	max = 2.57912
@@ -606,7 +606,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 
   38     * * * * 58.3611 * * * * 
   39    Training
-  39    Trained on 89 sentence.    number threads = 1.  39    MLE
+  39    MLE
   39    Likelihood model:
 	Eigenword with transition matrix.
 	max = 1.72632
@@ -621,7 +621,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 
   39     * * * * 85.1763 * * * * 
   40    Training
-  40    Trained on 89 sentence.    number threads = 1.  40    MLE
+  40    MLE
   40    Likelihood model:
 	Eigenword with transition matrix.
 	max = 2.73935
@@ -636,7 +636,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 
   40     * * * * 67.4618 * * * * 
   41    Training
-  41    Trained on 89 sentence.    number threads = 1.  41    MLE
+  41    MLE
   41    Likelihood model:
 	Eigenword with transition matrix.
 	max = 3.768
@@ -651,7 +651,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 
   41     * * * * 62.5795 * * * * 
   42    Training
-  42    Trained on 89 sentence.    number threads = 1.  42    MLE
+  42    MLE
   42    Likelihood model:
 	Eigenword with transition matrix.
 	max = 2.86847
@@ -666,7 +666,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 
   42     * * * * 47.6703 * * * * 
   43    Training
-  43    Trained on 89 sentence.    number threads = 1.  43    MLE
+  43    MLE
   43    Likelihood model:
 	Eigenword with transition matrix.
 	max = 1.05918
@@ -681,7 +681,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 
   43     * * * * 153.519 * * * * 
   44    Training
-  44    Trained on 89 sentence.    number threads = 1.  44    MLE
+  44    MLE
   44    Likelihood model:
 	Eigenword with transition matrix.
 	max = 2.55543
@@ -696,7 +696,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 
   44     * * * * 105.548 * * * * 
   45    Training
-  45    Trained on 89 sentence.    number threads = 1.  45    MLE
+  45    MLE
   45    Likelihood model:
 	Eigenword with transition matrix.
 	max = 2.0107
@@ -711,7 +711,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 
   45     * * * * 123.983 * * * * 
   46    Training
-  46    Trained on 89 sentence.    number threads = 1.  46    MLE
+  46    MLE
   46    Likelihood model:
 	Eigenword with transition matrix.
 	max = 1.97713
@@ -726,7 +726,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 
   46     * * * * 138.325 * * * * 
   47    Training
-  47    Trained on 89 sentence.    number threads = 1.  47    MLE
+  47    MLE
   47    Likelihood model:
 	Eigenword with transition matrix.
 	max = 1.8082
@@ -742,7 +742,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
   47     * * * * 121.316 * * * * 
   48    Training
 auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
-  48    Trained on 89 sentence.    number threads = 1.  48    MLE
+  48    MLE
   48    Likelihood model:
 	Eigenword with transition matrix.
 	max = 1.23372
@@ -757,7 +757,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 
   48     * * * * 157.353 * * * * 
   49    Training
-  49    Trained on 89 sentence.    number threads = 1.  49    MLE
+  49    MLE
   49    Likelihood model:
 	Eigenword with transition matrix.
 	max = 2.23129
@@ -772,7 +772,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 
   49     * * * * 141.016 * * * * 
   50    Training
-  50    Trained on 89 sentence.    number threads = 1.  50    MLE
+  50    MLE
   50    Likelihood model:
 	Eigenword with transition matrix.
 	max = 1.08531
@@ -787,7 +787,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 
   50     * * * * 174.962 * * * * 
   51    Training
-  51    Trained on 89 sentence.    number threads = 1.  51    MLE
+  51    MLE
   51    Likelihood model:
 	Eigenword with transition matrix.
 	max = 1.5082
@@ -802,7 +802,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 
   51     * * * * 87.4923 * * * * 
   52    Training
-  52    Trained on 89 sentence.    number threads = 1.  52    MLE
+  52    MLE
   52    Likelihood model:
 	Eigenword with transition matrix.
 	max = 1.29619
@@ -818,7 +818,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
   52     * * * * 208.02 * * * * 
   53    Training
 auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
-  53    Trained on 89 sentence.    number threads = 1.  53    MLE
+  53    MLE
   53    Likelihood model:
 	Eigenword with transition matrix.
 	max = 1.507
@@ -833,7 +833,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 
   53     * * * * 72.867 * * * * 
   54    Training
-  54    Trained on 89 sentence.    number threads = 1.  54    MLE
+  54    MLE
   54    Likelihood model:
 	Eigenword with transition matrix.
 	max = 3.60538
@@ -852,7 +852,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
-  55    Trained on 89 sentence.    number threads = 1.  55    MLE
+  55    MLE
   55    Likelihood model:
 	Eigenword with transition matrix.
 	max = 1
@@ -867,7 +867,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 
   55     * * * * 324.279 * * * * 
   56    Training
-  56    Trained on 89 sentence.    number threads = 1.  56    MLE
+  56    MLE
   56    Likelihood model:
 	Eigenword with transition matrix.
 	max = 1.43408
@@ -883,7 +883,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
   56     * * * * 175.448 * * * * 
   57    Training
 auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
-  57    Trained on 89 sentence.    number threads = 1.  57    MLE
+  57    MLE
   57    Likelihood model:
 	Eigenword with transition matrix.
 	max = 2.45572
@@ -898,7 +898,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 
   57     * * * * 60.2142 * * * * 
   58    Training
-  58    Trained on 89 sentence.    number threads = 1.  58    MLE
+  58    MLE
   58    Likelihood model:
 	Eigenword with transition matrix.
 	max = 3.08381
@@ -913,7 +913,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 
   58     * * * * 135.593 * * * * 
   59    Training
-  59    Trained on 89 sentence.    number threads = 1.  59    MLE
+  59    MLE
   59    Likelihood model:
 	Eigenword with transition matrix.
 	max = 2.16828
@@ -928,7 +928,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 
   59     * * * * 79.8655 * * * * 
   60    Training
-  60    Trained on 89 sentence.    number threads = 1.  60    MLE
+  60    MLE
   60    Likelihood model:
 	Eigenword with transition matrix.
 	max = 3.61824
@@ -943,7 +943,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 
   60     * * * * 52.3 * * * * 
   61    Training
-  61    Trained on 89 sentence.    number threads = 1.  61    MLE
+  61    MLE
   61    Likelihood model:
 	Eigenword with transition matrix.
 	max = 2.51672
@@ -958,7 +958,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 
   61     * * * * 123.552 * * * * 
   62    Training
-  62    Trained on 89 sentence.    number threads = 1.  62    MLE
+  62    MLE
   62    Likelihood model:
 	Eigenword with transition matrix.
 	max = 2.46214
@@ -973,7 +973,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 
   62     * * * * 123.322 * * * * 
   63    Training
-  63    Trained on 89 sentence.    number threads = 1.  63    MLE
+  63    MLE
   63    Likelihood model:
 	Eigenword with transition matrix.
 	max = 1.54313
@@ -988,7 +988,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 
   63     * * * * 170.773 * * * * 
   64    Training
-  64    Trained on 89 sentence.    number threads = 1.  64    MLE
+  64    MLE
   64    Likelihood model:
 	Eigenword with transition matrix.
 	max = 3.52503
@@ -1003,7 +1003,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 
   64     * * * * 56.4569 * * * * 
   65    Training
-  65    Trained on 89 sentence.    number threads = 1.  65    MLE
+  65    MLE
   65    Likelihood model:
 	Eigenword with transition matrix.
 	max = 1.28569
@@ -1018,7 +1018,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 
   65     * * * * 290.161 * * * * 
   66    Training
-  66    Trained on 89 sentence.    number threads = 1.  66    MLE
+  66    MLE
   66    Likelihood model:
 	Eigenword with transition matrix.
 	max = 1.49069
@@ -1036,7 +1036,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
-  67    Trained on 89 sentence.    number threads = 1.  67    MLE
+  67    MLE
   67    Likelihood model:
 	Eigenword with transition matrix.
 	max = 1
@@ -1051,7 +1051,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 
   67     * * * * 73.1635 * * * * 
   68    Training
-  68    Trained on 89 sentence.    number threads = 1.  68    MLE
+  68    MLE
   68    Likelihood model:
 	Eigenword with transition matrix.
 	max = 1.21685
@@ -1067,7 +1067,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
   68     * * * * 57.4553 * * * * 
   69    Training
 auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
-  69    Trained on 89 sentence.    number threads = 1.  69    MLE
+  69    MLE
   69    Likelihood model:
 	Eigenword with transition matrix.
 	max = 2.99662
@@ -1082,7 +1082,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 
   69     * * * * 46.799 * * * * 
   70    Training
-  70    Trained on 89 sentence.    number threads = 1.  70    MLE
+  70    MLE
   70    Likelihood model:
 	Eigenword with transition matrix.
 	max = 1.49949
@@ -1097,7 +1097,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 
   70     * * * * 105.55 * * * * 
   71    Training
-  71    Trained on 89 sentence.    number threads = 1.  71    MLE
+  71    MLE
   71    Likelihood model:
 	Eigenword with transition matrix.
 	max = 3.14169
@@ -1112,7 +1112,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 
   71     * * * * 88.2631 * * * * 
   72    Training
-  72    Trained on 89 sentence.    number threads = 1.  72    MLE
+  72    MLE
   72    Likelihood model:
 	Eigenword with transition matrix.
 	max = 1.06347
@@ -1128,7 +1128,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
   72     * * * * 65.4283 * * * * 
   73    Training
 auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
-  73    Trained on 89 sentence.    number threads = 1.  73    MLE
+  73    MLE
   73    Likelihood model:
 	Eigenword with transition matrix.
 	max = 1
@@ -1147,7 +1147,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
-  74    Trained on 89 sentence.    number threads = 1.  74    MLE
+  74    MLE
   74    Likelihood model:
 	Eigenword with transition matrix.
 	max = 1
@@ -1163,7 +1163,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
   74     * * * * 324.279 * * * * 
   75    Training
 auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
-  75    Trained on 89 sentence.    number threads = 1.  75    MLE
+  75    MLE
   75    Likelihood model:
 	Eigenword with transition matrix.
 	max = 1.48736
@@ -1178,7 +1178,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 
   75     * * * * 68.7491 * * * * 
   76    Training
-  76    Trained on 89 sentence.    number threads = 1.  76    MLE
+  76    MLE
   76    Likelihood model:
 	Eigenword with transition matrix.
 	max = 1.33564
@@ -1193,7 +1193,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 
   76     * * * * 89.7962 * * * * 
   77    Training
-  77    Trained on 89 sentence.    number threads = 1.  77    MLE
+  77    MLE
   77    Likelihood model:
 	Eigenword with transition matrix.
 	max = 1.3397
@@ -1208,7 +1208,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 
   77     * * * * 124.785 * * * * 
   78    Training
-  78    Trained on 89 sentence.    number threads = 1.  78    MLE
+  78    MLE
   78    Likelihood model:
 	Eigenword with transition matrix.
 	max = 1.44427
@@ -1227,7 +1227,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
-  79    Trained on 89 sentence.    number threads = 1.  79    MLE
+  79    MLE
   79    Likelihood model:
 	Eigenword with transition matrix.
 	max = 1
@@ -1243,7 +1243,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
   79     * * * * 324.279 * * * * 
   80    Training
 auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
-  80    Trained on 89 sentence.    number threads = 1.  80    MLE
+  80    MLE
   80    Likelihood model:
 	Eigenword with transition matrix.
 	max = 1.14968
@@ -1258,7 +1258,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 
   80     * * * * 85.8058 * * * * 
   81    Training
-  81    Trained on 89 sentence.    number threads = 1.  81    MLE
+  81    MLE
   81    Likelihood model:
 	Eigenword with transition matrix.
 	max = 2.51774
@@ -1274,7 +1274,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
   81     * * * * 62.6888 * * * * 
   82    Training
 auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
-  82    Trained on 89 sentence.    number threads = 1.  82    MLE
+  82    MLE
   82    Likelihood model:
 	Eigenword with transition matrix.
 	max = 1.90327
@@ -1289,7 +1289,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 
   82     * * * * 80.7313 * * * * 
   83    Training
-  83    Trained on 89 sentence.    number threads = 1.  83    MLE
+  83    MLE
   83    Likelihood model:
 	Eigenword with transition matrix.
 	max = 1.93089
@@ -1304,7 +1304,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 
   83     * * * * 55.4111 * * * * 
   84    Training
-  84    Trained on 89 sentence.    number threads = 1.  84    MLE
+  84    MLE
   84    Likelihood model:
 	Eigenword with transition matrix.
 	max = 1.23267
@@ -1321,7 +1321,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
   85    Training
 auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
-  85    Trained on 89 sentence.    number threads = 1.  85    MLE
+  85    MLE
   85    Likelihood model:
 	Eigenword with transition matrix.
 	max = 3.46336
@@ -1336,7 +1336,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 
   85     * * * * 55.9799 * * * * 
   86    Training
-  86    Trained on 89 sentence.    number threads = 1.  86    MLE
+  86    MLE
   86    Likelihood model:
 	Eigenword with transition matrix.
 	max = 1.68113
@@ -1352,7 +1352,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
   86     * * * * 121.417 * * * * 
   87    Training
 auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
-  87    Trained on 89 sentence.    number threads = 1.  87    MLE
+  87    MLE
   87    Likelihood model:
 	Eigenword with transition matrix.
 	max = 2.55606
@@ -1367,7 +1367,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 
   87     * * * * 54.2421 * * * * 
   88    Training
-  88    Trained on 89 sentence.    number threads = 1.  88    MLE
+  88    MLE
   88    Likelihood model:
 	Eigenword with transition matrix.
 	max = 1.10683
@@ -1383,7 +1383,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
   88     * * * * 78.0494 * * * * 
   89    Training
 auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
-  89    Trained on 89 sentence.    number threads = 1.  89    MLE
+  89    MLE
   89    Likelihood model:
 	Eigenword with transition matrix.
 	max = 1.35434
@@ -1398,7 +1398,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 
   89     * * * * 59.0931 * * * * 
   90    Training
-  90    Trained on 89 sentence.    number threads = 1.  90    MLE
+  90    MLE
   90    Likelihood model:
 	Eigenword with transition matrix.
 	max = 3.21706
@@ -1413,7 +1413,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 
   90     * * * * 87.8305 * * * * 
   91    Training
-  91    Trained on 89 sentence.    number threads = 1.  91    MLE
+  91    MLE
   91    Likelihood model:
 	Eigenword with transition matrix.
 	max = 2.03309
@@ -1428,7 +1428,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 
   91     * * * * 84.7014 * * * * 
   92    Training
-  92    Trained on 89 sentence.    number threads = 1.  92    MLE
+  92    MLE
   92    Likelihood model:
 	Eigenword with transition matrix.
 	max = 1.38743
@@ -1443,7 +1443,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 
   92     * * * * 160.512 * * * * 
   93    Training
-  93    Trained on 89 sentence.    number threads = 1.  93    MLE
+  93    MLE
   93    Likelihood model:
 	Eigenword with transition matrix.
 	max = 1.32309
@@ -1458,7 +1458,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 
   93     * * * * 61.8572 * * * * 
   94    Training
-  94    Trained on 89 sentence.    number threads = 1.  94    MLE
+  94    MLE
   94    Likelihood model:
 	Eigenword with transition matrix.
 	max = 1.33507
@@ -1473,7 +1473,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 
   94     * * * * 133.364 * * * * 
   95    Training
-  95    Trained on 89 sentence.    number threads = 1.  95    MLE
+  95    MLE
   95    Likelihood model:
 	Eigenword with transition matrix.
 	max = 1.86189
@@ -1488,7 +1488,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 
   95     * * * * 56.5388 * * * * 
   96    Training
-  96    Trained on 89 sentence.    number threads = 1.  96    MLE
+  96    MLE
   96    Likelihood model:
 	Eigenword with transition matrix.
 	max = 1.9611
@@ -1506,7 +1506,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
-  97    Trained on 89 sentence.    number threads = 1.  97    MLE
+  97    MLE
   97    Likelihood model:
 	Eigenword with transition matrix.
 	max = 1
@@ -1521,7 +1521,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 
   97     * * * * 75.0738 * * * * 
   98    Training
-  98    Trained on 89 sentence.    number threads = 1.  98    MLE
+  98    MLE
   98    Likelihood model:
 	Eigenword with transition matrix.
 	max = 1.26041
@@ -1539,7 +1539,7 @@ auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
 auto_parse::Forecast_linear zeroed out 102 / 102 parameters which were nans.
-  99    Trained on 89 sentence.    number threads = 1.  99    MLE
+  99    MLE
   99    Likelihood model:
 	Eigenword with transition matrix.
 	max = 2.68128

@@ -26,6 +26,8 @@
 
 namespace auto_parse
 {
+  int number_of_threads_used();
+  
     Feature_generator
       fast_features(const Eigenwords& dictionary);
 
@@ -42,8 +44,7 @@ namespace auto_parse
 			const Feature_generator& feature_generator,
 			const Model& lr_model,
 			double sampling_rate,
-			const std::vector<auto_parse::Words>& corpus_in_memory,
-			std::ostream& debugging, std::string debugging_prefix);
+			const std::vector<auto_parse::Words>& corpus_in_memory);
 
   Likelihood
     model_to_likelihood(const Eigenwords& parent,const Eigenwords& child,

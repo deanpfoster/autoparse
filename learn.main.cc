@@ -100,30 +100,27 @@ main(int argc,char** argv)
     //                            MAIN LOOP
     //
     //////////////////////////////////////////////////////////////////////////////////
+    std::cout << "Trained on " << corpus_in_memory.size() << " sentence.    " << std::endl;
+    std::cout << "number threads = " << auto_parse::number_of_threads_used() << "." << std::endl;
+
       
     for(int rounds = 0; rounds < 100; ++rounds)
       {
+	double sampling_rate = .05;  // this generates about a factor of 10 speed up
+	std::stringstream s;
+	s << "  " << rounds << "    ";
+	std::string debugging_prefix = s.str();
+
 	///////////////////////////////////////////////
 	//                                           //
 	//           Likelihood --> Model            //
 	//                                           //
 	///////////////////////////////////////////////
 
-	double sampling_rate = .1;  // this generates about a factor of 10 speed up
-	std::stringstream s;
-	s << "  " << rounds << "    ";
-	std::string debugging_prefix = s.str();
-	// the following uses OpenMP to run faster
-	debugging << debugging_prefix << "Training" << std::endl;
-	auto_parse::Model new_model = likelihood_to_model(likelihood,
-							  parser,
-							  feature_generator,
-							  lr_model,
-							  sampling_rate,
-							  corpus_in_memory,
-							  debugging,debugging_prefix);
+	auto_parse::Model new_model = likelihood_to_model(likelihood, parser, feature_generator,
+							  lr_model, sampling_rate, corpus_in_memory);
 	parser.new_model(new_model);
-	debugging << " (time " << time(0) - start_time << " sec)" << std::endl;      start_time = time(0);
+	debugging << debugging_prefix << "Training time " << time(0) - start_time << " sec." << std::endl;      start_time = time(0);
 	
 	///////////////////////////////////////////////
 	//                                           //
@@ -131,10 +128,8 @@ main(int argc,char** argv)
 	//                                           //
 	///////////////////////////////////////////////
 
-	debugging << debugging_prefix << "MLE" << std::endl;
 	likelihood = model_to_likelihood(parent_dictionary, child_dictionary, corpus_in_memory, parser);
-	debugging << debugging_prefix <<  likelihood << std::endl;
-	debugging << debugging_prefix << " (time " << time(0) - start_time << " sec)" << std::endl;      start_time = time(0);
+	debugging << debugging_prefix << " MLE time " << time(0) - start_time << " sec." << std::endl;      start_time = time(0);
 
 	///////////////////////////////////////////////
 	//                                           //
@@ -143,7 +138,6 @@ main(int argc,char** argv)
 	///////////////////////////////////////////////
 
 	double sqrt_sum = 0;
-
 #pragma omp parallel for 
 	for(unsigned int i = 0; i <  corpus_in_memory.size(); ++i)
 	  {
@@ -152,7 +146,9 @@ main(int argc,char** argv)
 	    double prob = likelihood(parse);
 	    sqrt_sum += sqrt(fabs(prob));
 	  };
+	debugging << debugging_prefix << "Evaluation time " << time(0) - start_time << " sec." << std::endl;      start_time = time(0);
 
+	debugging << debugging_prefix <<  likelihood << std::endl;
 	std::cout << debugging_prefix << " * * * * " << sqrt_sum << " * * * * " << std::endl;
 
 	auto_parse::Dependency parse1 = redo_parse(corpus_in_memory[1], parser(corpus_in_memory[1])).parse();
@@ -162,10 +158,7 @@ main(int argc,char** argv)
 	parse1.latex(latex);
 	parse3.latex(latex);
 	parse5.latex(latex);
-	debugging << debugging_prefix << " (time " << time(0) - start_time << " sec)" << std::endl;      start_time = time(0);
-	
-
-	}
+      }
     auto_parse::latex_footer(latex);
     debugging << "Finished!" << std::endl;
 }

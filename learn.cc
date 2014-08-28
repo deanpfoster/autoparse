@@ -98,14 +98,23 @@ auto_parse::standard_model(const Feature_generator& feature_generator)
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
+int
+auto_parse::number_of_threads_used()
+{
+  int result;
+#pragma omp parallel default(shared)
+  result = omp_get_num_threads();
+  return result;
+}
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
 auto_parse::Model
 auto_parse::likelihood_to_model(const Likelihood& likelihood,
 				const auto_parse::Statistical_parse& parser,
 				const Feature_generator& feature_generator,
 				const Model& lr_model,
 				double sampling_rate,
-				const std::vector<auto_parse::Words>& corpus_in_memory,
-				std::ostream& debugging, std::string debugging_prefix)
+				const std::vector<auto_parse::Words>& corpus_in_memory)
 {
   std::map<auto_parse::Action, auto_parse::Train_forecast_linear> training;
   for(auto_parse::Action a: auto_parse::all_actions)
@@ -140,9 +149,6 @@ auto_parse::likelihood_to_model(const Likelihood& likelihood,
   auto_parse::Model new_model(feature_generator);
   for(auto_parse::Action a : auto_parse::all_actions)
     new_model.add_forecast(a,training_bundle[0][a].result());
-
-  debugging << debugging_prefix  << "Trained on " << corpus_in_memory.size()
-	    << " sentence.    " << "number threads = " << num_threads << ".";
   return new_model;
 }
 
