@@ -70,7 +70,7 @@ main(int argc,char** argv)
     //
     //////////////////////////////////////////////////////////////////////////////////
 
-    auto_parse::Feature_generator feature_generator = standard_features(dictionary);
+    auto_parse::Feature_generator feature_generator = fast_features(dictionary);
     auto_parse::Model lr_model = standard_model(feature_generator);
     auto_parse::Statistical_parse parser(lr_model);
 

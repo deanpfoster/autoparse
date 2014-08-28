@@ -29,6 +29,9 @@
 namespace auto_parse
 {
     Feature_generator
+      fast_features(const Eigenwords& dictionary);
+
+    Feature_generator
       standard_features(const Eigenwords& dictionary);
 
   

@@ -59,6 +59,13 @@ auto_parse::Eigenwords::Eigenwords(std::istream& in, int gram_number)
   assert(mp_eigenwords->find("<OOV>") != mp_eigenwords->end());
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+auto_parse::Eigenwords::Eigenwords()
+  :  m_alive(true),
+     m_cache_index(-1),
+     mp_eigenwords()
+{
+};
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Eigenwords::Eigenwords(const auto_parse::Eigenwords& other)
   :  m_alive(true),
      m_cache_index(other.m_cache_index),
@@ -91,6 +98,22 @@ int
 auto_parse::Eigenwords::dimension() const
 {
   return mp_eigenwords->begin()->second.size();
+};
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+auto_parse::Eigenwords
+auto_parse::Eigenwords::with_constant_row_sum_squares() const
+{
+  // make a place on the cache for the result to live
+  s_cache.push_back(new std::map<std::string, Eigen::VectorXd>);
+  s_cache_counter.push_back(1);
+  int index = s_cache_counter.size()-1;
+  // make our return object actually point at the same place
+  auto_parse::Eigenwords result;  // yes, we are calling the default constructor
+  result.m_cache_index = index;
+  result.mp_eigenwords = s_cache[index];
+  for(auto i = mp_eigenwords->begin(); i != mp_eigenwords->end(); ++i)
+      s_cache[index]->insert(*i);
+  return result;
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 

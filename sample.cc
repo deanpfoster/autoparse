@@ -58,6 +58,14 @@ eigen_interactions(const auto_parse::Eigenwords& dictionary)
 }
 
 auto_parse::Feature_generator
+auto_parse::fast_features(const Eigenwords& dictionary)
+{
+  std::vector<Feature*> features = linear_features(dictionary);
+  Feature_generator result = Feature_generator(features);
+  return result;
+};
+
+auto_parse::Feature_generator
 auto_parse::standard_features(const Eigenwords& dictionary)
 {
   std::vector<Feature*> features = linear_features(dictionary);

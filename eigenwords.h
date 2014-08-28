@@ -24,6 +24,7 @@ namespace auto_parse
     const Eigen::VectorXd& operator[](const Word&) const;
     int dimension() const;
     int size() const{return mp_eigenwords->size();};
+    Eigenwords with_constant_row_sum_squares() const;
   private:
     bool m_alive;
     int m_cache_index;
