@@ -18,6 +18,7 @@ int
 main(int argc,char** argv)
 {
   time_t start_time = time(0);  // used for timing 
+  Eigen::initParallel();  // this will help eigen not walk on top of itself.
   std::ostream& debugging(std::cout);
   //////////////////////////////////////////////////////////////////////////////////
   //

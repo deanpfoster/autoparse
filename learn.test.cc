@@ -23,6 +23,8 @@ main()
   int gram_number = 5;
   std::ofstream latex(latex_file);
   auto_parse::latex_header(latex);
+  latex << "\\renewcommand{\\thepage}{runningTitle-\\arabic{page}}" << std::endl;  
+
       
   //////////////////////////////////////////////////////////////////////////////////
   //

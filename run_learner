@@ -4,7 +4,7 @@
 #
 #  Possible command:
 #
-#    qsub run_sample_main -pe parallel 12  Comment to go in the output
+#    qsub run_learner -pe parallel 12  Comment to go in the output
 #
 ################################################################################
 echo "******************************************************************************"
@@ -15,5 +15,11 @@ echo
 echo "******************************************************************************"
 
 cd ~/nlp/auto_parse
-./sample.main eng_only.10k pretty.csv ~/run_sample_main.t$JOB_ID.tex
+date
+./learn.main eng_only pretty.csv ~/run_learner.t$JOB_ID.tex
 
+date
+echo $*
+sed "s/runningTitle/$*/" ~/run_learner.t$JOB_ID.tex > ~/tmp
+rm ~/run_learner.t$JOB_ID.tex
+mv ~/tmp ~/run_learner.t$JOB_ID.tex
