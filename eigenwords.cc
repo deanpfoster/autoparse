@@ -7,6 +7,17 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 //
+//                    STATIC
+//
+////////////////////////////////////////////////////////////////////////////////////////////
+
+std::vector<std::map<std::string, Eigen::VectorXd>*> auto_parse::Eigenwords::s_cache;
+std::vector<int> auto_parse::Eigenwords::s_cache_counter;
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////
+//
 //  The following function is defined at the end of this file.
 //  It was cribbed from wiki/code/google/CSV_grams.*
 //
@@ -18,12 +29,30 @@ read_CSV(std::istream& in, int pos, int gram_number);
 
 auto_parse::Eigenwords::~Eigenwords()
 {
+  s_cache_counter[m_cache_index]--;
+  if(s_cache_counter[m_cache_index] == 0)
+    {
+      delete(s_cache[m_cache_index]);
+      s_cache[m_cache_index] = 0;  // we don't bother recovering the empty space left behind
+    };
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Eigenwords::Eigenwords(std::istream& in, int gram_number)
-  :  m_eigenwords()
+  :  m_cache_index(0),
+     mp_eigenwords()
 {
-  m_eigenwords = read_CSV(in, 0, gram_number);
+  m_cache_index = s_cache.size();
+  s_cache_counter.push_back(1);
+  s_cache.push_back(new std::map<std::string,Eigen::VectorXd>);
+  *s_cache[m_cache_index] = read_CSV(in, 0, gram_number);
+  mp_eigenwords = s_cache[m_cache_index];
+};
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+auto_parse::Eigenwords::Eigenwords(const auto_parse::Eigenwords& other)
+  :  m_cache_index(other.m_cache_index),
+     mp_eigenwords(other.mp_eigenwords)
+{
+  s_cache_counter[m_cache_index]++;
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
@@ -34,18 +63,18 @@ auto_parse::Eigenwords::Eigenwords(std::istream& in, int gram_number)
 const Eigen::VectorXd&
 auto_parse::Eigenwords::operator[](const auto_parse::Word& w) const
 {
-  auto location = m_eigenwords.find(w);
-  if(location != m_eigenwords.end())
+  auto location = mp_eigenwords->find(w);
+  if(location != mp_eigenwords->end())
     return location->second;
-  location = m_eigenwords.find("<OOV>");
-  assert(location != m_eigenwords.end());
+  location = mp_eigenwords->find("<OOV>");
+  assert(location != mp_eigenwords->end());
   return location->second;
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 int
 auto_parse::Eigenwords::dimension() const
 {
-  return m_eigenwords.begin()->second.size();
+  return mp_eigenwords->begin()->second.size();
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
@@ -147,3 +176,4 @@ read_CSV(std::istream& in, int pos, int gram_number)
     };
   return result;
 }
+//////////////////////////////////////////////////////////////////////////////////////////
