@@ -22,7 +22,7 @@ main(int argc,char** argv)
   std::ostream& debugging(std::cout);
   //////////////////////////////////////////////////////////////////////////////////
   //
-  //                    Read which eigendictionary and corpus to use
+  //                    Which dictionary, corpus and latex file to use
   //
   //////////////////////////////////////////////////////////////////////////////////
 
@@ -69,6 +69,8 @@ main(int argc,char** argv)
 
     std::ifstream in(eigen_file);
     auto_parse::Eigenwords dictionary(in,gram_number); 
+    auto_parse::Eigenwords parent_dictionary(dictionary); 
+    auto_parse::Eigenwords child_dictionary = dictionary.with_constant_row_sum_squares(); 
     int dim = dictionary.dimension();
     debugging << "Read a dictionary of size: " << dictionary.size()<< " x " << dim
 	      << " (time " << time(0) - start_time << " sec)" << std::endl;      start_time = time(0);
@@ -130,7 +132,7 @@ main(int argc,char** argv)
 	///////////////////////////////////////////////
 
 	debugging << debugging_prefix << "MLE" << std::endl;
-	likelihood = model_to_likelihood(dictionary, corpus_in_memory, parser);
+	likelihood = model_to_likelihood(parent_dictionary, child_dictionary, corpus_in_memory, parser);
 	debugging << debugging_prefix <<  likelihood << std::endl;
 	debugging << debugging_prefix << " (time " << time(0) - start_time << " sec)" << std::endl;      start_time = time(0);
 

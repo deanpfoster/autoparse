@@ -112,7 +112,11 @@ auto_parse::Eigenwords::with_constant_row_sum_squares() const
   result.m_cache_index = index;
   result.mp_eigenwords = s_cache[index];
   for(auto i = mp_eigenwords->begin(); i != mp_eigenwords->end(); ++i)
-      s_cache[index]->insert(*i);
+    {
+      Eigen::VectorXd values = i->second;
+      double ss = values.norm();
+      (*s_cache[index])[i->first] = i->second / ss;
+    }
   return result;
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */

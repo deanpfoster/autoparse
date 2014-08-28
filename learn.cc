@@ -149,14 +149,14 @@ auto_parse::likelihood_to_model(const Likelihood& likelihood,
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Likelihood
-auto_parse::model_to_likelihood(const Eigenwords& dictionary,
+auto_parse::model_to_likelihood(const Eigenwords& parent,const Eigenwords& child,
 				const std::vector<auto_parse::Words>& corpus_in_memory,
 				const auto_parse::Statistical_parse& parser)
 {
-  int dim = dictionary.dimension();
+  int dim = parent.dimension();
   Eigen::MatrixXd identity = Eigen::MatrixXd::Identity(dim,dim); 
-  auto_parse::TP_eigenwords left(dictionary,dictionary,identity); 
-  auto_parse::TP_eigenwords right(dictionary,dictionary,identity); 
+  auto_parse::TP_eigenwords left(parent,child,identity); 
+  auto_parse::TP_eigenwords right(parent,child,identity); 
   int num_threads;
   std::vector<auto_parse::Maximum_likelihood> mle_bundle(0);
 #pragma omp parallel default(shared)
