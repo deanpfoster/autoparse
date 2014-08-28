@@ -32,6 +32,7 @@ auto_parse::Eigenwords::~Eigenwords()
   s_cache_counter[m_cache_index]--;
   if(s_cache_counter[m_cache_index] == 0)
     {
+      std::cout << "Deleting a cached eigendictionary." << std::endl;
       delete(s_cache[m_cache_index]);
       s_cache[m_cache_index] = 0;  // we don't bother recovering the empty space left behind
     };
@@ -46,6 +47,7 @@ auto_parse::Eigenwords::Eigenwords(std::istream& in, int gram_number)
   s_cache.push_back(new std::map<std::string,Eigen::VectorXd>);
   *s_cache[m_cache_index] = read_CSV(in, 0, gram_number);
   mp_eigenwords = s_cache[m_cache_index];
+  assert(mp_eigenwords->find("<OOV>") != mp_eigenwords->end());
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Eigenwords::Eigenwords(const auto_parse::Eigenwords& other)

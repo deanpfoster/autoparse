@@ -1,5 +1,10 @@
 #!/bin/bash
 
+#
+#  Possible command
+#    qsub run_sample_main -pe parallel 12
+#
+
 echo $HOST
 cd ~/nlp/auto_parse
 ./sample.main eng_only pretty.csv

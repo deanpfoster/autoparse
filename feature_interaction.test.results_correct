@@ -1,7 +1,7 @@
 
 
 
-			 INTERACTION<T>  INTERACTION<T>  INTERACTION<T>
+			 (feature_)INTERACTION<T>  feature_INTERACTION<T>  feature_INTERACTION<T>
 
 
 
@@ -14,6 +14,7 @@ stack_top_eigenwords_0_squared , stack_top_eigenwords_0_x_stack_top_eigenwords_1
 The square of `number of words left in the sentence.'.
 `number of words left in the sentence.' times `Full sentence length.'.
 The square of `stack_top as an Eigenword.'.
+Deleting a cached eigendictionary.
 
 
 DONE.

@@ -23,7 +23,7 @@ namespace auto_parse
 {
   void test_interaction()
   {
-    std::cout << "\n\n\n\t\t\t INTERACTION<T>  INTERACTION<T>  INTERACTION<T>\n\n\n"<< std::endl;
+    std::cout << "\n\n\n\t\t\t (feature_)INTERACTION<T>  feature_INTERACTION<T>  feature_INTERACTION<T>\n\n\n"<< std::endl;
     {
       std::ifstream in("pretty_5_c_sample.csv");
       auto_parse::Eigenwords g(in,5);  // testing construction
