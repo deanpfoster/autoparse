@@ -4,6 +4,7 @@
 #include "sample.h"
 #include "assert.h"
 #include <iostream>
+#include "feature_interaction.h"
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                     F R E E   F U N C T I O N S                            free functions
@@ -12,17 +13,23 @@ auto_parse::Feature_generator
 auto_parse::standard_features(const Eigenwords& dictionary)
 {
   // the following uses new C++11 standard to shove all these into a vector
+  typedef Feature_one_dimensional<Words_left> F_wl;
+  typedef Feature_one_dimensional<Stack_size> F_ss;
+  typedef Feature_one_dimensional<Sentence_length> F_sl;
+  typedef Feature_one_dimensional<Distance_to<0> > F_d0;
+  typedef Feature_one_dimensional<Distance_to<1> > F_d1;
+  typedef Feature_one_dimensional<Distance_to<2> > F_d2;
   std::vector<Feature*> features
   {
-    new Feature_one_dimensional<Words_left>,
-      new Feature_one_dimensional<Squared<Words_left> >,
-      new Feature_one_dimensional<Stack_size>,
-      new Feature_one_dimensional<Squared<Stack_size> >,
-      new Feature_one_dimensional<Sentence_length>,
-      new Feature_one_dimensional<Squared<Sentence_length> >,
-      new Feature_one_dimensional<Distance_to<0> >,
-      new Feature_one_dimensional<Distance_to<1> >,
-      new Feature_one_dimensional<Distance_to<2> >,
+    new F_wl,
+      new Interaction<F_wl, F_wl>(F_wl(),F_wl()),
+      new F_ss,
+      new Interaction<F_ss, F_ss>(F_ss(),F_ss()),
+      new F_sl,
+      new Interaction<F_sl, F_sl>(F_sl(),F_sl()),
+      new F_d0,
+      new F_d1,
+      new F_d2,
       new Feature_eigenwords<Next_word>(dictionary),
       new Feature_eigenwords<Stack_top>(dictionary),
       new Feature_eigenwords<Stack_1>(dictionary)

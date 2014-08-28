@@ -63,7 +63,7 @@ namespace auto_parse
     Feature_eigenwords* clone() const;
     // ACCESSORS
     Eigen::VectorXd operator()(const LR&) const;  
-    name_iterator set_names(name_iterator) const;
+    std::vector<std::string> variable_names() const;
     std::string   name() const;
     int           dimension() const;
 

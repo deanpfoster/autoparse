@@ -11,7 +11,7 @@ Size of the current stack.
 1
 1
 1
-number_words_left sentence_length stack_size 
+number_words_left , sentence_length , stack_size , 
 
 
 DONE.

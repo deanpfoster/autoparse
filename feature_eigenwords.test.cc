@@ -20,27 +20,21 @@ namespace auto_parse
 	Feature_eigenwords<Stack_top>  s(g);
 	std::cout << s.name() << std::endl;
 	std::cout << s.dimension() << std::endl;
-	std::vector<std::string> names(s.dimension());
-	s.set_names(names.begin());
-	std::copy(names.begin(), names.end(), std::ostream_iterator<std::string>(std::cout," "));
+	std::cout <<  s.variable_names();
 	std::cout << std::endl;
       }
       {
 	Feature_eigenwords<Next_word>  s(g);
 	std::cout << s.name() << std::endl;
 	std::cout << s.dimension() << std::endl;
-	std::vector<std::string> names(s.dimension());
-	s.set_names(names.begin());
-	std::copy(names.begin(), names.end(), std::ostream_iterator<std::string>(std::cout," "));
+	std::cout  << s.variable_names();
 	std::cout << std::endl;
       }
       {
 	Feature_eigenwords<Stack_1>  s(g);
 	std::cout << s.name() << std::endl;
 	std::cout << s.dimension() << std::endl;
-	std::vector<std::string> names(s.dimension());
-	s.set_names(names.begin());
-	std::copy(names.begin(), names.end(), std::ostream_iterator<std::string>(std::cout," "));
+	std::cout << s.variable_names();
 	std::cout << std::endl;
       }
     };

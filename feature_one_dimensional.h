@@ -59,54 +59,6 @@ namespace auto_parse
     }
   };
 
-  template<class T>
-  struct Squared
-  {
-    double operator()(const LR& parser) const
-    {
-      double tmp = T()(parser);
-      return tmp * tmp;
-    }
-    std::string variable_name() const
-    {
-      std::stringstream s;
-      s << T().variable_name() << "_squared";
-      return s.str();
-    };
-    std::string descriptive_name() const
-    {
-      std::stringstream s;
-      s << "The square of `" << T().descriptive_name() << "'.";
-      return s.str();
-    }
-  };
-  
-  template<class T1, class T2>
-  struct Interaction
-  {
-    double operator()(const LR& parser) const
-    {
-      double tmp1 = T1()(parser);
-      double tmp2 = T2()(parser);
-      return tmp1 * tmp2;
-    }
-    std::string variable_name() const
-    {
-      std::stringstream s;
-      s << T1().variable_name() << "_x_" << T2().variable_name();
-      return s.str();
-    };
-    std::string descriptive_name() const
-    {
-      std::stringstream s;
-      s << "`" << T1().descriptive_name()
-	<< "' times `" << T2().descriptive_name() << "'.";
-      return s.str();
-    }
-  };
-  
-
-
 
   template <class T>
   class Feature_one_dimensional: public Feature
@@ -116,15 +68,15 @@ namespace auto_parse
     virtual ~Feature_one_dimensional<T>();
     Feature_one_dimensional<T>();
     Feature_one_dimensional<T>* clone() const;
+    Feature_one_dimensional<T>(const Feature_one_dimensional<T> &);
 
     // ACCESSORS
     virtual Eigen::VectorXd operator()(const LR&) const;
-    name_iterator set_names(name_iterator) const;
+    std::vector<std::string> variable_names() const;
     std::string   name() const;
     int           dimension() const;
 
   private:
-    Feature_one_dimensional<T>(const Feature_one_dimensional<T> &);            // Don't delete this.
     Feature_one_dimensional<T>& operator=(const Feature_one_dimensional<T> &); // Don't delete this.
   };
 }

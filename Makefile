@@ -84,7 +84,7 @@ tokenize.test: word.o
 #
 #          (This code can depend on level zero or level one code)
 #
-only2:  lr.OK likelihood.OK statistical_history.OK   feature_generator.OK tp_eigenwords.OK train_forecast_linear.OK
+only2:  lr.OK likelihood.OK statistical_history.OK   feature_generator.OK tp_eigenwords.OK train_forecast_linear.OK 
 #
 ################################################################################
 lr.test: dependency.o lr.o word.o
@@ -126,13 +126,15 @@ feature_eigenwords.test: lr.o dependency.o word.o feature.o eigenwords.o
 ################################################################################
 #           L E V E L     F O U R    T E S T I N G     C O D E
 #          (This code can depend on level 0, 1, 2 or 3 code)
-only4: statistical_parse.OK row.OK
+only4: statistical_parse.OK row.OK feature_interaction.OK
 ################################################################################
 
 
 statistical_parse.test: history.o dependency.o lr.o word.o redo_parse.o model.o statistical_history.o value_of_forecasts.o forecast.o forecast_constant.o feature_generator.o
 
 row.test: feature_generator.o lr.o word.o redo_parse.o dependency.o history.o
+
+feature_interaction.test: feature.o feature_one_dimensional.o lr.o dependency.o word.o feature_eigenwords.o eigenwords.o
 
 
 ################################################################################
@@ -171,7 +173,8 @@ sample.main: history.o dependency.o lr.o word.o redo_parse.o model.o suggest_alt
              forecast.o forecast_constant.o  transition_probability.o likelihood.o \
              feature_generator.o feature.o feature_one_dimensional.o \
              contrast.o eigenwords.o tp_eigenwords.o feature_eigenwords.o maximum_likelihood.o \
-             train_forecast_linear.o forecast_linear.o row.o value_of_forecasts.o tokenize.o sample.o
+             train_forecast_linear.o forecast_linear.o row.o value_of_forecasts.o tokenize.o sample.o \
+             feature_interaction.o
 
 sample.output: sample.main
 	./sample.main | tee sample.output

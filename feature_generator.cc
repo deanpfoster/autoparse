@@ -104,10 +104,13 @@ auto_parse::Feature_generator::features(const LR& parser) const
 std::vector<std::string>
 auto_parse::Feature_generator::feature_names() const
 {
-  std::vector<std::string> result(m_number_features,"");
+  std::vector<std::string> result(m_number_features);
   auto current_location = result.begin();
   for(auto i = m_features.begin(); i != m_features.end(); ++i)
-    current_location = (*i)->set_names(current_location);
+    {
+      std::vector<std::string> tmp = (*i)->variable_names();
+      current_location =std::copy(tmp.begin(), tmp.end(), current_location);
+    };
   return result;
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */

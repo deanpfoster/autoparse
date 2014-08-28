@@ -45,9 +45,11 @@ auto_parse::Feature_eigenwords<T>::operator()(const auto_parse::LR& parser) cons
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 template<class T>
-std::vector<std::string>::iterator
-auto_parse::Feature_eigenwords<T>::set_names(std::vector<std::string>::iterator i) const
+std::vector<std::string>
+auto_parse::Feature_eigenwords<T>::variable_names() const
 {
+  std::vector<std::string> result(dimension());
+  auto i = result.begin();
   for(int j = 0; j < m_eigenwords.dimension(); ++j)
     {
       std::stringstream s;
@@ -55,7 +57,7 @@ auto_parse::Feature_eigenwords<T>::set_names(std::vector<std::string>::iterator 
       *i = s.str();
       ++i;
     }
-  return i;
+  return result;
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 template<class T>

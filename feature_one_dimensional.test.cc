@@ -23,12 +23,9 @@ namespace auto_parse
       std::cout << s1.dimension() << std::endl;
       std::cout << s2.dimension() << std::endl;
       std::cout << s3.dimension() << std::endl;
-      std::vector<std::string> names(3);
-      auto i = names.begin();
-      i = s1.set_names(i);
-      i = s2.set_names(i);
-      i = s3.set_names(i);
-      std::copy(names.begin(), names.end(), std::ostream_iterator<std::string>(std::cout," "));
+      std::cout << s1.variable_names();
+      std::cout << s2.variable_names();
+      std::cout << s3.variable_names();
       std::cout << std::endl;
     };
   }

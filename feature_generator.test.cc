@@ -38,16 +38,17 @@ public:
       };
     return result;
   }
-
-  std::vector<std::string>::iterator set_names(std::vector<std::string>::iterator result) const
+  std::vector<std::string> variable_names() const
   {
     std::string prefix = "Sample";
+    std::vector<std::string> result(dimension());
+    auto j = result.begin();
     for(unsigned int i = 0; i < m_fixed.size(); ++i)
       {
 	std::stringstream s;
 	s << prefix << "_" << i;
-	*result = s.str();
-	++result;
+	*j = s.str();
+	++j;
       }
     return result;
   }

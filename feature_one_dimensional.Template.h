@@ -14,6 +14,13 @@ auto_parse::Feature_one_dimensional<T>::~Feature_one_dimensional()
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 template<class T>
 auto_parse::Feature_one_dimensional<T>::Feature_one_dimensional()
+  :Feature()
+{
+};
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+template<class T>
+auto_parse::Feature_one_dimensional<T>::Feature_one_dimensional(const auto_parse::Feature_one_dimensional<T>&)
+  :Feature()
 {
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -38,12 +45,12 @@ auto_parse::Feature_one_dimensional<T>::operator()(const auto_parse::LR& parser)
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 template<class T>
-std::vector<std::string>::iterator
-auto_parse::Feature_one_dimensional<T>::set_names(std::vector<std::string>::iterator i) const
+std::vector<std::string>
+auto_parse::Feature_one_dimensional<T>::variable_names() const
 {
-  *i = T().variable_name();
-  ++i;
-  return i;
+  std::vector<std::string> result(dimension());
+  result[0] = T().variable_name();
+  return result;
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 template<class T>

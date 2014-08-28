@@ -130,12 +130,16 @@ main(int argc,char** argv)
 	///////////////////////////////////////////////
 
 	double sqrt_sum = 0;
-	for(auto_parse::Words sentence : corpus_in_memory)
+
+#pragma omp parallel for 
+
+	for(unsigned int i = 0; i <  corpus_in_memory.size(); ++i)
 	  {
+	auto_parse::Words sentence = corpus_in_memory[i];
 	    auto_parse::Dependency parse = redo_parse(sentence, parser(sentence)).parse();
 	    double prob = likelihood(parse);
 	    sqrt_sum += sqrt(fabs(prob));
-	  }
+      };
 	std::cout << debugging_prefix << " * * * * " << sqrt_sum << " * * * * " << std::endl;
 
 	auto_parse::Dependency parse1 = redo_parse(corpus_in_memory[1], parser(corpus_in_memory[1])).parse();
@@ -144,6 +148,7 @@ main(int argc,char** argv)
 	parse1.latex(latex);
 	parse3.latex(latex);
 	parse5.latex(latex);
+	debugging << " (time " << time(0) - start_time << " sec)" << std::endl;      start_time = time(0);
 	
 
 	}
