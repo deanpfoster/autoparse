@@ -119,10 +119,7 @@ main(int argc,char** argv)
 	///////////////////////////////////////////////
 
 	debugging << debugging_prefix << "MLE" << std::endl;
-	likelihood = model_to_likelihood( dictionary,
-					  corpus_in_memory,
-					  parser);
-
+	likelihood = model_to_likelihood(dictionary, corpus_in_memory, parser);
 	debugging << debugging_prefix <<  likelihood << std::endl;
 	debugging << debugging_prefix << " (time " << time(0) - start_time << " sec)" << std::endl;      start_time = time(0);
 
@@ -135,7 +132,6 @@ main(int argc,char** argv)
 	double sqrt_sum = 0;
 
 #pragma omp parallel for 
-
 	for(unsigned int i = 0; i <  corpus_in_memory.size(); ++i)
 	  {
 	auto_parse::Words sentence = corpus_in_memory[i];
@@ -143,6 +139,7 @@ main(int argc,char** argv)
 	    double prob = likelihood(parse);
 	    sqrt_sum += sqrt(fabs(prob));
 	  };
+
 	std::cout << debugging_prefix << " * * * * " << sqrt_sum << " * * * * " << std::endl;
 
 	auto_parse::Dependency parse1 = redo_parse(corpus_in_memory[1], parser(corpus_in_memory[1])).parse();
