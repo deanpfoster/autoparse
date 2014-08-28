@@ -13,7 +13,7 @@ namespace auto_parse
     // CONSTRUCTORS
     ~Train_forecast_linear();
     Train_forecast_linear();  // evil default constructor, used by std::map, fill with operator=
-    Train_forecast_linear(const Forecast&);  
+    Train_forecast_linear(const Forecast&, double sampling_rate);  
     Train_forecast_linear(const     Train_forecast_linear&);  
     Train_forecast_linear& operator=(const Train_forecast_linear &);
 
@@ -25,6 +25,7 @@ namespace auto_parse
 
   protected:
   private:
+    double m_sampling_rate;
     Forecast_linear m_old_model;
     Eigen::MatrixXd m_XtX;  // X'X
     Eigen::VectorXd m_XtY;  // X'Y

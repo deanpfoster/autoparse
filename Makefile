@@ -24,7 +24,7 @@ include flags
 #   very_clean  kills everything we can think of.  Back to the beginning.
 #
 ################################################################################
-current_target: test learn.output
+current_target: test learn.main
 
 
 ################################################################################
@@ -112,7 +112,7 @@ only3: redo_parse.OK suggest_alternative_history.OK model.OK \
 
 redo_parse.test: history.o dependency.o lr.o word.o redo_parse.o feature_generator.o
 
-suggest_alternative_history.test: statistical_history.o history.o value_of_forecasts.o word.o utilities/z.o
+suggest_alternative_history.test: statistical_history.o history.o value_of_forecasts.o word.o 
 
 model.test: forecast.o history.o feature_generator.o value_of_forecasts.o
 
@@ -160,7 +160,7 @@ learn.test: history.o dependency.o lr.o word.o redo_parse.o model.o suggest_alte
              feature_generator.o feature.o feature_one_dimensional.o \
              contrast.o eigenwords.o tp_eigenwords.o feature_eigenwords.o maximum_likelihood.o \
              train_forecast_linear.o forecast_linear.o row.o value_of_forecasts.o tokenize.o learn.o \
-             feature_interaction.o
+             feature_interaction.o 
 
 ################################################################################
 #           L E V E L     !!! I N F I N I T Y !!!    T E S T I N G     C O D E

@@ -91,11 +91,13 @@ main()
 	s << "  " << rounds << "    ";
 	std::string debugging_prefix = s.str();
 	// the following uses OpenMP to run faster
+	double sampling_rate = 1.0;  // no need for speedup here
 	debugging << debugging_prefix << "Training" << std::endl;
 	auto_parse::Model new_model = likelihood_to_model(likelihood,
 							  parser,
 							  feature_generator,
 							  lr_model,
+							  sampling_rate,
 							  corpus_in_memory,
 							  debugging,debugging_prefix);
 	parser.new_model(new_model);

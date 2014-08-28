@@ -14,7 +14,6 @@
 #define TRULY_RANDOM
 #include "utilities/z.Template.h"
 
-
 int
 main(int argc,char** argv)
 {
@@ -107,6 +106,7 @@ main(int argc,char** argv)
 	//                                           //
 	///////////////////////////////////////////////
 
+	double sampling_rate = .1;  // this generates about a factor of 10 speed up
 	std::stringstream s;
 	s << "  " << rounds << "    ";
 	std::string debugging_prefix = s.str();
@@ -116,6 +116,7 @@ main(int argc,char** argv)
 							  parser,
 							  feature_generator,
 							  lr_model,
+							  sampling_rate,
 							  corpus_in_memory,
 							  debugging,debugging_prefix);
 	parser.new_model(new_model);

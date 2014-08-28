@@ -41,6 +41,7 @@ namespace auto_parse
 			const auto_parse::Statistical_parse& parser,
 			const Feature_generator& feature_generator,
 			const Model& lr_model,
+			double sampling_rate,
 			const std::vector<auto_parse::Words>& corpus_in_memory,
 			std::ostream& debugging, std::string debugging_prefix);
 

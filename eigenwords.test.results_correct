@@ -66,7 +66,8 @@
  0.00457184
 -0.00764607
  0.00580796
-Deleting a cached eigendictionary.
+Should delete a cached eigendictionary.
+But we aren't going to since it seems to be having problems when we do so.
 
 
 DONE.

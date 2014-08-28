@@ -14,7 +14,8 @@ stack_top_eigenwords_0_squared , stack_top_eigenwords_0_x_stack_top_eigenwords_1
 The square of `number of words left in the sentence.'.
 `number of words left in the sentence.' times `Full sentence length.'.
 The square of `stack_top as an Eigenword.'.
-Deleting a cached eigendictionary.
+Should delete a cached eigendictionary.
+But we aren't going to since it seems to be having problems when we do so.
 
 
 DONE.

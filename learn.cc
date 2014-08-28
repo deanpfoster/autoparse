@@ -103,12 +103,13 @@ auto_parse::likelihood_to_model(const Likelihood& likelihood,
 				const auto_parse::Statistical_parse& parser,
 				const Feature_generator& feature_generator,
 				const Model& lr_model,
+				double sampling_rate,
 				const std::vector<auto_parse::Words>& corpus_in_memory,
 				std::ostream& debugging, std::string debugging_prefix)
 {
   std::map<auto_parse::Action, auto_parse::Train_forecast_linear> training;
   for(auto_parse::Action a: auto_parse::all_actions)
-    training[a] = auto_parse::Train_forecast_linear(lr_model.forecast(a));
+    training[a] = auto_parse::Train_forecast_linear(lr_model.forecast(a),sampling_rate);
 
   std::vector<std::map<auto_parse::Action, auto_parse::Train_forecast_linear> > training_bundle(0);
   int num_threads;

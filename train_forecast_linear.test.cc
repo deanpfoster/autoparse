@@ -6,6 +6,9 @@
 
 #include "train_forecast_linear.h"
 
+#define REPRODUCIBLE
+#include "utilities/z.Template.h"
+
 namespace auto_parse
 {
   void test_train_forecast_linear()
@@ -13,9 +16,7 @@ namespace auto_parse
     std::cout << "\n\n\n\t\t\t TRAIN_FORECAST_LINEAR  TRAIN_FORECAST_LINEAR  TRAIN_FORECAST_LINEAR\n\n\n"<< std::endl;
     {
       Forecast_linear example;
-      Train_forecast_linear training(example);
-
-
+      Train_forecast_linear training(example,1.0);
       std::cout << "constructed!" << std::endl;
     };
   }
