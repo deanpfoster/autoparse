@@ -52,10 +52,17 @@ auto_parse::Forecast_linear::Forecast_linear(const Eigen::VectorXd& d)
   : Forecast(),
     m_weights(d)
 {
+  int number_zeros = 0;
   for(int i = 0; i < d.size(); ++i)
     {
-      assert(!isnan(d[i] ));
-    }
+      if(isnan(m_weights[i]))
+	{
+	  m_weights[i] = 0;
+	  ++number_zeros ;
+	}
+    };
+  if(number_zeros != 0)
+    std::cout << key() << " zeroed out " << number_zeros << " / " << m_weights.size() << " parameters which were nans." << std::endl;
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 void
