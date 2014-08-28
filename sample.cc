@@ -9,9 +9,10 @@
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                     F R E E   F U N C T I O N S                            free functions
 
-auto_parse::Feature_generator
-auto_parse::standard_features(const Eigenwords& dictionary)
+std::vector<auto_parse::Feature*>
+linear_features(const auto_parse::Eigenwords& dictionary)
 {
+  using namespace auto_parse;
   // the following uses new C++11 standard to shove all these into a vector
   typedef Feature_one_dimensional<Words_left> F_wl;
   typedef Feature_one_dimensional<Stack_size> F_ss;
@@ -19,7 +20,7 @@ auto_parse::standard_features(const Eigenwords& dictionary)
   typedef Feature_one_dimensional<Distance_to<0> > F_d0;
   typedef Feature_one_dimensional<Distance_to<1> > F_d1;
   typedef Feature_one_dimensional<Distance_to<2> > F_d2;
-  std::vector<Feature*> features
+  std::vector<Feature*> result
   {
     new F_wl,
       new Interaction<F_wl, F_wl>(F_wl(),F_wl()),
@@ -27,6 +28,9 @@ auto_parse::standard_features(const Eigenwords& dictionary)
       new Interaction<F_ss, F_ss>(F_ss(),F_ss()),
       new F_sl,
       new Interaction<F_sl, F_sl>(F_sl(),F_sl()),
+      new Interaction<F_sl, F_wl>(F_sl(),F_wl()),
+      new Interaction<F_sl, F_ss>(F_sl(),F_ss()),
+      new Interaction<F_ss, F_wl>(F_ss(),F_wl()),
       new F_d0,
       new F_d1,
       new F_d2,
@@ -34,9 +38,36 @@ auto_parse::standard_features(const Eigenwords& dictionary)
       new Feature_eigenwords<Stack_top>(dictionary),
       new Feature_eigenwords<Stack_1>(dictionary)
       };
+  return result;
+}
+
+std::vector<auto_parse::Feature*>
+eigen_interactions(const auto_parse::Eigenwords& dictionary)
+{
+  using namespace auto_parse;
+  // the following uses new C++11 standard to shove all these into a vector
+  typedef Feature_eigenwords<Next_word> nw;
+  typedef Feature_eigenwords<Stack_top> st;
+  typedef Feature_eigenwords<Stack_1>   s1;
+  
+  std::vector<Feature*> result
+  {
+    new Interaction<st, s1>(st(dictionary),s1(dictionary))
+  };
+  return result;
+}
+
+auto_parse::Feature_generator
+auto_parse::standard_features(const Eigenwords& dictionary)
+{
+  std::vector<Feature*> features = linear_features(dictionary);
+  std::vector<Feature*> more = eigen_interactions(dictionary);
+  std::copy(more.begin(), more.end(), std::back_inserter(features));
   Feature_generator result = Feature_generator(features);
   return result;
 };
+
+
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 auto_parse::Model

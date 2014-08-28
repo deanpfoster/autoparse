@@ -102,13 +102,13 @@ main(int argc,char** argv)
 	s << "  " << rounds << "    ";
 	std::string debugging_prefix = s.str();
 	// the following uses OpenMP to run faster
+	debugging << debugging_prefix << "Training" << std::endl;
 	auto_parse::Model new_model = likelihood_to_model(likelihood,
 							  parser,
 							  feature_generator,
 							  lr_model,
 							  corpus_in_memory,
-							  debugging,
-							  debugging_prefix);
+							  debugging,debugging_prefix);
 	parser.new_model(new_model);
 	debugging << " (time " << time(0) - start_time << " sec)" << std::endl;      start_time = time(0);
 	
@@ -121,10 +121,9 @@ main(int argc,char** argv)
 	debugging << debugging_prefix << "MLE" << std::endl;
 	likelihood = model_to_likelihood( dictionary,
 					  corpus_in_memory,
-					  parser,
-					  debugging,
-					  debugging_prefix);
+					  parser);
 
+	debugging << debugging_prefix <<  likelihood << std::endl;
 	debugging << debugging_prefix << " (time " << time(0) - start_time << " sec)" << std::endl;      start_time = time(0);
 
 	///////////////////////////////////////////////

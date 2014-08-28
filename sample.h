@@ -46,8 +46,7 @@ namespace auto_parse
   Likelihood
     model_to_likelihood(const Eigenwords& dictionary,
 			const std::vector<auto_parse::Words>& corpus_in_memory,
-			const auto_parse::Statistical_parse& parser,
-			std::ostream& debugging, std::string debugging_prefix);
+			const auto_parse::Statistical_parse& parser);
 
 
 }

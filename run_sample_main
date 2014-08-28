@@ -15,5 +15,5 @@ echo
 echo "******************************************************************************"
 
 cd ~/nlp/auto_parse
-./sample.main eng_only pretty.csv ~/run_sample_main.t$JOB_ID.tex
+./sample.main eng_only.10k pretty.csv ~/run_sample_main.t$JOB_ID.tex
 
