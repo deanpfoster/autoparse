@@ -11,10 +11,10 @@ original: shift shift shift shift shift shift shift shift shift <-- <-- <-- <-- 
   prefix: shift shift shift shift shift <-- 
     last: shift
 new last: <--
--0.292803,"shift",4,5,9
-0.292803,"<--",4,5,9
--58.1281,"<--",0,6,9
-58.1281,"-->",0,6,9
+394.945,"shift",4,5,9
+-394.945,"<--",4,5,9
+1806.02,"<--",0,6,9
+-1806.02,"-->",0,6,9
 constructed!
 
 

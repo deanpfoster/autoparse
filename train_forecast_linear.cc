@@ -19,13 +19,13 @@ auto_parse::Train_forecast_linear::Train_forecast_linear(const Forecast& f, doub
   m_sampling_rate(sampling_rate),
   m_old_model(dynamic_cast<const auto_parse::Forecast_linear&>(f)),
   m_XtX(Eigen::MatrixXd::Identity(m_old_model.dimension(),m_old_model.dimension())),  // X'X
-  m_XtY(m_old_model.dimension())   // X'Y
+  m_XtY(Eigen::VectorXd::Zero(m_old_model.dimension()))   // X'Y
 {
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Train_forecast_linear::Train_forecast_linear()
   :
-  m_sampling_rate(),
+  m_sampling_rate(-1),
   m_old_model(),
   m_XtX(),
   m_XtY()
@@ -59,6 +59,7 @@ auto_parse::Train_forecast_linear::operator=(const Train_forecast_linear & other
 void
 auto_parse::Train_forecast_linear::operator()(const Eigen::VectorXd& X, double Y)
 {
+  assert(m_sampling_rate > 0);
   if(my_random::U() < m_sampling_rate)
     m_XtX += X * (X.transpose());
   m_XtY += X * Y;
@@ -80,8 +81,8 @@ auto_parse::Train_forecast_linear::result() const
 {
   //  Eigen::VectorXd beta = m_XtX.colPivHouseholderQr().solve(m_XtY);
   Eigen::MatrixXd inv = m_XtX.inverse();  // this version is paralizable
-  Eigen::VectorXd beta = inv * m_XtY / m_sampling_rate;
-  return Forecast_linear(beta);
+  Eigen::VectorXd beta = inv * m_XtY;
+  return Forecast_linear(beta * m_sampling_rate);
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 

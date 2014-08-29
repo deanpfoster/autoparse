@@ -95,7 +95,12 @@ auto_parse::Maximum_likelihood::merge(const auto_parse::Maximum_likelihood& othe
 auto_parse::Likelihood
 auto_parse::Maximum_likelihood::output() const
 {
-  return Likelihood(*mp_left, *mp_right);
+  Transition_probability* pl = mp_left->renormalize();
+  Transition_probability* pr = mp_right->renormalize();
+  Likelihood result(*pl,*pr);
+  delete pl;
+  delete pr;
+  return result;
 }
 
 

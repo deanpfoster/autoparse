@@ -13,7 +13,7 @@ public:
   sample(){};
 
   void accumulate(const auto_parse::Word&, const auto_parse::Word&){};
-  void renormalize(){};
+  Transition_probability* renormalize() const{return 0;};
 
   sample* clone() const
   {

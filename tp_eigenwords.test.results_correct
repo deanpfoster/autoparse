@@ -5,9 +5,9 @@
 
 
 
-59.8853
-3.25157
-0.296633
+-858.057
+-92.4377
+-11.9273
 Should delete a cached eigendictionary.
 But we aren't going to since it seems to be having problems when we do so.
 

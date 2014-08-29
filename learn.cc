@@ -82,10 +82,10 @@ auto_parse::Model
 auto_parse::standard_model(const Feature_generator& feature_generator)
 {
   int num_features = feature_generator.dimension();
-  Forecast* p_example_shift = new Forecast_linear(Eigen::VectorXd(num_features));
-  Forecast* p_example_left  = new Forecast_linear(Eigen::VectorXd(num_features));
-  Forecast* p_example_right = new Forecast_linear(Eigen::VectorXd(num_features));
-  Forecast* p_example_reduce= new Forecast_linear(Eigen::VectorXd(num_features));
+  Forecast* p_example_shift = new Forecast_linear(Eigen::VectorXd::Zero(num_features));
+  Forecast* p_example_left  = new Forecast_linear(Eigen::VectorXd::Zero(num_features));
+  Forecast* p_example_right = new Forecast_linear(Eigen::VectorXd::Zero(num_features));
+  Forecast* p_example_reduce= new Forecast_linear(Eigen::VectorXd::Zero(num_features));
   Model result(
 	       {   {Action::shift,       p_example_shift},
 		   {Action::left_reduce, p_example_left},
@@ -159,10 +159,8 @@ auto_parse::model_to_likelihood(const Eigenwords& parent,const Eigenwords& child
 				const std::vector<auto_parse::Words>& corpus_in_memory,
 				const auto_parse::Statistical_parse& parser)
 {
-  int dim = parent.dimension();
-  Eigen::MatrixXd identity = Eigen::MatrixXd::Identity(dim,dim); 
-  auto_parse::TP_eigenwords left(parent,child,identity); 
-  auto_parse::TP_eigenwords right(parent,child,identity); 
+  auto_parse::TP_eigenwords left(parent,child); 
+  auto_parse::TP_eigenwords right(parent,child); 
   int num_threads;
   std::vector<auto_parse::Maximum_likelihood> mle_bundle(0);
 #pragma omp parallel default(shared)

@@ -73,8 +73,7 @@ main()
     //
     //////////////////////////////////////////////////////////////////////////////////
 
-    Eigen::MatrixXd t = Eigen::MatrixXd::Identity(dim,dim); // This needs to be estimated
-    auto_parse::TP_eigenwords tp(dictionary,dictionary,t);  
+    auto_parse::TP_eigenwords tp(dictionary,dictionary);  
     auto_parse::Likelihood likelihood(tp,tp);
 
     //////////////////////////////////////////////////////////////////////////////////

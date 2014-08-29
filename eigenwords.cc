@@ -32,7 +32,7 @@ auto_parse::Eigenwords::~Eigenwords()
   assert(m_alive);
   m_alive = false;
   assert(m_cache_index >= 0);
-  assert(m_cache_index < s_cache_counter.size());
+  assert(m_cache_index < static_cast<int>(s_cache_counter.size()));
   assert(s_cache_counter.size() == s_cache.size());
 
   assert(s_cache_counter.size() == 1); // this one should be removed when we have more than one eigendictionary

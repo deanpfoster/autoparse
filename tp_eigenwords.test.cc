@@ -16,8 +16,9 @@ namespace auto_parse
       std::ifstream in("pretty_5_c_sample.csv");
       auto_parse::Eigenwords g(in,5);  // testing construction
       int dim = g.dimension();
-      Eigen::MatrixXd t = Eigen::MatrixXd::Random(dim,dim);
-      auto_parse::TP_eigenwords tp(g,g,t);  // testing construction
+      Eigen::MatrixXd parent = Eigen::MatrixXd::Random(dim,dim);
+      Eigen::MatrixXd child = Eigen::MatrixXd::Random(dim,dim);
+      auto_parse::TP_eigenwords tp(g,g,parent,child);  // testing construction
       std::cout << tp("<OOV>", "<OOV>") << std::endl;
       std::cout << tp("the", "<OOV>") << std::endl;
       std::cout << tp("the", "the") << std::endl;

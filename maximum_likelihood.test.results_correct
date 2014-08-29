@@ -7,15 +7,15 @@
 
 Likelihood model:
 	Eigenword with transition matrix.
-	max = 424.965
-	min = 0.000188278
-	mean= 0.460585
-	 sd = 14.2146
+	max = 13.187
+	min = 0.000649325
+	mean= 0.0237143
+	 sd = 1.9633
 	Eigenword with transition matrix.
-	max = 766.332
-	min = 0.000495079
-	mean= 0.801821
-	 sd = 25.6199
+	max = 2.53813
+	min = 4.44601e-08
+	mean= 0.00531847
+	 sd = 0.104801
 
 
 DONE.

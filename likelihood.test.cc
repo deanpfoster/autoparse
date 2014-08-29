@@ -11,7 +11,7 @@ class sample: public auto_parse::Transition_probability
   sample(){};
   sample* clone() const  { return new sample(*this);};
   void accumulate(const auto_parse::Word&, const auto_parse::Word&){};
-  void renormalize(){};
+  Transition_probability* renormalize() const{return 0;};
  double operator()(const auto_parse::Word& parent,const auto_parse::Word& child) const
   {    if(parent < child) return 1.0; else return 0.0; };
   void print_on(std::ostream & ostrm) const
