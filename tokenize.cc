@@ -7,6 +7,7 @@
 #include "assert.h"
 #include <iostream>
 #include <sstream>
+#include <boost/algorithm/string.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                              C O N S T R U C T O R S                         constructors
@@ -38,6 +39,7 @@ auto_parse::Tokenize::next_sentence()
     {
       std::string next_word;
       s >> next_word;
+      boost::algorithm::to_lower(next_word);
       result.push_back(next_word);
     }
   return result;
