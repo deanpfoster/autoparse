@@ -7,49 +7,49 @@
 
 A hearing on the issue is scheduled today . 
 			 * * * * Incomplete parse structure:   0 / 9 * * * *
-	              A  <---                                                         A
-	        hearing  <---                                                         hearing
-	             on  <---                                                         on
-	            the  <---                                                         the
-	          issue  <---                                                         issue
-	             is  <---                                                         is
-	      scheduled  <---                                                         scheduled
-	          today  <---                                                         today
-	              .  <---                                                         .
+     	              A  <---                                                         A
+     	        hearing  <---                                                         hearing
+     	             on  <---                                                         on
+     	            the  <---                                                         the
+     	          issue  <---                                                         issue
+     	             is  <---                                                         is
+     	      scheduled  <---                                                         scheduled
+     	          today  <---                                                         today
+     	              .  <---                                                         .
 
 A hearing on the issue is scheduled today . 
 			 * * * * Incomplete parse structure:   1 / 9 * * * *
-	              A  <---  hearing                                                A
-	        hearing  <---                                               A  <---   hearing
-	             on  <---                                                         on
-	            the  <---                                                         the
-	          issue  <---                                                         issue
-	             is  <---                                                         is
-	      scheduled  <---                                                         scheduled
-	          today  <---                                                         today
-	              .  <---                                                         .
+     	              A  <---  hearing                                                A
+     	        hearing  <---                                               A  <---   hearing
+     	             on  <---                                                         on
+     	            the  <---                                                         the
+     	          issue  <---                                                         issue
+     	             is  <---                                                         is
+     	      scheduled  <---                                                         scheduled
+     	          today  <---                                                         today
+     	              .  <---                                                         .
 
 A hearing on the issue is scheduled today . 
-	              A  <---  hearing                                                A
-	        hearing  <---  is                                           A  <---   hearing   --->  on
-	             on  <---  hearing                                                on   --->  issue
-	            the  <---  issue                                                  the
-	          issue  <---  on                                         the  <---   issue
-	             is  <---  ROOT                                   hearing  <---   is   --->  scheduled, .
-	      scheduled  <---  is                                                     scheduled   --->  today
-	          today  <---  scheduled                                              today
-	              .  <---  is                                                     .
+     	              A  <---  hearing                                                A
+     	        hearing  <---  is                                           A  <---   hearing   --->  on
+     	             on  <---  hearing                                                on   --->  issue
+     	            the  <---  issue                                                  the
+     	          issue  <---  on                                         the  <---   issue
+     	             is  <---  ROOT                                   hearing  <---   is   --->  scheduled, .
+     	      scheduled  <---  is                                                     scheduled   --->  today
+     	          today  <---  scheduled                                              today
+     	              .  <---  is                                                     .
 
 A hearing is scheduled on the issue today . 
-	              A  <---  hearing                                                A
-	        hearing  <---  is                                           A  <---   hearing   --->  on
-	             is  <---  ROOT                                   hearing  <---   is   --->  scheduled, .
-	      scheduled  <---  is                                                     scheduled   --->  today
-	             on  <---  hearing                                                on   --->  issue
-	            the  <---  issue                                                  the
-	          issue  <---  on                                         the  <---   issue
-	          today  <---  scheduled                                              today
-	              .  <---  is                                                     .
+     	              A  <---  hearing                                                A
+     	        hearing  <---  is                                           A  <---   hearing   --->  on
+     	             is  <---  ROOT                                   hearing  <---   is   --->  scheduled, .
+     	      scheduled  <---  is                                                     scheduled   --->  today
+     	             on  <---  hearing                                                on   --->  issue
+     	            the  <---  issue                                                  the
+     	          issue  <---  on                                         the  <---   issue
+     	          today  <---  scheduled                                              today
+     	              .  <---  is                                                     .
 
 
 

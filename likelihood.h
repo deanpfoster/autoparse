@@ -4,7 +4,7 @@
 #define INCLUDED_LIKELIHOOD
 
 #include <iosfwd>
-#include "dependency.h"
+#include "decorated_dependency.h"
 #include "transition_probability.h"
 #include <stack>
 

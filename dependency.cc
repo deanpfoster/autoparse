@@ -242,7 +242,7 @@ auto_parse::Dependency::print_on(std::ostream & ostrm) const
 	  if(parent.find(i) != parent.end())
 	    ostrm << std::left << std::setw(5) << link_description(Link(parent.find(i)->second,i)) <<std::right;
 	  else
-	    ostrm << "--   ";
+	    ostrm << "     ";
 
       //       foo    <---    bar     (foo --> A, B, C)
       ostrm << "\t" << std::setw(15) << word_description(*i);

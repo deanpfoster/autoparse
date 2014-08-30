@@ -12,27 +12,27 @@ Likelihood model:
 4
 constructed!
 A B C D E 
-	              A  <---  B                                                      A
-	              B  <---  C                                            A  <---   B
-	              C  <---  D                                            B  <---   C
-	              D  <---  E                                            C  <---   D
-	              E  <---  ROOT                                         D  <---   E
+     	              A  <---  B                                                      A
+     	              B  <---  C                                            A  <---   B
+     	              C  <---  D                                            B  <---   C
+     	              D  <---  E                                            C  <---   D
+     	              E  <---  ROOT                                         D  <---   E
 
 Sorted: 0
 A B C D E 
-	              A  <---  ROOT                                                   A   --->  B, C, D, E
-	              B  <---  A                                                      B
-	              C  <---  A                                                      C
-	              D  <---  A                                                      D
-	              E  <---  A                                                      E
+     	              A  <---  ROOT                                                   A   --->  B, C, D, E
+     	              B  <---  A                                                      B
+     	              C  <---  A                                                      C
+     	              D  <---  A                                                      D
+     	              E  <---  A                                                      E
 
 right hanging: 4
 E D C B A 
-	              E  <---  D                                                      E
-	              D  <---  C                                            E  <---   D
-	              C  <---  B                                            D  <---   C
-	              B  <---  A                                            C  <---   B
-	              A  <---  ROOT                                         B  <---   A
+     	              E  <---  D                                                      E
+     	              D  <---  C                                            E  <---   D
+     	              C  <---  B                                            D  <---   C
+     	              B  <---  A                                            C  <---   B
+     	              A  <---  ROOT                                         B  <---   A
 
 reverse: 4
 

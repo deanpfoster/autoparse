@@ -11,7 +11,7 @@ foo  	    hearing_OOV  <---  is                                           A  <--
 foo  	             on  <---  hearing_OOV                                            on   --->  issue
 foo  	            the  <---  issue_OOV                                              the
 foo  	      issue_OOV  <---  on                                         the  <---   issue
---   	             is  <---  ROOT                                   hearing  <---   is   --->  scheduled, .
+     	             is  <---  ROOT                                   hearing  <---   is   --->  scheduled, .
 foo  	  scheduled_OOV  <---  is                                                     scheduled   --->  today
 foo  	      today_OOV  <---  scheduled_OOV                                          today
 foo  	              .  <---  is                                                     .
