@@ -1,0 +1,39 @@
+
+
+
+			 DECORATED_DEPENDENCY  DECORATED_DEPENDENCY  DECORATED_DEPENDENCY
+
+
+
+A_OOV hearing_OOV on the issue_OOV is scheduled_OOV today_OOV . 
+foo  	          A_OOV  <---  hearing_OOV                                            A
+foo  	    hearing_OOV  <---  is                                           A  <---   hearing   --->  on
+foo  	             on  <---  hearing_OOV                                            on   --->  issue
+foo  	            the  <---  issue_OOV                                              the
+foo  	      issue_OOV  <---  on                                         the  <---   issue
+--   	             is  <---  ROOT                                   hearing  <---   is   --->  scheduled, .
+foo  	  scheduled_OOV  <---  is                                                     scheduled   --->  today
+foo  	      today_OOV  <---  scheduled_OOV                                          today
+foo  	              .  <---  is                                                     .
+
+		%	 Include in header: \usepackage{tikz-dependency}
+\begin{dependency}[theme = simple]
+\begin{deptext}[column sep=1em]
+     A_OOV \& hearing_OOV \& on \& the \& issue_OOV \& is \& scheduled_OOV \& today_OOV \& .  \\
+\end{deptext}
+\deproot{6}{ROOT}
+\depedge{2}{1}{foo}
+\depedge{5}{4}{foo}
+\depedge{3}{5}{foo}
+\depedge{2}{3}{foo}
+\depedge{7}{8}{foo}
+\depedge{6}{7}{foo}
+\depedge{6}{9}{foo}
+\depedge{6}{2}{foo}
+\end{dependency}
+
+Should delete a cached eigendictionary.
+But we aren't going to since it seems to be having problems when we do so.
+
+
+DONE.

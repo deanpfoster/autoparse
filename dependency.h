@@ -21,7 +21,7 @@ namespace auto_parse
     typedef Links::const_iterator const_link_iterator;
 
     // CONSTRUCTORS
-    ~Dependency();
+    virtual ~Dependency();
     Dependency(const Word&); // generates most trival parse possible
     Dependency(const Words&); // generates an empty parse
     Dependency(const Dependency& left, Right_arrow, const Dependency& right);  // Head is left.head, old right.head comes from left now
@@ -37,12 +37,13 @@ namespace auto_parse
     Node root() const;
     void latex(std::ostream &) const;
     void print_on(std::ostream &) const;
-    std::string link_description(const Link&) const;
     bool full_parse() const;
     const Links& links() const;
     const Words& sentence() const{return m_words;}
 
   protected:
+    virtual std::string link_description(const Link&) const;
+    virtual std::string word_description(const Word&) const;
     void set_root(const Node&); // if you can't see our internal data structure, you probably shouldn't be using these
     void add(const Node& left, Left_arrow ,  const Node& right);
     void add(const Node& left, Right_arrow , const Node& right);

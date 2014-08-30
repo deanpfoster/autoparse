@@ -114,7 +114,8 @@ auto_parse::likelihood_to_model(const Likelihood& likelihood,
 				const Feature_generator& feature_generator,
 				const Model& lr_model,
 				double sampling_rate,
-				const std::vector<auto_parse::Words>& corpus_in_memory)
+				std::vector<auto_parse::Words>::const_iterator begin,
+				std::vector<auto_parse::Words>::const_iterator end)
 {
   std::map<auto_parse::Action, auto_parse::Train_forecast_linear> training;
   for(auto_parse::Action a: auto_parse::all_actions)
@@ -133,11 +134,12 @@ auto_parse::likelihood_to_model(const Likelihood& likelihood,
       for(int i = 0; i < num_threads; ++i)
 	training_bundle[i] = training;
     }
+    int number_to_read = end - begin;
 #pragma omp for 
-    for(unsigned int i = 0; i < corpus_in_memory.size(); ++i)
+    for(int counter = 0; counter < number_to_read;++counter)
       {
+	const auto_parse::Words& sentence = *(begin + counter);
 	int thread_ID = omp_get_thread_num();
-	auto sentence = corpus_in_memory[i];
 	std::vector<auto_parse::Row> contrast_pair = contrast(sentence);
 	for(auto i = contrast_pair.begin(); i != contrast_pair.end(); ++i)
 	  training_bundle[thread_ID][i->m_a](i->m_X, i->m_Y);
@@ -156,8 +158,9 @@ auto_parse::likelihood_to_model(const Likelihood& likelihood,
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Likelihood
 auto_parse::model_to_likelihood(const Eigenwords& parent,const Eigenwords& child,
-				const std::vector<auto_parse::Words>& corpus_in_memory,
-				const auto_parse::Statistical_parse& parser)
+				const auto_parse::Statistical_parse& parser,
+				std::vector<auto_parse::Words>::const_iterator begin,
+				std::vector<auto_parse::Words>::const_iterator end)
 {
   auto_parse::TP_eigenwords left(parent,child); 
   auto_parse::TP_eigenwords right(parent,child); 
@@ -173,12 +176,13 @@ auto_parse::model_to_likelihood(const Eigenwords& parent,const Eigenwords& child
     for(unsigned int i = 0; i < mle_bundle.size(); ++i)
 	mle_bundle[i] = auto_parse::Maximum_likelihood(left, right);
     }
+    int number_to_read = end - begin;
 #pragma omp for 
-    for(unsigned int i = 0; i < corpus_in_memory.size(); ++i)
+    for(int counter = 0; counter < number_to_read;++counter)
       {	
+	const auto_parse::Words& sentence = *(begin + counter);
 	int thread_ID = omp_get_thread_num();
 	assert(thread_ID < num_threads);
-	auto sentence = corpus_in_memory[i];
 	auto_parse::Dependency d = redo_parse(sentence,parser(sentence)).parse();
 	mle_bundle[thread_ID](d);  // adds to database
       }

@@ -44,12 +44,15 @@ namespace auto_parse
 			const Feature_generator& feature_generator,
 			const Model& lr_model,
 			double sampling_rate,
-			const std::vector<auto_parse::Words>& corpus_in_memory);
+			std::vector<auto_parse::Words>::const_iterator,
+			std::vector<auto_parse::Words>::const_iterator);
 
   Likelihood
     model_to_likelihood(const Eigenwords& parent,const Eigenwords& child,
-			const std::vector<auto_parse::Words>& corpus_in_memory,
-			const auto_parse::Statistical_parse& parser);
+			const auto_parse::Statistical_parse& parser,
+			std::vector<auto_parse::Words>::const_iterator,
+			std::vector<auto_parse::Words>::const_iterator);
+
 
 
 }

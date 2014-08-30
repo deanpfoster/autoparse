@@ -22,6 +22,7 @@ namespace auto_parse
     // MANIPULATORS
     // ACCESSORS
     double operator()(const Dependency&) const;
+    Decorated_dependency decorate(const Dependency&) const;
     void print_on(std::ostream & ostrm) const;
     
   private:

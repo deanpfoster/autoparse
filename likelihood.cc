@@ -58,7 +58,7 @@ auto_parse::Likelihood::print_on(std::ostream & ostrm) const
 double
 auto_parse::Likelihood::operator()(const Dependency& parse) const
 {
-  assert(parse.full_parse());
+  //  assert(parse.full_parse());  // is this step as slow as it seems to be?
   double result = 0.0; // we will work with log likelihoods
   for(auto i = parse.links().begin(); i != parse.links().end(); ++i)
     {

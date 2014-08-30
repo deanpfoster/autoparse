@@ -176,7 +176,7 @@ auto_parse::Dependency::latex(std::ostream & ostrm) const
   ostrm << "     ";
   for(const_word_iterator i = m_words.begin(); i != m_words.end();++i)
     {
-      ostrm << *i ;
+      ostrm << word_description(*i) ;
       const_word_iterator next = i;
       ++next;
       if(next != m_words.end())
@@ -206,6 +206,13 @@ auto_parse::Dependency:: link_description(const Link& ) const
 }
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+std::string
+auto_parse::Dependency:: word_description(const Word &w) const
+{
+  return(w);
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 void
 auto_parse::Dependency::print_on(std::ostream & ostrm) const
@@ -218,7 +225,8 @@ auto_parse::Dependency::print_on(std::ostream & ostrm) const
       parent[i->second] = i->first;
       children.insert(*i);
     }
-  copy(m_words.begin(), m_words.end(),std::ostream_iterator<std::string>(ostrm," "));
+  for(Word w : m_words)
+    ostrm << word_description(w) << " ";
   ostrm << std::endl;
   if(!full_parse())
     {
@@ -231,14 +239,19 @@ auto_parse::Dependency::print_on(std::ostream & ostrm) const
     }
   for(const_word_iterator i = m_words.begin(); i != m_words.end(); ++i)
     {
+	  if(parent.find(i) != parent.end())
+	    ostrm << std::left << std::setw(5) << link_description(Link(parent.find(i)->second,i)) <<std::right;
+	  else
+	    ostrm << "--   ";
+
       //       foo    <---    bar     (foo --> A, B, C)
-      ostrm << "\t" << std::setw(15) << *i;
+      ostrm << "\t" << std::setw(15) << word_description(*i);
       if(i == root())
 	ostrm  << "  <---  " << std::left << std::setw(15) << "ROOT" << std::right;
       else
 	{
 	  if(parent.find(i) != parent.end())
-	    ostrm << "  <---  " << std::left << std::setw(15) << *parent[i] << std::right;
+	    ostrm << "  <---  " << std::left << std::setw(15) << word_description(*parent[i]) << std::right;
 	  else
 	    ostrm << "  <---  " << std::setw(15) << " " ;
 	};

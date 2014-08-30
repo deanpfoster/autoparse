@@ -102,12 +102,29 @@ main(int argc,char** argv)
     std::cout << "Trained on " << corpus_in_memory.size() << " sentence.    " << std::endl;
     std::cout << "number threads = " << auto_parse::number_of_threads_used() << "." << std::endl;
 
+    int n = corpus_in_memory.size();  // (About 500k)
+    int number_per_level = 30;
+    std::vector<int> number_to_train_on(6*number_per_level, n);  // default = n
+    int K = 1000;
+    for(int i = 0; i < number_per_level;++i)
+      number_to_train_on[i] = 10*K;
+    for(int i = 1 * number_per_level; i < 2 * number_per_level;++i)
+      number_to_train_on[i] = 20*K;
+    for(int i = 2 * number_per_level; i < 3 * number_per_level;++i)
+      number_to_train_on[i] = 40*K;
+    for(int i = 3 * number_per_level; i < 4 * number_per_level;++i)
+      number_to_train_on[i] = 100*K;
+    for(int i = 4 * number_per_level; i < 5 * number_per_level;++i)
+      number_to_train_on[i] = 200*K;
+    
       
-    for(int rounds = 0; rounds < 100; ++rounds)
+    for(unsigned int rounds = 0; rounds < number_to_train_on.size(); ++rounds)
       {
+	std::vector<auto_parse::Words>::const_iterator begin = corpus_in_memory.begin();
+	std::vector<auto_parse::Words>::const_iterator end   = begin + number_to_train_on[rounds];
 	double sampling_rate = .05;  // this generates about a factor of 10 speed up
 	std::stringstream s;
-	s << "  " << rounds << "    ";
+	s << "  " << rounds << "       ";
 	std::string debugging_prefix = s.str();
 
 	///////////////////////////////////////////////
@@ -116,8 +133,7 @@ main(int argc,char** argv)
 	//                                           //
 	///////////////////////////////////////////////
 
-	auto_parse::Model new_model = likelihood_to_model(likelihood, parser, feature_generator,
-							  lr_model, sampling_rate, corpus_in_memory);
+	auto_parse::Model new_model = likelihood_to_model(likelihood, parser, feature_generator, lr_model, sampling_rate, begin, end);
 	parser.new_model(new_model);
 	debugging << debugging_prefix << "Training time " << time(0) - start_time << " sec." << std::endl;      start_time = time(0);
 	
@@ -127,8 +143,8 @@ main(int argc,char** argv)
 	//                                           //
 	///////////////////////////////////////////////
 
-	likelihood = model_to_likelihood(parent_dictionary, child_dictionary, corpus_in_memory, parser);
-	debugging << debugging_prefix << " MLE time " << time(0) - start_time << " sec." << std::endl;      start_time = time(0);
+	likelihood = model_to_likelihood(parent_dictionary, child_dictionary, parser, begin, end);
+	debugging << debugging_prefix << "MLE time " << time(0) - start_time << " sec." << std::endl;      start_time = time(0);
 
 	///////////////////////////////////////////////
 	//                                           //
@@ -137,26 +153,28 @@ main(int argc,char** argv)
 	///////////////////////////////////////////////
 
 	double sqrt_sum = 0;
+	int number_to_read = end - begin;
 #pragma omp parallel for 
-	for(unsigned int i = 0; i <  corpus_in_memory.size(); ++i)
+    for(int counter = 0; counter < number_to_read;++counter)
 	  {
-	    auto_parse::Words sentence = corpus_in_memory[i];
+	    const auto_parse::Words& sentence = *(begin + counter);
 	    auto_parse::Dependency parse = redo_parse(sentence, parser(sentence)).parse();
 	    double prob = likelihood(parse);
 	    sqrt_sum += sqrt(fabs(prob));
 	  };
 	debugging << debugging_prefix << "Evaluation time " << time(0) - start_time << " sec." << std::endl;      start_time = time(0);
 
-	debugging << debugging_prefix <<  likelihood << std::endl;
+	debugging << debugging_prefix <<  likelihood;
 	std::cout << debugging_prefix << " * * * * " << sqrt_sum << " * * * * " << std::endl;
 
-	auto_parse::Dependency parse1 = redo_parse(corpus_in_memory[1], parser(corpus_in_memory[1])).parse();
-	auto_parse::Dependency parse3 = redo_parse(corpus_in_memory[3], parser(corpus_in_memory[3])).parse();
-	auto_parse::Dependency parse5 = redo_parse(corpus_in_memory[5], parser(corpus_in_memory[5])).parse();
-	latex << "\\section{likelihood index: " << sqrt_sum << "}\n\n" << std::endl;
-	parse1.latex(latex);
-	parse3.latex(latex);
-	parse5.latex(latex);
+	std::vector<int> which_sentences {0,2,4, 10, 17, 26};
+	std::vector<auto_parse::Dependency> parses;
+	for(int sentence_id : which_sentences)
+	  parses.push_back(redo_parse(corpus_in_memory[sentence_id], parser(corpus_in_memory[sentence_id])).parse());
+	latex << "\\newpage\\section{likelihood index: " << sqrt_sum << "}\n\n" << std::endl;
+	for(auto_parse::Dependency p : parses)
+	  p.latex(latex);
+	debugging << debugging_prefix << parses[3];
       }
     auto_parse::latex_footer(latex);
     debugging << "Finished!" << std::endl;

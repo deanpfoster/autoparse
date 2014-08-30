@@ -84,7 +84,7 @@ tokenize.test: word.o
 #
 #          (This code can depend on level zero or level one code)
 #
-only2:  lr.OK likelihood.OK statistical_history.OK   feature_generator.OK tp_eigenwords.OK train_forecast_linear.OK 
+only2:  lr.OK likelihood.OK statistical_history.OK   feature_generator.OK tp_eigenwords.OK train_forecast_linear.OK decorated_dependency.OK
 #
 ################################################################################
 lr.test: dependency.o lr.o word.o
@@ -98,6 +98,8 @@ statistical_history.test: history.o value_of_forecasts.o
 tp_eigenwords.test: eigenwords.o word.o transition_probability.o
 
 train_forecast_linear.test: forecast_linear.o forecast.o 
+
+decorated_dependency.test: dependency.o word.o eigenwords.o
 
 ################################################################################
 #

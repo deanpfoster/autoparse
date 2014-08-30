@@ -101,7 +101,8 @@ main()
 							  feature_generator,
 							  lr_model,
 							  sampling_rate,
-							  corpus_in_memory);
+							  corpus_in_memory.begin(),
+							  corpus_in_memory.end());
 	parser.new_model(new_model);
 	
 	///////////////////////////////////////////////
@@ -111,7 +112,7 @@ main()
 	///////////////////////////////////////////////
 
 	debugging << debugging_prefix << "MLE" << std::endl;
-	likelihood = model_to_likelihood(parent_dictionary, child_dictionary, corpus_in_memory, parser);
+	likelihood = model_to_likelihood(parent_dictionary, child_dictionary,  parser, corpus_in_memory.begin(), corpus_in_memory.end());
 	debugging << debugging_prefix <<  likelihood << std::endl;
 
 	///////////////////////////////////////////////
@@ -125,7 +126,7 @@ main()
 #pragma omp parallel for 
 	for(unsigned int i = 0; i <  corpus_in_memory.size(); ++i)
 	  {
-	auto_parse::Words sentence = corpus_in_memory[i];
+	    auto_parse::Words sentence = corpus_in_memory[i];
 	    auto_parse::Dependency parse = redo_parse(sentence, parser(sentence)).parse();
 	    double prob = likelihood(parse);
 	    sqrt_sum += sqrt(fabs(prob));
