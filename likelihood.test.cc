@@ -24,6 +24,9 @@ namespace auto_parse
   {
     std::cout << "\n\n\n\t\t\t LIKELIHOOD  LIKELIHOOD  LIKELIHOOD\n\n\n"<< std::endl;
     {
+      std::ifstream in("pretty_5_c_sample.csv");
+      auto_parse::Eigenwords dictionary(in,5);  // testing construction
+
       sample left;
       sample right;
       auto_parse::Likelihood lambda(left,right); 
@@ -43,7 +46,7 @@ namespace auto_parse
       D reverse = D("E") < D("D") < D("C") < D("B") < D("A");
       std::cout << reverse;
       std::cout << "reverse: " << lambda(reverse) << std::endl;
-      
+      std::cout << "Pretty version: " << lambda.decorate(reverse,dictionary) << std::endl;
 
     };
   }

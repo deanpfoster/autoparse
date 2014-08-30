@@ -6,15 +6,15 @@
 
 
 A_OOV hearing_OOV on the issue_OOV is scheduled_OOV today_OOV . 
-foo  	          A_OOV  <---  hearing_OOV                                            A
-foo  	    hearing_OOV  <---  is                                           A  <---   hearing   --->  on
-foo  	             on  <---  hearing_OOV                                            on   --->  issue
-foo  	            the  <---  issue_OOV                                              the
-foo  	      issue_OOV  <---  on                                         the  <---   issue
+prob 	          A_OOV  <---  hearing_OOV                                            A
+prob 	    hearing_OOV  <---  is                                           A  <---   hearing   --->  on
+prob 	             on  <---  hearing_OOV                                            on   --->  issue
+prob 	            the  <---  issue_OOV                                              the
+prob 	      issue_OOV  <---  on                                         the  <---   issue
      	             is  <---  ROOT                                   hearing  <---   is   --->  scheduled, .
-foo  	  scheduled_OOV  <---  is                                                     scheduled   --->  today
-foo  	      today_OOV  <---  scheduled_OOV                                          today
-foo  	              .  <---  is                                                     .
+prob 	  scheduled_OOV  <---  is                                                     scheduled   --->  today
+prob 	      today_OOV  <---  scheduled_OOV                                          today
+prob 	              .  <---  is                                                     .
 
 		%	 Include in header: \usepackage{tikz-dependency}
 \begin{dependency}[theme = simple]
@@ -22,14 +22,14 @@ foo  	              .  <---  is                                                 
      A_OOV \& hearing_OOV \& on \& the \& issue_OOV \& is \& scheduled_OOV \& today_OOV \& .  \\
 \end{deptext}
 \deproot{6}{ROOT}
-\depedge{2}{1}{foo}
-\depedge{5}{4}{foo}
-\depedge{3}{5}{foo}
-\depedge{2}{3}{foo}
-\depedge{7}{8}{foo}
-\depedge{6}{7}{foo}
-\depedge{6}{9}{foo}
-\depedge{6}{2}{foo}
+\depedge{2}{1}{prob}
+\depedge{5}{4}{prob}
+\depedge{3}{5}{prob}
+\depedge{2}{3}{prob}
+\depedge{7}{8}{prob}
+\depedge{6}{7}{prob}
+\depedge{6}{9}{prob}
+\depedge{6}{2}{prob}
 \end{dependency}
 
 Should delete a cached eigendictionary.

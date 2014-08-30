@@ -22,8 +22,9 @@ namespace auto_parse
     // MANIPULATORS
     // ACCESSORS
     double operator()(const Dependency&) const;
-    Decorated_dependency decorate(const Dependency&) const;
+    Decorated_dependency decorate(const Dependency&, const Eigenwords&) const;
     void print_on(std::ostream & ostrm) const;
+    double link_probability(const Link&) const;
     
   private:
     Transition_probability* mp_left;

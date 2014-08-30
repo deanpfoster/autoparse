@@ -62,11 +62,7 @@ auto_parse::Likelihood::operator()(const Dependency& parse) const
   double result = 0.0; // we will work with log likelihoods
   for(auto i = parse.links().begin(); i != parse.links().end(); ++i)
     {
-      double delta = 0.0;
-      if(i->first < i->second)
-	delta = (*mp_left)(*i->first, *i->second);
-      else
-	delta = (*mp_right)(*i->first, *i->second);
+      double delta = link_probability(*i);
       bool debugging = false;
       if(debugging)
 	{
@@ -82,7 +78,26 @@ auto_parse::Likelihood::operator()(const Dependency& parse) const
   return result;
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
+auto_parse::Decorated_dependency
+auto_parse::Likelihood::decorate(const Dependency& parse, const Eigenwords& dictionary) const
+{
+  Decorated_dependency result(parse,dictionary);
+  for(auto i = result.links().begin(); i != result.links().end(); ++i)
+    result.describe_link(*i,link_probability(*i));
+  return result;
+}
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+double
+auto_parse::Likelihood::link_probability(const Link& link) const
+{
+  double result = 0;
+  if(link.first < link.second)
+    result = (*mp_left)(*link.first, *link.second);
+  else
+    result = (*mp_right)(*link.first, *link.second);
+  return result;
+}
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                           P R O T E C T E D                                     protected
 

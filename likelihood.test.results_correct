@@ -35,6 +35,16 @@ E D C B A
      	              A  <---  ROOT                                         B  <---   A
 
 reverse: 4
+Pretty version: E_OOV D_OOV C_OOV B_OOV A_OOV 
+1    	          E_OOV  <---  D_OOV                                                  E
+1    	          D_OOV  <---  C_OOV                                        E  <---   D
+1    	          C_OOV  <---  B_OOV                                        D  <---   C
+1    	          B_OOV  <---  A_OOV                                        C  <---   B
+     	          A_OOV  <---  ROOT                                         B  <---   A
+
+
+Should delete a cached eigendictionary.
+But we aren't going to since it seems to be having problems when we do so.
 
 
 DONE.

@@ -49,9 +49,10 @@ auto_parse::Decorated_dependency::describe_link(const Link& link, double d)
 std::string
 auto_parse::Decorated_dependency:: link_description(const Link& link) const
 {
-  assert(m_description.find(link) != m_description.end());
-  //  return(m_description.find(link)->second);
-  return("foo");
+  if(m_description.find(link) != m_description.end())
+    return(m_description.find(link)->second);
+  else
+    return("??");
 }
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */

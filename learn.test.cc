@@ -82,7 +82,7 @@ main()
     //
     //////////////////////////////////////////////////////////////////////////////////
       
-    for(int rounds = 0; rounds < 100; ++rounds)
+    for(int rounds = 0; rounds < 10; ++rounds)
       {
 	///////////////////////////////////////////////
 	//                                           //
@@ -141,8 +141,7 @@ main()
 	parse1.latex(latex);
 	parse3.latex(latex);
 	parse5.latex(latex);
-	
-
+	std::cout << likelihood.decorate(parse1,dictionary) << std::endl;
 	}
     auto_parse::latex_footer(latex);
     debugging << "Finished!" << std::endl;

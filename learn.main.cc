@@ -174,7 +174,7 @@ main(int argc,char** argv)
 	latex << "\\newpage\\section{likelihood index: " << sqrt_sum << "}\n\n" << std::endl;
 	for(auto_parse::Dependency p : parses)
 	  p.latex(latex);
-	debugging << debugging_prefix << parses[3];
+	debugging << debugging_prefix << likelihood.decorate(parses[3],dictionary);
       }
     auto_parse::latex_footer(latex);
     debugging << "Finished!" << std::endl;

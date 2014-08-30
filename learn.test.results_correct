@@ -14,6 +14,15 @@ Read a dictionary of size: 100 x 30
 	 sd = 0.0302873
 
   0     * * * * 31.797 * * * * 
+on that by this with . 
+-0.01	             on  <---  with                                                   on
+-0.01	           that  <---  with                                                   that
+-0.01	             by  <---  with                                                   by
+-0.01	           this  <---  with                                                   this
+-0.01	           with  <---  .                           this, by, that, on  <---   with
+     	              .  <---  ROOT                                      with  <---   .
+
+
   1    Training
   1    MLE
   1    Likelihood model:
@@ -29,6 +38,15 @@ Read a dictionary of size: 100 x 30
 	 sd = 0.0210932
 
   1     * * * * 32.0855 * * * * 
+on that by this with . 
+-0.01	             on  <---  that                                                   on
+-0.01	           that  <---  by                                          on  <---   that
+-0.01	             by  <---  this                                      that  <---   by
+-0.01	           this  <---  with                                        by  <---   this
+-0.01	           with  <---  .                                         this  <---   with
+     	              .  <---  ROOT                                      with  <---   .
+
+
   2    Training
   2    MLE
   2    Likelihood model:
@@ -44,6 +62,15 @@ Read a dictionary of size: 100 x 30
 	 sd = 0.0314396
 
   2     * * * * 32.1428 * * * * 
+on that by this with . 
+-0.01	             on  <---  that                                                   on
+-0.01	           that  <---  by                                          on  <---   that
+-0.01	             by  <---  with                                      that  <---   by
+-0.01	           this  <---  with                                                   this
+-0.01	           with  <---  .                                     this, by  <---   with
+     	              .  <---  ROOT                                      with  <---   .
+
+
   3    Training
   3    MLE
   3    Likelihood model:
@@ -59,6 +86,15 @@ Read a dictionary of size: 100 x 30
 	 sd = 0.0238357
 
   3     * * * * 36.753 * * * * 
+on that by this with . 
+-0.01	             on  <---  by                                                     on   --->  that
+-0.01	           that  <---  on                                                     that
+-0.01	             by  <---  this                                        on  <---   by
+-0.01	           this  <---  with                                        by  <---   this
+-0.01	           with  <---  .                                         this  <---   with
+     	              .  <---  ROOT                                      with  <---   .
+
+
   4    Training
   4    MLE
   4    Likelihood model:
@@ -74,6 +110,15 @@ Read a dictionary of size: 100 x 30
 	 sd = 0.0210419
 
   4     * * * * 34.1194 * * * * 
+on that by this with . 
+-0.01	             on  <---  by                                                     on   --->  that
+-0.01	           that  <---  on                                                     that
+-0.01	             by  <---  this                                        on  <---   by
+-0.01	           this  <---  with                                        by  <---   this
+-0.01	           with  <---  .                                         this  <---   with
+     	              .  <---  ROOT                                      with  <---   .
+
+
   5    Training
   5    MLE
   5    Likelihood model:
@@ -89,6 +134,15 @@ Read a dictionary of size: 100 x 30
 	 sd = 0.0346359
 
   5     * * * * 31.1566 * * * * 
+on that by this with . 
+-0.01	             on  <---  that                                                   on
+-0.01	           that  <---  by                                          on  <---   that
+-0.01	             by  <---  this                                      that  <---   by
+-0.01	           this  <---  with                                        by  <---   this
+-0.01	           with  <---  .                                         this  <---   with
+     	              .  <---  ROOT                                      with  <---   .
+
+
   6    Training
   6    MLE
   6    Likelihood model:
@@ -104,6 +158,15 @@ Read a dictionary of size: 100 x 30
 	 sd = 0.0323587
 
   6     * * * * 32.5334 * * * * 
+on that by this with . 
+-0.01	             on  <---  with                                                   on
+-0.01	           that  <---  by                                                     that
+-0.01	             by  <---  this                                      that  <---   by
+-0.01	           this  <---  with                                        by  <---   this
+-0.01	           with  <---  .                                     this, on  <---   with
+     	              .  <---  ROOT                                      with  <---   .
+
+
   7    Training
   7    MLE
   7    Likelihood model:
@@ -119,6 +182,15 @@ Read a dictionary of size: 100 x 30
 	 sd = 0.0111251
 
   7     * * * * 32.0237 * * * * 
+on that by this with . 
+-0.01	             on  <---  this                                                   on   --->  that, by
+-0.01	           that  <---  on                                                     that
+-0.01	             by  <---  on                                                     by
+-0.01	           this  <---  with                                        on  <---   this
+-0.01	           with  <---  .                                         this  <---   with
+     	              .  <---  ROOT                                      with  <---   .
+
+
   8    Training
   8    MLE
   8    Likelihood model:
@@ -134,6 +206,15 @@ Read a dictionary of size: 100 x 30
 	 sd = 0.0146896
 
   8     * * * * 31.9142 * * * * 
+on that by this with . 
+-0.01	             on  <---  with                                                   on   --->  that, by, this
+-0.01	           that  <---  on                                                     that
+-0.01	             by  <---  on                                                     by
+-0.01	           this  <---  on                                                     this
+-0.01	           with  <---  .                                           on  <---   with
+     	              .  <---  ROOT                                      with  <---   .
+
+
   9    Training
   9    MLE
   9    Likelihood model:
@@ -149,1354 +230,13 @@ Read a dictionary of size: 100 x 30
 	 sd = 0.0315804
 
   9     * * * * 30.8044 * * * * 
-  10    Training
-  10    MLE
-  10    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.165076
-	min = 1.67253e-07
-	mean= 0.000356548
-	 sd = 0.0113358
-	Eigenword with transition matrix.
-	max = 0.331728
-	min = 7.68849e-06
-	mean= 0.000796109
-	 sd = 0.0349439
+on that by this with . 
+-0.01	             on  <---  .                                                      on
+-0.01	           that  <---  .                                                      that   --->  by, this
+-0.01	             by  <---  that                                                   by
+-0.01	           this  <---  that                                                   this
+-0.01	           with  <---  .                                                      with
+     	              .  <---  ROOT                            with, that, on  <---   .
 
-  10     * * * * 31.7064 * * * * 
-  11    Training
-  11    MLE
-  11    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.152732
-	min = 5.27058e-06
-	mean= -0.000121927
-	 sd = 0.0131859
-	Eigenword with transition matrix.
-	max = 0.112297
-	min = 1.23229e-08
-	mean= -3.34574e-05
-	 sd = 0.0108316
 
-  11     * * * * 33.4224 * * * * 
-  12    Training
-  12    MLE
-  12    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.267398
-	min = 8.81478e-07
-	mean= -0.000346543
-	 sd = 0.0189387
-	Eigenword with transition matrix.
-	max = 0.159608
-	min = 3.72308e-06
-	mean= 0.000240344
-	 sd = 0.0169143
-
-  12     * * * * 32.7199 * * * * 
-  13    Training
-  13    MLE
-  13    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.380173
-	min = 1.50957e-06
-	mean= 0.00109296
-	 sd = 0.0319714
-	Eigenword with transition matrix.
-	max = 0.175767
-	min = 2.91886e-06
-	mean= 5.11842e-05
-	 sd = 0.0139461
-
-  13     * * * * 32.0694 * * * * 
-  14    Training
-  14    MLE
-  14    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.392907
-	min = 5.12962e-06
-	mean= 0.0010033
-	 sd = 0.0302564
-	Eigenword with transition matrix.
-	max = 0.165902
-	min = 4.04446e-06
-	mean= 0.000492091
-	 sd = 0.0163139
-
-  14     * * * * 32.3572 * * * * 
-  15    Training
-  15    MLE
-  15    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.335434
-	min = 2.72302e-05
-	mean= 0.000689812
-	 sd = 0.0276612
-	Eigenword with transition matrix.
-	max = 0.204377
-	min = 8.55223e-06
-	mean= 0.00108168
-	 sd = 0.0213184
-
-  15     * * * * 32.361 * * * * 
-  16    Training
-  16    MLE
-  16    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.264452
-	min = 1.72439e-06
-	mean= -0.000110723
-	 sd = 0.0146342
-	Eigenword with transition matrix.
-	max = 0.253489
-	min = 6.30071e-09
-	mean= -0.000413339
-	 sd = 0.0278757
-
-  16     * * * * 32.4186 * * * * 
-  17    Training
-  17    MLE
-  17    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.168725
-	min = 4.64562e-06
-	mean= 0.000347392
-	 sd = 0.0173511
-	Eigenword with transition matrix.
-	max = 0.311758
-	min = 5.48602e-06
-	mean= 0.000937088
-	 sd = 0.0330017
-
-  17     * * * * 31.8788 * * * * 
-  18    Training
-  18    MLE
-  18    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.531774
-	min = 2.96905e-05
-	mean= -0.00144877
-	 sd = 0.0428859
-	Eigenword with transition matrix.
-	max = 0.216006
-	min = 8.70313e-07
-	mean= 0.000804303
-	 sd = 0.0217715
-
-  18     * * * * 44.2717 * * * * 
-  19    Training
-  19    MLE
-  19    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.477122
-	min = 9.53459e-07
-	mean= -4.31596e-05
-	 sd = 0.0319803
-	Eigenword with transition matrix.
-	max = 0.0976717
-	min = 1.07314e-05
-	mean= -0.000793677
-	 sd = 0.0105721
-
-  19     * * * * 47.2263 * * * * 
-  20    Training
-  20    MLE
-  20    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.768814
-	min = 6.94497e-06
-	mean= 0.000997381
-	 sd = 0.0457373
-	Eigenword with transition matrix.
-	max = 0.148964
-	min = 1.00756e-05
-	mean= -0.00010421
-	 sd = 0.0159931
-
-  20     * * * * 54.081 * * * * 
-  21    Training
-  21    MLE
-  21    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.240474
-	min = 5.10438e-06
-	mean= 0.000386079
-	 sd = 0.0172338
-	Eigenword with transition matrix.
-	max = 0.316908
-	min = 4.19046e-05
-	mean= 0.000658005
-	 sd = 0.0342642
-
-  21     * * * * 33.003 * * * * 
-  22    Training
-  22    MLE
-  22    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0
-	min = 0
-	mean= 0
-	 sd = 0
-	Eigenword with transition matrix.
-	max = 0.124774
-	min = 5.76795e-07
-	mean= -1.94368e-05
-	 sd = 0.0112755
-
-  22     * * * * 33.6056 * * * * 
-  23    Training
-  23    MLE
-  23    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.339339
-	min = 2.62284e-05
-	mean= -0.000417067
-	 sd = 0.023437
-	Eigenword with transition matrix.
-	max = 0.172483
-	min = 5.8497e-07
-	mean= -0.000547063
-	 sd = 0.0154052
-
-  23     * * * * 32.5716 * * * * 
-  24    Training
-  24    MLE
-  24    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.278195
-	min = 3.03875e-05
-	mean= -0.000823901
-	 sd = 0.0263002
-	Eigenword with transition matrix.
-	max = 0.102784
-	min = 1.10837e-06
-	mean= 0.000103924
-	 sd = 0.0109327
-
-  24     * * * * 32.4343 * * * * 
-  25    Training
-  25    MLE
-  25    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.242155
-	min = 9.53808e-07
-	mean= -1.06978e-05
-	 sd = 0.0188749
-	Eigenword with transition matrix.
-	max = 0.249403
-	min = 4.90135e-06
-	mean= 0.000465939
-	 sd = 0.020462
-
-  25     * * * * 32.9337 * * * * 
-  26    Training
-  26    MLE
-  26    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.442924
-	min = 3.02847e-05
-	mean= 0.00018185
-	 sd = 0.02848
-	Eigenword with transition matrix.
-	max = 0.161506
-	min = 9.6873e-07
-	mean= -0.000350893
-	 sd = 0.0114484
-
-  26     * * * * 32.1879 * * * * 
-  27    Training
-  27    MLE
-  27    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0
-	min = 0
-	mean= 0
-	 sd = 0
-	Eigenword with transition matrix.
-	max = 0.331836
-	min = 1.82665e-08
-	mean= 0.00060964
-	 sd = 0.03471
-
-  27     * * * * 32.2033 * * * * 
-  28    Training
-  28    MLE
-  28    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.2906
-	min = 8.86165e-06
-	mean= 0.000241809
-	 sd = 0.0265863
-	Eigenword with transition matrix.
-	max = 0.227569
-	min = 7.2303e-06
-	mean= -1.99642e-05
-	 sd = 0.0214639
-
-  28     * * * * 31.8722 * * * * 
-  29    Training
-  29    MLE
-  29    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.358013
-	min = 2.29815e-06
-	mean= -0.000297962
-	 sd = 0.0270311
-	Eigenword with transition matrix.
-	max = 0.143542
-	min = 6.24008e-06
-	mean= -0.000419766
-	 sd = 0.0114488
-
-  29     * * * * 32.3374 * * * * 
-  30    Training
-  30    MLE
-  30    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.325137
-	min = 3.25323e-06
-	mean= -0.00123276
-	 sd = 0.0284345
-	Eigenword with transition matrix.
-	max = 0.270896
-	min = 1.948e-06
-	mean= -0.000136785
-	 sd = 0.0293247
-
-  30     * * * * 31.2203 * * * * 
-  31    Training
-  31    MLE
-  31    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.312833
-	min = 1.8443e-06
-	mean= 6.53265e-05
-	 sd = 0.0256266
-	Eigenword with transition matrix.
-	max = 0.14167
-	min = 4.34305e-07
-	mean= 3.68705e-05
-	 sd = 0.0122742
-
-  31     * * * * 32.0375 * * * * 
-  32    Training
-  32    MLE
-  32    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.351628
-	min = 4.22713e-07
-	mean= 6.48302e-06
-	 sd = 0.0284219
-	Eigenword with transition matrix.
-	max = 0.155276
-	min = 2.11784e-05
-	mean= 0.00022148
-	 sd = 0.0141396
-
-  32     * * * * 31.8974 * * * * 
-  33    Training
-  33    MLE
-  33    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.257494
-	min = 1.51038e-05
-	mean= -5.03015e-05
-	 sd = 0.014564
-	Eigenword with transition matrix.
-	max = 0.24825
-	min = 2.55765e-06
-	mean= 6.71819e-05
-	 sd = 0.0294674
-
-  33     * * * * 32.1637 * * * * 
-  34    Training
-  34    MLE
-  34    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.263114
-	min = 1.09434e-07
-	mean= 0.000320534
-	 sd = 0.0198027
-	Eigenword with transition matrix.
-	max = 0.233899
-	min = 1.39273e-05
-	mean= 0.000503116
-	 sd = 0.0306592
-
-  34     * * * * 32.0499 * * * * 
-  35    Training
-  35    MLE
-  35    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.331386
-	min = 6.16173e-06
-	mean= 0.000597968
-	 sd = 0.0289817
-	Eigenword with transition matrix.
-	max = 0.118425
-	min = 1.62961e-06
-	mean= 0.000187064
-	 sd = 0.00977072
-
-  35     * * * * 32.1281 * * * * 
-  36    Training
-  36    MLE
-  36    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.263776
-	min = 7.50086e-06
-	mean= 0.000171102
-	 sd = 0.0219611
-	Eigenword with transition matrix.
-	max = 0.186525
-	min = 2.30172e-06
-	mean= 5.32123e-05
-	 sd = 0.0150535
-
-  36     * * * * 32.7255 * * * * 
-  37    Training
-  37    MLE
-  37    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.421431
-	min = 1.29933e-05
-	mean= 0.00110727
-	 sd = 0.034479
-	Eigenword with transition matrix.
-	max = 0.112833
-	min = 7.25533e-06
-	mean= -1.71253e-06
-	 sd = 0.00772728
-
-  37     * * * * 31.8038 * * * * 
-  38    Training
-  38    MLE
-  38    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.00759674
-	min = 1.6793e-07
-	mean= 4.11025e-07
-	 sd = 0.000509882
-	Eigenword with transition matrix.
-	max = 0.322385
-	min = 2.99376e-06
-	mean= 0.000564556
-	 sd = 0.0342514
-
-  38     * * * * 32.189 * * * * 
-  39    Training
-  39    MLE
-  39    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.325591
-	min = 1.35345e-05
-	mean= -1.99946e-05
-	 sd = 0.0220396
-	Eigenword with transition matrix.
-	max = 0.217788
-	min = 1.14053e-05
-	mean= -0.00019752
-	 sd = 0.0215586
-
-  39     * * * * 32.6458 * * * * 
-  40    Training
-  40    MLE
-  40    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.417377
-	min = 6.78433e-06
-	mean= 0.000539492
-	 sd = 0.0268498
-	Eigenword with transition matrix.
-	max = 0.13419
-	min = 2.61056e-06
-	mean= -0.000805853
-	 sd = 0.0123243
-
-  40     * * * * 32.8022 * * * * 
-  41    Training
-  41    MLE
-  41    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.310004
-	min = 1.48741e-06
-	mean= -0.00122006
-	 sd = 0.0260746
-	Eigenword with transition matrix.
-	max = 0.199323
-	min = 4.94782e-06
-	mean= -0.00017292
-	 sd = 0.0167631
-
-  41     * * * * 32.2512 * * * * 
-  42    Training
-  42    MLE
-  42    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.340972
-	min = 1.74723e-05
-	mean= -0.000174236
-	 sd = 0.0293427
-	Eigenword with transition matrix.
-	max = 0.166801
-	min = 7.65298e-07
-	mean= 0.000374943
-	 sd = 0.0181506
-
-  42     * * * * 31.9289 * * * * 
-  43    Training
-  43    MLE
-  43    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.392522
-	min = 1.09737e-05
-	mean= -0.00112855
-	 sd = 0.0324876
-	Eigenword with transition matrix.
-	max = 0.118887
-	min = 9.66482e-07
-	mean= 0.000223656
-	 sd = 0.0120421
-
-  43     * * * * 31.7827 * * * * 
-  44    Training
-  44    MLE
-  44    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.275412
-	min = 4.80729e-06
-	mean= -0.00147777
-	 sd = 0.020637
-	Eigenword with transition matrix.
-	max = 0.299688
-	min = 4.52636e-06
-	mean= 0.000925049
-	 sd = 0.0332703
-
-  44     * * * * 31.9097 * * * * 
-  45    Training
-  45    MLE
-  45    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.342841
-	min = 2.12723e-06
-	mean= 0.000374367
-	 sd = 0.0253117
-	Eigenword with transition matrix.
-	max = 0.183605
-	min = 6.21863e-06
-	mean= -0.000909774
-	 sd = 0.0168807
-
-  45     * * * * 32.8364 * * * * 
-  46    Training
-  46    MLE
-  46    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.241926
-	min = 5.29018e-06
-	mean= -0.00010857
-	 sd = 0.0143091
-	Eigenword with transition matrix.
-	max = 0.238107
-	min = 3.10893e-07
-	mean= 0.000476486
-	 sd = 0.0257781
-
-  46     * * * * 32.8321 * * * * 
-  47    Training
-  47    MLE
-  47    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.0712314
-	min = 2.06247e-07
-	mean= 0.000166471
-	 sd = 0.00631093
-	Eigenword with transition matrix.
-	max = 0.338407
-	min = 3.89514e-05
-	mean= 0.00044304
-	 sd = 0.0322033
-
-  47     * * * * 32.1268 * * * * 
-  48    Training
-  48    MLE
-  48    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.128095
-	min = 4.12001e-06
-	mean= -2.25445e-05
-	 sd = 0.0110469
-	Eigenword with transition matrix.
-	max = 0.266133
-	min = 7.47258e-06
-	mean= 0.000540005
-	 sd = 0.0347989
-
-  48     * * * * 32.047 * * * * 
-  49    Training
-  49    MLE
-  49    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.319806
-	min = 3.59443e-06
-	mean= 0.00118914
-	 sd = 0.02844
-	Eigenword with transition matrix.
-	max = 0.238884
-	min = 2.0398e-05
-	mean= 0.000246815
-	 sd = 0.0233419
-
-  49     * * * * 32.147 * * * * 
-  50    Training
-  50    MLE
-  50    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.0943912
-	min = 3.99615e-08
-	mean= -5.57083e-05
-	 sd = 0.00558285
-	Eigenword with transition matrix.
-	max = 0.21577
-	min = 3.04025e-06
-	mean= 0.000140788
-	 sd = 0.0171222
-
-  50     * * * * 33.5556 * * * * 
-  51    Training
-  51    MLE
-  51    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.269597
-	min = 7.64574e-07
-	mean= 0.00106132
-	 sd = 0.0288585
-	Eigenword with transition matrix.
-	max = 0.21321
-	min = 8.02073e-06
-	mean= -0.000399895
-	 sd = 0.0215292
-
-  51     * * * * 31.5932 * * * * 
-  52    Training
-  52    MLE
-  52    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.193475
-	min = 2.24584e-07
-	mean= -0.000166102
-	 sd = 0.0108313
-	Eigenword with transition matrix.
-	max = 0.233294
-	min = 1.9513e-06
-	mean= -0.000636076
-	 sd = 0.0258605
-
-  52     * * * * 33.0301 * * * * 
-  53    Training
-  53    MLE
-  53    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.313287
-	min = 8.37157e-06
-	mean= -0.00127096
-	 sd = 0.033562
-	Eigenword with transition matrix.
-	max = 0.197529
-	min = 6.46602e-06
-	mean= 0.00101508
-	 sd = 0.0200786
-
-  53     * * * * 31.2032 * * * * 
-  54    Training
-  54    MLE
-  54    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.221132
-	min = 1.15599e-06
-	mean= 0.000119663
-	 sd = 0.0111687
-	Eigenword with transition matrix.
-	max = 0.263771
-	min = 3.84114e-06
-	mean= 0.000719153
-	 sd = 0.0266639
-
-  54     * * * * 33.273 * * * * 
-  55    Training
-  55    MLE
-  55    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.272654
-	min = 6.21927e-06
-	mean= 0.000387485
-	 sd = 0.0148221
-	Eigenword with transition matrix.
-	max = 0.256155
-	min = 1.03094e-05
-	mean= 0.00030082
-	 sd = 0.0302532
-
-  55     * * * * 31.7248 * * * * 
-  56    Training
-  56    MLE
-  56    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.0266077
-	min = 2.53645e-07
-	mean= 2.05769e-06
-	 sd = 0.0016477
-	Eigenword with transition matrix.
-	max = 0.112511
-	min = 4.63938e-07
-	mean= -2.95842e-05
-	 sd = 0.0109116
-
-  56     * * * * 33.5402 * * * * 
-  57    Training
-  57    MLE
-  57    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.364609
-	min = 2.93739e-07
-	mean= -0.000186631
-	 sd = 0.0298788
-	Eigenword with transition matrix.
-	max = 0.138405
-	min = 2.61399e-06
-	mean= -0.000638238
-	 sd = 0.0123505
-
-  57     * * * * 31.7669 * * * * 
-  58    Training
-  58    MLE
-  58    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.298497
-	min = 1.16534e-05
-	mean= 0.000674955
-	 sd = 0.0231795
-	Eigenword with transition matrix.
-	max = 0.259132
-	min = 5.60859e-06
-	mean= 7.68619e-05
-	 sd = 0.026979
-
-  58     * * * * 32.0065 * * * * 
-  59    Training
-  59    MLE
-  59    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.236396
-	min = 9.26976e-07
-	mean= -0.000293686
-	 sd = 0.0140745
-	Eigenword with transition matrix.
-	max = 0.269779
-	min = 4.47945e-05
-	mean= 0.00044104
-	 sd = 0.0250644
-
-  59     * * * * 33.5467 * * * * 
-  60    Training
-  60    MLE
-  60    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.207036
-	min = 2.97349e-06
-	mean= 1.65558e-05
-	 sd = 0.0202692
-	Eigenword with transition matrix.
-	max = 0.298023
-	min = 4.0378e-05
-	mean= 0.000653164
-	 sd = 0.0264087
-
-  60     * * * * 32.3432 * * * * 
-  61    Training
-  61    MLE
-  61    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.183047
-	min = 6.21704e-06
-	mean= -0.000216129
-	 sd = 0.0105702
-	Eigenword with transition matrix.
-	max = 0.253902
-	min = 1.6871e-05
-	mean= -0.000495168
-	 sd = 0.0316874
-
-  61     * * * * 31.8387 * * * * 
-  62    Training
-  62    MLE
-  62    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.190987
-	min = 7.94544e-07
-	mean= -0.000167251
-	 sd = 0.0104735
-	Eigenword with transition matrix.
-	max = 0.320567
-	min = 1.90374e-05
-	mean= 0.00106769
-	 sd = 0.0319508
-
-  62     * * * * 32.3136 * * * * 
-  63    Training
-  63    MLE
-  63    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.347268
-	min = 1.48096e-05
-	mean= -0.000637884
-	 sd = 0.0241822
-	Eigenword with transition matrix.
-	max = 0.213914
-	min = 5.74571e-06
-	mean= 0.000573639
-	 sd = 0.0251639
-
-  63     * * * * 32.0552 * * * * 
-  64    Training
-  64    MLE
-  64    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.329591
-	min = 4.30676e-06
-	mean= 4.91906e-05
-	 sd = 0.027804
-	Eigenword with transition matrix.
-	max = 0.263816
-	min = 2.10529e-06
-	mean= -0.000254917
-	 sd = 0.0243665
-
-  64     * * * * 31.6724 * * * * 
-  65    Training
-  65    MLE
-  65    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.336147
-	min = 1.69118e-06
-	mean= -0.000207664
-	 sd = 0.0272204
-	Eigenword with transition matrix.
-	max = 0.220543
-	min = 1.30125e-05
-	mean= 0.000445159
-	 sd = 0.0232872
-
-  65     * * * * 32.0119 * * * * 
-  66    Training
-  66    MLE
-  66    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.295062
-	min = 3.39441e-08
-	mean= -5.55587e-05
-	 sd = 0.0149283
-	Eigenword with transition matrix.
-	max = 0.244424
-	min = 7.49065e-06
-	mean= 0.00051896
-	 sd = 0.0258848
-
-  66     * * * * 32.6644 * * * * 
-  67    Training
-  67    MLE
-  67    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.0452971
-	min = 2.34054e-07
-	mean= 7.01865e-05
-	 sd = 0.00504389
-	Eigenword with transition matrix.
-	max = 0.314117
-	min = 1.16324e-05
-	mean= 0.000421508
-	 sd = 0.0272375
-
-  67     * * * * 32.603 * * * * 
-  68    Training
-  68    MLE
-  68    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.407688
-	min = 5.83153e-07
-	mean= 0.000101507
-	 sd = 0.0278871
-	Eigenword with transition matrix.
-	max = 0.124953
-	min = 7.94576e-07
-	mean= 5.58482e-05
-	 sd = 0.0111266
-
-  68     * * * * 33.0981 * * * * 
-  69    Training
-  69    MLE
-  69    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.124237
-	min = 2.31423e-08
-	mean= -6.59592e-05
-	 sd = 0.0100893
-	Eigenword with transition matrix.
-	max = 0.33068
-	min = 8.15345e-06
-	mean= 0.000602902
-	 sd = 0.0343397
-
-  69     * * * * 31.8388 * * * * 
-  70    Training
-  70    MLE
-  70    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.219796
-	min = 2.28027e-06
-	mean= -0.00017635
-	 sd = 0.0102588
-	Eigenword with transition matrix.
-	max = 0.287117
-	min = 2.81139e-05
-	mean= 0.000358472
-	 sd = 0.0350704
-
-  70     * * * * 31.8407 * * * * 
-  71    Training
-  71    MLE
-  71    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.0418761
-	min = 1.43383e-07
-	mean= -5.52421e-05
-	 sd = 0.00274649
-	Eigenword with transition matrix.
-	max = 0.209583
-	min = 3.85826e-05
-	mean= 0.000113204
-	 sd = 0.0216016
-
-  71     * * * * 33.23 * * * * 
-  72    Training
-  72    MLE
-  72    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.110445
-	min = 1.19598e-07
-	mean= 0.000193091
-	 sd = 0.00936621
-	Eigenword with transition matrix.
-	max = 0.179578
-	min = 5.59619e-07
-	mean= 4.81318e-05
-	 sd = 0.0170659
-
-  72     * * * * 33.4552 * * * * 
-  73    Training
-  73    MLE
-  73    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.259915
-	min = 6.91305e-06
-	mean= 0.000574401
-	 sd = 0.0224744
-	Eigenword with transition matrix.
-	max = 0.156928
-	min = 7.99927e-06
-	mean= -6.22787e-05
-	 sd = 0.0167017
-
-  73     * * * * 32.5928 * * * * 
-  74    Training
-  74    MLE
-  74    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.14384
-	min = 3.44915e-06
-	mean= 0.000285361
-	 sd = 0.0110664
-	Eigenword with transition matrix.
-	max = 0.283429
-	min = 1.44503e-05
-	mean= 0.000939058
-	 sd = 0.0308583
-
-  74     * * * * 32.6062 * * * * 
-  75    Training
-  75    MLE
-  75    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.258353
-	min = 4.24497e-08
-	mean= 0.000148083
-	 sd = 0.0135828
-	Eigenword with transition matrix.
-	max = 0.0948522
-	min = 1.08484e-06
-	mean= 0.000203868
-	 sd = 0.00952561
-
-  75     * * * * 33.3286 * * * * 
-  76    Training
-  76    MLE
-  76    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.166971
-	min = 1.13746e-06
-	mean= -0.000122885
-	 sd = 0.0121957
-	Eigenword with transition matrix.
-	max = 0.0531
-	min = 2.09537e-07
-	mean= 2.92588e-07
-	 sd = 0.00324451
-
-  76     * * * * 33.5552 * * * * 
-  77    Training
-  77    MLE
-  77    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.273849
-	min = 7.3815e-07
-	mean= 0.000590391
-	 sd = 0.0231929
-	Eigenword with transition matrix.
-	max = 0.272001
-	min = 1.41356e-05
-	mean= -0.000133243
-	 sd = 0.0165146
-
-  77     * * * * 32.7155 * * * * 
-  78    Training
-  78    MLE
-  78    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.381184
-	min = 2.29412e-05
-	mean= 0.000806453
-	 sd = 0.0295151
-	Eigenword with transition matrix.
-	max = 0.0508427
-	min = 9.68552e-07
-	mean= -6.92414e-05
-	 sd = 0.00502878
-
-  78     * * * * 32.1741 * * * * 
-  79    Training
-  79    MLE
-  79    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.434488
-	min = 9.81485e-06
-	mean= -0.000266752
-	 sd = 0.0280866
-	Eigenword with transition matrix.
-	max = 0.0444529
-	min = 2.56409e-08
-	mean= 2.36505e-05
-	 sd = 0.00295215
-
-  79     * * * * 32.4265 * * * * 
-  80    Training
-  80    MLE
-  80    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.0492561
-	min = 2.28869e-06
-	mean= -1.02204e-05
-	 sd = 0.00269529
-	Eigenword with transition matrix.
-	max = 0.337966
-	min = 1.49422e-05
-	mean= 0.000964307
-	 sd = 0.0352687
-
-  80     * * * * 31.8371 * * * * 
-  81    Training
-  81    MLE
-  81    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.17558
-	min = 4.40713e-07
-	mean= 0.000291363
-	 sd = 0.0108992
-	Eigenword with transition matrix.
-	max = 0.16604
-	min = 2.91397e-06
-	mean= -0.000658941
-	 sd = 0.0157932
-
-  81     * * * * 33.6985 * * * * 
-  82    Training
-  82    MLE
-  82    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.300069
-	min = 3.05119e-06
-	mean= -0.000293029
-	 sd = 0.0242838
-	Eigenword with transition matrix.
-	max = 0.203861
-	min = 5.50382e-06
-	mean= 2.3657e-05
-	 sd = 0.0224912
-
-  82     * * * * 31.9936 * * * * 
-  83    Training
-  83    MLE
-  83    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.325138
-	min = 9.84546e-06
-	mean= 0.000288226
-	 sd = 0.0242648
-	Eigenword with transition matrix.
-	max = 0.203077
-	min = 9.14933e-06
-	mean= -0.00042546
-	 sd = 0.0207416
-
-  83     * * * * 32.3473 * * * * 
-  84    Training
-  84    MLE
-  84    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.32816
-	min = 1.13783e-05
-	mean= -9.46095e-06
-	 sd = 0.0234535
-	Eigenword with transition matrix.
-	max = 0.149221
-	min = 9.73984e-06
-	mean= -0.00105382
-	 sd = 0.0146099
-
-  84     * * * * 32.4682 * * * * 
-  85    Training
-  85    MLE
-  85    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.303526
-	min = 1.85959e-06
-	mean= 0.000140956
-	 sd = 0.0294104
-	Eigenword with transition matrix.
-	max = 0.175775
-	min = 1.69116e-05
-	mean= -2.27707e-05
-	 sd = 0.0201
-
-  85     * * * * 32.2747 * * * * 
-  86    Training
-  86    MLE
-  86    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.252511
-	min = 8.21708e-06
-	mean= 0.000242218
-	 sd = 0.0173424
-	Eigenword with transition matrix.
-	max = 0.244357
-	min = 6.26887e-06
-	mean= 0.00110532
-	 sd = 0.0233073
-
-  86     * * * * 32.7347 * * * * 
-  87    Training
-  87    MLE
-  87    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.164162
-	min = 4.51843e-07
-	mean= 0.00046614
-	 sd = 0.0110411
-	Eigenword with transition matrix.
-	max = 0.302635
-	min = 5.51018e-06
-	mean= 0.0001043
-	 sd = 0.0298183
-
-  87     * * * * 32.2798 * * * * 
-  88    Training
-  88    MLE
-  88    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.186892
-	min = 3.49967e-07
-	mean= 0.000121496
-	 sd = 0.0140817
-	Eigenword with transition matrix.
-	max = 0.252808
-	min = 4.4292e-06
-	mean= -2.10936e-05
-	 sd = 0.0245262
-
-  88     * * * * 32.8899 * * * * 
-  89    Training
-  89    MLE
-  89    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.475472
-	min = 6.3072e-06
-	mean= 0.000961018
-	 sd = 0.0350758
-	Eigenword with transition matrix.
-	max = 0.270231
-	min = 2.09954e-05
-	mean= -0.000315725
-	 sd = 0.026923
-
-  89     * * * * 30.6085 * * * * 
-  90    Training
-  90    MLE
-  90    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.151585
-	min = 4.30765e-07
-	mean= 0.000300485
-	 sd = 0.008185
-	Eigenword with transition matrix.
-	max = 0.252355
-	min = 3.85445e-06
-	mean= 8.85755e-05
-	 sd = 0.025432
-
-  90     * * * * 32.462 * * * * 
-  91    Training
-  91    MLE
-  91    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.0993663
-	min = 2.48597e-06
-	mean= 0.000133671
-	 sd = 0.00621214
-	Eigenword with transition matrix.
-	max = 0.303212
-	min = 6.09304e-05
-	mean= 0.00104041
-	 sd = 0.0315606
-
-  91     * * * * 32.5143 * * * * 
-  92    Training
-  92    MLE
-  92    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.369571
-	min = 4.95118e-06
-	mean= 0.000141217
-	 sd = 0.0350192
-	Eigenword with transition matrix.
-	max = 0.306704
-	min = 1.89914e-05
-	mean= 0.000526697
-	 sd = 0.02232
-
-  92     * * * * 31.3754 * * * * 
-  93    Training
-  93    MLE
-  93    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.330567
-	min = 1.05678e-05
-	mean= -0.000698227
-	 sd = 0.0228411
-	Eigenword with transition matrix.
-	max = 0.18763
-	min = 1.89001e-06
-	mean= 0.000296762
-	 sd = 0.0220957
-
-  93     * * * * 31.8473 * * * * 
-  94    Training
-  94    MLE
-  94    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.337505
-	min = 2.18076e-06
-	mean= 0.000225084
-	 sd = 0.028011
-	Eigenword with transition matrix.
-	max = 0.166942
-	min = 5.98473e-06
-	mean= 0.000172229
-	 sd = 0.018571
-
-  94     * * * * 32.3669 * * * * 
-  95    Training
-  95    MLE
-  95    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.36235
-	min = 2.44648e-05
-	mean= 0.00087003
-	 sd = 0.0281666
-	Eigenword with transition matrix.
-	max = 0.151436
-	min = 1.38214e-06
-	mean= 0.000146868
-	 sd = 0.0121685
-
-  95     * * * * 32.5383 * * * * 
-  96    Training
-  96    MLE
-  96    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.343806
-	min = 2.81434e-06
-	mean= 0.000512998
-	 sd = 0.0269291
-	Eigenword with transition matrix.
-	max = 0.183119
-	min = 1.00245e-05
-	mean= 0.000152903
-	 sd = 0.0178831
-
-  96     * * * * 32.6096 * * * * 
-  97    Training
-  97    MLE
-  97    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.330567
-	min = 1.72359e-05
-	mean= 0.000614459
-	 sd = 0.0258935
-	Eigenword with transition matrix.
-	max = 0.302259
-	min = 1.43812e-05
-	mean= 0.000260753
-	 sd = 0.0311953
-
-  97     * * * * 31.517 * * * * 
-  98    Training
-  98    MLE
-  98    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.319321
-	min = 2.90725e-05
-	mean= 0.000442632
-	 sd = 0.0287502
-	Eigenword with transition matrix.
-	max = 0.236422
-	min = 1.33045e-06
-	mean= -9.27146e-05
-	 sd = 0.0185541
-
-  98     * * * * 32.2026 * * * * 
-  99    Training
-  99    MLE
-  99    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.337249
-	min = 1.1548e-05
-	mean= 0.000122284
-	 sd = 0.0289737
-	Eigenword with transition matrix.
-	max = 0.179167
-	min = 1.50406e-06
-	mean= -6.87351e-05
-	 sd = 0.0138742
-
-  99     * * * * 32.1074 * * * * 
 Finished!

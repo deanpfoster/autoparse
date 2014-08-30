@@ -84,14 +84,12 @@ tokenize.test: word.o
 #
 #          (This code can depend on level zero or level one code)
 #
-only2:  lr.OK likelihood.OK statistical_history.OK   feature_generator.OK tp_eigenwords.OK train_forecast_linear.OK decorated_dependency.OK
+only2:  lr.OK statistical_history.OK   feature_generator.OK tp_eigenwords.OK train_forecast_linear.OK decorated_dependency.OK
 #
 ################################################################################
 lr.test: dependency.o lr.o word.o
 
 feature_generator.test: feature.o history.o dependency.o
-
-likelihood.test: dependency.o transition_probability.o likelihood.o word.o 
 
 statistical_history.test: history.o value_of_forecasts.o
 
@@ -108,7 +106,7 @@ decorated_dependency.test: dependency.o word.o eigenwords.o
 #          (This code can depend on level 0, 1, or 2 code)
 #
 only3: redo_parse.OK suggest_alternative_history.OK model.OK \
-       maximum_likelihood.OK feature_eigenwords.OK feature_one_dimensional.OK
+       feature_eigenwords.OK feature_one_dimensional.OK  likelihood.OK
 #
 ################################################################################
 
@@ -120,17 +118,19 @@ model.test: forecast.o history.o feature_generator.o value_of_forecasts.o
 
 feature_one_dimensional.test: lr.o dependency.o word.o feature.o
 
-maximum_likelihood.test: dependency.o transition_probability.o likelihood.o word.o likelihood.o tp_eigenwords.o eigenwords.o
-
 feature_eigenwords.test: lr.o dependency.o word.o feature.o eigenwords.o
+
+likelihood.test: dependency.o transition_probability.o likelihood.o word.o decorated_dependency.o eigenwords.o
 
 
 ################################################################################
 #           L E V E L     F O U R    T E S T I N G     C O D E
 #          (This code can depend on level 0, 1, 2 or 3 code)
-only4: statistical_parse.OK row.OK feature_interaction.OK
+only4: statistical_parse.OK row.OK feature_interaction.OK maximum_likelihood.OK
 ################################################################################
 
+
+maximum_likelihood.test: dependency.o transition_probability.o likelihood.o word.o likelihood.o tp_eigenwords.o eigenwords.o decorated_dependency.o
 
 statistical_parse.test: history.o dependency.o lr.o word.o redo_parse.o model.o statistical_history.o value_of_forecasts.o forecast.o forecast_constant.o feature_generator.o
 
@@ -149,7 +149,7 @@ contrast.test: history.o dependency.o lr.o word.o redo_parse.o model.o suggest_a
                statistical_history.o  statistical_parse.o value_of_forecasts.o \
                forecast.o forecast_constant.o  transition_probability.o likelihood.o \
                feature_generator.o feature.o feature_one_dimensional.o\
-               eigenwords.o tp_eigenwords.o row.o
+               eigenwords.o tp_eigenwords.o row.o decorated_dependency.o
 
 ################################################################################
 #           L E V E L     S I X    T E S T I N G     C O D E
@@ -161,7 +161,7 @@ learn.test: history.o dependency.o lr.o word.o redo_parse.o model.o suggest_alte
              forecast.o forecast_constant.o  transition_probability.o likelihood.o \
              feature_generator.o feature.o feature_one_dimensional.o \
              contrast.o eigenwords.o tp_eigenwords.o feature_eigenwords.o maximum_likelihood.o \
-             train_forecast_linear.o forecast_linear.o row.o value_of_forecasts.o tokenize.o learn.o \
+             train_forecast_linear.o forecast_linear.o row.o value_of_forecasts.o tokenize.o decorated_dependency.o\
              feature_interaction.o 
 
 ################################################################################
@@ -183,7 +183,7 @@ learn.main: history.o dependency.o lr.o word.o redo_parse.o model.o suggest_alte
              feature_generator.o feature.o feature_one_dimensional.o \
              contrast.o eigenwords.o tp_eigenwords.o feature_eigenwords.o maximum_likelihood.o \
              train_forecast_linear.o forecast_linear.o row.o value_of_forecasts.o tokenize.o learn.o \
-             feature_interaction.o
+             feature_interaction.o decorated_dependency.o
 
 learn.output: learn.main
 	./learn.main | tee learn.output
