@@ -9,15 +9,17 @@
 
 #include "learn.h"
 
-// Might as well be random for production code
-// #define REPRODUCIBLE
-#define TRULY_RANDOM
+// Might as well be random for production code, but until I want to run it twice
+// we'll leave it on reproducible.
+#define REPRODUCIBLE
+// #define TRULY_RANDOM
 #include "utilities/z.Template.h"
 
 int
 main(int argc,char** argv)
 {
   time_t start_time = time(0);  // used for timing 
+  time_t last_print_time = time(0);  // used to print about once a minute
   Eigen::initParallel();  // this will help eigen not walk on top of itself.
   std::ostream& debugging(std::cout);
   //////////////////////////////////////////////////////////////////////////////////
@@ -134,9 +136,22 @@ main(int argc,char** argv)
 	//                                           //
 	///////////////////////////////////////////////
 
-	auto_parse::Model new_model = likelihood_to_model(likelihood, parser, feature_generator, lr_model, sampling_rate, begin, end);
-	parser.new_model(new_model);
+	lr_model = likelihood_to_model(likelihood, parser, feature_generator, lr_model, sampling_rate, begin, end);
+	parser.new_model(lr_model);
 	debugging << debugging_prefix << "Training time " << time(0) - start_time << " sec." << std::endl;      start_time = time(0);
+
+	///////////////////////////////////////////////
+	//                                           //
+	//               EVALUATION                  //
+	//                                           //
+	///////////////////////////////////////////////
+
+	std::vector<int> which_sentences(0);
+	std::string summary =   evaluation(rounds, debugging, latex,
+					   dictionary, parser, likelihood,
+					   which_sentences, begin, end);
+	debugging << debugging_prefix << " + + + + \t" << summary << "\t\t+ + + + + +" << std::endl;
+	debugging << debugging_prefix << "Evaluation time " << time(0) - start_time << " sec." << std::endl;      start_time = time(0);
 	
 	///////////////////////////////////////////////
 	//                                           //
@@ -153,32 +168,17 @@ main(int argc,char** argv)
 	//                                           //
 	///////////////////////////////////////////////
 
-	double log_like = 0;
-	int number_to_read = end - begin;
-#pragma omp parallel for 
-    for(int counter = 0; counter < number_to_read;++counter)
+	if(time(0) - last_print_time > 60)
 	  {
-	    const auto_parse::Words& sentence = *(begin + counter);
-	    auto_parse::Dependency parse = redo_parse(sentence, parser(sentence)).parse();
-	    double prob = likelihood(parse) / (sentence.end() - sentence.begin());
-	    log_like += prob;
-	  };
+	    which_sentences = std::vector<int>{0,2,4, 10, 17, 26};
+	    last_print_time = time(0);
+	  }
+	summary =   evaluation(rounds, debugging, latex,
+			       dictionary, parser, likelihood,
+			       which_sentences, begin, end);
+	debugging << debugging_prefix << " * * * * \t" << summary << "\t\t* * * * *" << std::endl;
 	debugging << debugging_prefix << "Evaluation time " << time(0) - start_time << " sec." << std::endl;      start_time = time(0);
 
-	debugging << debugging_prefix <<  likelihood;
-	std::stringstream summary;
-	int n = number_to_train_on[rounds];
-	summary << "log(like) = " << log_like/n << " on " << n/1000 << "k";
-	std::cout << debugging_prefix << " * * * * " << summary.str()  << " * * * * " << std::endl;
-
-	std::vector<int> which_sentences {0,2,4, 10, 17, 26};
-	std::vector<auto_parse::Dependency> parses;
-	for(int sentence_id : which_sentences)
-	  parses.push_back(redo_parse(corpus_in_memory[sentence_id], parser(corpus_in_memory[sentence_id])).parse());
-	latex << "\\newpage\\section*{\\bf{" << rounds << ":}  " << summary.str() << "}\n\n" << std::endl;
-	for(auto_parse::Dependency p : parses)
-	  p.latex(latex);
-	debugging << debugging_prefix << likelihood.decorate(parses[3],dictionary);
       }
     auto_parse::latex_footer(latex);
     debugging << "Finished!" << std::endl;

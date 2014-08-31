@@ -52,6 +52,17 @@ namespace auto_parse
 			const auto_parse::Statistical_parse& parser,
 			std::vector<auto_parse::Words>::const_iterator,
 			std::vector<auto_parse::Words>::const_iterator);
+  std::string
+  evaluation(int rounds,
+	     std::ostream& debugging,
+	     std::ostream& latex,
+	     const Eigenwords& dictionary,
+	     const Statistical_parse& parser,
+	     const Likelihood& likelihood,
+	     std::vector<int>& which_sentences,
+	     std::vector<auto_parse::Words>::const_iterator begin,
+	     std::vector<auto_parse::Words>::const_iterator end);
+
 
 
 

@@ -7,14 +7,20 @@
 #    qsub run_learner -pe parallel 12  Comment to go in the output
 #
 ################################################################################
-echo "******************************************************************************"
-echo $*
-date
-echo $HOST running $JOB_NAME.$JOB_ID
-grep OPT flags
 echo
-echo "******************************************************************************"
-
+echo "* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
+echo "*"
+echo "*  " $*|sed "s/-pe//"|sed "s/parallel//"|sed "s/12-20//"
+echo "*"
+echo -n "*   "; date
+echo "*  " $HOST running $JOB_NAME.$JOB_ID
+echo -n "*   "; grep OPT ~/nlp/auto_parse/flags|grep -v "#"|grep -v "CFLAGS"
+echo -n "*  "; git log |head -1
+echo -n "*  "; git log |head -3 |tail -1
+echo "*"
+echo "* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
+echo
+echo
 cd ~/nlp/auto_parse
 date
 ./learn.main eng_only pretty.csv ~/run_learner.t$JOB_ID.tex

@@ -112,12 +112,13 @@ auto_parse::Model
 auto_parse::likelihood_to_model(const Likelihood& likelihood,
 				const auto_parse::Statistical_parse& parser,
 				const Feature_generator& feature_generator,
-				const Model& lr_model,
+				const Model& ,
 				double sampling_rate,
 				std::vector<auto_parse::Words>::const_iterator begin,
 				std::vector<auto_parse::Words>::const_iterator end)
 {
   std::map<auto_parse::Action, auto_parse::Train_forecast_linear> training;
+  Model lr_model = parser.model();
   for(auto_parse::Action a: auto_parse::all_actions)
     training[a] = auto_parse::Train_forecast_linear(lr_model.forecast(a),sampling_rate);
 
@@ -194,4 +195,43 @@ auto_parse::model_to_likelihood(const Eigenwords& parent,const Eigenwords& child
   return likelihood;
 }
 
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+std::string
+auto_parse::evaluation(int rounds,
+		       std::ostream& debugging,
+		       std::ostream& latex,
+		       const Eigenwords& dictionary,
+		       const Statistical_parse& parser,
+		       const Likelihood& likelihood,
+		       std::vector<int>& which_sentences,
+		       std::vector<auto_parse::Words>::const_iterator begin,
+		       std::vector<auto_parse::Words>::const_iterator end)
+{
+  double log_like = 0;
+  int number_to_read = end - begin;
+#pragma omp parallel for 
+  for(int counter = 0; counter < number_to_read;++counter)
+    {
+      const auto_parse::Words& sentence = *(begin + counter);
+      auto_parse::Dependency parse = redo_parse(sentence, parser(sentence)).parse();
+      double prob = likelihood(parse) / (sentence.end() - sentence.begin());
+      log_like += prob;
+    };
+  std::stringstream summary;
+  int n = end - begin;
+  summary << "log(like) = " << log_like/n << " on " << n/1000 << "k";
+
+  if(which_sentences.size() > 0)
+    {
+      std::vector<auto_parse::Dependency> parses;
+      for(int sentence_id : which_sentences)
+	parses.push_back(redo_parse(*(begin + sentence_id), parser(*(begin + sentence_id))).parse());
+      latex << "\\newpage\n\\section*{\\bf{" << rounds << ":}  " << summary.str() << "}\n\n" << std::endl;
+      for(auto_parse::Dependency p : parses)
+	latex << likelihood.decorate(p, dictionary);
+      debugging << likelihood.decorate(parses[0],dictionary);
+    };
+  return summary.str();
+}
+	
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */

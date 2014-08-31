@@ -21,6 +21,7 @@ namespace auto_parse
     // MANIPULATORS
     void new_model(const Model& new_model){m_model = new_model;};
     // ACCESSORS
+    Model model() const{return m_model;};
 
     Statistical_history operator()(const Words&) const; 
     History finish(const Words&, const History& prefix) const; 

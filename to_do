@@ -1,15 +1,30 @@
 	                         -*- text -*-
 
 
-speedups:
-
-There is a map in value_of_forecasts which should be replaced
-by an vector for speed.
 
 logic:
 
-Implement the distance of a link as part of the probability.  This
-might generate more localicty and hence smarter parses.
+add a probability calculation for the root.  This might grab the
+"verb" since all errors will count as 1 and this will inject
+information into the system.
+
+Add the ability to do continous contrasts.  Namely, don't break into
+sentence.  Just use free flowing text, html tags and everything.  Then
+every 10 or so words, try a different direction and let it rip for 20
+words.  Now compute the likelihood of both paths.  Be careful of
+pushing stuff to the future--so links that never come down should be
+penalized. 
+
+Experiments:
+
+force locality by giving likelihood advantage to it (this might not be
+necessary with new loss)
+
+Find some labelled data to run on.  Write a likelihood estimator based
+on the correct parse.  Number of edges correct?  Right direction of
+dependence? guess as to distance?
+
+
 
 Runs:
 
@@ -18,3 +33,11 @@ See what the coverage is for our dictionary.
 Build a new google grams dictionary which doesn't downcase.  This
 might help with understanding start of sentences etc.
 
+
+
+LOW PRIORITY
+
+speedup: There is a map in value_of_forecasts which should be replaced
+by an vector for speed.
+
+speedup: profile code to see what actually is taking time.
