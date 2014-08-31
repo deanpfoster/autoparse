@@ -18,11 +18,11 @@ namespace auto_parse
     virtual Transition_probability* clone() const = 0;
 
     // MANIPULATORS
-    virtual void accumulate(const Word&, const Word&) = 0;
+    virtual void accumulate(const Node&, const Node&) = 0;
     virtual void merge(const Transition_probability&);
     
     // ACCESSORS
-    virtual double operator()(const Word&,  const Word&) const = 0;
+    virtual double operator()(const Node&,  const Node&) const = 0;
     virtual void print_on(std::ostream &) const = 0;
     virtual Transition_probability* renormalize() const = 0;
 

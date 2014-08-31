@@ -23,11 +23,11 @@ namespace auto_parse
     virtual TP_eigenwords* clone() const;
 
     // MANIPULATORS
-    virtual void accumulate(const Word& parent, const Word& child);
+    virtual void accumulate(const Node& parent, const Node& child);
     virtual void merge(const Transition_probability&);
     
     // ACCESSORS
-    virtual double operator()(const Word& parent,  const Word& child) const;
+    virtual double operator()(const Node& parent,  const Node& child) const;
     virtual void print_on(std::ostream &) const;
     virtual TP_eigenwords* renormalize() const;
 
@@ -37,6 +37,7 @@ namespace auto_parse
     Eigenwords m_child;
     Eigen::MatrixXd m_XtY;
     Eigen::MatrixXd m_XtX;
+    std::vector<double> m_distance;
 
     TP_eigenwords& operator=(const TP_eigenwords &); // Don't delete this.
   };

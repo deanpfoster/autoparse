@@ -74,9 +74,9 @@ auto_parse::Maximum_likelihood::operator()(const auto_parse::Dependency& parse)
   for(auto i = parse.links().begin(); i != parse.links().end(); ++i)
     {
       if(i->first < i->second)
-	mp_left->accumulate(*i->first, *i->second);
+	mp_left->accumulate(i->first, i->second);
       else
-	mp_right->accumulate(*i->first, *i->second);
+	mp_right->accumulate(i->first, i->second);
     }
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */

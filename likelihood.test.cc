@@ -10,9 +10,9 @@ class sample: public auto_parse::Transition_probability
   ~sample(){};
   sample(){};
   sample* clone() const  { return new sample(*this);};
-  void accumulate(const auto_parse::Word&, const auto_parse::Word&){};
+  void accumulate(const auto_parse::Node&, const auto_parse::Node&){};
   Transition_probability* renormalize() const{return 0;};
- double operator()(const auto_parse::Word& parent,const auto_parse::Word& child) const
+ double operator()(const auto_parse::Node& parent,const auto_parse::Node& child) const
   {    if(parent < child) return 1.0; else return 0.0; };
   void print_on(std::ostream & ostrm) const
   { ostrm << "Heap: left is less than right." << std::endl;  };

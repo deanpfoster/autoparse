@@ -92,9 +92,9 @@ auto_parse::Likelihood::link_probability(const Link& link) const
 {
   double result = 0;
   if(link.first < link.second)
-    result = (*mp_left)(*link.first, *link.second);
+    result = (*mp_left)(link.first, link.second);
   else
-    result = (*mp_right)(*link.first, *link.second);
+    result = (*mp_right)(link.first, link.second);
   return result;
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */

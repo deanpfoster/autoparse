@@ -9,7 +9,7 @@ Likelihood model:
 	Heap: left is less than right.
 	Heap: left is less than right.
 
-4
+5
 constructed!
 A B C D E 
      	              A  <---  B                                                      A
@@ -34,12 +34,12 @@ E D C B A
      	              B  <---  A                                            C  <---   B
      	              A  <---  ROOT                                         B  <---   A
 
-reverse: 4
+reverse: 0
 Pretty version: E_OOV D_OOV C_OOV B_OOV A_OOV 
-1    	          E_OOV  <---  D_OOV                                                  E
-1    	          D_OOV  <---  C_OOV                                        E  <---   D
-1    	          C_OOV  <---  B_OOV                                        D  <---   C
-1    	          B_OOV  <---  A_OOV                                        C  <---   B
+0    	          E_OOV  <---  D_OOV                                                  E
+0    	          D_OOV  <---  C_OOV                                        E  <---   D
+0    	          C_OOV  <---  B_OOV                                        D  <---   C
+0    	          B_OOV  <---  A_OOV                                        C  <---   B
      	          A_OOV  <---  ROOT                                         B  <---   A
 
 

@@ -64,10 +64,10 @@ auto_parse::TP_eigenwords::clone() const
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 void
-auto_parse::TP_eigenwords::accumulate(const Word& p, const Word& c) 
+auto_parse::TP_eigenwords::accumulate(const Node& p, const Node& c) 
 {
-  const Eigen::VectorXd& pv = m_parent[p];
-  const Eigen::VectorXd& cv = m_child[c];
+  const Eigen::VectorXd& pv = m_parent[*p];
+  const Eigen::VectorXd& cv = m_child[*c];
 
   m_XtX += pv * (pv.transpose());  // outerproduct
   m_XtY += pv * (cv.transpose());  // outerproduct
@@ -115,10 +115,10 @@ auto_parse::TP_eigenwords::renormalize() const
 //  This assumes that we have already computed X'X^-1 X'Y and shoved it in X'Y.
 //
 double
-auto_parse::TP_eigenwords::operator()(const auto_parse::Word& parent, const auto_parse::Word& child) const
+auto_parse::TP_eigenwords::operator()(const auto_parse::Node& parent, const auto_parse::Node& child) const
 {
-  const Eigen::VectorXd& p = m_parent[parent];
-  const Eigen::VectorXd& c = m_child[child];
+  const Eigen::VectorXd& p = m_parent[*parent];
+  const Eigen::VectorXd& c = m_child[*child];
   Eigen::VectorXd prediction = p.transpose() * m_XtY;
   Eigen::VectorXd error = c - prediction;
   return - error.squaredNorm();

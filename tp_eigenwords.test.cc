@@ -19,9 +19,18 @@ namespace auto_parse
       Eigen::MatrixXd parent = Eigen::MatrixXd::Random(dim,dim);
       Eigen::MatrixXd child = Eigen::MatrixXd::Random(dim,dim);
       auto_parse::TP_eigenwords tp(g,g,parent,child);  // testing construction
-      std::cout << tp("<OOV>", "<OOV>") << std::endl;
-      std::cout << tp("the", "<OOV>") << std::endl;
-      std::cout << tp("the", "the") << std::endl;
+      Words words;
+      words.push_back("<OOV>");
+      words.push_back("the");
+      words.push_back("the");
+      Words::const_iterator a = words.begin();
+      Words::const_iterator b = words.begin();
+      ++b;
+      Words::const_iterator c = b;
+      ++c;
+      std::cout << tp(a,b) << std::endl;
+      std::cout << tp(b,a) << std::endl;
+      std::cout << tp(b,c) << std::endl;
     };
   }
 }

@@ -12,7 +12,7 @@ public:
   ~sample(){};
   sample(){};
 
-  void accumulate(const auto_parse::Word&, const auto_parse::Word&){};
+  void accumulate(const auto_parse::Node&, const auto_parse::Node&){};
   Transition_probability* renormalize() const{return 0;};
 
   sample* clone() const
@@ -22,9 +22,9 @@ public:
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
  double
-  operator()(const auto_parse::Word& parent,const auto_parse::Word& child) const
+  operator()(const auto_parse::Node& parent,const auto_parse::Node& child) const
   {
-    if(parent < child)
+    if(*parent < *child)
       return 1.0;
     else
       return 0.0;
@@ -49,8 +49,14 @@ namespace auto_parse
     {
       sample t;  // testing construction
       std::cout << "constructed!" << std::endl;
-      std::cout << t("A", "B") << " should be 2/3" << std::endl;
-      std::cout << t("B", "A") << " should be 1/3" << std::endl;
+      Words words;
+      words.push_back("A");
+      words.push_back("B");
+      Words::const_iterator a = words.begin();
+      Words::const_iterator b = words.begin();
+      ++b;
+      std::cout << t(a, b) << " should be 2/3" << std::endl;
+      std::cout << t(b, a) << " should be 1/3" << std::endl;
     };
   }
 }
