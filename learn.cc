@@ -151,7 +151,7 @@ auto_parse::likelihood_to_model(const Likelihood& likelihood,
       training_bundle[0][a].merge(training_bundle[i][a]);
   auto_parse::Model new_model = parser.model();
   for(auto_parse::Action a : auto_parse::all_actions)
-    new_model.tweak_forecast(a,training_bundle[0][a].result(),1.0);
+    new_model.add_forecast(a,training_bundle[0][a].result());
   return new_model;
 }
 
@@ -236,7 +236,7 @@ auto_parse::evaluation(int rounds,
 	
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-boost::tuple<std::string,std::string,int,std::string>
+boost::tuple<std::string,std::string,int,std::string,double>
 auto_parse::parse_argv(int argc, char** argv)
 {
   namespace po = boost::program_options;
@@ -245,6 +245,7 @@ auto_parse::parse_argv(int argc, char** argv)
   std::string dictionary;
   std::string corpus;
   int         gram;
+  double      update;
 
   // Declare the supported options.
   po::options_description desc("Allowed options");
@@ -254,6 +255,7 @@ auto_parse::parse_argv(int argc, char** argv)
     ("latex", po::value<std::string>(&latex)->default_value("learn.output.tex"), "latex file to write to")
     ("dictionary", po::value<std::string>(&dictionary)->default_value("pretty.csv"), "dictionary to read from")
     ("gram_number", po::value<int>(&gram)->default_value(3), "gram number for dictionary")
+    ("update_rate", po::value<double>(&update)->default_value(1.0), "rate we move towards new data")
     ;
 
   po::variables_map vm;
@@ -265,7 +267,7 @@ auto_parse::parse_argv(int argc, char** argv)
     exit(1);
   }
 
-  return boost::make_tuple(latex, dictionary, gram, corpus);
+  return boost::make_tuple(latex, dictionary, gram, corpus,update);
 }
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */

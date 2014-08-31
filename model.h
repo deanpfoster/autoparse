@@ -24,6 +24,7 @@ namespace auto_parse
     Model(const Feature_generator&);  // creates an empty and broken model.  Use add_forecast to repair
     void add_forecast(Action, const Forecast&);
     void tweak_forecast(Action, const Forecast&, double fraction);
+    void tweak(const Model&, double fraction);
     Model(const std::initializer_list<std::pair<auto_parse::Action,Forecast*> >&, const Feature_generator&);
     Model& operator=(const Model &); 
     

@@ -85,6 +85,13 @@ auto_parse::Model::tweak_forecast(Action a, const Forecast& f, double fraction)
 {
   m_forecasts[a]->tweak(f,fraction);
 }
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+void
+auto_parse::Model::tweak(const Model& m, double fraction)
+{
+  for(auto_parse::Action a : auto_parse::all_actions)
+    tweak_forecast(a,*m.m_forecasts.find(a)->second,fraction);
+}
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                             M A N I P U L A T O R S                          manipulators
 auto_parse::Model&

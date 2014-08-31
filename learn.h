@@ -64,8 +64,8 @@ namespace auto_parse
 	     std::vector<auto_parse::Words>::const_iterator end);
 
 
-boost::tuple<std::string,std::string,int,std::string>
-parse_argv(int argc, char** argv);
+  boost::tuple<std::string,std::string,int,std::string,double>
+  parse_argv(int argc, char** argv);
 
 
 }

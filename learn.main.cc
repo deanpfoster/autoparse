@@ -29,7 +29,8 @@ main(int argc,char** argv)
   
   std::string sentence_file, eigen_file, latex_file;
   int gram_number;
-  boost::tie(latex_file, eigen_file, gram_number, sentence_file)
+  double update_rate;
+  boost::tie(latex_file, eigen_file, gram_number, sentence_file, update_rate)
     = auto_parse::parse_argv(argc, argv);
   time_t start_time = time(0);  // used for timing 
   time_t last_print_time = time(0);  // used to print about once a minute
@@ -37,6 +38,7 @@ main(int argc,char** argv)
   debugging << "  sentence = " << sentence_file << std::endl;
   debugging << "eigenwords = " << eigen_file << std::endl;
   debugging << "     latex = " << latex_file << std::endl;
+  debugging << "update rate= " << update_rate << "    (" << 1 - update_rate << " * old_model + " << update_rate << " * new_model)" << std::endl;
   std::ofstream latex(latex_file);
   auto_parse::latex_header(latex);  // write a "...\begin{document}" on latex_file
       
@@ -78,8 +80,8 @@ main(int argc,char** argv)
     //////////////////////////////////////////////////////////////////////////////////
 
     auto_parse::Feature_generator feature_generator = standard_features(dictionary);
-    auto_parse::Model lr_model = standard_model(feature_generator);
-    auto_parse::Statistical_parse parser(lr_model);
+    auto_parse::Model old_model = standard_model(feature_generator);
+    auto_parse::Statistical_parse parser(old_model);
 
     //////////////////////////////////////////////////////////////////////////////////
     //
@@ -131,7 +133,8 @@ main(int argc,char** argv)
 	///////////////////////////////////////////////
 
 	auto_parse::Model model = likelihood_to_model(likelihood, parser, feature_generator, sampling_rate, begin, end);
-	parser.new_model(model);
+	old_model.tweak(model, update_rate);  
+	parser.new_model(old_model);
 	debugging << debugging_prefix << "Training time " << time(0) - start_time << " sec." << std::endl;      start_time = time(0);
 
 	///////////////////////////////////////////////
