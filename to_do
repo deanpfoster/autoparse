@@ -1,13 +1,20 @@
 	                         -*- text -*-
 
 
-fit forecast (i.e. output of contrast)
-i.e. get sample_main running
-
-
-
 speedups:
 
 There is a map in value_of_forecasts which should be replaced
 by an vector for speed.
+
+logic:
+
+Implement the distance of a link as part of the probability.  This
+might generate more localicty and hence smarter parses.
+
+Runs:
+
+See what the coverage is for our dictionary.
+
+Build a new google grams dictionary which doesn't downcase.  This
+might help with understanding start of sentences etc.
 

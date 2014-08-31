@@ -102,7 +102,8 @@ main(int argc,char** argv)
     std::cout << "Trained on " << corpus_in_memory.size() << " sentence.    " << std::endl;
     std::cout << "number threads = " << auto_parse::number_of_threads_used() << "." << std::endl;
 
-    int n = corpus_in_memory.size();  // (About 500k)
+    int n = corpus_in_memory.size();  // (About 462k)
+    assert(n > 400*1000);
     int number_per_level = 30;
     std::vector<int> number_to_train_on(6*number_per_level, n);  // default = n
     int K = 1000;
@@ -152,26 +153,29 @@ main(int argc,char** argv)
 	//                                           //
 	///////////////////////////////////////////////
 
-	double sqrt_sum = 0;
+	double log_like = 0;
 	int number_to_read = end - begin;
 #pragma omp parallel for 
     for(int counter = 0; counter < number_to_read;++counter)
 	  {
 	    const auto_parse::Words& sentence = *(begin + counter);
 	    auto_parse::Dependency parse = redo_parse(sentence, parser(sentence)).parse();
-	    double prob = likelihood(parse);
-	    sqrt_sum += sqrt(fabs(prob));
+	    double prob = likelihood(parse) / (sentence.end() - sentence.begin());
+	    log_like += prob;
 	  };
 	debugging << debugging_prefix << "Evaluation time " << time(0) - start_time << " sec." << std::endl;      start_time = time(0);
 
 	debugging << debugging_prefix <<  likelihood;
-	std::cout << debugging_prefix << " * * * * " << sqrt_sum << " * * * * " << std::endl;
+	std::stringstream summary;
+	int n = number_to_train_on[rounds];
+	summary << "log(like) = " << log_like/n << " on " << n/1000 << "k";
+	std::cout << debugging_prefix << " * * * * " << summary.str()  << " * * * * " << std::endl;
 
 	std::vector<int> which_sentences {0,2,4, 10, 17, 26};
 	std::vector<auto_parse::Dependency> parses;
 	for(int sentence_id : which_sentences)
 	  parses.push_back(redo_parse(corpus_in_memory[sentence_id], parser(corpus_in_memory[sentence_id])).parse());
-	latex << "\\newpage\\section{likelihood index: " << sqrt_sum << "}\n\n" << std::endl;
+	latex << "\\newpage\\section*{\\bf{" << rounds << ":}  " << summary.str() << "}\n\n" << std::endl;
 	for(auto_parse::Dependency p : parses)
 	  p.latex(latex);
 	debugging << debugging_prefix << likelihood.decorate(parses[3],dictionary);

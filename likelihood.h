@@ -29,7 +29,6 @@ namespace auto_parse
   private:
     Transition_probability* mp_left;
     Transition_probability* mp_right;
-    
   };
 }
 
