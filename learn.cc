@@ -5,6 +5,7 @@
 #include "assert.h"
 #include <iostream>
 #include "feature_interaction.h"
+#include <boost/program_options.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                     F R E E   F U N C T I O N S                            free functions
@@ -233,4 +234,38 @@ auto_parse::evaluation(int rounds,
   return summary.str();
 }
 	
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+boost::tuple<std::string,std::string,int,std::string>
+auto_parse::parse_argv(int argc, char** argv)
+{
+  namespace po = boost::program_options;
+
+  std::string latex;
+  std::string dictionary;
+  std::string corpus;
+  int         gram;
+
+  // Declare the supported options.
+  po::options_description desc("Allowed options");
+  desc.add_options()
+    ("help", "produce help message (see parse_argv in learn.cc)")
+    ("corpus", po::value<std::string>(&corpus)->default_value("eng_only"), "corpus to read from")
+    ("latex", po::value<std::string>(&latex)->default_value("learn.output.tex"), "latex file to write to")
+    ("dictionary", po::value<std::string>(&dictionary)->default_value("pretty.csv"), "dictionary to read from")
+    ("gram_number", po::value<int>(&gram)->default_value(3), "gram number for dictionary")
+    ;
+
+  po::variables_map vm;
+  po::store(po::parse_command_line(argc, argv, desc), vm);
+  po::notify(vm);    
+
+  if (vm.count("help")) {
+    std::cout << desc << "\n";
+    exit(1);
+  }
+
+  return boost::make_tuple(latex, dictionary, gram, corpus);
+}
+
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */

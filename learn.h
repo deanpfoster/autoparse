@@ -6,6 +6,7 @@
 #include <iostream>
 #include <assert.h>
 #include <fstream>
+#include <boost/tuple/tuple.hpp>
 
 #include "model.h"
 #include "likelihood.h"
@@ -63,6 +64,8 @@ namespace auto_parse
 	     std::vector<auto_parse::Words>::const_iterator end);
 
 
+boost::tuple<std::string,std::string,int,std::string>
+parse_argv(int argc, char** argv);
 
 
 }

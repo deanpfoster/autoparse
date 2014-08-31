@@ -12,7 +12,6 @@ echo "* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
 echo "*"
 echo "*  " $*|sed "s/-pe//"|sed "s/parallel//"|sed "s/12-20//"
 echo "*"
-echo -n "*   "; date
 echo "*  " $HOST running $JOB_NAME.$JOB_ID
 echo -n "*   "; grep OPT ~/nlp/auto_parse/flags|grep -v "#"|grep -v "CFLAGS"
 echo -n "*  "; git log |head -1
@@ -23,7 +22,7 @@ echo
 echo
 cd ~/nlp/auto_parse
 date
-./learn.main eng_only pretty.csv ~/run_learner.t$JOB_ID.tex
+./learn.main --corpus=eng_only --dictionary=pretty.csv --gram=3 --latex=~/run_learner.t$JOB_ID.tex
 
 date
 echo $*

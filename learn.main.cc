@@ -18,33 +18,27 @@
 int
 main(int argc,char** argv)
 {
-  time_t start_time = time(0);  // used for timing 
-  time_t last_print_time = time(0);  // used to print about once a minute
   Eigen::initParallel();  // this will help eigen not walk on top of itself.
   std::ostream& debugging(std::cout);
-  //////////////////////////////////////////////////////////////////////////////////
-  //
-  //                    Which dictionary, corpus and latex file to use
-  //
-  //////////////////////////////////////////////////////////////////////////////////
 
-  std::string sentence_file = "sample_corpus";
-  std::string eigen_file = "pretty_5_c_sample.csv";
-  std::string latex_file = "learn.output.tex";
-  int gram_number = 5;
-  if(argc >= 3)
-    {
-      sentence_file = argv[1];
-      eigen_file = argv[2];
-      gram_number = 3;  // this is a guess
-    }
-  if(argc == 4)
-    latex_file = argv[3];
+  //////////////////////////////////////////////////////////////////////////////////
+  //
+  //  Read the command line parameters and set up some variables
+  //
+  //////////////////////////////////////////////////////////////////////////////////
+  
+  std::string sentence_file, eigen_file, latex_file;
+  int gram_number;
+  boost::tie(latex_file, eigen_file, gram_number, sentence_file)
+    = auto_parse::parse_argv(argc, argv);
+  time_t start_time = time(0);  // used for timing 
+  time_t last_print_time = time(0);  // used to print about once a minute
+
   debugging << "  sentence = " << sentence_file << std::endl;
   debugging << "eigenwords = " << eigen_file << std::endl;
   debugging << "     latex = " << latex_file << std::endl;
   std::ofstream latex(latex_file);
-  auto_parse::latex_header(latex);
+  auto_parse::latex_header(latex);  // write a "...\begin{document}" on latex_file
       
   //////////////////////////////////////////////////////////////////////////////////
   //
