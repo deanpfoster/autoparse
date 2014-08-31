@@ -37,6 +37,7 @@ namespace auto_parse
     virtual std::string key() const = 0;
     virtual Forecast* clone() const = 0;
     // MANIPULATORS
+    virtual void tweak(const Forecast& other, double movement) = 0; // movement = 1 means replace old with new, movement=0 means use old
 
     // ACCESSORS
     virtual double operator()(const Eigen::VectorXd&) const = 0;

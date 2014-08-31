@@ -17,6 +17,7 @@ public:
   Sample(double d):m_d(d){};
   Forecast* restore(std::istream& in) const  {    return new Sample(in);}
   Forecast* clone() const  {    return new Sample(m_d);}
+  void tweak(const Forecast&,double)  {}
   void save(std::ostream& out) const  {out << m_d << std::endl; }
   std::string key() const {return "sample";};
   double operator()(const Eigen::VectorXd&) const{ return m_d;}

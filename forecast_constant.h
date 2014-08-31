@@ -28,6 +28,7 @@ namespace auto_parse
     virtual void save(std::ostream &) const ;
     virtual std::string key() const;
     virtual Forecast_constant* clone() const;
+    virtual void tweak(const Forecast&, double );
 
     // MANIPULATORS
     // ACCESSORS

@@ -94,6 +94,13 @@ auto_parse::Forecast_linear::clone() const
   return new Forecast_linear(*this);
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+void
+auto_parse::Forecast_linear:: tweak(const Forecast& forecast_other, double movement) 
+{  // movement = 1 means replace old with new, movement=0 means use old
+  const Forecast_linear& other = dynamic_cast<const Forecast_linear&>(forecast_other);
+  m_weights = (1 - movement) * m_weights + movement * other.m_weights;
+};
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                             M A N I P U L A T O R S                          manipulators

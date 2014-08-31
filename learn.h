@@ -42,7 +42,6 @@ namespace auto_parse
     likelihood_to_model(const Likelihood& likelihood,
 			const auto_parse::Statistical_parse& parser,
 			const Feature_generator& feature_generator,
-			const Model& lr_model,
 			double sampling_rate,
 			std::vector<auto_parse::Words>::const_iterator,
 			std::vector<auto_parse::Words>::const_iterator);

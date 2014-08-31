@@ -112,7 +112,6 @@ auto_parse::Model
 auto_parse::likelihood_to_model(const Likelihood& likelihood,
 				const auto_parse::Statistical_parse& parser,
 				const Feature_generator& feature_generator,
-				const Model& ,
 				double sampling_rate,
 				std::vector<auto_parse::Words>::const_iterator begin,
 				std::vector<auto_parse::Words>::const_iterator end)
@@ -149,9 +148,9 @@ auto_parse::likelihood_to_model(const Likelihood& likelihood,
   for(int i = 1; i < num_threads;++i)
     for(auto_parse::Action a: auto_parse::all_actions)
       training_bundle[0][a].merge(training_bundle[i][a]);
-  auto_parse::Model new_model(feature_generator);
+  auto_parse::Model new_model = parser.model();
   for(auto_parse::Action a : auto_parse::all_actions)
-    new_model.add_forecast(a,training_bundle[0][a].result());
+    new_model.tweak_forecast(a,training_bundle[0][a].result(),1.0);
   return new_model;
 }
 

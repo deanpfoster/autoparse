@@ -37,6 +37,10 @@ public:
     return new Sample(m_d);
   }
 
+  void tweak(const Forecast&, double) 
+  {
+  }
+
   // Needs to be a save function.  What it writes should be read by the istream constructor
   void save(std::ostream& out) const
   {

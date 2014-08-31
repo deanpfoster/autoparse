@@ -99,7 +99,6 @@ main()
 	auto_parse::Model new_model = likelihood_to_model(likelihood,
 							  parser,
 							  feature_generator,
-							  lr_model,
 							  sampling_rate,
 							  corpus_in_memory.begin(),
 							  corpus_in_memory.end());

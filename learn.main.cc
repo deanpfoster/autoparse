@@ -125,7 +125,7 @@ main(int argc,char** argv)
       {
 	std::vector<auto_parse::Words>::const_iterator begin = corpus_in_memory.begin();
 	std::vector<auto_parse::Words>::const_iterator end   = begin + number_to_train_on[rounds];
-	double sampling_rate = .05;  // this generates about a factor of 10 speed up
+	double sampling_rate = .05;  // this generates about a factor of 10 speed up by only computing X'X 5% of the time
 	std::stringstream s;
 	s << "  " << rounds << "       ";
 	std::string debugging_prefix = s.str();
@@ -136,8 +136,8 @@ main(int argc,char** argv)
 	//                                           //
 	///////////////////////////////////////////////
 
-	lr_model = likelihood_to_model(likelihood, parser, feature_generator, lr_model, sampling_rate, begin, end);
-	parser.new_model(lr_model);
+	auto_parse::Model model = likelihood_to_model(likelihood, parser, feature_generator, sampling_rate, begin, end);
+	parser.new_model(model);
 	debugging << debugging_prefix << "Training time " << time(0) - start_time << " sec." << std::endl;      start_time = time(0);
 
 	///////////////////////////////////////////////

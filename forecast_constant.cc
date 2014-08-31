@@ -63,6 +63,13 @@ auto_parse::Forecast_constant::clone() const
   return new Forecast_constant(*this);
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+void
+auto_parse::Forecast_constant::tweak(const Forecast& o, double movement) 
+{
+  const Forecast_constant& other = dynamic_cast<const Forecast_constant&>(o);
+  m_constant = (1 - movement) * m_constant + movement * other.m_constant;
+};
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                             M A N I P U L A T O R S                          manipulators

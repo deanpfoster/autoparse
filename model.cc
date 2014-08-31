@@ -19,6 +19,10 @@
 
 auto_parse::Model::~Model()
 {
+  for(Action a: all_actions)
+    {
+      delete(m_forecasts[a]);
+    }
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Model::Model(std::istream& in,const Feature_generator& features)
@@ -38,7 +42,7 @@ auto_parse::Model::Model(std::istream& in,const Feature_generator& features)
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Model::Model(const auto_parse::Model & other)
   :
-  m_forecasts(other.m_forecasts),
+  m_forecasts(),
   m_features(other.m_features)
 {
     for(Action a: all_actions)
@@ -63,7 +67,7 @@ auto_parse::Model::Model(const std::initializer_list<std::pair<auto_parse::Actio
   std::set<auto_parse::Action> check;
   for(std::pair<auto_parse::Action,Forecast*> p : args)
     {
-      m_forecasts[p.first] = p.second;
+      m_forecasts[p.first] = p.second->clone();
       check.insert(p.first);
     }
   assert(check.size() == all_actions.size()); // there are better tests, but this will catch some errors
@@ -72,7 +76,14 @@ auto_parse::Model::Model(const std::initializer_list<std::pair<auto_parse::Actio
 void
 auto_parse::Model::add_forecast(Action a, const Forecast& f)
 {
+  delete(m_forecasts[a]);
   m_forecasts[a] = f.clone();
+}
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+void
+auto_parse::Model::tweak_forecast(Action a, const Forecast& f, double fraction)
+{
+  m_forecasts[a]->tweak(f,fraction);
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                             M A N I P U L A T O R S                          manipulators
@@ -82,7 +93,10 @@ auto_parse::Model::operator=(const auto_parse::Model& rhs)
   //  for(Action a : all_actions)
   //    delete m_forecasts[a];
   for(Action a : all_actions)
-    m_forecasts[a] = rhs.m_forecasts.find(a)->second->clone();
+    {
+      delete m_forecasts[a];
+      m_forecasts[a] = rhs.m_forecasts.find(a)->second->clone();
+    }
   return *this;
 }
 
