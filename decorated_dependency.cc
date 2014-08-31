@@ -62,7 +62,7 @@ auto_parse::Decorated_dependency:: word_description(const Word &w) const
   std::string result = w;
 
   if(m_dictionary.find(w) == m_dictionary.end())
-    result += "_OOV";
+    result += ".OOV";
   return(result);
 }
 

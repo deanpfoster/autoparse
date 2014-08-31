@@ -228,7 +228,7 @@ auto_parse::evaluation(int rounds,
 	parses.push_back(redo_parse(*(begin + sentence_id), parser(*(begin + sentence_id))).parse());
       latex << "\\newpage\n\\section*{\\bf{" << rounds << ":}  " << summary.str() << "}\n\n" << std::endl;
       for(auto_parse::Dependency p : parses)
-	latex << likelihood.decorate(p, dictionary);
+	likelihood.decorate(p, dictionary).latex(latex);
       debugging << likelihood.decorate(parses[0],dictionary);
     };
   return summary.str();

@@ -22,7 +22,7 @@ echo
 echo
 cd ~/nlp/auto_parse
 date
-./learn.main --corpus=eng_only --dictionary=pretty.csv --gram=3 --latex=~/run_learner.t$JOB_ID.tex
+./learn.main --corpus=eng_only --dictionary=pretty.csv --gram=3 --latex=~/run_learner.t$JOB_ID.tex --update_rate=.1
 
 date
 echo $*
