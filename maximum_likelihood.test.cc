@@ -20,7 +20,8 @@ namespace auto_parse
       int dim = g.dimension();
       Eigen::MatrixXd parent = Eigen::MatrixXd::Random(dim,dim);
       Eigen::MatrixXd child = Eigen::MatrixXd::Random(dim,dim);
-      auto_parse::TP_eigenwords left(g,g,parent,child);  // testing construction
+      std::vector<double> prob(20,.05);
+      auto_parse::TP_eigenwords left(g,g,parent,child,prob);  // testing construction
       auto_parse::TP_eigenwords right(g,g);  // testing construction
       auto_parse::Maximum_likelihood lambda(left,right); 
       typedef auto_parse::Dependency D;

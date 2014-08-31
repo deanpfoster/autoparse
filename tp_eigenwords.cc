@@ -23,14 +23,15 @@ auto_parse::TP_eigenwords::~TP_eigenwords()
 auto_parse::TP_eigenwords::TP_eigenwords(const auto_parse::Eigenwords& parent,
 					 const auto_parse::Eigenwords& child,
 					 const Eigen::MatrixXd& XtX,
-					 const Eigen::MatrixXd& XtY)
+					 const Eigen::MatrixXd& XtY,
+					 const std::vector<double> distances)
   :
   Transition_probability(),
   m_parent(parent),
   m_child(child),
   m_XtY(XtY),
-  m_XtX(XtX)
-
+  m_XtX(XtX),
+  m_distance(distances) 
 {
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -39,7 +40,8 @@ auto_parse::TP_eigenwords::TP_eigenwords(const auto_parse::Eigenwords& parent,co
     m_parent(parent),
     m_child(child),
     m_XtY(),
-    m_XtX()
+    m_XtX(),
+    m_distance(20,1) 
 {
   m_XtY = Eigen::MatrixXd::Zero(parent.dimension(),child.dimension());
   m_XtX = 1 * Eigen::MatrixXd::Identity(parent.dimension(),parent.dimension()); // some regulirization
@@ -50,7 +52,8 @@ auto_parse::TP_eigenwords::TP_eigenwords(const auto_parse::TP_eigenwords& other)
     m_parent(other.m_parent),
     m_child(other.m_child),
     m_XtY(other.m_XtY),
-    m_XtX(other.m_XtX)  
+    m_XtX(other.m_XtX),
+    m_distance(20,1) 
 {
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -68,9 +71,12 @@ auto_parse::TP_eigenwords::accumulate(const Node& p, const Node& c)
 {
   const Eigen::VectorXd& pv = m_parent[*p];
   const Eigen::VectorXd& cv = m_child[*c];
-
+  unsigned int distance = abs(p - c);
+  if(distance > m_distance.size())
+    distance = m_distance.size() - 1;
   m_XtX += pv * (pv.transpose());  // outerproduct
   m_XtY += pv * (cv.transpose());  // outerproduct
+  m_distance[distance] += 1;
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 void
@@ -100,10 +106,16 @@ auto_parse::TP_eigenwords::renormalize() const
     for(int j = 0; j < new_XtY.cols(); ++j)
       assert(!isnan(new_XtY(i,j)));
 
+  std::vector<double> distance(m_distance.size(),0);
+  double n = 0;
+  for(unsigned int i = 0; i < m_distance.size(); ++i)
+    n += m_distance[i];
+  for(unsigned int i = 0; i < m_distance.size(); ++i)
+    distance[i] = m_distance[i]/n;
   // no NaN?
   //  Eigen::VectorXd new_XtY = m_XtY;
   Eigen::MatrixXd new_XtX = Eigen::MatrixXd::Identity(m_parent.dimension(),m_parent.dimension());
-  return new TP_eigenwords(m_parent, m_child, new_XtX, new_XtY);
+  return new TP_eigenwords(m_parent, m_child, new_XtX, new_XtY,distance);
 };
 
 
@@ -121,7 +133,13 @@ auto_parse::TP_eigenwords::operator()(const auto_parse::Node& parent, const auto
   const Eigen::VectorXd& c = m_child[*child];
   Eigen::VectorXd prediction = p.transpose() * m_XtY;
   Eigen::VectorXd error = c - prediction;
-  return - error.squaredNorm();
+  unsigned int distance = abs(parent - child);
+  if(distance > m_distance.size())
+    distance = m_distance.size() - 1;
+  double prob_distance = m_distance[distance];
+  double log_pd = m_scaling * log(prob_distance);  // this should likewise be negative
+  assert(!isnan(log_pd));
+  return log_pd - error.squaredNorm();
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 

@@ -3,17 +3,17 @@ Read a dictionary of size: 100 x 30
   0    MLE
   0    Likelihood model:
 	Eigenword with transition matrix.
-	max = 0.232654
-	min = 3.46121e-06
-	mean= 0.000437572
-	 sd = 0.0250117
+	max = 0.562602
+	min = 1.05431e-05
+	mean= 0.000175802
+	 sd = 0.0434858
 	Eigenword with transition matrix.
-	max = 0.271465
-	min = 1.24392e-05
-	mean= 0.000450194
-	 sd = 0.0302873
+	max = 0.265977
+	min = 3.00328e-05
+	mean= 0.000909429
+	 sd = 0.0294794
 
-  0     * * * * 31.797 * * * * 
+  0     * * * * 154.542 * * * * 
 on that by this with . 
 -0.01	             on  <---  with                                                   on
 -0.01	           that  <---  with                                                   that
@@ -27,17 +27,41 @@ on that by this with .
   1    MLE
   1    Likelihood model:
 	Eigenword with transition matrix.
-	max = 0.351041
-	min = 4.44548e-06
-	mean= 0.00104413
-	 sd = 0.0278941
+	max = 0.591249
+	min = 1.99214e-05
+	mean= -0.0014825
+	 sd = 0.0456343
 	Eigenword with transition matrix.
-	max = 0.215352
-	min = 4.21828e-06
-	mean= 0.000204488
-	 sd = 0.0210932
+	max = 0.183699
+	min = 1.88194e-05
+	mean= -0.000146451
+	 sd = 0.01529
 
-  1     * * * * 32.0855 * * * * 
+  1     * * * * 56.2688 * * * * 
+on that by this with . 
+-0.01	             on  <---  this                                                   on   --->  that
+-0   	           that  <---  on                                                     that
+-0.01	             by  <---  this                                                   by
+-0.01	           this  <---  with                                    by, on  <---   this
+     	           with  <---  ROOT                                      this  <---   with   --->  .
+-0.55	              .  <---  with                                                   .
+
+
+  2    Training
+  2    MLE
+  2    Likelihood model:
+	Eigenword with transition matrix.
+	max = 0.507108
+	min = 8.04862e-06
+	mean= -0.000227471
+	 sd = 0.0310467
+	Eigenword with transition matrix.
+	max = 0.443885
+	min = 2.17411e-06
+	mean= 0.000516467
+	 sd = 0.0355883
+
+  2     * * * * 46.5425 * * * * 
 on that by this with . 
 -0.01	             on  <---  that                                                   on
 -0.01	           that  <---  by                                          on  <---   that
@@ -47,93 +71,69 @@ on that by this with .
      	              .  <---  ROOT                                      with  <---   .
 
 
-  2    Training
-  2    MLE
-  2    Likelihood model:
-	Eigenword with transition matrix.
-	max = 0.139513
-	min = 5.11893e-07
-	mean= -9.42237e-05
-	 sd = 0.0130879
-	Eigenword with transition matrix.
-	max = 0.309488
-	min = 1.82022e-05
-	mean= 0.00124743
-	 sd = 0.0314396
-
-  2     * * * * 32.1428 * * * * 
-on that by this with . 
--0.01	             on  <---  that                                                   on
--0.01	           that  <---  by                                          on  <---   that
--0.01	             by  <---  with                                      that  <---   by
--0.01	           this  <---  with                                                   this
--0.01	           with  <---  .                                     this, by  <---   with
-     	              .  <---  ROOT                                      with  <---   .
-
-
   3    Training
   3    MLE
   3    Likelihood model:
 	Eigenword with transition matrix.
-	max = 0.248908
-	min = 2.3357e-06
-	mean= 0.000246199
-	 sd = 0.0246929
+	max = 0.838587
+	min = 7.71621e-06
+	mean= 0.000270724
+	 sd = 0.0674947
 	Eigenword with transition matrix.
-	max = 0.236758
-	min = 2.8298e-05
-	mean= 0.000954576
-	 sd = 0.0238357
+	max = 0.239047
+	min = 4.02334e-06
+	mean= 5.09053e-05
+	 sd = 0.0228944
 
-  3     * * * * 36.753 * * * * 
+  3     * * * * 56.7981 * * * * 
 on that by this with . 
--0.01	             on  <---  by                                                     on   --->  that
--0.01	           that  <---  on                                                     that
--0.01	             by  <---  this                                        on  <---   by
--0.01	           this  <---  with                                        by  <---   this
--0.01	           with  <---  .                                         this  <---   with
-     	              .  <---  ROOT                                      with  <---   .
+-0.01	             on  <---  with                                                   on
+-0.01	           that  <---  with                                                   that
+-0.01	             by  <---  with                                                   by
+-0.01	           this  <---  with                                                   this
+     	           with  <---  ROOT                        this, by, that, on  <---   with   --->  .
+-0.52	              .  <---  with                                                   .
 
 
   4    Training
   4    MLE
   4    Likelihood model:
 	Eigenword with transition matrix.
-	max = 0.284906
-	min = 8.29744e-06
-	mean= 0.000350057
-	 sd = 0.0147772
+	max = 0.363417
+	min = 1.12319e-06
+	mean= 0.000215724
+	 sd = 0.020828
 	Eigenword with transition matrix.
-	max = 0.246322
-	min = 3.55607e-06
-	mean= 0.00052521
-	 sd = 0.0210419
+	max = 0.202557
+	min = 6.75161e-06
+	mean= -0.000217133
+	 sd = 0.0198522
 
-  4     * * * * 34.1194 * * * * 
+  4     * * * * 32.9578 * * * * 
 on that by this with . 
--0.01	             on  <---  by                                                     on   --->  that
+-0.01	             on  <---  .                                                      on   --->  that, by, this, with
 -0.01	           that  <---  on                                                     that
--0.01	             by  <---  this                                        on  <---   by
--0.01	           this  <---  with                                        by  <---   this
--0.01	           with  <---  .                                         this  <---   with
-     	              .  <---  ROOT                                      with  <---   .
+-0   	             by  <---  on                                                     by
+-0.01	           this  <---  on                                                     this
+-0   	           with  <---  on                                                     with
+     	              .  <---  ROOT                                        on  <---   .
 
 
   5    Training
   5    MLE
   5    Likelihood model:
 	Eigenword with transition matrix.
-	max = 0.192838
-	min = 2.20497e-06
-	mean= 0.000547109
-	 sd = 0.021328
+	max = 0.225187
+	min = 6.26372e-06
+	mean= 0.000568603
+	 sd = 0.0241127
 	Eigenword with transition matrix.
-	max = 0.419821
-	min = 4.64379e-06
-	mean= 0.000838263
-	 sd = 0.0346359
+	max = 0.281052
+	min = 8.70914e-06
+	mean= 0.00116062
+	 sd = 0.0295145
 
-  5     * * * * 31.1566 * * * * 
+  5     * * * * 31.4861 * * * * 
 on that by this with . 
 -0.01	             on  <---  that                                                   on
 -0.01	           that  <---  by                                          on  <---   that
@@ -147,23 +147,23 @@ on that by this with .
   6    MLE
   6    Likelihood model:
 	Eigenword with transition matrix.
-	max = 0.0798598
-	min = 1.37335e-07
-	mean= -3.11722e-05
-	 sd = 0.00354315
+	max = 0.221702
+	min = 2.07268e-06
+	mean= 4.17919e-06
+	 sd = 0.0239643
 	Eigenword with transition matrix.
-	max = 0.299225
-	min = 1.63779e-05
-	mean= 0.00222502
-	 sd = 0.0323587
+	max = 0.289334
+	min = 1.33278e-06
+	mean= 0.000441508
+	 sd = 0.0240638
 
-  6     * * * * 32.5334 * * * * 
+  6     * * * * 32.2469 * * * * 
 on that by this with . 
--0.01	             on  <---  with                                                   on
--0.01	           that  <---  by                                                     that
+-0.01	             on  <---  that                                                   on
+-0.01	           that  <---  by                                          on  <---   that
 -0.01	             by  <---  this                                      that  <---   by
 -0.01	           this  <---  with                                        by  <---   this
--0.01	           with  <---  .                                     this, on  <---   with
+-0.01	           with  <---  .                                         this  <---   with
      	              .  <---  ROOT                                      with  <---   .
 
 
@@ -171,23 +171,23 @@ on that by this with .
   7    MLE
   7    Likelihood model:
 	Eigenword with transition matrix.
-	max = 0.410227
-	min = 1.79625e-06
-	mean= 0.000165087
-	 sd = 0.0291179
+	max = 0.306498
+	min = 8.43911e-06
+	mean= 0.00068079
+	 sd = 0.0289543
 	Eigenword with transition matrix.
-	max = 0.148821
-	min = 3.81965e-06
-	mean= -0.000412226
-	 sd = 0.0111251
+	max = 0.234257
+	min = 8.94283e-06
+	mean= -0.000458646
+	 sd = 0.0211416
 
-  7     * * * * 32.0237 * * * * 
+  7     * * * * 31.6919 * * * * 
 on that by this with . 
--0.01	             on  <---  this                                                   on   --->  that, by
--0.01	           that  <---  on                                                     that
--0.01	             by  <---  on                                                     by
--0.01	           this  <---  with                                        on  <---   this
--0.01	           with  <---  .                                         this  <---   with
+-0.01	             on  <---  with                                                   on
+-0.01	           that  <---  with                                                   that   --->  by
+-0.01	             by  <---  that                                                   by   --->  this
+-0.01	           this  <---  by                                                     this
+-0.01	           with  <---  .                                     that, on  <---   with
      	              .  <---  ROOT                                      with  <---   .
 
 
@@ -195,17 +195,17 @@ on that by this with .
   8    MLE
   8    Likelihood model:
 	Eigenword with transition matrix.
-	max = 0.378816
-	min = 1.48612e-07
-	mean= -0.0005881
-	 sd = 0.0318378
+	max = 0.34878
+	min = 1.05778e-05
+	mean= 0.000443466
+	 sd = 0.0307021
 	Eigenword with transition matrix.
-	max = 0.161806
-	min = 4.22363e-07
-	mean= -0.000611076
-	 sd = 0.0146896
+	max = 0.406285
+	min = 1.23891e-05
+	mean= -7.26288e-05
+	 sd = 0.0226694
 
-  8     * * * * 31.9142 * * * * 
+  8     * * * * 31.2 * * * * 
 on that by this with . 
 -0.01	             on  <---  with                                                   on   --->  that, by, this
 -0.01	           that  <---  on                                                     that
@@ -219,24 +219,24 @@ on that by this with .
   9    MLE
   9    Likelihood model:
 	Eigenword with transition matrix.
-	max = 0.340974
-	min = 2.22144e-07
-	mean= 0.000626652
-	 sd = 0.0311497
+	max = 0.145438
+	min = 5.00317e-06
+	mean= -6.6321e-05
+	 sd = 0.0105737
 	Eigenword with transition matrix.
-	max = 0.335232
-	min = 7.59209e-08
-	mean= 5.01149e-05
-	 sd = 0.0315804
+	max = 0.309214
+	min = 5.39707e-06
+	mean= 0.000665157
+	 sd = 0.0315172
 
-  9     * * * * 30.8044 * * * * 
+  9     * * * * 32.5332 * * * * 
 on that by this with . 
--0.01	             on  <---  .                                                      on
--0.01	           that  <---  .                                                      that   --->  by, this
--0.01	             by  <---  that                                                   by
--0.01	           this  <---  that                                                   this
--0.01	           with  <---  .                                                      with
-     	              .  <---  ROOT                            with, that, on  <---   .
+-0.01	             on  <---  that                                                   on
+-0.01	           that  <---  by                                          on  <---   that
+-0.01	             by  <---  this                                      that  <---   by
+-0.01	           this  <---  with                                        by  <---   this
+-0.01	           with  <---  .                                         this  <---   with
+     	              .  <---  ROOT                                      with  <---   .
 
 
 Finished!

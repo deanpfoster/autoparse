@@ -18,7 +18,8 @@ namespace auto_parse
       int dim = g.dimension();
       Eigen::MatrixXd parent = Eigen::MatrixXd::Random(dim,dim);
       Eigen::MatrixXd child = Eigen::MatrixXd::Random(dim,dim);
-      auto_parse::TP_eigenwords tp(g,g,parent,child);  // testing construction
+      std::vector<double> prob(20,.05);
+      auto_parse::TP_eigenwords tp(g, g, parent, child, prob);  // testing construction
       Words words;
       words.push_back("<OOV>");
       words.push_back("the");
