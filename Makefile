@@ -126,7 +126,7 @@ likelihood.test: dependency.o transition_probability.o likelihood.o word.o decor
 ################################################################################
 #           L E V E L     F O U R    T E S T I N G     C O D E
 #          (This code can depend on level 0, 1, 2 or 3 code)
-only4: statistical_parse.OK row.OK feature_interaction.OK maximum_likelihood.OK
+only4: statistical_parse.OK row.OK feature_interaction.OK maximum_likelihood.OK feature_shorten.OK
 ################################################################################
 
 
@@ -137,6 +137,8 @@ statistical_parse.test: history.o dependency.o lr.o word.o redo_parse.o model.o 
 row.test: feature_generator.o lr.o word.o redo_parse.o dependency.o history.o
 
 feature_interaction.test: feature.o feature_one_dimensional.o lr.o dependency.o word.o feature_eigenwords.o eigenwords.o
+
+feature_shorten.test: feature.o lr.o dependency.o word.o feature_eigenwords.o eigenwords.o
 
 
 ################################################################################
