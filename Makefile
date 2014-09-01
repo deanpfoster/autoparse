@@ -164,7 +164,7 @@ learn.test: history.o dependency.o lr.o word.o redo_parse.o model.o suggest_alte
              feature_generator.o feature.o feature_one_dimensional.o \
              contrast.o eigenwords.o tp_eigenwords.o feature_eigenwords.o maximum_likelihood.o \
              train_forecast_linear.o forecast_linear.o row.o value_of_forecasts.o tokenize.o decorated_dependency.o\
-             feature_interaction.o 
+             feature_interaction.o feature_shorten.o
 
 ################################################################################
 #           L E V E L     !!! I N F I N I T Y !!!    T E S T I N G     C O D E
@@ -185,7 +185,7 @@ learn.main: history.o dependency.o lr.o word.o redo_parse.o model.o suggest_alte
              feature_generator.o feature.o feature_one_dimensional.o \
              contrast.o eigenwords.o tp_eigenwords.o feature_eigenwords.o maximum_likelihood.o \
              train_forecast_linear.o forecast_linear.o row.o value_of_forecasts.o tokenize.o learn.o \
-             feature_interaction.o decorated_dependency.o
+             feature_interaction.o decorated_dependency.o feature_shorten.o
 
 learn.output: learn.main
 	./learn.main | tee learn.output

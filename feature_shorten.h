@@ -14,6 +14,7 @@ namespace auto_parse
     // CONSTRUCTORS
     virtual ~Shorten();
     Shorten(const Feature& x1, int length);
+    Shorten(const Shorten &);
     Shorten* clone() const;
 
 
@@ -26,7 +27,6 @@ namespace auto_parse
   private:
     Feature* mp_long;
     int m_dimension;
-    Shorten(const Shorten &);            // Don't delete this.
     Shorten& operator=(const Shorten &); // Don't delete this.
   };
 }

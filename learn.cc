@@ -3,9 +3,11 @@
 
 #include "learn.h"
 #include "assert.h"
+#include "feature_shorten.h"
 #include <iostream>
 #include "feature_interaction.h"
 #include <boost/program_options.hpp>
+#include "feature_interaction.Template.h"
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                     F R E E   F U N C T I O N S                            free functions
@@ -66,11 +68,36 @@ auto_parse::fast_features(const Eigenwords& dictionary)
   return result;
 };
 
+std::vector<auto_parse::Feature*> 
+short_interactions_features(const auto_parse::Eigenwords& dictionary, int length)
+{
+  using namespace auto_parse;
+  typedef Feature_eigenwords<Next_word> NW;
+  typedef Feature_eigenwords<Stack_top> ST;
+  typedef Feature_eigenwords<Stack_1>   S1;
+  Shorten f_nw(NW(dictionary),length);
+  Shorten f_st(ST(dictionary),length);
+  Shorten f_s1(S1(dictionary),length);
+  
+  // the following uses new C++11 standard to shove all these into a vector
+  std::vector<Feature*> result
+  {
+    new Interaction<Shorten,Shorten>(f_nw,f_nw),
+    new Interaction<Shorten,Shorten>(f_nw,f_s1),
+    new Interaction<Shorten,Shorten>(f_nw,f_st),
+    new Interaction<Shorten,Shorten>(f_st,f_st),
+    new Interaction<Shorten,Shorten>(f_st,f_s1),
+    new Interaction<Shorten,Shorten>(f_s1,f_s1)
+  };
+  return result;
+
+}
+
 auto_parse::Feature_generator
 auto_parse::standard_features(const Eigenwords& dictionary)
 {
   std::vector<Feature*> features = linear_features(dictionary);
-  std::vector<Feature*> more = eigen_interactions(dictionary);
+  std::vector<Feature*> more = short_interactions_features(dictionary,10);
   std::copy(more.begin(), more.end(), std::back_inserter(features));
   Feature_generator result = Feature_generator(features);
   return result;

@@ -19,6 +19,14 @@ auto_parse::Shorten::Shorten(const Feature& x, int length)
   assert(m_dimension <= x.dimension());  // yes, you can shorten a 10 long to a 10 long
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+auto_parse::Shorten::Shorten(const Shorten& other)
+  :
+  Feature(other),
+  mp_long(other.mp_long->clone()),
+  m_dimension(other.m_dimension)
+{
+};
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Shorten*
 auto_parse::Shorten::clone() const
 {
