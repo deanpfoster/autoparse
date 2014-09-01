@@ -23,6 +23,7 @@ namespace auto_parse
 	{
 	  pretty.describe_link(link, "prob");
 	};
+      pretty.describe_root("r00t");
       std::cout << pretty;
       pretty.latex(std::cout);
     }	

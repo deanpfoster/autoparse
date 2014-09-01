@@ -75,6 +75,7 @@ namespace auto_parse
       auto_parse::Dependency copy(d);
       assert(d.full_parse());
       assert(copy.full_parse());
+      std::cout << "Number left links: " << d.number_left_links() << std::endl;
     }
   }
 }

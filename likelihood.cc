@@ -16,17 +16,21 @@ auto_parse::Likelihood::~Likelihood()
 {
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-auto_parse::Likelihood::Likelihood(const Transition_probability& left, const Transition_probability& right)
+auto_parse::Likelihood::Likelihood(const Transition_probability& left,
+				   const Transition_probability& right,
+				   const Transition_probability& root)
   :
   mp_left(left.clone()),
-  mp_right(right.clone())
+  mp_right(right.clone()),
+  mp_root(root.clone())
 {
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Likelihood::Likelihood(const Likelihood & other)
   :
   mp_left(other.mp_left->clone()),
-  mp_right(other.mp_right->clone())
+  mp_right(other.mp_right->clone()),
+  mp_root(other.mp_root->clone())
 {
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -36,8 +40,10 @@ auto_parse::Likelihood::operator=(const Likelihood & rhs)
 {
   delete mp_left;
   delete mp_right;
+  delete mp_root;
   mp_left = rhs.mp_left->clone();
   mp_right =rhs.mp_right->clone();
+  mp_root =rhs.mp_root->clone();
   return *this;
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -53,6 +59,7 @@ auto_parse::Likelihood::print_on(std::ostream & ostrm) const
   ostrm << "Likelihood model:" << std::endl;
   ostrm << "\t" << (*mp_left);
   ostrm << "\t" << (*mp_right);
+  ostrm << "\t" << (*mp_root);
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 double
@@ -62,7 +69,7 @@ auto_parse::Likelihood::operator()(const Dependency& parse) const
   double result = 0.0; // we will work with log likelihoods
   for(auto i = parse.links().begin(); i != parse.links().end(); ++i)
     {
-      double delta = link_probability(*i);
+      double delta = link_probability(*i,parse.sentence());
       bool debugging = false;
       if(debugging)
 	{
@@ -74,8 +81,9 @@ auto_parse::Likelihood::operator()(const Dependency& parse) const
 	  std::cout << *i->second << " = " << delta << std::endl;
 	};
       result += delta;
-    }
-  return result;
+    };
+  double root = (*mp_root)(parse.sentence().end(), parse.root(), parse.sentence());
+  return result + root;
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Decorated_dependency
@@ -83,18 +91,23 @@ auto_parse::Likelihood::decorate(const Dependency& parse, const Eigenwords& dict
 {
   Decorated_dependency result(parse,dictionary);
   for(auto i = result.links().begin(); i != result.links().end(); ++i)
-    result.describe_link(*i,link_probability(*i));
+    result.describe_link(*i,link_probability(*i,parse.sentence()));
+  double root = (*mp_root)(parse.sentence().end(), parse.root(), parse.sentence());
+  result.describe_root(root);
   return result;
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 double
-auto_parse::Likelihood::link_probability(const Link& link) const
+auto_parse::Likelihood::link_probability(const Link& link, const Words& w) const
 {
   double result = 0;
-  if(link.first < link.second)
-    result = (*mp_left)(link.first, link.second);
+  if(link.first == w.end())
+    result = (*mp_root)(w.end(), link.second, w);
   else
-    result = (*mp_right)(link.first, link.second);
+    if(link.first < link.second)
+      result = (*mp_left)(link.first, link.second,w);
+    else
+      result = (*mp_right)(link.first, link.second,w);
   return result;
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */

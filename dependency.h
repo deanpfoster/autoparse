@@ -40,10 +40,12 @@ namespace auto_parse
     bool full_parse() const;
     const Links& links() const;
     const Words& sentence() const{return m_words;}
+    double number_left_links() const;
 
   protected:
     virtual std::string link_description(const Link&) const;
     virtual std::string word_description(const Word&) const;
+    virtual std::string root_description() const;
     void set_root(const Node&); // if you can't see our internal data structure, you probably shouldn't be using these
     void add(const Node& left, Left_arrow ,  const Node& right);
     void add(const Node& left, Right_arrow , const Node& right);

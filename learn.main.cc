@@ -39,6 +39,7 @@ main(int argc,char** argv)
   debugging << "eigenwords = " << eigen_file << std::endl;
   debugging << "     latex = " << latex_file << std::endl;
   debugging << "update rate= " << update_rate << "    (" << 1 - update_rate << " * old_model + " << update_rate << " * new_model)" << std::endl;
+  debugging << "repeats/lev= " << repeats_per_level << std::endl;
   std::ofstream latex(latex_file);
   auto_parse::latex_header(latex);  // write a "...\begin{document}" on latex_file
       
@@ -89,8 +90,10 @@ main(int argc,char** argv)
     //
     //////////////////////////////////////////////////////////////////////////////////
 
-    auto_parse::TP_eigenwords tp(dictionary,dictionary);  
-    auto_parse::Likelihood likelihood(tp,tp);
+    auto_parse::TP_eigenwords tp_left(dictionary,dictionary);  
+    auto_parse::TP_eigenwords tp_right(dictionary,dictionary);  
+    auto_parse::TP_eigenwords tp_root(auto_parse::Eigenwords::create_root_dictionary(),dictionary);  
+    auto_parse::Likelihood likelihood(tp_left,tp_right,tp_root);
 
     //////////////////////////////////////////////////////////////////////////////////
     //

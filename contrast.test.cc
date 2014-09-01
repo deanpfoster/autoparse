@@ -44,7 +44,7 @@ namespace auto_parse
       Eigen::MatrixXd matrix = Eigen::MatrixXd::Random(dim,dim);
       std::vector<double> prob(20,.05);
       auto_parse::TP_eigenwords markov(g,g,matrix,matrix,prob);  // testing construction
-      Likelihood likelihood(markov,markov);
+      Likelihood likelihood(markov,markov,markov);
       Feature_one_dimensional<Words_left> f1;
       Feature_one_dimensional<Stack_size> f2;
       Feature_one_dimensional<Sentence_length> f3;

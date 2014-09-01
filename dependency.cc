@@ -185,7 +185,7 @@ auto_parse::Dependency::latex(std::ostream & ostrm) const
   ostrm << "  \\\\" << std::endl;
   ostrm << "\\end{deptext}" << std::endl;
   int root_index = root() - m_words.begin() + 1;
-  ostrm << "\\deproot{" << root_index << "}{ROOT}" << std::endl;
+  ostrm << "\\deproot{" << root_index << "}{ROOT " << root_description() << "}" << std::endl;
   for(const_link_iterator i = m_links.begin(); i != m_links.end();++i)
     {
       int from_index = i->first - m_words.begin() + 1;  // Latex uses 1 based indexing
@@ -210,6 +210,12 @@ std::string
 auto_parse::Dependency:: word_description(const Word &w) const
 {
   return(w);
+}
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+std::string
+auto_parse::Dependency:: root_description() const
+{
+  return("");
 }
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -242,7 +248,10 @@ auto_parse::Dependency::print_on(std::ostream & ostrm) const
 	  if(parent.find(i) != parent.end())
 	    ostrm << std::left << std::setw(5) << link_description(Link(parent.find(i)->second,i)) <<std::right;
 	  else
-	    ostrm << "     ";
+	    if(root() == i)
+	      ostrm << std::left << std::setw(5) << root_description() <<std::right;
+	    else
+	      ostrm << "     ";
 
       //       foo    <---    bar     (foo --> A, B, C)
       ostrm << "\t" << std::setw(15) << word_description(*i);
@@ -323,6 +332,15 @@ const auto_parse::Links&
 auto_parse::Dependency::links() const
 {
   return m_links;
+}
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+double
+auto_parse::Dependency::number_left_links() const
+{
+  double result = 0.0;
+  for(const_link_iterator i = m_links.begin(); i != m_links.end(); ++i)
+      result += (i->first >  i->second);
+  return result;
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 

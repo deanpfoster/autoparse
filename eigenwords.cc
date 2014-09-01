@@ -73,6 +73,30 @@ auto_parse::Eigenwords::Eigenwords(const auto_parse::Eigenwords& other)
   s_cache_counter[m_cache_index]++;
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+auto_parse::Eigenwords::Eigenwords(int i1, int i2, int i3)
+  :  m_alive(true),
+     m_cache_index(i1),
+     mp_eigenwords(s_cache[i1])
+{
+  assert(i1 == i2);  // this is the secrete password to call this constructor
+  assert(i2 == i3);
+  s_cache_counter[m_cache_index]++;
+};
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+auto_parse::Eigenwords
+auto_parse::Eigenwords::create_root_dictionary()
+{
+  static int root_dictionary_id = -1;  // this will be changed
+  if(root_dictionary_id == -1)
+    { // no root_dictionary created yet
+      root_dictionary_id = s_cache.size();
+      s_cache_counter.push_back(1);
+      s_cache.push_back(new std::map<std::string,Eigen::VectorXd>);
+      (*s_cache[root_dictionary_id])["<OOV>"] = Eigen::VectorXd::Ones(1);
+    }
+  return Eigenwords(root_dictionary_id, root_dictionary_id, root_dictionary_id);  // use secret password constructor
+};
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                             M A N I P U L A T O R S                          manipulators
@@ -91,6 +115,15 @@ auto_parse::Eigenwords::operator[](const auto_parse::Word& w) const
       assert(0);
     };
   return location->second;
+};
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+const Eigen::VectorXd&
+auto_parse::Eigenwords::operator()(const auto_parse::Node& pointer, const auto_parse::Words& sentence) const
+{
+  if(pointer == sentence.end())
+    return((*this)[""]);
+  else
+    return((*this)(*pointer));
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 int

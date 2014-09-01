@@ -15,8 +15,8 @@ namespace auto_parse
   public:
     // CONSTRUCTORS
     ~Likelihood();
-    Likelihood(const Transition_probability& left_pointing, const Transition_probability& right_pointing); // read model from file
-    Likelihood(const Likelihood &);          
+    Likelihood(const Transition_probability& left_pointing, const Transition_probability& right_pointing, const Transition_probability& root); 
+    Likelihood(const Likelihood &);
     Likelihood& operator=(const Likelihood &);
 
     // MANIPULATORS
@@ -24,11 +24,12 @@ namespace auto_parse
     double operator()(const Dependency&) const;
     Decorated_dependency decorate(const Dependency&, const Eigenwords&) const;
     void print_on(std::ostream & ostrm) const;
-    double link_probability(const Link&) const;
+    double link_probability(const Link&, const Words&) const;
     
   private:
     Transition_probability* mp_left;
     Transition_probability* mp_right;
+    Transition_probability* mp_root;
   };
 }
 

@@ -24,11 +24,11 @@ namespace auto_parse
     virtual TP_eigenwords* clone() const;
 
     // MANIPULATORS
-    virtual void accumulate(const Node& parent, const Node& child);
+    virtual void accumulate(const Node& parent, const Node& child, const Words&);
     virtual void merge(const Transition_probability&);
     
     // ACCESSORS
-    virtual double operator()(const Node& parent,  const Node& child) const;
+    virtual double operator()(const Node& parent,  const Node& child, const Words&) const;
     virtual void print_on(std::ostream &) const;
     virtual TP_eigenwords* renormalize() const;
 

@@ -29,9 +29,9 @@ namespace auto_parse
       ++b;
       Words::const_iterator c = b;
       ++c;
-      std::cout << tp(a,b) << std::endl;
-      std::cout << tp(b,a) << std::endl;
-      std::cout << tp(b,c) << std::endl;
+      std::cout << tp(a,b,words) << std::endl;
+      std::cout << tp(b,a,words) << std::endl;
+      std::cout << tp(b,c,words) << std::endl;
     };
   }
 }

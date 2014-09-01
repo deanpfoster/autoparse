@@ -20,10 +20,9 @@ echo -n "*  "; git log |head -3 |tail -1
 echo "*"
 echo "* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
 echo
-echo
 
 date
-./learn.main --corpus=eng_only --dictionary=pretty.csv --gram=3 --latex=/home1/f/foster/run_learner.t$JOB_ID.tex --update_rate=.1
+./learn.main --corpus=eng_only --dictionary=pretty.csv --gram=3 --latex=/home1/f/foster/run_learner.t$JOB_ID.tex --update_rate=.1 --repeats_per_level=$1
 date
 echo $*
 sed "s/runningTitle/$*/" ~/run_learner.t$JOB_ID.tex > ~/tmp

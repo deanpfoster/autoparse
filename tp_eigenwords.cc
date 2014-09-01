@@ -67,10 +67,10 @@ auto_parse::TP_eigenwords::clone() const
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 void
-auto_parse::TP_eigenwords::accumulate(const Node& p, const Node& c) 
+auto_parse::TP_eigenwords::accumulate(const Node& p, const Node& c, const Words& w) 
 {
-  const Eigen::VectorXd& pv = m_parent[*p];
-  const Eigen::VectorXd& cv = m_child[*c];
+  const Eigen::VectorXd& pv = m_parent(p,w);
+  const Eigen::VectorXd& cv = m_child(c,w);
   unsigned int distance = abs(p - c);
   if(distance > m_distance.size())
     distance = m_distance.size() - 1;
@@ -127,10 +127,12 @@ auto_parse::TP_eigenwords::renormalize() const
 //  This assumes that we have already computed X'X^-1 X'Y and shoved it in X'Y.
 //
 double
-auto_parse::TP_eigenwords::operator()(const auto_parse::Node& parent, const auto_parse::Node& child) const
+auto_parse::TP_eigenwords::operator()(const auto_parse::Node& parent,
+				      const auto_parse::Node& child,
+				      const auto_parse::Words& sentence) const
 {
-  const Eigen::VectorXd& p = m_parent[*parent];
-  const Eigen::VectorXd& c = m_child[*child];
+  const Eigen::VectorXd& p = m_parent(parent,sentence);
+  const Eigen::VectorXd& c = m_child(child,sentence);
   Eigen::VectorXd prediction = p.transpose() * m_XtY;
   Eigen::VectorXd error = c - prediction;
   unsigned int distance = abs(parent - child);

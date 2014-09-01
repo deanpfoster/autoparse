@@ -16,6 +16,11 @@ Likelihood model:
 	min = 4.44601e-08
 	mean= 0.00531847
 	 sd = 0.104801
+	Eigenword with transition matrix.
+	max = 5.53061
+	min = 0.000342713
+	mean= -0.180937
+	 sd = 0.995099
 
 
 DONE.

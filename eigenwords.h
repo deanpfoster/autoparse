@@ -17,11 +17,13 @@ namespace auto_parse
     ~Eigenwords();
     Eigenwords(std::istream& in, int gram_number);
     Eigenwords(const Eigenwords&);
+    static Eigenwords create_root_dictionary();
 
     // MANIPULATORS
     // ACCESSORS
     const Eigen::VectorXd& operator()(const Word&w) const{return (*this)[w];};
     const Eigen::VectorXd& operator[](const Word&) const;
+    const Eigen::VectorXd& operator()(const Node&, const Words&) const;
     std::map<std::string,Eigen::VectorXd>::const_iterator find(const Word& w) const{return mp_eigenwords->find(w);}
     std::map<std::string,Eigen::VectorXd>::const_iterator end() const{return mp_eigenwords->end();}
     int dimension() const;
@@ -38,8 +40,7 @@ namespace auto_parse
 
     static std::vector<std::map<std::string,Eigen::VectorXd>* > s_cache;
     static std::vector<int> s_cache_counter;
-
-
+    Eigenwords(int,int,int);  // create from cache ID
   };
 }
 

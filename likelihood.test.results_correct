@@ -8,6 +8,7 @@
 Likelihood model:
 	Heap: left is less than right.
 	Heap: left is less than right.
+	Heap: left is less than right.
 
 5
 constructed!
@@ -40,7 +41,7 @@ Pretty version: E.OOV D.OOV C.OOV B.OOV A.OOV
 0    	          D.OOV  <---  C.OOV                                        E  <---   D
 0    	          C.OOV  <---  B.OOV                                        D  <---   C
 0    	          B.OOV  <---  A.OOV                                        C  <---   B
-     	          A.OOV  <---  ROOT                                         B  <---   A
+0    	          A.OOV  <---  ROOT                                         B  <---   A
 
 
 Should delete a cached eigendictionary.

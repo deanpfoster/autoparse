@@ -11,7 +11,7 @@ prob 	    hearing.OOV  <---  is                                           A  <--
 prob 	             on  <---  hearing.OOV                                            on   --->  issue
 prob 	            the  <---  issue.OOV                                              the
 prob 	      issue.OOV  <---  on                                         the  <---   issue
-     	             is  <---  ROOT                                   hearing  <---   is   --->  scheduled, .
+r00t 	             is  <---  ROOT                                   hearing  <---   is   --->  scheduled, .
 prob 	  scheduled.OOV  <---  is                                                     scheduled   --->  today
 prob 	      today.OOV  <---  scheduled.OOV                                          today
 prob 	              .  <---  is                                                     .
@@ -21,7 +21,7 @@ prob 	              .  <---  is                                                 
 \begin{deptext}[column sep=1em]
      A.OOV \& hearing.OOV \& on \& the \& issue.OOV \& is \& scheduled.OOV \& today.OOV \& .  \\
 \end{deptext}
-\deproot{6}{ROOT}
+\deproot{6}{ROOT r00t}
 \depedge{2}{1}{prob}
 \depedge{5}{4}{prob}
 \depedge{3}{5}{prob}

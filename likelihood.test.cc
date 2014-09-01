@@ -10,9 +10,9 @@ class sample: public auto_parse::Transition_probability
   ~sample(){};
   sample(){};
   sample* clone() const  { return new sample(*this);};
-  void accumulate(const auto_parse::Node&, const auto_parse::Node&){};
+  void accumulate(const auto_parse::Node&, const auto_parse::Node&, const auto_parse::Words&){};
   Transition_probability* renormalize() const{return 0;};
- double operator()(const auto_parse::Node& parent,const auto_parse::Node& child) const
+  double operator()(const auto_parse::Node& parent,const auto_parse::Node& child, const auto_parse::Words&) const
   {    if(parent < child) return 1.0; else return 0.0; };
   void print_on(std::ostream & ostrm) const
   { ostrm << "Heap: left is less than right." << std::endl;  };
@@ -29,7 +29,8 @@ namespace auto_parse
 
       sample left;
       sample right;
-      auto_parse::Likelihood lambda(left,right); 
+      sample root;
+      auto_parse::Likelihood lambda(left,right,root); 
       std::cout << lambda << std::endl;
       typedef auto_parse::Dependency D;
       D complex =  (D("A") < D("hearing") > (D("on") > (D("the") < D("issue"))))

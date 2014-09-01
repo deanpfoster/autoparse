@@ -18,7 +18,8 @@ namespace auto_parse
     ~Maximum_likelihood();
     Maximum_likelihood();  // used for vector
     Maximum_likelihood(const Transition_probability& left,
-		       const Transition_probability& right);
+		       const Transition_probability& right,
+		       const Transition_probability& root);
     Maximum_likelihood(const Maximum_likelihood &);          
     Maximum_likelihood& operator=(const Maximum_likelihood &); 
 
@@ -30,6 +31,7 @@ namespace auto_parse
   private:
     Transition_probability* mp_left;
     Transition_probability* mp_right;
+    Transition_probability* mp_root;
 
   };
 }

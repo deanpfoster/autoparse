@@ -165,6 +165,7 @@ auto_parse::model_to_likelihood(const Eigenwords& parent,const Eigenwords& child
 {
   auto_parse::TP_eigenwords left(parent,child); 
   auto_parse::TP_eigenwords right(parent,child); 
+  auto_parse::TP_eigenwords root(Eigenwords::create_root_dictionary(),child); 
   int num_threads;
   std::vector<auto_parse::Maximum_likelihood> mle_bundle(0);
 #pragma omp parallel default(shared)
@@ -174,8 +175,8 @@ auto_parse::model_to_likelihood(const Eigenwords& parent,const Eigenwords& child
       num_threads = omp_get_num_threads();
       mle_bundle = std::vector<auto_parse::Maximum_likelihood>(num_threads);
       //#pragma omp for 
-    for(unsigned int i = 0; i < mle_bundle.size(); ++i)
-	mle_bundle[i] = auto_parse::Maximum_likelihood(left, right);
+      for(unsigned int i = 0; i < mle_bundle.size(); ++i)
+	mle_bundle[i] = auto_parse::Maximum_likelihood(left, right, root);
     }
     int number_to_read = end - begin;
 #pragma omp for 
@@ -208,18 +209,24 @@ auto_parse::evaluation(int rounds,
 		       std::vector<auto_parse::Words>::const_iterator end)
 {
   double log_like = 0;
+  double total_left_links = 0;
+  double total_links = 0;
   int number_to_read = end - begin;
 #pragma omp parallel for 
   for(int counter = 0; counter < number_to_read;++counter)
     {
       const auto_parse::Words& sentence = *(begin + counter);
       auto_parse::Dependency parse = redo_parse(sentence, parser(sentence)).parse();
-      double prob = likelihood(parse) / (sentence.end() - sentence.begin());
+      int n = sentence.end() - sentence.begin();
+      double prob = likelihood(parse) / n;
+      total_left_links += parse.number_left_links();
+      total_links += (n-1); // we don't include the root as a link
       log_like += prob;
     };
   std::stringstream summary;
   int n = end - begin;
-  summary << "log(like) = " << log_like/n << " on " << n/1000 << "k";
+  summary << "log(like) = " << log_like/n << " on " << n/1000
+	  << "k with " << round(100. * total_left_links / total_links) << "% lefts";
 
   if(which_sentences.size() > 0)
     {

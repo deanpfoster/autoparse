@@ -19,14 +19,17 @@ namespace auto_parse
     // MANIPULATORS
     void describe_link(const Link&, const std::string&);
     void describe_link(const Link&, double);  // does a courtesy conversation to string
+    void describe_root(const std::string&); 
+    void describe_root(double);  // does a courtesy conversation to string
 
   protected:
     std::string link_description(const Link&) const;
+    std::string root_description() const;
     std::string word_description(const Word&) const;
   private:
     Eigenwords m_dictionary;
     std::map<Link, std::string> m_description;
-    
+    std::string m_root;
 
   };
 

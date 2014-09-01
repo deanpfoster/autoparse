@@ -16,14 +16,15 @@ namespace auto_parse
     std::cout << "\n\n\n\t\t\t MAXIMUM_LIKELIHOOD  MAXIMUM_LIKELIHOOD  MAXIMUM_LIKELIHOOD\n\n\n"<< std::endl;
     {
       std::ifstream in("pretty_5_c_sample.csv");
-      auto_parse::Eigenwords g(in,5);  // testing construction
-      int dim = g.dimension();
+      auto_parse::Eigenwords dictionary(in,5);  // testing construction
+      int dim = dictionary.dimension();
       Eigen::MatrixXd parent = Eigen::MatrixXd::Random(dim,dim);
       Eigen::MatrixXd child = Eigen::MatrixXd::Random(dim,dim);
       std::vector<double> prob(20,.05);
-      auto_parse::TP_eigenwords left(g,g,parent,child,prob);  // testing construction
-      auto_parse::TP_eigenwords right(g,g);  // testing construction
-      auto_parse::Maximum_likelihood lambda(left,right); 
+      auto_parse::TP_eigenwords left(dictionary,dictionary,parent,child,prob);  // testing construction
+      auto_parse::TP_eigenwords right(dictionary,dictionary);  // testing construction
+      auto_parse::TP_eigenwords root(Eigenwords::create_root_dictionary(),dictionary);  // testing construction
+      auto_parse::Maximum_likelihood lambda(left,right,root); 
       typedef auto_parse::Dependency D;
       D complex =  (D("A") < D("hearing") > (D("on") > (D("the") < D("issue"))))
 	< ((D("is") > (D("scheduled") > D("today"))) > D("."));
