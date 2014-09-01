@@ -28,9 +28,9 @@ main(int argc,char** argv)
   //////////////////////////////////////////////////////////////////////////////////
   
   std::string sentence_file, eigen_file, latex_file;
-  int gram_number;
+  int gram_number, repeats_per_level;
   double update_rate;
-  boost::tie(latex_file, eigen_file, gram_number, sentence_file, update_rate)
+  boost::tie(repeats_per_level,latex_file, eigen_file, gram_number, sentence_file, update_rate)
     = auto_parse::parse_argv(argc, argv);
   time_t start_time = time(0);  // used for timing 
   time_t last_print_time = time(0);  // used to print about once a minute
@@ -102,18 +102,17 @@ main(int argc,char** argv)
 
     int n = corpus_in_memory.size();  // (About 462k)
     assert(n > 400*1000);
-    int number_per_level = 30;
-    std::vector<int> number_to_train_on(6*number_per_level, n);  // default = n
+    std::vector<int> number_to_train_on(6*repeats_per_level, n);  // default = n
     int K = 1000;
-    for(int i = 0; i < number_per_level;++i)
+    for(int i = 0; i < repeats_per_level;++i)
       number_to_train_on[i] = 10*K;
-    for(int i = 1 * number_per_level; i < 2 * number_per_level;++i)
+    for(int i = 1 * repeats_per_level; i < 2 * repeats_per_level;++i)
       number_to_train_on[i] = 20*K;
-    for(int i = 2 * number_per_level; i < 3 * number_per_level;++i)
+    for(int i = 2 * repeats_per_level; i < 3 * repeats_per_level;++i)
       number_to_train_on[i] = 40*K;
-    for(int i = 3 * number_per_level; i < 4 * number_per_level;++i)
+    for(int i = 3 * repeats_per_level; i < 4 * repeats_per_level;++i)
       number_to_train_on[i] = 100*K;
-    for(int i = 4 * number_per_level; i < 5 * number_per_level;++i)
+    for(int i = 4 * repeats_per_level; i < 5 * repeats_per_level;++i)
       number_to_train_on[i] = 200*K;
     
       

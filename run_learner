@@ -7,6 +7,7 @@
 #    qsub run_learner -pe parallel 12  Comment to go in the output
 #
 ################################################################################
+cd ~/nlp/auto_parse
 echo
 echo "* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
 echo "*"
@@ -20,10 +21,9 @@ echo "*"
 echo "* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
 echo
 echo
-cd ~/nlp/auto_parse
-date
-./learn.main --corpus=eng_only --dictionary=pretty.csv --gram=3 --latex=~/run_learner.t$JOB_ID.tex --update_rate=.1
 
+date
+./learn.main --corpus=eng_only --dictionary=pretty.csv --gram=3 --latex=/home1/f/foster/run_learner.t$JOB_ID.tex --update_rate=.1
 date
 echo $*
 sed "s/runningTitle/$*/" ~/run_learner.t$JOB_ID.tex > ~/tmp

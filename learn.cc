@@ -236,7 +236,7 @@ auto_parse::evaluation(int rounds,
 	
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-boost::tuple<std::string,std::string,int,std::string,double>
+boost::tuple<int, std::string,std::string,int,std::string,double>
 auto_parse::parse_argv(int argc, char** argv)
 {
   namespace po = boost::program_options;
@@ -244,7 +244,7 @@ auto_parse::parse_argv(int argc, char** argv)
   std::string latex;
   std::string dictionary;
   std::string corpus;
-  int         gram;
+  int         gram,repeats_per_level;
   double      update;
 
   // Declare the supported options.
@@ -255,6 +255,7 @@ auto_parse::parse_argv(int argc, char** argv)
     ("latex", po::value<std::string>(&latex)->default_value("learn.output.tex"), "latex file to write to")
     ("dictionary", po::value<std::string>(&dictionary)->default_value("pretty.csv"), "dictionary to read from")
     ("gram_number", po::value<int>(&gram)->default_value(3), "gram number for dictionary")
+    ("repeats_per_level", po::value<int>(&repeats_per_level)->default_value(3), "number of times to process at each size")
     ("update_rate", po::value<double>(&update)->default_value(1.0), "rate we move towards new data")
     ;
 
@@ -267,7 +268,7 @@ auto_parse::parse_argv(int argc, char** argv)
     exit(1);
   }
 
-  return boost::make_tuple(latex, dictionary, gram, corpus,update);
+  return boost::make_tuple(repeats_per_level,latex, dictionary, gram, corpus,update);
 }
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
