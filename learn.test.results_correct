@@ -1,5 +1,9 @@
 Read a dictionary of size: 100 x 30
   0    Training
+0 = shift's average value in a contrast.
+0 = <--'s average value in a contrast.
+0 = -->'s average value in a contrast.
+0 = HEAD's average value in a contrast.
   0    MLE
   0    Likelihood model:
 	Eigenword with transition matrix.
@@ -29,6 +33,10 @@ on that by this with .
 
 
   1    Training
+0 = shift's average value in a contrast.
+0 = <--'s average value in a contrast.
+0 = -->'s average value in a contrast.
+0 = HEAD's average value in a contrast.
   1    MLE
   1    Likelihood model:
 	Eigenword with transition matrix.
@@ -58,6 +66,10 @@ on that by this with .
 
 
   2    Training
+0 = shift's average value in a contrast.
+0 = <--'s average value in a contrast.
+0 = -->'s average value in a contrast.
+0 = HEAD's average value in a contrast.
   2    MLE
   2    Likelihood model:
 	Eigenword with transition matrix.
@@ -87,6 +99,10 @@ on that by this with .
 
 
   3    Training
+0 = shift's average value in a contrast.
+0 = <--'s average value in a contrast.
+0 = -->'s average value in a contrast.
+0 = HEAD's average value in a contrast.
   3    MLE
   3    Likelihood model:
 	Eigenword with transition matrix.
@@ -116,6 +132,10 @@ on that by this with .
 
 
   4    Training
+0 = shift's average value in a contrast.
+0 = <--'s average value in a contrast.
+0 = -->'s average value in a contrast.
+0 = HEAD's average value in a contrast.
   4    MLE
   4    Likelihood model:
 	Eigenword with transition matrix.
@@ -145,6 +165,10 @@ on that by this with .
 
 
   5    Training
+0 = shift's average value in a contrast.
+0 = <--'s average value in a contrast.
+0 = -->'s average value in a contrast.
+0 = HEAD's average value in a contrast.
   5    MLE
   5    Likelihood model:
 	Eigenword with transition matrix.
@@ -174,6 +198,10 @@ on that by this with .
 
 
   6    Training
+0 = shift's average value in a contrast.
+0 = <--'s average value in a contrast.
+0 = -->'s average value in a contrast.
+0 = HEAD's average value in a contrast.
   6    MLE
   6    Likelihood model:
 	Eigenword with transition matrix.
@@ -203,6 +231,10 @@ on that by this with .
 
 
   7    Training
+0 = shift's average value in a contrast.
+0 = <--'s average value in a contrast.
+0 = -->'s average value in a contrast.
+0 = HEAD's average value in a contrast.
   7    MLE
   7    Likelihood model:
 	Eigenword with transition matrix.
@@ -232,6 +264,10 @@ on that by this with .
 
 
   8    Training
+0 = shift's average value in a contrast.
+0 = <--'s average value in a contrast.
+0 = -->'s average value in a contrast.
+0 = HEAD's average value in a contrast.
   8    MLE
   8    Likelihood model:
 	Eigenword with transition matrix.
@@ -261,6 +297,10 @@ on that by this with .
 
 
   9    Training
+0 = shift's average value in a contrast.
+0 = <--'s average value in a contrast.
+0 = -->'s average value in a contrast.
+0 = HEAD's average value in a contrast.
   9    MLE
   9    Likelihood model:
 	Eigenword with transition matrix.
