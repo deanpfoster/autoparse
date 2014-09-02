@@ -11,18 +11,18 @@ cd ~/nlp/auto_parse
 echo
 echo "* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
 echo "*"
-echo "*  " $*|sed "s/-pe//"|sed "s/parallel//"|sed "s/12-20//"
+echo  $* | sed "s/.*--comment//" | sed "s/.*-c//"| sed "s/^/*  /"
 echo "*"
 echo "*  " $HOST running $JOB_NAME.$JOB_ID
 echo -n "*   "; grep OPT ~/nlp/auto_parse/flags|grep -v "#"|grep -v "CFLAGS"
-echo -n "*  "; git log |head -1
-echo -n "*  "; git log |head -3 |tail -1
+echo -n "*   "; git log |head -1
+echo -n "*   "; git log |head -3 |tail -1
 echo "*"
 echo "* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
 echo
 
 date
-./learn.main --corpus=eng_only --dictionary=pretty.csv --gram=3 --latex=/home1/f/foster/run_learner.t$JOB_ID.tex --update_rate=.05 --repeats_per_level=$1
+./learn.main --latex=/home1/f/foster/run_learner.t$JOB_ID.tex $*
 date
 echo $*
 sed "s/runningTitle/$*/" ~/run_learner.t$JOB_ID.tex > ~/tmp

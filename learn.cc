@@ -271,7 +271,7 @@ auto_parse::evaluation(int rounds,
 	
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-boost::tuple<int, std::string,std::string,int,std::string,double>
+boost::tuple<int, std::string,std::string,int,std::string,double, std::string >
 auto_parse::parse_argv(int argc, char** argv)
 {
   namespace po = boost::program_options;
@@ -279,19 +279,22 @@ auto_parse::parse_argv(int argc, char** argv)
   std::string latex;
   std::string dictionary;
   std::string corpus;
+  std::vector<std::string> comment_vec;
+  std::string comment;
   int         gram,repeats_per_level;
   double      update;
 
   // Declare the supported options.
   po::options_description desc("Allowed options");
   desc.add_options()
-    ("help", "produce help message (see parse_argv in learn.cc)")
+    ("help,h", "produce help message (see parse_argv in learn.cc)")
     ("corpus", po::value<std::string>(&corpus)->default_value("eng_only"), "corpus to read from")
-    ("latex", po::value<std::string>(&latex)->default_value("learn.output.tex"), "latex file to write to")
     ("dictionary", po::value<std::string>(&dictionary)->default_value("pretty.csv"), "dictionary to read from")
     ("gram_number", po::value<int>(&gram)->default_value(3), "gram number for dictionary")
-    ("repeats_per_level", po::value<int>(&repeats_per_level)->default_value(3), "number of times to process at each size")
-    ("update_rate", po::value<double>(&update)->default_value(1.0), "rate we move towards new data")
+    ("latex", po::value<std::string>(&latex)->default_value("learn.output.tex"), "latex file to write to")
+    ("update_rate", po::value<double>(&update)->default_value(.1), "rate we move towards new data")
+    ("repeats_per_level", po::value<int>(&repeats_per_level)->default_value(50), "number of times to process at each size")
+    ("comment,c", po::value<std::vector<std::string> >(&comment_vec)->multitoken(), "comment about job to help organize output")
     ;
 
   po::variables_map vm;
@@ -302,8 +305,9 @@ auto_parse::parse_argv(int argc, char** argv)
     std::cout << desc << "\n";
     exit(1);
   }
-
-  return boost::make_tuple(repeats_per_level,latex, dictionary, gram, corpus,update);
+  for(std::string s : comment_vec)
+      comment += s + " ";
+  return boost::make_tuple(repeats_per_level,latex, dictionary, gram, corpus,update,comment);
 }
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */

@@ -30,16 +30,21 @@ main(int argc,char** argv)
   std::string sentence_file, eigen_file, latex_file;
   int gram_number, repeats_per_level;
   double update_rate;
-  boost::tie(repeats_per_level,latex_file, eigen_file, gram_number, sentence_file, update_rate)
+  std::string comment;
+  boost::tie(repeats_per_level,latex_file, eigen_file, gram_number, sentence_file, update_rate, comment)
     = auto_parse::parse_argv(argc, argv);
   time_t start_time = time(0);  // used for timing 
   time_t last_print_time = time(0);  // used to print about once a minute
+  std::cout << "\n\n               " << comment  << "\n\n\n" << std::endl;
 
-  debugging << "  sentence = " << sentence_file << std::endl;
-  debugging << "eigenwords = " << eigen_file << std::endl;
-  debugging << "     latex = " << latex_file << std::endl;
-  debugging << "update rate= " << update_rate << "    (" << 1 - update_rate << " * old_model + " << update_rate << " * new_model)" << std::endl;
-  debugging << "repeats/lev= " << repeats_per_level << std::endl;
+
+  debugging << "     --corpus = " << sentence_file << std::endl;
+  debugging << " --dictionary = " << eigen_file << std::endl;
+  debugging << "--gram_number = " << gram_number << std::endl;
+  debugging << "      --latex = " << latex_file << std::endl;
+  debugging << "--update_rate = " << update_rate << "    (" << 1 - update_rate << " * old_model + " << update_rate << " * new_model)" << std::endl;
+  debugging << "repeats_per_level= " << repeats_per_level << std::endl;
+  debugging << "   --comment = " << comment << std::endl;
   std::ofstream latex(latex_file);
   auto_parse::latex_header(latex);  // write a "...\begin{document}" on latex_file
       
@@ -180,5 +185,5 @@ main(int argc,char** argv)
 
       }
     auto_parse::latex_footer(latex);
-    debugging << "Finished!" << std::endl;
+    std::cout << "\n\n               FINISHED: " << comment  << "\n\n\n" << std::endl;
 }
