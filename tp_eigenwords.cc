@@ -53,7 +53,7 @@ auto_parse::TP_eigenwords::TP_eigenwords(const auto_parse::TP_eigenwords& other)
     m_child(other.m_child),
     m_XtY(other.m_XtY),
     m_XtX(other.m_XtX),
-    m_distance(20,1) 
+    m_distance(other.m_distance) 
 {
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -140,7 +140,13 @@ auto_parse::TP_eigenwords::operator()(const auto_parse::Node& parent,
     distance = m_distance.size() - 1;
   double prob_distance = m_distance[distance];
   double log_pd = m_scaling * log(prob_distance);  // this should likewise be negative
-  assert(!isnan(log_pd));
+  if(isnan(log_pd))
+    {
+      if(parent == sentence.end())
+	std::cout << "root --> " << *child << " raw = " << parent - child << " with prob = " << prob_distance << std::endl;
+      else
+	std::cout << *parent << " --> " << *child << " raw = " << parent - child << " with prob = " << prob_distance << std::endl;
+    }
   return log_pd - error.squaredNorm();
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
