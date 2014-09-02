@@ -86,7 +86,8 @@ short_interactions_features(const auto_parse::Eigenwords& dictionary, int length
     new Interaction<Shorten,Shorten>(f_nw,f_s1),
     new Interaction<Shorten,Shorten>(f_nw,f_st),
     new Interaction<Shorten,Shorten>(f_st,f_st),
-    new Interaction<Shorten,Shorten>(f_st,f_s1),
+      //    new Interaction<Shorten,Shorten>(f_st,f_s1),
+    new Interaction<ST,S1>(ST(dictionary),S1(dictionary)),
     new Interaction<Shorten,Shorten>(f_s1,f_s1)
   };
   return result;
