@@ -32,21 +32,6 @@ auto_parse::Contrast::Contrast(const Statistical_parse& parse,
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                               A C C E S S O R S                                 accessors
-// void
-// auto_parse::Contrast::operator()(std::ostream& out, const Words& sentence) const
-// {
-//   Statistical_history h = m_parser(sentence);
-//   History prefix = suggest_alternative_history(h);  // truncates and modifies the history
-//   History h_prime = m_parser.finish(sentence, prefix);
-//   double l       = m_likelihood(redo_parse(sentence, h      ).parse());
-//   double l_prime = m_likelihood(redo_parse(sentence, h_prime).parse());
-//   History common = prefix;
-//   common.pop_back();
-//   Action a_prime = h_prime[common.size()];
-//   Action a = h[common.size()];
-//   out << rows(m_feature_generator,sentence,common, a, l, a_prime, l_prime);
-// }
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 std::vector<auto_parse::Row>
 auto_parse::Contrast::operator()(const Words& sentence) const
 {

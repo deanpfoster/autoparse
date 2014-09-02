@@ -17,9 +17,9 @@ namespace auto_parse
     // CONSTRUCTORS
     ~TP_eigenwords();
     TP_eigenwords(const Eigenwords& parent,const Eigenwords& child,
-		  const Eigen::MatrixXd& Parent_x_Parent, const Eigen::MatrixXd& Parent_x_Child,
+		  const Eigen::MatrixXd& Parent_x_Parent, const Eigen::MatrixXd& Parent_x_Child, double scaling,
 		  const std::vector<double> distances);
-    TP_eigenwords(const Eigenwords& parent, const Eigenwords& child);
+    TP_eigenwords(const Eigenwords& parent, const Eigenwords& child, double scaling);
     TP_eigenwords(const TP_eigenwords &);          
     virtual TP_eigenwords* clone() const;
 
@@ -38,7 +38,7 @@ namespace auto_parse
     Eigenwords m_child;
     Eigen::MatrixXd m_XtY;
     Eigen::MatrixXd m_XtX;
-    double m_scaling = 1.0;  // arbitary tradeoff between distance and fit, eventually should be a parameter
+    double m_scaling;  // arbitary tradeoff between distance and fit, eventually should be a parameter
     std::vector<double> m_distance;
 
     TP_eigenwords& operator=(const TP_eigenwords &); // Don't delete this.

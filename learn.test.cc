@@ -73,7 +73,7 @@ main()
     //
     //////////////////////////////////////////////////////////////////////////////////
 
-    auto_parse::TP_eigenwords tp(dictionary,dictionary);  
+    auto_parse::TP_eigenwords tp(dictionary,dictionary,1.0);  
     auto_parse::Likelihood likelihood(tp,tp,tp);
 
     //////////////////////////////////////////////////////////////////////////////////
@@ -111,7 +111,7 @@ main()
 	///////////////////////////////////////////////
 
 	debugging << debugging_prefix << "MLE" << std::endl;
-	likelihood = model_to_likelihood(parent_dictionary, child_dictionary,  parser, corpus_in_memory.begin(), corpus_in_memory.end());
+	likelihood = model_to_likelihood(parent_dictionary, child_dictionary,  parser, 1.0, corpus_in_memory.begin(), corpus_in_memory.end());
 	debugging << debugging_prefix <<  likelihood << std::endl;
 
 	///////////////////////////////////////////////

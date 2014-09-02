@@ -151,7 +151,9 @@ auto_parse::likelihood_to_model(const Likelihood& likelihood,
     training[a] = auto_parse::Train_forecast_linear(lr_model.forecast(a),sampling_rate);
 
   std::vector<std::map<auto_parse::Action, auto_parse::Train_forecast_linear> > training_bundle(0);
+  std::vector<std::map<Action, double> > contrast_bundle(0);
   int num_threads;
+  int number_to_read = end - begin;
   auto_parse::Contrast contrast(parser, likelihood, feature_generator);
 
 #pragma omp parallel default(shared)
@@ -160,10 +162,11 @@ auto_parse::likelihood_to_model(const Likelihood& likelihood,
     {
       num_threads = omp_get_num_threads();
       training_bundle = std::vector<std::map<auto_parse::Action, auto_parse::Train_forecast_linear> >(num_threads);
+      contrast_bundle =   std::vector<std::map<Action, double> >(num_threads);
       for(int i = 0; i < num_threads; ++i)
 	training_bundle[i] = training;
+
     }
-    int number_to_read = end - begin;
 #pragma omp for 
     for(int counter = 0; counter < number_to_read;++counter)
       {
@@ -171,9 +174,19 @@ auto_parse::likelihood_to_model(const Likelihood& likelihood,
 	int thread_ID = omp_get_thread_num();
 	std::vector<auto_parse::Row> contrast_pair = contrast(sentence);
 	for(auto i = contrast_pair.begin(); i != contrast_pair.end(); ++i)
-	  training_bundle[thread_ID][i->m_a](i->m_X, i->m_Y);
+	  {
+	    training_bundle[thread_ID][i->m_a](i->m_X, i->m_Y);
+	    contrast_bundle[thread_ID][i->m_a] += i->m_Y;
+	  }
       };
   }
+  std::map<Action, double> contrasts;
+  for(int i = 1; i < num_threads;++i)
+    for(auto_parse::Action a: auto_parse::all_actions)
+      contrasts[a] += contrast_bundle[i][a];
+  for(auto_parse::Action a: auto_parse::all_actions)
+    std::cout << contrasts[a]/number_to_read << " = " << a << "'s average value in a contrast." << std::endl;
+    
   for(int i = 1; i < num_threads;++i)
     for(auto_parse::Action a: auto_parse::all_actions)
       training_bundle[0][a].merge(training_bundle[i][a]);
@@ -188,12 +201,13 @@ auto_parse::likelihood_to_model(const Likelihood& likelihood,
 auto_parse::Likelihood
 auto_parse::model_to_likelihood(const Eigenwords& parent,const Eigenwords& child,
 				const auto_parse::Statistical_parse& parser,
+				double scaling,
 				std::vector<auto_parse::Words>::const_iterator begin,
 				std::vector<auto_parse::Words>::const_iterator end)
 {
-  auto_parse::TP_eigenwords left(parent,child); 
-  auto_parse::TP_eigenwords right(parent,child); 
-  auto_parse::TP_eigenwords root(Eigenwords::create_root_dictionary(),child); 
+  auto_parse::TP_eigenwords left(parent,child,scaling); 
+  auto_parse::TP_eigenwords right(parent,child,scaling); 
+  auto_parse::TP_eigenwords root(Eigenwords::create_root_dictionary(),child,scaling); 
   int num_threads;
   std::vector<auto_parse::Maximum_likelihood> mle_bundle(0);
 #pragma omp parallel default(shared)
@@ -271,7 +285,7 @@ auto_parse::evaluation(int rounds,
 	
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-boost::tuple<int, std::string,std::string,int,std::string,double, std::string >
+boost::tuple<int, std::string,std::string,int,std::string,double, double, std::string >
 auto_parse::parse_argv(int argc, char** argv)
 {
   namespace po = boost::program_options;
@@ -282,7 +296,7 @@ auto_parse::parse_argv(int argc, char** argv)
   std::vector<std::string> comment_vec;
   std::string comment;
   int         gram,repeats_per_level;
-  double      update;
+  double      update,scaling;
 
   // Declare the supported options.
   po::options_description desc("Allowed options");
@@ -293,6 +307,7 @@ auto_parse::parse_argv(int argc, char** argv)
     ("gram_number", po::value<int>(&gram)->default_value(3), "gram number for dictionary")
     ("latex", po::value<std::string>(&latex)->default_value("learn.output.tex"), "latex file to write to")
     ("update_rate", po::value<double>(&update)->default_value(.1), "rate we move towards new data")
+    ("scaling", po::value<double>(&scaling)->default_value(1), "importance of distance in the likelihood calculation")
     ("repeats_per_level", po::value<int>(&repeats_per_level)->default_value(50), "number of times to process at each size")
     ("comment,c", po::value<std::vector<std::string> >(&comment_vec)->multitoken(), "comment about job to help organize output")
     ;
@@ -307,7 +322,7 @@ auto_parse::parse_argv(int argc, char** argv)
   }
   for(std::string s : comment_vec)
       comment += s + " ";
-  return boost::make_tuple(repeats_per_level,latex, dictionary, gram, corpus,update,comment);
+  return boost::make_tuple(repeats_per_level,latex, dictionary, gram, corpus,update,scaling,comment);
 }
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */

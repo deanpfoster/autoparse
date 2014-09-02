@@ -50,6 +50,7 @@ namespace auto_parse
   Likelihood
     model_to_likelihood(const Eigenwords& parent,const Eigenwords& child,
 			const auto_parse::Statistical_parse& parser,
+			double scaling,
 			std::vector<auto_parse::Words>::const_iterator,
 			std::vector<auto_parse::Words>::const_iterator);
   std::string
@@ -64,7 +65,7 @@ namespace auto_parse
 	     std::vector<auto_parse::Words>::const_iterator end);
 
 
-  boost::tuple<int,std::string,std::string,int,std::string,double,std::string>
+  boost::tuple<int, std::string, std::string, int, std::string, double, double, std::string>
   parse_argv(int argc, char** argv);
 
 

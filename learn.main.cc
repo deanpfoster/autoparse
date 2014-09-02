@@ -29,9 +29,10 @@ main(int argc,char** argv)
   
   std::string sentence_file, eigen_file, latex_file;
   int gram_number, repeats_per_level;
-  double update_rate;
+  double update_rate,scaling;
+  scaling = 1.0;
   std::string comment;
-  boost::tie(repeats_per_level,latex_file, eigen_file, gram_number, sentence_file, update_rate, comment)
+  boost::tie(repeats_per_level,latex_file, eigen_file, gram_number, sentence_file, update_rate, scaling, comment)
     = auto_parse::parse_argv(argc, argv);
   time_t start_time = time(0);  // used for timing 
   time_t last_print_time = time(0);  // used to print about once a minute
@@ -43,6 +44,7 @@ main(int argc,char** argv)
   debugging << "--gram_number = " << gram_number << std::endl;
   debugging << "      --latex = " << latex_file << std::endl;
   debugging << "--update_rate = " << update_rate << "    (" << 1 - update_rate << " * old_model + " << update_rate << " * new_model)" << std::endl;
+  debugging << "    --scaling = " << scaling << "    (-(Y - Yhat)^2 + " << scaling << " * log(probability skip) )" << std::endl;
   debugging << "repeats_per_level= " << repeats_per_level << std::endl;
   debugging << "   --comment = " << comment << std::endl;
   std::ofstream latex(latex_file);
@@ -95,9 +97,9 @@ main(int argc,char** argv)
     //
     //////////////////////////////////////////////////////////////////////////////////
 
-    auto_parse::TP_eigenwords tp_left(dictionary,dictionary);  
-    auto_parse::TP_eigenwords tp_right(dictionary,dictionary);  
-    auto_parse::TP_eigenwords tp_root(auto_parse::Eigenwords::create_root_dictionary(),dictionary);  
+    auto_parse::TP_eigenwords tp_left(dictionary,dictionary,scaling);  
+    auto_parse::TP_eigenwords tp_right(dictionary,dictionary,scaling);  
+    auto_parse::TP_eigenwords tp_root(auto_parse::Eigenwords::create_root_dictionary(),dictionary,scaling);  
     auto_parse::Likelihood likelihood(tp_left,tp_right,tp_root);
 
     //////////////////////////////////////////////////////////////////////////////////
@@ -163,7 +165,10 @@ main(int argc,char** argv)
 	//                                           //
 	///////////////////////////////////////////////
 
-	likelihood = model_to_likelihood(parent_dictionary, child_dictionary, parser, begin, end);
+	likelihood = model_to_likelihood(parent_dictionary, child_dictionary,
+					 parser,
+					 scaling,
+					 begin, end);
 	debugging << debugging_prefix << "MLE time " << time(0) - start_time << " sec." << std::endl;      start_time = time(0);
 
 	///////////////////////////////////////////////

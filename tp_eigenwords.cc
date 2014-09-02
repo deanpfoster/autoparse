@@ -24,6 +24,7 @@ auto_parse::TP_eigenwords::TP_eigenwords(const auto_parse::Eigenwords& parent,
 					 const auto_parse::Eigenwords& child,
 					 const Eigen::MatrixXd& XtX,
 					 const Eigen::MatrixXd& XtY,
+					 double scaling,
 					 const std::vector<double> distances)
   :
   Transition_probability(),
@@ -31,16 +32,18 @@ auto_parse::TP_eigenwords::TP_eigenwords(const auto_parse::Eigenwords& parent,
   m_child(child),
   m_XtY(XtY),
   m_XtX(XtX),
+  m_scaling(scaling),
   m_distance(distances) 
 {
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-auto_parse::TP_eigenwords::TP_eigenwords(const auto_parse::Eigenwords& parent,const auto_parse::Eigenwords& child)
+auto_parse::TP_eigenwords::TP_eigenwords(const auto_parse::Eigenwords& parent, const auto_parse::Eigenwords& child, double scaling)
   : Transition_probability(),
     m_parent(parent),
     m_child(child),
     m_XtY(),
     m_XtX(),
+    m_scaling(scaling),
     m_distance(20,1) 
 {
   m_XtY = Eigen::MatrixXd::Zero(parent.dimension(),child.dimension());
@@ -53,6 +56,7 @@ auto_parse::TP_eigenwords::TP_eigenwords(const auto_parse::TP_eigenwords& other)
     m_child(other.m_child),
     m_XtY(other.m_XtY),
     m_XtX(other.m_XtX),
+    m_scaling(other.m_scaling),
     m_distance(other.m_distance) 
 {
 };
@@ -115,7 +119,7 @@ auto_parse::TP_eigenwords::renormalize() const
   // no NaN?
   //  Eigen::VectorXd new_XtY = m_XtY;
   Eigen::MatrixXd new_XtX = Eigen::MatrixXd::Identity(m_parent.dimension(),m_parent.dimension());
-  return new TP_eigenwords(m_parent, m_child, new_XtX, new_XtY,distance);
+  return new TP_eigenwords(m_parent, m_child, new_XtX, new_XtY, m_scaling, distance);
 };
 
 
@@ -146,6 +150,7 @@ auto_parse::TP_eigenwords::operator()(const auto_parse::Node& parent,
 	std::cout << "root --> " << *child << " raw = " << parent - child << " with prob = " << prob_distance << std::endl;
       else
 	std::cout << *parent << " --> " << *child << " raw = " << parent - child << " with prob = " << prob_distance << std::endl;
+      log_pd = -100;
     }
   return log_pd - error.squaredNorm();
 };
