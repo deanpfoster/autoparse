@@ -14,6 +14,7 @@
 #define REPRODUCIBLE
 // #define TRULY_RANDOM
 #include "utilities/z.Template.h"
+#include "utilities/iostream_box.h"
 
 int
 main(int argc,char** argv)
@@ -133,7 +134,7 @@ main(int argc,char** argv)
 	std::vector<auto_parse::Words>::const_iterator end   = begin + number_to_train_on[rounds];
 	double sampling_rate = .05;  // this generates about a factor of 10 speed up by only computing X'X 5% of the time
 	std::stringstream s;
-	s << "  " << rounds << "       ";
+	s << number_to_train_on[rounds]/1000 << "k: " << rounds << " | ";
 	std::string debugging_prefix = s.str();
 
 	///////////////////////////////////////////////
@@ -142,8 +143,18 @@ main(int argc,char** argv)
 	//                                           //
 	///////////////////////////////////////////////
 
-	auto_parse::Model model = likelihood_to_model(likelihood, parser, feature_generator, sampling_rate, begin, end);
-	old_model.tweak(model, update_rate);  
+	{
+	  boost::iostreams::filtering_ostream ostrm;
+	  ostrm.push(box_output_filter(100,debugging_prefix,"-","|"));
+	  ostrm.push(std::cout);
+	  auto_parse::Model model = likelihood_to_model(likelihood, parser,
+							feature_generator,
+							sampling_rate,
+							begin, end,
+							ostrm);
+	  ostrm << std::ends;
+	  old_model.tweak(model, update_rate);
+	}
 	parser.new_model(old_model);
 	debugging << debugging_prefix << "Training time " << time(0) - start_time << " sec." << std::endl;      start_time = time(0);
 
@@ -166,10 +177,10 @@ main(int argc,char** argv)
 	//                                           //
 	///////////////////////////////////////////////
 
-	likelihood = model_to_likelihood(parent_dictionary, child_dictionary,
-					 parser,
-					 scaling,
-					 begin, end);
+	  likelihood = model_to_likelihood(parent_dictionary, child_dictionary,
+					   parser,
+					   scaling,
+					   begin, end);
 	debugging << debugging_prefix << "MLE time " << time(0) - start_time << " sec." << std::endl;      start_time = time(0);
 
 	///////////////////////////////////////////////
@@ -180,12 +191,17 @@ main(int argc,char** argv)
 
 	if(time(0) - last_print_time > 60)
 	  {
-	    which_sentences = std::vector<int>{0,2,4, 10, 17, 26};
+	    which_sentences = std::vector<int>{3643,2,4, 10, 17, 26};
 	    last_print_time = time(0);
 	  }
-	summary =   evaluation(rounds, debugging, latex,
-			       dictionary, parser, likelihood,
-			       which_sentences, begin, end);
+	{
+	  boost::iostreams::filtering_ostream ostrm;
+	  ostrm.push(box_output_filter(100,debugging_prefix,"",""));
+	  ostrm.push(std::cout);
+	  summary =   evaluation(rounds, ostrm, latex,
+				 dictionary, parser, likelihood,
+				 which_sentences, begin, end);
+	}
 	debugging << debugging_prefix << " * * * * \t" << summary << "\t\t* * * * *" << std::endl;
 	debugging << debugging_prefix << "Evaluation time " << time(0) - start_time << " sec." << std::endl;      start_time = time(0);
 

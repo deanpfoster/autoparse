@@ -141,7 +141,8 @@ auto_parse::likelihood_to_model(const Likelihood& likelihood,
 				const Feature_generator& feature_generator,
 				double sampling_rate,
 				std::vector<auto_parse::Words>::const_iterator begin,
-				std::vector<auto_parse::Words>::const_iterator end)
+				std::vector<auto_parse::Words>::const_iterator end,
+				std::ostream& ostrm)
 {
   std::map<auto_parse::Action, auto_parse::Train_forecast_linear> training;
   Model lr_model = parser.model();
@@ -187,11 +188,11 @@ auto_parse::likelihood_to_model(const Likelihood& likelihood,
       contrasts[a] += contrast_bundle[i][a];
   for(int i = 1; i < num_threads;++i)
     abs_bundle[0] += abs_bundle[i];
-  std::cout << std::endl;
+  ostrm << std::endl;
   for(auto_parse::Action a: auto_parse::all_actions)
-    std::cout << contrasts[a]/number_to_read << " = " << a << "'s average value in a contrast." << std::endl;
-  std::cout << "Typical deviation from zero is:" << int(10*abs_bundle[0]/number_to_read)/10. << std::endl;
-  std::cout << std::endl;
+    ostrm << int(10.*contrasts[a]/number_to_read)/10. << " = " << a << "'s average value in a contrast." << std::endl;
+  ostrm << "Typical deviation from zero is:" << int(10.*abs_bundle[0]/number_to_read)/10. << std::endl;
+  ostrm << std::endl;
     
   for(int i = 1; i < num_threads;++i)
     for(auto_parse::Action a: auto_parse::all_actions)
@@ -275,7 +276,7 @@ auto_parse::evaluation(int rounds,
   std::stringstream summary;
   int n = end - begin;
   summary << "log(like) = " << log_like/n << " on " << n/1000
-	  << "k with " << round(100. * total_left_links / total_links) << "% lefts";
+	  << "k with " << round(100. * total_left_links / total_links) << "\\% lefts";
 
   if(which_sentences.size() > 0)
     {

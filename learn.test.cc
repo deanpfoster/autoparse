@@ -97,12 +97,14 @@ main()
 	// the following uses OpenMP to run faster
 	double sampling_rate = 1.0;  // no need for speedup here
 	debugging << debugging_prefix << "Training" << std::endl;
+
 	auto_parse::Model new_model = likelihood_to_model(likelihood,
 							  parser,
 							  feature_generator,
 							  sampling_rate,
 							  corpus_in_memory.begin(),
-							  corpus_in_memory.end());
+							  corpus_in_memory.end(),
+							  std::cout);
 	parser.new_model(new_model);
 	
 	///////////////////////////////////////////////
