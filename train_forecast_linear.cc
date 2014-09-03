@@ -60,7 +60,7 @@ void
 auto_parse::Train_forecast_linear::operator()(const Eigen::VectorXd& X, double Y)
 {
   assert(m_sampling_rate > 0);
-  if(my_random::U() < m_sampling_rate)
+  if(my_random::U_thread_safe() < m_sampling_rate)
     m_XtX += X * (X.transpose());
   m_XtY += X * Y;
 };

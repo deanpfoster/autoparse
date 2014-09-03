@@ -100,7 +100,9 @@ auto_parse::Value_of_forecasts::smoothed_best_action(double noise) const
       if(value > -100)
 	total += exp(value);
     }
-  double which = total * my_random::U();
+  assert(total != 0);
+  double which = total * my_random::U_thread_safe();
+  assert(which != 0);
   double cumsum = 0;
   for (Action a : all_actions)
     {
@@ -108,7 +110,10 @@ auto_parse::Value_of_forecasts::smoothed_best_action(double noise) const
       if(value > -100)
 	cumsum += exp(value);
       if(cumsum >= which)
-	return a;
+	{
+	  assert(value > -100);
+	  return a;
+	}
     };
   assert(0);
   return(best_action());
