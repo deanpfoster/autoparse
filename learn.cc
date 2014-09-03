@@ -190,7 +190,7 @@ auto_parse::likelihood_to_model(const Likelihood& likelihood,
   std::cout << std::endl;
   for(auto_parse::Action a: auto_parse::all_actions)
     std::cout << contrasts[a]/number_to_read << " = " << a << "'s average value in a contrast." << std::endl;
-  std::cout << "Typical deviation from zero is:" << abs_bundle[0] << std::endl;
+  std::cout << "Typical deviation from zero is:" << int(10*abs_bundle[0]/number_to_read)/10. << std::endl;
   std::cout << std::endl;
     
   for(int i = 1; i < num_threads;++i)
@@ -256,11 +256,12 @@ auto_parse::evaluation(int rounds,
 		       std::vector<auto_parse::Words>::const_iterator begin,
 		       std::vector<auto_parse::Words>::const_iterator end)
 {
+  int number_to_read = end - begin;
   double log_like = 0;
   double total_left_links = 0;
   double total_links = 0;
-  int number_to_read = end - begin;
-#pragma omp parallel for 
+
+#pragma omp parallel for reduction(+:log_like,total_links,total_left_links)
   for(int counter = 0; counter < number_to_read;++counter)
     {
       const auto_parse::Words& sentence = *(begin + counter);
