@@ -59,8 +59,8 @@ auto_parse::Contrast::operator()(const Words& sentence) const
 auto_parse::History
 auto_parse::Contrast::suggest_alternative_history(const Words& w,
 						  const History& h) const
-{
-  if((m_count - 1000*(int(m_count/1000)) == 0) && (m_misses/m_count > .5))
+{// target chance of getting a hit is 29.28%.  Why?  Because.
+  if((m_count - 1000*(int(m_count/1000)) == 0) && ((m_misses/m_count > .4) || (m_misses/m_count < .2)))
     {
       std::cout << "suggest_alternative:" << m_count << " uses noise level exp(" << m_noise << ") yielding " << m_misses << " misses." << std::endl;
     }
