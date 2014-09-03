@@ -29,10 +29,10 @@ main(int argc,char** argv)
   
   std::string sentence_file, eigen_file, latex_file;
   int gram_number, repeats_per_level;
-  double update_rate,scaling;
+  double update_rate,scaling, noise;
   scaling = 1.0;
   std::string comment;
-  boost::tie(repeats_per_level,latex_file, eigen_file, gram_number, sentence_file, update_rate, scaling, comment)
+  boost::tie(repeats_per_level,latex_file, eigen_file, gram_number, sentence_file, update_rate, scaling, noise, comment)
     = auto_parse::parse_argv(argc, argv);
   time_t start_time = time(0);  // used for timing 
   time_t last_print_time = time(0);  // used to print about once a minute
@@ -88,8 +88,8 @@ main(int argc,char** argv)
     //////////////////////////////////////////////////////////////////////////////////
 
     auto_parse::Feature_generator feature_generator = standard_features(dictionary);
-    auto_parse::Model old_model = standard_model(feature_generator);
-    auto_parse::Statistical_parse parser(old_model);
+    auto_parse::Model old_model = auto_parse::standard_model(feature_generator.dimension());
+    auto_parse::Statistical_parse parser(old_model,feature_generator,noise);
 
     //////////////////////////////////////////////////////////////////////////////////
     //

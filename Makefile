@@ -63,9 +63,9 @@ only1:  dependency.OK transition_probability.OK forecast_constant.OK \
         value_of_forecasts.OK forecast_linear.OK eigenwords.OK tokenize.OK
 #
 ################################################################################
-dependency.test: dependency.o  word.o
+dependency.test:   word.o
 
-transition_probability.test: word.o transition_probability.o
+transition_probability.test: word.o
 
 forecast_constant.test: forecast.o
 
@@ -84,10 +84,10 @@ tokenize.test: word.o
 #
 #          (This code can depend on level zero or level one code)
 #
-only2:  lr.OK statistical_history.OK   feature_generator.OK tp_eigenwords.OK train_forecast_linear.OK decorated_dependency.OK
+only2:  lr.OK statistical_history.OK feature_generator.OK tp_eigenwords.OK train_forecast_linear.OK decorated_dependency.OK model.OK
 #
 ################################################################################
-lr.test: dependency.o lr.o word.o
+lr.test: dependency.o word.o
 
 feature_generator.test: feature.o history.o dependency.o
 
@@ -99,36 +99,31 @@ train_forecast_linear.test: forecast_linear.o forecast.o
 
 decorated_dependency.test: dependency.o word.o eigenwords.o
 
+model.test: forecast.o history.o value_of_forecasts.o
+
 ################################################################################
 #
 #           L E V E L     T H R E E    T E S T I N G     C O D E
 #
 #          (This code can depend on level 0, 1, or 2 code)
 #
-only3: redo_parse.OK suggest_alternative_history.OK model.OK \
-       feature_eigenwords.OK feature_one_dimensional.OK  likelihood.OK
+only3: redo_parse.OK feature_eigenwords.OK feature_one_dimensional.OK  likelihood.OK
 #
 ################################################################################
 
-redo_parse.test: history.o dependency.o lr.o word.o redo_parse.o feature_generator.o
-
-suggest_alternative_history.test: statistical_history.o history.o value_of_forecasts.o word.o 
-
-model.test: forecast.o history.o feature_generator.o value_of_forecasts.o
+redo_parse.test: history.o dependency.o lr.o word.o
 
 feature_one_dimensional.test: lr.o dependency.o word.o feature.o
 
 feature_eigenwords.test: lr.o dependency.o word.o feature.o eigenwords.o
 
-likelihood.test: dependency.o transition_probability.o likelihood.o word.o decorated_dependency.o eigenwords.o
-
+likelihood.test: dependency.o transition_probability.o word.o decorated_dependency.o eigenwords.o
 
 ################################################################################
 #           L E V E L     F O U R    T E S T I N G     C O D E
 #          (This code can depend on level 0, 1, 2 or 3 code)
 only4: statistical_parse.OK row.OK feature_interaction.OK maximum_likelihood.OK feature_shorten.OK
 ################################################################################
-
 
 maximum_likelihood.test: dependency.o transition_probability.o likelihood.o word.o likelihood.o tp_eigenwords.o eigenwords.o decorated_dependency.o
 
@@ -146,19 +141,20 @@ feature_shorten.test: feature.o lr.o dependency.o word.o feature_eigenwords.o ei
 #          (This code can depend on level 0, 1, 2, 3 or 4 code)
 only5: contrast.OK
 ################################################################################
-
-contrast.test: history.o dependency.o lr.o word.o redo_parse.o model.o suggest_alternative_history.o \
+contrast.test: history.o dependency.o lr.o word.o redo_parse.o model.o \
                statistical_history.o  statistical_parse.o value_of_forecasts.o \
                forecast.o forecast_constant.o  transition_probability.o likelihood.o \
                feature_generator.o feature.o feature_one_dimensional.o\
                eigenwords.o tp_eigenwords.o row.o decorated_dependency.o
+
 
 ################################################################################
 #           L E V E L     S I X    T E S T I N G     C O D E
 only6: learn.OK
 ################################################################################
 
-learn.test: history.o dependency.o lr.o word.o redo_parse.o model.o suggest_alternative_history.o \
+
+learn.test: history.o dependency.o lr.o word.o redo_parse.o model.o \
              statistical_history.o  statistical_parse.o value_of_forecasts.o \
              forecast.o forecast_constant.o  transition_probability.o likelihood.o \
              feature_generator.o feature.o feature_one_dimensional.o \
@@ -166,12 +162,12 @@ learn.test: history.o dependency.o lr.o word.o redo_parse.o model.o suggest_alte
              train_forecast_linear.o forecast_linear.o row.o value_of_forecasts.o tokenize.o decorated_dependency.o\
              feature_interaction.o feature_shorten.o
 
+
 ################################################################################
 #           L E V E L     !!! I N F I N I T Y !!!    T E S T I N G     C O D E
 #          (This code can depends on anything!)
-onlyI:
+onlyI:  
 ################################################################################
-
 
 ##########################################################################################################
 #
@@ -179,7 +175,7 @@ onlyI:
 #
 ##########################################################################################################
 
-learn.main: history.o dependency.o lr.o word.o redo_parse.o model.o suggest_alternative_history.o \
+learn.main: history.o dependency.o lr.o word.o redo_parse.o model.o  \
              statistical_history.o  statistical_parse.o value_of_forecasts.o \
              forecast.o forecast_constant.o  transition_probability.o likelihood.o \
              feature_generator.o feature.o feature_one_dimensional.o \

@@ -7,7 +7,6 @@
 #include "model.h"
 #include "likelihood.h"
 #include "statistical_parse.h"
-#include "suggest_alternative_history.h"
 #include "redo_parse.h"
 #include "feature_generator.h"
 #include "feature_one_dimensional.h"
@@ -36,8 +35,9 @@ namespace auto_parse
 	  {Action::left_reduce,&example},
 	  {Action::right_reduce, &example},
 	  {Action::head_reduce, &example}
-      },gen);
-      auto_parse::Statistical_parse parser(m);
+      });
+      double noise = 1.0;
+      auto_parse::Statistical_parse parser(m,gen,noise);
       std::ifstream in("pretty_5_c_sample.csv");
       auto_parse::Eigenwords g(in,5);  // testing construction
       int dim = g.dimension();
@@ -55,7 +55,10 @@ namespace auto_parse
 	
 
 	Statistical_history h = parser(sentence);
-	History prefix = suggest_alternative_history(h);  // truncates and modifies the history
+
+	Contrast contrast(parser, likelihood, feature_generator);
+
+	History prefix = contrast.suggest_alternative_history(sentence,h);  // truncates and modifies the history
 	History h_prime = parser.finish(sentence, prefix);
 	double l       = likelihood(redo_parse(sentence, h      ).parse());
 	double l_prime = likelihood(redo_parse(sentence, h_prime).parse());
@@ -69,12 +72,10 @@ namespace auto_parse
 	Action a = h[common.size()];
 	std::cout << "    last: " << a << std::endl;
 	std::cout << "new last: " << a_prime << std::endl;
-	assert(a != a_prime);
 	std::cout << rows(feature_generator, sentence, common, a, l, a_prime, l_prime);
 	
 	// And again using the contrast class
 
-	Contrast contrast(parser, likelihood, feature_generator);
 	std::cout << contrast(sentence);
 
 	std::cout << "constructed!" << std::endl;

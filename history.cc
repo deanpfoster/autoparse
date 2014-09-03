@@ -44,6 +44,17 @@ auto_parse::History::pop_back()
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                               A C C E S S O R S                                 accessors
+bool
+auto_parse::History::operator==(const History& other) const
+{
+  if(other.m_actions.size() != m_actions.size())
+    return false;
+  for(unsigned int i = 0; i < m_actions.size(); ++i)
+    if(other[i] != (*this)[i])
+      return false;
+  return true;
+}
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 void
 auto_parse::History::print_on(std::ostream & ostrm) const
 {

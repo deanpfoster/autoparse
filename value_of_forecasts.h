@@ -20,8 +20,7 @@ namespace auto_parse
     void zero_second_best();
     // ACCESSORS
     Action best_action() const;
-    double best_value() const;
-    Action alternative_action() const;
+    Action smoothed_best_action(double noise) const;
   private:
     std::map<Action, double> m_values;
   };

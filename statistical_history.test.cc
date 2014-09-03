@@ -5,6 +5,8 @@
 #include <assert.h>
 
 #include "statistical_history.h"
+#define REPRODUCIBLE
+#include "utilities/z.Template.h"
 
 namespace auto_parse
 {

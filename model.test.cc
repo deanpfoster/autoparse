@@ -6,6 +6,8 @@
 #include <sstream>
 #include "model.h"
 #include "forecast.h"
+#define REPRODUCIBLE
+#include "utilities/z.Template.h"
 
 // See forcast.test.cc for comments on this class
 class Sample: public auto_parse::Forecast
@@ -28,9 +30,6 @@ private:
 
 namespace auto_parse
 {
-
-  struct LR{};
-
   void test_model()
   {
     std::cout << "\n\n\n\t\t\t MODEL  MODEL  MODEL\n\n\n"<< std::endl;
@@ -38,21 +37,18 @@ namespace auto_parse
     Forecast::register_forecast(new Sample);
     {
       Sample example(10);
-      Feature_generator fg;
-      Model m(fg);
+      Model m;
       for(Action a : all_actions)
 	{
 	  m.add_forecast(a,example);
 	};
       std::cout << "constructed via old fashioned methods!" << std::endl;
-      Feature_generator gen;
       Model cool(
       {   {Action::shift,&example},
 	  {Action::left_reduce,&example},
 	  {Action::right_reduce, &example},
 	  {Action::head_reduce, &example}
-      },
-		 gen);
+      });
 
 
     };

@@ -3,7 +3,6 @@
 
 #include "contrast.h"
 #include "row.h"
-#include "suggest_alternative_history.h"
 #include "redo_parse.h" 
 
 // put other includes here
@@ -36,7 +35,7 @@ std::vector<auto_parse::Row>
 auto_parse::Contrast::operator()(const Words& sentence) const
 {
   Statistical_history h = m_parser(sentence);
-  History prefix = suggest_alternative_history(h);  // truncates and modifies the history
+  History prefix = suggest_alternative_history(sentence, h);  // truncates and modifies the history
   if(!check_legal(sentence, prefix)) return std::vector<auto_parse::Row>(0);
   History h_prime = m_parser.finish(sentence, prefix);
   double l       = m_likelihood(redo_parse(sentence, h      ).parse());
@@ -55,6 +54,24 @@ auto_parse::Contrast::operator()(const Words& sentence) const
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                           P R O T E C T E D                                     protected
+auto_parse::History
+auto_parse::Contrast::suggest_alternative_history(const Words& w,
+						  const History& h) const
+{
+  m_count ++;
+  History result = m_parser(w,exp(m_noise));
+  if(result == h)
+    {
+      m_noise += 1.0 / m_count;
+      result =  m_parser(w,exp(m_noise)); // try again
+    }
+  else
+    m_noise -= 1.0 / m_count;
+  if(result == h)
+    return History();
+  return result;
+}
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 

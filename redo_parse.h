@@ -8,10 +8,8 @@
 
 namespace auto_parse
 {
-  class Feature_generator;
   LR redo_parse(const auto_parse::Words&, const auto_parse::History&);
   bool check_legal(const auto_parse::Words&, const auto_parse::History&);
-
 }
 
 #endif

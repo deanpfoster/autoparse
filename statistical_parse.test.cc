@@ -7,6 +7,8 @@
 
 #include "statistical_parse.h"
 #include "forecast_constant.h"
+#define REPRODUCIBLE
+#include "utilities/z.Template.h"
 
 namespace auto_parse
 {
@@ -15,13 +17,14 @@ namespace auto_parse
     std::cout << "\n\n\n\t\t\t STATISTICAL_PARSE  STATISTICAL_PARSE  STATISTICAL_PARSE\n\n\n"<< std::endl;
     {
       Forecast_constant example(10);
-      Feature_generator fg;
-      Model m(fg);
+      Model m;
       for(Action a : all_actions)
 	{
 	  m.add_forecast(a,example);
 	};
-      auto_parse::Statistical_parse g(m);  // testing construction
+      Feature_generator fg;
+      double noise = .1;
+      auto_parse::Statistical_parse g(m,fg,noise);  // testing construction
       std::cout << "constructed!" << std::endl;
     };
   }

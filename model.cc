@@ -25,9 +25,8 @@ auto_parse::Model::~Model()
     }
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-auto_parse::Model::Model(std::istream& in,const Feature_generator& features)
-  : m_forecasts(),
-    m_features(features)
+auto_parse::Model::Model(std::istream& in)
+  : m_forecasts()
 {
   for(Action a: all_actions)
     {
@@ -42,8 +41,7 @@ auto_parse::Model::Model(std::istream& in,const Feature_generator& features)
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Model::Model(const auto_parse::Model & other)
   :
-  m_forecasts(),
-  m_features(other.m_features)
+  m_forecasts()
 {
     for(Action a: all_actions)
     {
@@ -52,17 +50,15 @@ auto_parse::Model::Model(const auto_parse::Model & other)
       
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-auto_parse::Model::Model(const auto_parse::Feature_generator& gen)
+auto_parse::Model::Model()
   :
-  m_forecasts(),
-  m_features(gen)
+  m_forecasts()
 {
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-auto_parse::Model::Model(const std::initializer_list<std::pair<auto_parse::Action,Forecast*> >& args, const auto_parse::Feature_generator& gen)
+auto_parse::Model::Model(const std::initializer_list<std::pair<auto_parse::Action,Forecast*> >& args)
   :
-  m_forecasts(),
-  m_features(gen)
+  m_forecasts()
 {
   std::set<auto_parse::Action> check;
   for(std::pair<auto_parse::Action,Forecast*> p : args)
@@ -110,12 +106,12 @@ auto_parse::Model::operator=(const auto_parse::Model& rhs)
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                               A C C E S S O R S                                 accessors
 auto_parse::Value_of_forecasts
-auto_parse::Model::operator()(const LR& parser) const
+auto_parse::Model::operator()(const Eigen::VectorXd& features) const
 {
   Value_of_forecasts result;
   for(Action a: all_actions)
     {
-      double value = (*m_forecasts.find(a)->second)(m_features(parser));
+      double value = (*m_forecasts.find(a)->second)(features);
       assert(!isnan(value));
       if(value < -1e10)
 	value = -1e10;

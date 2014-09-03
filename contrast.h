@@ -23,13 +23,18 @@ namespace auto_parse
     // MANIPULATORS
     // ACCESSORS
     std::vector<Row> operator()(const Words&) const;
+    History suggest_alternative_history(const Words&, const auto_parse::History&) const;
 
   protected:
+
 
   private:
     Statistical_parse m_parser;
     Likelihood  m_likelihood;
     Feature_generator m_feature_generator;
+    mutable double m_count = 0;
+    mutable double m_noise = 0;
+
     Contrast(const Contrast &);            // Don't delete this.
     Contrast& operator=(const Contrast &); // Don't delete this.
   };

@@ -6,12 +6,11 @@
 #include <iosfwd>
 #include <map>
 #include "history.h"
-#include "feature_generator.h"
+#include <Eigen/Core>
 
 namespace auto_parse
 {
   class Forecast;
-  class LR;
   class Value_of_forecasts;
   
   class Model
@@ -19,19 +18,19 @@ namespace auto_parse
   public:
     // CONSTRUCTORS
     ~Model();
-    Model(std::istream&,const Feature_generator&);
+    Model(std::istream&);
     Model(const Model &);
-    Model(const Feature_generator&);  // creates an empty and broken model.  Use add_forecast to repair
+    Model();  // generates a broken Model.  Use add_forecast afterwards.
     void add_forecast(Action, const Forecast&);
     void tweak_forecast(Action, const Forecast&, double fraction);
     void tweak(const Model&, double fraction);
-    Model(const std::initializer_list<std::pair<auto_parse::Action,Forecast*> >&, const Feature_generator&);
+    Model(const std::initializer_list<std::pair<auto_parse::Action,Forecast*> >&);
     Model& operator=(const Model &); 
     
 
     // MANIPULATORS
     // ACCESSORS
-    Value_of_forecasts operator()(const LR&) const;
+    Value_of_forecasts operator()(const Eigen::VectorXd& features) const;
     const Forecast& forecast(Action a) const{return *(m_forecasts.find(a)->second);};
 
     void print_on(std::ostream &) const;
@@ -39,7 +38,6 @@ namespace auto_parse
 
   protected:
     std::map<Action, Forecast*> m_forecasts;
-    Feature_generator m_features;
 
   private:
   };

@@ -108,9 +108,8 @@ auto_parse::standard_features(const Eigenwords& dictionary)
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 auto_parse::Model
-auto_parse::standard_model(const Feature_generator& feature_generator)
+auto_parse::standard_model(int num_features)
 {
-  int num_features = feature_generator.dimension();
   Forecast* p_example_shift = new Forecast_linear(Eigen::VectorXd::Zero(num_features));
   Forecast* p_example_left  = new Forecast_linear(Eigen::VectorXd::Zero(num_features));
   Forecast* p_example_right = new Forecast_linear(Eigen::VectorXd::Zero(num_features));
@@ -120,8 +119,7 @@ auto_parse::standard_model(const Feature_generator& feature_generator)
 		   {Action::left_reduce, p_example_left},
 		   {Action::right_reduce,p_example_right},
 		   {Action::head_reduce, p_example_reduce}
-	       },
-	       feature_generator);
+	       });
   return result;
 }
 
@@ -285,7 +283,7 @@ auto_parse::evaluation(int rounds,
 	
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-boost::tuple<int, std::string,std::string,int,std::string,double, double, std::string >
+boost::tuple<int, std::string,std::string,int,std::string,double, double, double, std::string >
 auto_parse::parse_argv(int argc, char** argv)
 {
   namespace po = boost::program_options;
@@ -296,7 +294,7 @@ auto_parse::parse_argv(int argc, char** argv)
   std::vector<std::string> comment_vec;
   std::string comment;
   int         gram,repeats_per_level;
-  double      update,scaling;
+  double      update,scaling,noise;
 
   // Declare the supported options.
   po::options_description desc("Allowed options");
@@ -308,6 +306,7 @@ auto_parse::parse_argv(int argc, char** argv)
     ("latex", po::value<std::string>(&latex)->default_value("learn.output.tex"), "latex file to write to")
     ("update_rate", po::value<double>(&update)->default_value(.1), "rate we move towards new data")
     ("scaling", po::value<double>(&scaling)->default_value(1), "importance of distance in the likelihood calculation")
+    ("noise", po::value<double>(&noise)->default_value(1), "how noisy the decision making should be. 0=best guess, 3=almost pure noise.")
     ("repeats_per_level", po::value<int>(&repeats_per_level)->default_value(50), "number of times to process at each size")
     ("comment,c", po::value<std::vector<std::string> >(&comment_vec)->multitoken(), "comment about job to help organize output")
     ;
@@ -322,7 +321,7 @@ auto_parse::parse_argv(int argc, char** argv)
   }
   for(std::string s : comment_vec)
       comment += s + " ";
-  return boost::make_tuple(repeats_per_level,latex, dictionary, gram, corpus,update,scaling,comment);
+  return boost::make_tuple(repeats_per_level,latex, dictionary, gram, corpus,update,scaling,noise,comment);
 }
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */

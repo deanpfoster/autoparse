@@ -6,6 +6,7 @@
 // put other includes here
 #include "assert.h"
 #include <math.h>
+#include "utilities/z.h"
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                              C O N S T R U C T O R S                         constructors
@@ -69,7 +70,7 @@ auto_parse::Value_of_forecasts::zero_second_best()
 auto_parse::Action
 auto_parse::Value_of_forecasts::best_action() const
 {
-  Action result = Action::head_reduce; 
+  Action result = Action::head_reduce;
   double max = m_values.find(result)->second;
   for (Action a : all_actions)
     {
@@ -80,36 +81,33 @@ auto_parse::Value_of_forecasts::best_action() const
 	  result = a;
 	}
     }
+  assert(max < 100);
   return result;
 };
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-double
-auto_parse::Value_of_forecasts::best_value() const
-{
-  return( m_values.find(best_action())->second);
-};
-
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 auto_parse::Action
-auto_parse::Value_of_forecasts::alternative_action() const
+auto_parse::Value_of_forecasts::smoothed_best_action(double noise) const
 {
-  Action best = best_action();
-  Action result = Action::head_reduce; 
-  double max = m_values.find(result)->second;
+  if(noise == 0)
+    return best_action();
+
+  double total = 0;
   for (Action a : all_actions)
     {
-      if(a != best)
-	{
-	  double value = m_values.find(a)->second;
-	  if(value > max)
-	    {
-	      max = value;
-	      result = a;
-	    }
-	}
+      double value = m_values.find(a)->second;
+      assert(value < 100);
+      if(value > -100)
+	total += exp(value / noise);
     }
-  return result;
+  double which = total * my_random::U();
+  for (Action a : all_actions)
+    { // sneaky use of total.  This is bad style!  But I'm too drunk to write it with the extra variable.
+      double value = m_values.find(a)->second;
+      which -= exp(value / noise);
+      if(which <= 0)
+	return a;
+    }; // at least I didn't write "if(total -= which <= 0) return a;" which would have saved 5 lines!
+  assert(0);
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+

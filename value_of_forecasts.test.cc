@@ -5,6 +5,9 @@
 #include <assert.h>
 
 #include "value_of_forecasts.h"
+#define REPRODUCIBLE
+#include "utilities/z.Template.h"
+
 
 namespace auto_parse
 {

@@ -31,6 +31,7 @@ namespace auto_parse
     Action operator[](int i) const{return m_actions[i];};
     std::vector<Action>::const_iterator begin() const {return m_actions.begin();};
     std::vector<Action>::const_iterator end() const {return m_actions.end();};
+    bool operator==(const History&) const;
     virtual void print_on(std::ostream & ostrm) const;
     Action last() const;
     int size() const;
