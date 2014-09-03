@@ -34,7 +34,7 @@ auto_parse::Contrast::Contrast(const Statistical_parse& parse,
 std::vector<auto_parse::Row>
 auto_parse::Contrast::operator()(const Words& sentence) const
 {
-  Statistical_history h = m_parser(sentence);
+  History h = m_parser(sentence);
   History alt = suggest_alternative_history(sentence, h);
   if(alt.size() == 0)
     return std::vector<auto_parse::Row>(0);

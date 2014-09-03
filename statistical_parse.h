@@ -5,7 +5,6 @@
 
 #include <iosfwd>
 #include "model.h"
-#include "statistical_history.h"
 #include "lr.h"
 #include "feature_generator.h"
 
@@ -24,12 +23,12 @@ namespace auto_parse
     // ACCESSORS
     Model model() const{return m_model;};
 
-    Statistical_history operator()(const Words&, double noise_level = -1) const; 
+    History operator()(const Words&, double noise_level = -1) const; 
     History finish(const Words&, const History& prefix, double noise_leve = -1) const; 
 
   protected:
   private:
-    Statistical_history do_actual_parse(LR*, double) const;
+    History do_actual_parse(LR*, double) const;
     Model m_model;
     Feature_generator m_generator;
     double m_noise;

@@ -150,6 +150,7 @@ auto_parse::likelihood_to_model(const Likelihood& likelihood,
 
   std::vector<std::map<auto_parse::Action, auto_parse::Train_forecast_linear> > training_bundle(0);
   std::vector<std::map<Action, double> > contrast_bundle(0);
+  std::vector<double> abs_bundle =   std::vector<double>(0);
   int num_threads;
   int number_to_read = end - begin;
   auto_parse::Contrast contrast(parser, likelihood, feature_generator);
@@ -161,6 +162,7 @@ auto_parse::likelihood_to_model(const Likelihood& likelihood,
       num_threads = omp_get_num_threads();
       training_bundle = std::vector<std::map<auto_parse::Action, auto_parse::Train_forecast_linear> >(num_threads);
       contrast_bundle =   std::vector<std::map<Action, double> >(num_threads);
+      abs_bundle =   std::vector<double>(num_threads,0);
       for(int i = 0; i < num_threads; ++i)
 	training_bundle[i] = training;
 
@@ -175,6 +177,7 @@ auto_parse::likelihood_to_model(const Likelihood& likelihood,
 	  {
 	    training_bundle[thread_ID][i->m_a](i->m_X, i->m_Y);
 	    contrast_bundle[thread_ID][i->m_a] += i->m_Y;
+	    abs_bundle[thread_ID] += abs(i->m_Y)/contrast_pair.size();
 	  }
       };
   }
@@ -182,8 +185,13 @@ auto_parse::likelihood_to_model(const Likelihood& likelihood,
   for(int i = 1; i < num_threads;++i)
     for(auto_parse::Action a: auto_parse::all_actions)
       contrasts[a] += contrast_bundle[i][a];
+  for(int i = 1; i < num_threads;++i)
+    abs_bundle[0] += abs_bundle[i];
+  std::cout << std::endl;
   for(auto_parse::Action a: auto_parse::all_actions)
     std::cout << contrasts[a]/number_to_read << " = " << a << "'s average value in a contrast." << std::endl;
+  std::cout << "Typical deviation from zero is:" << abs_bundle[0] << std::endl;
+  std::cout << std::endl;
     
   for(int i = 1; i < num_threads;++i)
     for(auto_parse::Action a: auto_parse::all_actions)

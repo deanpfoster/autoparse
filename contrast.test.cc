@@ -54,7 +54,7 @@ namespace auto_parse
 
 	
 
-	Statistical_history h = parser(sentence);
+	History h = parser(sentence);
 
 	Contrast contrast(parser, likelihood, feature_generator);
 

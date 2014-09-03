@@ -9,6 +9,7 @@
 #include <iostream>
 #include "lr.h"
 #include "redo_parse.h"
+#include "value_of_forecasts.h"
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                          U S I N G   D I R E C T I V E S                            using
@@ -45,7 +46,7 @@ auto_parse::Statistical_parse::Statistical_parse(const Statistical_parse & other
 //                               A C C E S S O R S                                 accessors
 
 
-auto_parse::Statistical_history
+auto_parse::History
 auto_parse::Statistical_parse::operator()(const Words& w, double noise_over_ride) const
 {
   double noise = m_noise;
@@ -63,7 +64,7 @@ auto_parse::Statistical_parse::finish(const Words& w, const History& h, double n
   if(noise_over_ride != -1)
     noise = noise_over_ride;
   LR parser = redo_parse(w, h);
-  Statistical_history sr = do_actual_parse(&parser,noise);
+  History sr = do_actual_parse(&parser,noise);
   History rest = sr; // slice off the statistical part
   History result = h;
   for(auto i = rest.begin(); i != rest.end();++i)
@@ -76,10 +77,10 @@ auto_parse::Statistical_parse::finish(const Words& w, const History& h, double n
 //                           P R O T E C T E D                                     protected
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                           P R I V A T E                                           private
-auto_parse::Statistical_history
+auto_parse::History
 auto_parse::Statistical_parse::do_actual_parse(LR* p_parser, double noise) const
 {
-  Statistical_history result;
+  History result;
   bool done = p_parser->parse().full_parse();
   while(!done)
     {
@@ -90,7 +91,7 @@ auto_parse::Statistical_parse::do_actual_parse(LR* p_parser, double noise) const
       values.zero_second_best();
       Action candidate = values.smoothed_best_action(noise);
       assert(p_parser->legal(candidate));
-      result.push_back(candidate, values);
+      result.push_back(candidate);
       p_parser->take_action(candidate);
       if(candidate == Action::head_reduce)
 	{
