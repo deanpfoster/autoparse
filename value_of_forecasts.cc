@@ -94,20 +94,24 @@ auto_parse::Value_of_forecasts::smoothed_best_action(double noise) const
   double total = 0;
   for (Action a : all_actions)
     {
-      double value = m_values.find(a)->second;
-      assert(value < 100);
+      double value = m_values.find(a)->second/noise;
+      if(value > 100)
+	return a;
       if(value > -100)
-	total += exp(value / noise);
+	total += exp(value);
     }
   double which = total * my_random::U();
+  double cumsum = 0;
   for (Action a : all_actions)
-    { // sneaky use of total.  This is bad style!  But I'm too drunk to write it with the extra variable.
-      double value = m_values.find(a)->second;
-      which -= exp(value / noise);
-      if(which <= 0)
+    {
+      double value = m_values.find(a)->second/noise;
+      if(value > -100)
+	cumsum += exp(value);
+      if(cumsum >= which)
 	return a;
-    }; // at least I didn't write "if(total -= which <= 0) return a;" which would have saved 5 lines!
+    };
   assert(0);
+  return(best_action());
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 

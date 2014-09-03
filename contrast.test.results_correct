@@ -13,6 +13,8 @@ original: shift shift <-- shift --> shift <-- shift --> shift shift <-- shift sh
 new last: HEAD
 277.321,"HEAD",0,1,9
 -277.321,"HEAD",0,1,9
+-44.8401,"shift",7,2,9
+44.8401,"-->",7,2,9
 constructed!
 
 

@@ -45,6 +45,7 @@ main(int argc,char** argv)
   debugging << "      --latex = " << latex_file << std::endl;
   debugging << "--update_rate = " << update_rate << "    (" << 1 - update_rate << " * old_model + " << update_rate << " * new_model)" << std::endl;
   debugging << "    --scaling = " << scaling << "    (-(Y - Yhat)^2 + " << scaling << " * log(probability skip) )" << std::endl;
+  debugging << "      --noise = " << noise << "    randomly pick best action with about accuracy noise level." << std::endl;
   debugging << "repeats_per_level= " << repeats_per_level << std::endl;
   debugging << "   --comment = " << comment << std::endl;
   std::ofstream latex(latex_file);

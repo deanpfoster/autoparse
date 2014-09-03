@@ -26,7 +26,7 @@ namespace auto_parse
     History suggest_alternative_history(const Words&, const auto_parse::History&) const;
 
   protected:
-
+    History common(const History& h1,const History& h2) const;
 
   private:
     Statistical_parse m_parser;
@@ -34,6 +34,7 @@ namespace auto_parse
     Feature_generator m_feature_generator;
     mutable double m_count = 0;
     mutable double m_noise = 0;
+    mutable double m_misses = 0;
 
     Contrast(const Contrast &);            // Don't delete this.
     Contrast& operator=(const Contrast &); // Don't delete this.

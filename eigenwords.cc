@@ -76,11 +76,11 @@ auto_parse::Eigenwords::Eigenwords(const auto_parse::Eigenwords& other)
 auto_parse::Eigenwords::Eigenwords(int i1, int i2, int i3)
   :  m_alive(true),
      m_cache_index(i1),
-     mp_eigenwords(s_cache[i1])
+     mp_eigenwords(s_cache[i2])
 {
   assert(i1 == i2);  // this is the secrete password to call this constructor
   assert(i2 == i3);
-  s_cache_counter[m_cache_index]++;
+  s_cache_counter[i3]++;
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Eigenwords

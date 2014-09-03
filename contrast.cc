@@ -35,17 +35,19 @@ std::vector<auto_parse::Row>
 auto_parse::Contrast::operator()(const Words& sentence) const
 {
   Statistical_history h = m_parser(sentence);
-  History prefix = suggest_alternative_history(sentence, h);  // truncates and modifies the history
-  if(!check_legal(sentence, prefix)) return std::vector<auto_parse::Row>(0);
-  History h_prime = m_parser.finish(sentence, prefix);
-  double l       = m_likelihood(redo_parse(sentence, h      ).parse());
-  double l_prime = m_likelihood(redo_parse(sentence, h_prime).parse());
-  History common = prefix;
-  common.pop_back();
-  Action a_prime = h_prime[common.size()];
-  Action a = h[common.size()];
+  History alt = suggest_alternative_history(sentence, h);
+  if(alt.size() == 0)
+    return std::vector<auto_parse::Row>(0);
+    // truncates and modifies the history
+  assert(check_legal(sentence, alt));
+  double l       = m_likelihood(redo_parse(sentence, h  ).parse());
+  double l_prime = m_likelihood(redo_parse(sentence, alt).parse());
+  History c = common(h,alt);
+  Action a_prime = alt[c.size()];
+  Action a = h[c.size()];
+  assert(a != a_prime);
   if(a == a_prime) return std::vector<auto_parse::Row>(0);
-  return(rows(m_feature_generator,sentence,common, a, l, a_prime, l_prime));
+  return(rows(m_feature_generator,sentence,c, a, l, a_prime, l_prime));
 }
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -58,6 +60,10 @@ auto_parse::History
 auto_parse::Contrast::suggest_alternative_history(const Words& w,
 						  const History& h) const
 {
+  if((m_count - 1000*(int(m_count/1000)) == 0) && (m_misses/m_count > .5))
+    {
+      std::cout << "suggest_alternative:" << m_count << " uses noise level exp(" << m_noise << ") yielding " << m_misses << " misses." << std::endl;
+    }
   m_count ++;
   History result = m_parser(w,exp(m_noise));
   if(result == h)
@@ -68,7 +74,22 @@ auto_parse::Contrast::suggest_alternative_history(const Words& w,
   else
     m_noise -= 1.0 / m_count;
   if(result == h)
-    return History();
+    {
+      m_misses ++;
+      return History();
+    }
+  return result;
+}
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+auto_parse::History
+auto_parse::Contrast::common(const History& h1,const History& h2) const
+{
+  assert(h1.size() == h2.size());
+  assert(!(h1 == h2));
+  History result;
+  int i = 0;
+  while(h1[i] == h2[i])
+    result.push_back(h1[i++]);
   return result;
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
