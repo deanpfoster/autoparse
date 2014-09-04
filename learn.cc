@@ -190,8 +190,8 @@ auto_parse::likelihood_to_model(const Likelihood& likelihood,
     abs_bundle[0] += abs_bundle[i];
   ostrm << std::endl;
   for(auto_parse::Action a: auto_parse::all_actions)
-    ostrm << int(10.*contrasts[a]/number_to_read)/10. << " = " << a << "'s average value in a contrast." << std::endl;
-  ostrm << "Typical deviation from zero is:" << int(10.*abs_bundle[0]/number_to_read)/10. << std::endl;
+    ostrm << int(100.*contrasts[a]/number_to_read)/100. << " = " << a << "'s average value in a contrast." << std::endl;
+  ostrm << "Typical deviation from zero is:" << int(100.*abs_bundle[0]/number_to_read)/100. << std::endl;
   ostrm << std::endl;
     
   for(int i = 1; i < num_threads;++i)

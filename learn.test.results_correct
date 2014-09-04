@@ -41,7 +41,7 @@ on that by this with .
 0 = <--'s average value in a contrast.
 0 = -->'s average value in a contrast.
 0 = HEAD's average value in a contrast.
-Typical deviation from zero is:1.2
+Typical deviation from zero is:1.21
 
   1    MLE
   1    Likelihood model:
@@ -77,7 +77,7 @@ on that by this with .
 0 = <--'s average value in a contrast.
 0 = -->'s average value in a contrast.
 0 = HEAD's average value in a contrast.
-Typical deviation from zero is:0.3
+Typical deviation from zero is:0.38
 
   2    MLE
   2    Likelihood model:
@@ -113,7 +113,7 @@ on that by this with .
 0 = <--'s average value in a contrast.
 0 = -->'s average value in a contrast.
 0 = HEAD's average value in a contrast.
-Typical deviation from zero is:0.5
+Typical deviation from zero is:0.53
 
   3    MLE
   3    Likelihood model:
@@ -149,7 +149,7 @@ on that by this with .
 0 = <--'s average value in a contrast.
 0 = -->'s average value in a contrast.
 0 = HEAD's average value in a contrast.
-Typical deviation from zero is:12.9
+Typical deviation from zero is:12.96
 
   4    MLE
   4    Likelihood model:
@@ -221,7 +221,7 @@ on that by this with .
 0 = <--'s average value in a contrast.
 0 = -->'s average value in a contrast.
 0 = HEAD's average value in a contrast.
-Typical deviation from zero is:1.8
+Typical deviation from zero is:1.84
 
   6    MLE
   6    Likelihood model:
@@ -257,7 +257,7 @@ on that by this with .
 0 = <--'s average value in a contrast.
 0 = -->'s average value in a contrast.
 0 = HEAD's average value in a contrast.
-Typical deviation from zero is:0.2
+Typical deviation from zero is:0.22
 
   7    MLE
   7    Likelihood model:
@@ -329,7 +329,7 @@ on that by this with .
 0 = <--'s average value in a contrast.
 0 = -->'s average value in a contrast.
 0 = HEAD's average value in a contrast.
-Typical deviation from zero is:0.3
+Typical deviation from zero is:0.35
 
   9    MLE
   9    Likelihood model:
