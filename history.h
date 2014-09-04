@@ -15,7 +15,6 @@ namespace auto_parse
   const std::vector<Action> all_actions = { Action::shift,
 				  Action::left_reduce, Action::right_reduce, Action::head_reduce};
   
-
   class History
   {
   public:
@@ -35,6 +34,7 @@ namespace auto_parse
     virtual void print_on(std::ostream & ostrm) const;
     Action last() const;
     int size() const;
+    int maximum_stack_size() const;
     
   protected:
 

@@ -1,8 +1,23 @@
 	                         -*- text -*-
 
+Bugs and imediate improvements:
 
+o  Compute some statistics about the history.  HOw deep is the stack
+   on average?  Anything else?  That is all I can think of.
 
-logic:
+o  redo contrast.  It shouldn't use the randmozation as it does now.
+   Instead it should simply grab a random point and a random
+   alternative strategy.  
+
+o  Remove flexible parsing.  Either parse at the official random
+   level, or parse at best possible.
+
+o  Make limited strategies: all left.  all right.  stack limited.
+
+o  Quit using hte first 10k over and over. Go through the rest
+   of the data instead.  This makes it very close to SGD.
+
+Future logic:
 
 o  Add the ability to do continous contrasts.  Namely, don't break into
    sentence.  Just use free flowing text, html tags and everything.  Then
@@ -16,13 +31,9 @@ o  Added the ability to make a new eigen-dictionary based off of
 
 Experiments:
 
-o  force locality by giving likelihood advantage to it (this might not be
-   necessary with new loss)
-
 o  Find some labelled data to run on.  Write a likelihood estimator based
    on the correct parse.  Number of edges correct?  Right direction of
    dependence? guess as to distance?
-
 
 
 Runs:
@@ -32,7 +43,7 @@ See what the coverage is for our dictionary.
 Build a new google grams dictionary which doesn't downcase.  This
 might help with understanding start of sentences etc.
 
-
+Parse wiki into sentences and run on that.
 
 LOW PRIORITY
 
@@ -40,3 +51,7 @@ speedup: There is a map in value_of_forecasts which should be replaced
 by an vector for speed.
 
 speedup: profile code to see what actually is taking time.
+
+speedup: compute matrix*vector for parser to generate new vector.
+This should make parsing instatnious.  Since this isn't actually the
+slow step, it may be more for show.

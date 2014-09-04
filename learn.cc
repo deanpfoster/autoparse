@@ -261,22 +261,34 @@ auto_parse::evaluation(int rounds,
   double log_like = 0;
   double total_left_links = 0;
   double total_links = 0;
-
-#pragma omp parallel for reduction(+:log_like,total_links,total_left_links)
-  for(int counter = 0; counter < number_to_read;++counter)
-    {
-      const auto_parse::Words& sentence = *(begin + counter);
-      auto_parse::Dependency parse = redo_parse(sentence, parser(sentence)).parse();
-      int n = sentence.end() - sentence.begin();
-      double prob = likelihood(parse) / n;
-      total_left_links += parse.number_left_links();
-      total_links += (n-1); // we don't include the root as a link
-      log_like += prob;
-    };
+  double total_stack_depth = 0;
+  Eigen::VectorXd  pieces = Eigen::VectorXd::Zero(6);
+#pragma omp parallel
+  {
+    Eigen::VectorXd piece = pieces;  // make a local copy
+    
+#pragma omp for reduction(+:log_like,total_links,total_left_links, total_stack_depth)
+      for(int counter = 0; counter < number_to_read;++counter)
+	{
+	  const auto_parse::Words& sentence = *(begin + counter);
+	  History h = parser(sentence);
+	  total_stack_depth += h.maximum_stack_size();
+	  auto_parse::Dependency parse = redo_parse(sentence, h).parse();
+	  int n = sentence.end() - sentence.begin();
+	  double prob = likelihood(parse) / n;
+	   piece += likelihood.pieces(parse);
+	  log_like += prob;
+	};
+#pragma omp critical
+      pieces += piece; // update global copy
+  }
+  pieces = pieces / number_to_read;
   std::stringstream summary;
-  int n = end - begin;
-  summary << "log(like) = " << log_like/n << " on " << n/1000
-	  << "k with " << round(100. * total_left_links / total_links) << "\\% lefts";
+  summary << "(old L.L. " << log_like/number_to_read
+	  << ") on " << number_to_read/1000
+	  << "k with " << round(100. * total_left_links / total_links) << "\\% lefts" << std::endl
+	  << "new L.L. " << likelihood.summarize_pieces(pieces)
+	  << "\naverage stack size = " << total_stack_depth/number_to_read;
 
   if(which_sentences.size() > 0)
     {

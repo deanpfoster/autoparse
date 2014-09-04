@@ -48,7 +48,7 @@ namespace auto_parse
       std::cout << reverse;
       std::cout << "reverse: " << lambda(reverse) << std::endl;
       std::cout << "Pretty version: " << lambda.decorate(reverse,dictionary) << std::endl;
-
+      std::cout << lambda.summarize_pieces(lambda.pieces(reverse)) << std::endl;
     };
   }
   

@@ -76,6 +76,34 @@ auto_parse::History::size() const
   return static_cast<int>(m_actions.size());
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+int stack_increment(auto_parse::Action a)
+{
+  switch(a)
+    {
+    case auto_parse::Action::shift       : return 1;
+    case auto_parse::Action::left_reduce : return -1;
+    case auto_parse::Action::right_reduce: return -1;
+    case auto_parse::Action::head_reduce : return -1;
+    default :
+      assert(0);
+    }
+  return 0;  // shouldn't be reached
+}
+
+int
+auto_parse::History::maximum_stack_size() const
+{
+  int result = 0;
+  int stack_size = 0;
+  for(Action a : m_actions)
+    {
+      stack_size += stack_increment(a);
+      if(stack_size > result)
+	result = stack_size;
+    };
+  return result;
+}
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////

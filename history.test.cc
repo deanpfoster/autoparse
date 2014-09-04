@@ -18,6 +18,7 @@ namespace auto_parse
       h.push_back(auto_parse::Action::right_reduce);
       h.push_back(auto_parse::Action::head_reduce);
       std::cout << h << std::endl;
+      std::cout << "Max stack: "  << h.maximum_stack_size() << std::endl;
       std::cout << "constructed!" << std::endl;
 
       auto_parse::Action i = static_cast<auto_parse::Action>(10);

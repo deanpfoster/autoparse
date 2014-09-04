@@ -2,13 +2,11 @@
 
 
 #include "likelihood.h"
+#include "utilities/string_handling.h"
 
-// put other includes here
 #include "assert.h"
 #include <iostream>
 
-////////////////////////////////////////////////////////////////////////////////////////////
-//                          U S I N G   D I R E C T I V E S                            using
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                              C O N S T R U C T O R S                         constructors
 
@@ -84,6 +82,49 @@ auto_parse::Likelihood::operator()(const Dependency& parse) const
     };
   double root = (*mp_root)(parse.sentence().end(), parse.root(), parse.sentence());
   return result + root;
+};
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+Eigen::VectorXd
+auto_parse::Likelihood::pieces(const Dependency& parse) const
+{
+  Eigen::VectorXd result = Eigen::VectorXd::Zero(6);
+  const Words& w = parse.sentence();
+  int n = w.end() - w.begin();
+  for(auto i = parse.links().begin(); i != parse.links().end(); ++i)
+    {
+      if(i->first < i->second)
+	{
+	  result[0] += (*mp_left)(i->first, i->second,w);
+	  result[1] += 1.0;
+	}
+      else
+	{
+	  result[2] += (*mp_right)(i->first, i->second,w);
+	  result[3] += 1.0;
+	}
+    };
+  result[4] = (*mp_root)(w.end(), parse.root(), w);
+  result[5] = 1;
+  result = result / n;
+  return result ;
+};
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+std::string
+auto_parse::Likelihood::summarize_pieces(const Eigen::VectorXd& pieces) const
+{
+  // generates string:  log(like) = 3.61 = 60\% lefts @ 4.00 + 40\% rights @ 3.00 + 1\% roots @ 10
+  
+  std::stringstream s;
+  double average_left  = pieces[0] / pieces[1];
+  double average_right = pieces[2] / pieces[3];
+  double average_root  = pieces[4] / pieces[5];
+  double total = pieces[0] + pieces[2] + pieces[4];
+
+  s << "log(like) = " << abs_round(total,3)
+    << " = " << relative_round(100*pieces[1],1) << "\\% lefts @ "  << abs_round(average_left ,3)
+    << " + " << relative_round(100*pieces[3],1) << "\\% rights @ " << abs_round(average_right,3)
+    << " + " << relative_round(100*pieces[5],1) << "\\% roots @ "  << abs_round(average_root,3);
+  return s.str();
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Decorated_dependency
