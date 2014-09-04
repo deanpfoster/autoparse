@@ -144,62 +144,54 @@ auto_parse::likelihood_to_model(const Likelihood& likelihood,
 				std::vector<auto_parse::Words>::const_iterator end,
 				std::ostream& ostrm)
 {
-  std::map<auto_parse::Action, auto_parse::Train_forecast_linear> training;
   Model lr_model = parser.model();
+  std::map<auto_parse::Action, auto_parse::Train_forecast_linear> all_training;
   for(auto_parse::Action a: auto_parse::all_actions)
-    training[a] = auto_parse::Train_forecast_linear(lr_model.forecast(a),sampling_rate);
-
-  std::vector<std::map<auto_parse::Action, auto_parse::Train_forecast_linear> > training_bundle(0);
-  std::vector<std::map<Action, double> > contrast_bundle(0);
-  std::vector<double> abs_bundle =   std::vector<double>(0);
-  int num_threads;
+    all_training[a] = auto_parse::Train_forecast_linear(lr_model.forecast(a),sampling_rate);
+  std::map<Action, double> all_contrasts;
+  double all_abs =  0;
   int number_to_read = end - begin;
-  auto_parse::Contrast contrast(parser, likelihood, feature_generator);
+
+  // make sure only read_only code is called since this is shared
+  const auto_parse::Contrast contrast(parser, likelihood, feature_generator);
 
 #pragma omp parallel default(shared)
   {
-#pragma omp single
-    {
-      num_threads = omp_get_num_threads();
-      training_bundle = std::vector<std::map<auto_parse::Action, auto_parse::Train_forecast_linear> >(num_threads);
-      contrast_bundle =   std::vector<std::map<Action, double> >(num_threads);
-      abs_bundle =   std::vector<double>(num_threads,0);
-      for(int i = 0; i < num_threads; ++i)
-	training_bundle[i] = training;
+    std::map<auto_parse::Action, auto_parse::Train_forecast_linear> training = all_training;
+    std::map<Action, double> contrasts = all_contrasts;
+    double abs = all_abs;
 
-    }
 #pragma omp for 
-    for(int counter = 0; counter < number_to_read;++counter)
+    for(int counter = 0; counter < number_to_read; ++counter)
       {
 	const auto_parse::Words& sentence = *(begin + counter);
-	int thread_ID = omp_get_thread_num();
 	std::vector<auto_parse::Row> contrast_pair = contrast(sentence);
 	for(auto i = contrast_pair.begin(); i != contrast_pair.end(); ++i)
 	  {
-	    training_bundle[thread_ID][i->m_a](i->m_X, i->m_Y);
-	    contrast_bundle[thread_ID][i->m_a] += i->m_Y;
-	    abs_bundle[thread_ID] += abs(i->m_Y)/contrast_pair.size();
+	    training[i->m_a](i->m_X, i->m_Y);
+	    contrasts[i->m_a] += i->m_Y;
+	    abs += std::abs(i->m_Y)/contrast_pair.size();
 	  }
       };
-  }
-  std::map<Action, double> contrasts;
-  for(int i = 1; i < num_threads;++i)
+#pragma omp critical
     for(auto_parse::Action a: auto_parse::all_actions)
-      contrasts[a] += contrast_bundle[i][a];
-  for(int i = 1; i < num_threads;++i)
-    abs_bundle[0] += abs_bundle[i];
+      {
+	all_training[a].merge(training[a]);
+	all_contrasts[a] += contrasts[a];
+      }
+    all_abs += abs;
+  }
+
+  // Friendly output
   ostrm << std::endl;
   for(auto_parse::Action a: auto_parse::all_actions)
-    ostrm << int(100.*contrasts[a]/number_to_read)/100. << " = " << a << "'s average value in a contrast." << std::endl;
-  ostrm << "Typical deviation from zero is:" << int(100.*abs_bundle[0]/number_to_read)/100. << std::endl;
+    ostrm << int(100.*all_contrasts[a]/number_to_read)/100. << " = " << a << "'s average value in a contrast." << std::endl;
+  ostrm << "Typical deviation from zero is:" << round(100. * all_abs/number_to_read)/100. << std::endl;
   ostrm << std::endl;
     
-  for(int i = 1; i < num_threads;++i)
-    for(auto_parse::Action a: auto_parse::all_actions)
-      training_bundle[0][a].merge(training_bundle[i][a]);
   auto_parse::Model new_model = parser.model();
   for(auto_parse::Action a : auto_parse::all_actions)
-    new_model.add_forecast(a,training_bundle[0][a].result());
+    new_model.add_forecast(a,all_training[a].result());
   return new_model;
 }
 
@@ -215,33 +207,23 @@ auto_parse::model_to_likelihood(const Eigenwords& parent,const Eigenwords& child
   auto_parse::TP_eigenwords left(parent,child,scaling); 
   auto_parse::TP_eigenwords right(parent,child,scaling); 
   auto_parse::TP_eigenwords root(Eigenwords::create_root_dictionary(),child,scaling); 
-  int num_threads;
-  std::vector<auto_parse::Maximum_likelihood> mle_bundle(0);
+  auto_parse::Maximum_likelihood mle(left,right,root);
 #pragma omp parallel default(shared)
   {
-#pragma omp single
-    {
-      num_threads = omp_get_num_threads();
-      mle_bundle = std::vector<auto_parse::Maximum_likelihood>(num_threads);
-      //#pragma omp for 
-      for(unsigned int i = 0; i < mle_bundle.size(); ++i)
-	mle_bundle[i] = auto_parse::Maximum_likelihood(left, right, root);
-    }
+    auto thread_mle = mle;
     int number_to_read = end - begin;
 #pragma omp for 
     for(int counter = 0; counter < number_to_read;++counter)
       {	
 	const auto_parse::Words& sentence = *(begin + counter);
-	int thread_ID = omp_get_thread_num();
-	assert(thread_ID < num_threads);
-	auto_parse::Dependency d = redo_parse(sentence,parser(sentence)).parse();
-	mle_bundle[thread_ID](d);  // adds to database
+	auto d = redo_parse(sentence,parser(sentence)).parse();
+	thread_mle(d);  // adds to database
       }
+#pragma omp critical
+    mle.merge(thread_mle);
   }
-  for(int i = 1; i < num_threads;++i)
-    mle_bundle[0].merge(mle_bundle[i]);
 
-  Likelihood likelihood = mle_bundle[0].output();
+  Likelihood likelihood = mle.output();
   return likelihood;
 }
 
