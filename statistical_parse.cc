@@ -47,22 +47,37 @@ auto_parse::Statistical_parse::Statistical_parse(const Statistical_parse & other
 
 
 auto_parse::History
-auto_parse::Statistical_parse::operator()(const Words& w, double noise_over_ride) const
+auto_parse::Statistical_parse::best_parse(const Words& w) const
 {
-  double noise = m_noise;
-  if(noise_over_ride != -1)
-    noise = noise_over_ride;
   LR parser(w);
-  return do_actual_parse(&parser, noise);
+  return do_actual_parse(&parser, 0);
+};
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+auto_parse::History
+auto_parse::Statistical_parse::operator()(const Words& w) const
+{
+  LR parser(w);
+  return do_actual_parse(&parser, m_noise);
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 auto_parse::History
-auto_parse::Statistical_parse::finish(const Words& w, const History& h, double noise_over_ride) const
+auto_parse::Statistical_parse::best_parse_finish(const Words& w, const History& h) const
 {
-  double noise = m_noise;
-  if(noise_over_ride != -1)
-    noise = noise_over_ride;
+  return private_finish(w,h,0);
+}
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+auto_parse::History
+auto_parse::Statistical_parse::finish(const Words& w, const History& h) const
+{
+  return private_finish(w,h,m_noise);
+}
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+auto_parse::History
+auto_parse::Statistical_parse::private_finish(const Words& w, const History& h, double noise) const
+{
   LR parser = redo_parse(w, h);
   History sr = do_actual_parse(&parser,noise);
   History rest = sr; // slice off the statistical part

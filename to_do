@@ -2,9 +2,6 @@
 
 Bugs and imediate improvements:
 
-o  Compute some statistics about the history.  HOw deep is the stack
-   on average?  Anything else?  That is all I can think of.
-
 o  redo contrast.  It shouldn't use the randmozation as it does now.
    Instead it should simply grab a random point and a random
    alternative strategy.  

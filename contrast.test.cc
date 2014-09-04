@@ -58,7 +58,9 @@ namespace auto_parse
 
 	Contrast contrast(parser, likelihood, feature_generator);
 
-	History prefix = contrast.suggest_alternative_history(sentence,h);  // truncates and modifies the history
+	History prefix;
+	while(prefix.size() == 0)
+	  prefix = contrast.suggest_alternative_history(sentence,h);  // truncates and modifies the history
 	History h_prime = parser.finish(sentence, prefix);
 	double l       = likelihood(redo_parse(sentence, h      ).parse());
 	double l_prime = likelihood(redo_parse(sentence, h_prime).parse());

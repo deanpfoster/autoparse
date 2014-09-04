@@ -22,12 +22,14 @@ namespace auto_parse
     void new_model(const Model& new_model){m_model = new_model;};
     // ACCESSORS
     Model model() const{return m_model;};
-
-    History operator()(const Words&, double noise_level = -1) const; 
-    History finish(const Words&, const History& prefix, double noise_leve = -1) const; 
+    History best_parse(const Words&) const; 
+    History operator()(const Words&) const; 
+    History best_parse_finish(const Words&, const History& prefix) const; 
+    History finish(const Words&, const History& prefix) const; 
 
   protected:
   private:
+    History private_finish(const Words&, const History& prefix,double noise) const; 
     History do_actual_parse(LR*, double) const;
     Model m_model;
     Feature_generator m_generator;
