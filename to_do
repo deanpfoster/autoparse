@@ -2,13 +2,6 @@
 
 Bugs and imediate improvements:
 
-o  redo contrast.  It shouldn't use the randmozation as it does now.
-   Instead it should simply grab a random point and a random
-   alternative strategy.  
-
-o  Remove flexible parsing.  Either parse at the official random
-   level, or parse at best possible.
-
 o  Make limited strategies: all left.  all right.  stack limited.
 
 o  Quit using hte first 10k over and over. Go through the rest

@@ -44,7 +44,7 @@ Pretty version: E.OOV D.OOV C.OOV B.OOV A.OOV
 0    	          A.OOV  <---  ROOT                                         B  <---   A
 
 
-log(like) = 0 = 0\% lefts @ -nan + 100\% rights @ 0 + 20\% roots @ 0
+log(like) = 0 = 0\% lefts @ -nan + 80\% rights @ 0 + 20\% roots @ 0
 Should delete a cached eigendictionary.
 But we aren't going to since it seems to be having problems when we do so.
 

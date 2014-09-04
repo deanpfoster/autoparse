@@ -121,9 +121,9 @@ auto_parse::Likelihood::summarize_pieces(const Eigen::VectorXd& pieces) const
   double total = pieces[0] + pieces[2] + pieces[4];
 
   s << "log(like) = " << abs_round(total,3)
-    << " = " << relative_round(100*pieces[1],1) << "\\% lefts @ "  << abs_round(average_left ,3)
-    << " + " << relative_round(100*pieces[3],1) << "\\% rights @ " << abs_round(average_right,3)
-    << " + " << relative_round(100*pieces[5],1) << "\\% roots @ "  << abs_round(average_root,3);
+    << " = " << relative_round(100.*pieces[1],2) << "\\% lefts @ "  << abs_round(average_left ,3)
+    << " + " << relative_round(100.*pieces[3],2) << "\\% rights @ " << abs_round(average_right,3)
+    << " + " << relative_round(100.*pieces[5],2) << "\\% roots @ "  << abs_round(average_root,3);
   return s.str();
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */

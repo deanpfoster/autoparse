@@ -259,6 +259,7 @@ auto_parse::evaluation(int rounds,
 	  int n = sentence.end() - sentence.begin();
 	  double prob = likelihood(parse) / n;
 	   piece += likelihood.pieces(parse);
+	   total_left_links += parse.number_left_links();
 	  log_like += prob;
 	};
 #pragma omp critical
