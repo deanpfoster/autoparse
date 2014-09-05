@@ -4,7 +4,10 @@
 #
 #  Possible command:
 #
-#    qsub run_learner -pe parallel 12  Comment to go in the output
+#  qsub -pe parallel 15-16 -j y run_learner --repeats_per_level=200 --noise=.2  --scaling=.0001 -c "Some noise  New contrast.  long run."
+#
+#               -j y  means combine both standard error and error into one file
+#               -pe parallel 15-16 says use nodes 15-16.  THis is ignored.  What is imporanat is it won't then use nlpgrid itself
 #
 ################################################################################
 cd ~/nlp/auto_parse
@@ -22,7 +25,7 @@ echo "* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
 echo
 
 date
-./learn.main --latex=/home1/f/foster/run_learner.t$JOB_ID.tex $*
+./learn.main --latex=/home1/f/foster/old_runs/run_learner.t$JOB_ID $*
 date
 echo $*
 sed "s/runningTitle/$*/" ~/run_learner.t$JOB_ID.tex > ~/tmp

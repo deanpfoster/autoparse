@@ -20,7 +20,6 @@ int
 main(int argc,char** argv)
 {
   Eigen::initParallel();  // this will help eigen not walk on top of itself.
-  std::ostream& debugging(std::cout);
 
   //////////////////////////////////////////////////////////////////////////////////
   //
@@ -28,28 +27,30 @@ main(int argc,char** argv)
   //
   //////////////////////////////////////////////////////////////////////////////////
   
-  std::string sentence_file, eigen_file, latex_file;
+  std::string sentence_file, eigen_file, latex_prefix;
   int gram_number, repeats_per_level;
   double update_rate,scaling, noise;
   scaling = 1.0;
   std::string comment;
-  boost::tie(repeats_per_level,latex_file, eigen_file, gram_number, sentence_file, update_rate, scaling, noise, comment)
+  boost::tie(repeats_per_level,latex_prefix, eigen_file, gram_number, sentence_file, update_rate, scaling, noise, comment)
     = auto_parse::parse_argv(argc, argv);
-  time_t start_time = time(0);  // used for timing 
+  time_t start_time = time(0);  // used for final timing
+  time_t running_time = time(0);  // used for timing 
   time_t last_print_time = time(0);  // used to print about once a minute
   std::cout << "\n\n               " << comment  << "\n\n\n" << std::endl;
 
 
-  debugging << "     --corpus = " << sentence_file << std::endl;
-  debugging << " --dictionary = " << eigen_file << std::endl;
-  debugging << "--gram_number = " << gram_number << std::endl;
-  debugging << "      --latex = " << latex_file << std::endl;
-  debugging << "--update_rate = " << update_rate << "    (" << 1 - update_rate << " * old_model + " << update_rate << " * new_model)" << std::endl;
-  debugging << "    --scaling = " << scaling << "    (-(Y - Yhat)^2 + " << scaling << " * log(probability skip) )" << std::endl;
-  debugging << "      --noise = " << noise << "    randomly pick best action with about accuracy noise level." << std::endl;
-  debugging << "repeats_per_level= " << repeats_per_level << std::endl;
-  debugging << "   --comment = " << comment << std::endl;
-  std::ofstream latex(latex_file);
+  std::cout << "     --corpus = " << sentence_file << std::endl;
+  std::cout << " --dictionary = " << eigen_file << std::endl;
+  std::cout << "--gram_number = " << gram_number << std::endl;
+  std::cout << "      --latex = " << latex_prefix << std::endl;
+  std::cout << "--update_rate = " << update_rate << "    (" << 1 - update_rate << " * old_model + " << update_rate << " * new_model)" << std::endl;
+  std::cout << "    --scaling = " << scaling << "    (-(Y - Yhat)^2 + " << scaling << " * log(probability skip) )" << std::endl;
+  std::cout << "      --noise = " << noise << "    randomly pick best action with about accuracy noise level." << std::endl;
+  std::cout << "repeats_per_level= " << repeats_per_level << std::endl;
+  std::cout << "   --comment = " << comment << std::endl;
+  std::ofstream latex(latex_prefix + ".tex");
+  std::ofstream latex_final(latex_prefix + ".final.tex");
   auto_parse::latex_header(latex);  // write a "...\begin{document}" on latex_file
       
   //////////////////////////////////////////////////////////////////////////////////
@@ -80,8 +81,8 @@ main(int argc,char** argv)
     auto_parse::Eigenwords parent_dictionary(dictionary); 
     auto_parse::Eigenwords child_dictionary = dictionary.with_constant_row_sum_squares(); 
     int dim = dictionary.dimension();
-    debugging << "Read a dictionary of size: " << dictionary.size()<< " x " << dim
-	      << " (time " << time(0) - start_time << " sec)" << std::endl;      start_time = time(0);
+    std::cout << "Read a dictionary of size: " << dictionary.size()<< " x " << dim
+	      << " (time " << time(0) - running_time << " sec)" << std::endl;      running_time = time(0);
 
     //////////////////////////////////////////////////////////////////////////////////
     //
@@ -133,55 +134,42 @@ main(int argc,char** argv)
 	std::vector<auto_parse::Words>::const_iterator begin = corpus_in_memory.begin();
 	std::vector<auto_parse::Words>::const_iterator end   = begin + number_to_train_on[rounds];
 	double sampling_rate = .05;  // this generates about a factor of 10 speed up by only computing X'X 5% of the time
+
+	//
+	// Set up a debugging stream that will keep track of where we are in the file
+	//
 	std::stringstream s;
 	s << number_to_train_on[rounds]/1000 << "k: " << rounds << " | ";
-	std::string debugging_prefix = s.str();
-
+	std::string ostrm_prefix = s.str();
+	boost::iostreams::filtering_ostream ostrm;
+	ostrm.push(box_output_filter(100,ostrm_prefix,"",""));
+	ostrm.push(std::cout);
+	
 	///////////////////////////////////////////////
 	//                                           //
 	//           Likelihood --> Model            //
 	//                                           //
 	///////////////////////////////////////////////
 
-	{
-	  boost::iostreams::filtering_ostream ostrm;
-	  ostrm.push(box_output_filter(100,debugging_prefix,"-","|"));
-	  ostrm.push(std::cout);
-	  auto_parse::Model model = likelihood_to_model(likelihood, parser,
-							feature_generator,
-							sampling_rate,
-							begin, end,
-							ostrm);
-	  ostrm << std::ends;
-	  old_model.tweak(model, update_rate);
-	}
+	auto_parse::Model model = likelihood_to_model(likelihood, parser,
+						      feature_generator,
+						      sampling_rate,
+						      begin, end,
+						      ostrm);
+	old_model.tweak(model, update_rate);
 	parser.new_model(old_model);
-	debugging << debugging_prefix << "Training time " << time(0) - start_time << " sec." << std::endl;      start_time = time(0);
 
-	///////////////////////////////////////////////
-	//                                           //
-	//               EVALUATION                  //
-	//                                           //
-	///////////////////////////////////////////////
+	ostrm << "\t\t\t\tTraining time " << time(0) - running_time << " sec." << std::endl;      running_time = time(0);
 
-	std::vector<int> which_sentences(0);
-	std::string summary =   evaluation(rounds, debugging, latex,
-					   dictionary, parser, likelihood,
-					   which_sentences, begin, end);
-	debugging << debugging_prefix << " + + + + \t" << summary << "\t\t+ + + + + +" << std::endl;
-	debugging << debugging_prefix << "Evaluation time " << time(0) - start_time << " sec." << std::endl;      start_time = time(0);
-	
 	///////////////////////////////////////////////
 	//                                           //
 	//  Model  --> Parsed corpus -->  MLE        //
 	//                                           //
 	///////////////////////////////////////////////
 
-	  likelihood = model_to_likelihood(parent_dictionary, child_dictionary,
-					   parser,
-					   scaling,
-					   begin, end);
-	debugging << debugging_prefix << "MLE time " << time(0) - start_time << " sec." << std::endl;      start_time = time(0);
+	likelihood = model_to_likelihood(parent_dictionary, child_dictionary,
+					 parser, scaling, begin, end);
+	ostrm << "\t\t\t\tMLE time " << time(0) - running_time << " sec." << std::endl;      running_time = time(0);
 
 	///////////////////////////////////////////////
 	//                                           //
@@ -189,23 +177,92 @@ main(int argc,char** argv)
 	//                                           //
 	///////////////////////////////////////////////
 
-	if(time(0) - last_print_time > 60)
+	if(time(0) - last_print_time > 600)  // print once every 10 minutes
 	  {
-	    which_sentences = std::vector<int>{3643,2,4, 10, 17, 26};
 	    last_print_time = time(0);
-	  }
-	{
-	  boost::iostreams::filtering_ostream ostrm;
-	  ostrm.push(box_output_filter(100,debugging_prefix,"",""));
-	  ostrm.push(std::cout);
-	  summary =   evaluation(rounds, ostrm, latex,
-				 dictionary, parser, likelihood,
-				 which_sentences, begin, end);
+	    std::vector<int> which_sentences {3643, 2, 4, 10, 17, 26};
+	    std::string summary =   evaluation(rounds, ostrm, latex,
+				   dictionary, parser, likelihood,
+				   which_sentences, begin, end);
+	    ostrm <<  summary  << std::endl;
+	    ostrm << "Evaluation time " << time(0) - running_time << " sec." << std::endl;      running_time = time(0);
 	}
-	debugging << debugging_prefix << " * * * * \t" << summary << "\t\t* * * * *" << std::endl;
-	debugging << debugging_prefix << "Evaluation time " << time(0) - start_time << " sec." << std::endl;      start_time = time(0);
-
       }
     auto_parse::latex_footer(latex);
+
+    ///////////////////////////////////////////////////////////////////
+    //
+    //  Save the model.  (The likelihood can be recreated, so don't
+    //  bother saving that.)
+    //
+    ///////////////////////////////////////////////////////////////////
+    
+    /*  Insert code here */
+
+    
+    ///////////////////////////////////////////////////////////////////
+    //
+    //  Print some nice output.
+    //
+    //  (This should be moved to a different file which reads in the
+    //  model and then generates this output.  But we can't save yet,
+    //  so this is a stop gap solution.)
+    //
+    ///////////////////////////////////////////////////////////////////
+
+    int num_seconds = time(0) - start_time;
+    int num_minutes = num_seconds / 60;
+    int num_hours = num_minutes / 60;
+    int extra_minutes = num_minutes - 60 * num_hours;
+
+    auto_parse::latex_header(latex_final);
+    latex_final << "\\section*{" << comment << "}\n";
+    latex_final << "Parameters:\n\\begin{itemize}";
+    latex_final << "\\item corpus: \\verb\"" << sentence_file << "\"" << std::endl;
+    latex_final << "\\item latex: \\verb\"" << latex_prefix << "\"" << std::endl;
+    latex_final << "\\item update: " << update_rate << std::endl;
+    latex_final << "\\item scaling: " << scaling << std::endl;
+    latex_final << "\\item noise: " << noise << std::endl;
+    latex_final << "\\item repeats: " << repeats_per_level << std::endl;
+    latex_final << "\\item Trained on " << corpus_in_memory.size() << " sentence.    " << std::endl;
+    latex_final << "\\item Threads used: " << auto_parse::number_of_threads_used()  << std::endl;
+    latex_final << "\\item Total time: " << num_seconds << "    (" << num_hours << ":" << extra_minutes  << " h:m)" << std::endl;
+    latex_final  << "\\item Date: \\today \n" ;
+    latex_final << "\\end{itemize}\\newpage" << std::endl;
+
+    std::vector<int> which_sentences {3643, 2, 4, 10, 17, 26};
+    evaluation(*(number_to_train_on.end()-1), std::cout, latex_final, dictionary, parser, likelihood, which_sentences,
+	       begin(corpus_in_memory), end(corpus_in_memory));
+
+    which_sentences = std::vector<int>();
+    std::multimap<int,std::vector<auto_parse::Words>::const_iterator> size_to_index;
+    for(std::vector<auto_parse::Words>::const_iterator i =  begin(corpus_in_memory); i != end(corpus_in_memory); ++i)
+      size_to_index.insert(std::make_pair(i->size(), i));
+
+    latex_final << "\n\\newpage\n\n";
+
+    for(int sentence_size = 0; sentence_size != 25;++sentence_size)
+      {
+	if(sentence_size == 18)
+	  latex_final << "\\scriptsize\n";
+	if(size_to_index.count(sentence_size) >= 3)
+	  {
+	    auto i = size_to_index.lower_bound(sentence_size);
+	    latex_final << "\\subsection*{" << sentence_size -1 << " words  : \\#" << i->second - begin(corpus_in_memory) << " + " << std::endl;
+	    auto s1 = *(i->second);
+	    auto p1 = redo_parse(s1, parser(s1)).parse();
+	    ++i;
+	    latex_final << "\\#"  << i->second - begin(corpus_in_memory) << "}  " << std::endl;
+	    auto s2 = *(i->second);
+	    auto p2 = redo_parse(s2, parser(s2)).parse();
+	    likelihood.decorate(p1, dictionary).latex(latex_final);
+	    likelihood.decorate(p2, dictionary).latex(latex_final);
+	  }
+      }
+    auto_parse::latex_footer(latex_final);
+
+
+    // Over and out!
+
     std::cout << "\n\n               FINISHED: " << comment  << "\n\n\n" << std::endl;
 }

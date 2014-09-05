@@ -260,7 +260,8 @@ auto_parse::evaluation(int rounds,
 	  double prob = likelihood(parse) / n;
 	   piece += likelihood.pieces(parse);
 	   total_left_links += parse.number_left_links();
-	  log_like += prob;
+	   log_like += prob;
+	   total_links += n;
 	};
 #pragma omp critical
       pieces += piece; // update global copy
@@ -308,7 +309,7 @@ auto_parse::parse_argv(int argc, char** argv)
     ("corpus", po::value<std::string>(&corpus)->default_value("eng_only"), "corpus to read from")
     ("dictionary", po::value<std::string>(&dictionary)->default_value("pretty.csv"), "dictionary to read from")
     ("gram_number", po::value<int>(&gram)->default_value(3), "gram number for dictionary")
-    ("latex", po::value<std::string>(&latex)->default_value("learn.output.tex"), "latex file to write to")
+    ("latex", po::value<std::string>(&latex)->default_value("learn.output"), "latex file to write to (both a FILENAME.log.tex and a FILENAME.final.tex will be written to.)")
     ("update_rate", po::value<double>(&update)->default_value(.1), "rate we move towards new data")
     ("scaling", po::value<double>(&scaling)->default_value(1), "importance of distance in the likelihood calculation")
     ("noise", po::value<double>(&noise)->default_value(1), "how noisy the decision making should be. 0=best guess, 3=almost pure noise.")
