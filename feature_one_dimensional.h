@@ -69,6 +69,7 @@ namespace auto_parse
     Feature_one_dimensional<T>();
     Feature_one_dimensional<T>* clone() const;
     Feature_one_dimensional<T>(const Feature_one_dimensional<T> &);
+    Feature_one_dimensional<T>(std::istream&);
 
     // ACCESSORS
     virtual Eigen::VectorXd operator()(const LR&) const;
@@ -78,6 +79,7 @@ namespace auto_parse
 
   private:
     Feature_one_dimensional<T>& operator=(const Feature_one_dimensional<T> &); // Don't delete this.
+    Feature_one_dimensional<T>* private_restore(std::istream&) const;
   };
 }
 

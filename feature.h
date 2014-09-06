@@ -17,7 +17,9 @@ namespace auto_parse
     // CONSTRUCTORS
     virtual ~Feature();
     Feature();
+    Feature(std::istream&){};
     virtual Feature* clone() const = 0;
+    static Feature* restore(std::istream&);
     // MANIPULATORS
     // ACCESSORS
     virtual Eigen::VectorXd operator()(const LR&) const = 0;
@@ -28,6 +30,7 @@ namespace auto_parse
   protected:
     Feature(const Feature &);            // Don't delete this.
   private:
+    virtual Feature* private_restore(std::istream&) const = 0;
     Feature& operator=(const Feature &); // Don't delete this.
   };
 }

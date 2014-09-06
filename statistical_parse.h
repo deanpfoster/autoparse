@@ -17,6 +17,8 @@ namespace auto_parse
     ~Statistical_parse();
     Statistical_parse(const Model&, const Feature_generator&,double default_noise_level);
     Statistical_parse(const Statistical_parse &); 
+    Statistical_parse(std::istream &); 
+    
 
     // MANIPULATORS
     void new_model(const Model& new_model){m_model = new_model;};

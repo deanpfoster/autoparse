@@ -37,6 +37,15 @@ auto_parse::Statistical_parse::Statistical_parse(const Statistical_parse & other
 {
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+auto_parse::Statistical_parse::Statistical_parse(std::istream& in)
+  :
+  m_model(in),
+  m_generator(in),
+  m_noise()
+{
+  in >> m_noise;
+};
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                             M A N I P U L A T O R S                          manipulators

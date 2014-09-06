@@ -29,6 +29,7 @@ public:
   {
     return new Sample(*this);
   };
+  Sample* private_restore(std::istream&) const {return new Sample(*this);};
   Eigen::VectorXd
   operator()(const auto_parse::LR&) const
   {

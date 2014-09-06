@@ -27,10 +27,26 @@ auto_parse::Shorten::Shorten(const Shorten& other)
 {
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+auto_parse::Shorten::Shorten(std::istream& in)
+  :
+  Feature(),
+  mp_long(),
+  m_dimension()
+{
+  in >> m_dimension >> std::ws;
+  mp_long = Feature::restore(in);
+};
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Shorten*
 auto_parse::Shorten::clone() const
 {
   return new Shorten(*mp_long, m_dimension);
+};
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+auto_parse::Shorten*
+auto_parse::Shorten::private_restore(std::istream& in) const
+{
+  return new Shorten(in);
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 

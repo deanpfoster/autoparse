@@ -68,16 +68,6 @@ auto_parse::Likelihood::operator()(const Dependency& parse) const
   for(auto i = parse.links().begin(); i != parse.links().end(); ++i)
     {
       double delta = link_probability(*i,parse.sentence());
-      bool debugging = false;
-      if(debugging)
-	{
-	  std::cout << *i->first;
-	  if(i->first < i->second)
-	    std::cout << " <-- ";
-	  else
-	    std::cout << " --> ";
-	  std::cout << *i->second << " = " << delta << std::endl;
-	};
       result += delta;
     };
   double root = (*mp_root)(parse.sentence().end(), parse.root(), parse.sentence());

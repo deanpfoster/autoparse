@@ -410,6 +410,7 @@ auto_parse::latex_header(std::ostream& out)
   out << "\\documentclass{article}\n\n";
   out << "\\usepackage[left=.25in,top=.25in,bottom=.25in,right=.25in]{geometry}\n";  
   out << "\\usepackage{tikz-dependency}\n\n";
+  out << "\\pagestyle{myheadings}\\markright{runningTitle: \thepage}";
   out << "\\begin{document}\n\n" << std::endl;
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */

@@ -89,6 +89,8 @@ auto_parse::TP_eigenwords::merge(const Transition_probability& tp)
   const TP_eigenwords& other = dynamic_cast<const TP_eigenwords&>(tp);
   m_XtY += other.m_XtY;
   m_XtX += other.m_XtX;
+  for(unsigned int i = 0; i < m_distance.size(); ++i)
+    m_distance[i] += other.m_distance[i];
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::TP_eigenwords*
@@ -137,7 +139,7 @@ auto_parse::TP_eigenwords::operator()(const auto_parse::Node& parent,
 {
   const Eigen::VectorXd& p = m_parent(parent,sentence);
   const Eigen::VectorXd& c = m_child(child,sentence);
-  Eigen::VectorXd prediction = p.transpose() * m_XtY;
+  Eigen::VectorXd prediction = p.transpose() * m_XtY; // only works since XtX = I
   Eigen::VectorXd error = c - prediction;
   unsigned int distance = abs(parent - child);
   if(distance > m_distance.size())
@@ -147,9 +149,9 @@ auto_parse::TP_eigenwords::operator()(const auto_parse::Node& parent,
   if(isnan(log_pd))
     {
       if(parent == sentence.end())
-	std::cout << "root --> " << *child << " raw = " << parent - child << " with prob = " << prob_distance << std::endl;
+	std::cout << "NAN in TP: root --> " << *child << " raw = " << parent - child << " with prob = " << prob_distance << std::endl;
       else
-	std::cout << *parent << " --> " << *child << " raw = " << parent - child << " with prob = " << prob_distance << std::endl;
+	std::cout << "NAN in TP: " << *parent << " --> " << *child << " raw = " << parent - child << " with prob = " << prob_distance << std::endl;
       log_pd = -100;
     }
   return log_pd - error.squaredNorm();

@@ -127,9 +127,9 @@ only4: statistical_parse.OK row.OK feature_interaction.OK maximum_likelihood.OK 
 
 maximum_likelihood.test: dependency.o transition_probability.o likelihood.o word.o likelihood.o tp_eigenwords.o eigenwords.o decorated_dependency.o
 
-statistical_parse.test: history.o dependency.o lr.o word.o redo_parse.o model.o value_of_forecasts.o forecast.o forecast_constant.o feature_generator.o
+statistical_parse.test: history.o dependency.o lr.o word.o redo_parse.o model.o value_of_forecasts.o forecast.o forecast_constant.o feature_generator.o feature.o
 
-row.test: feature_generator.o lr.o word.o redo_parse.o dependency.o history.o
+row.test: feature_generator.o lr.o word.o redo_parse.o dependency.o history.o feature.o
 
 feature_interaction.test: feature.o feature_one_dimensional.o lr.o dependency.o word.o feature_eigenwords.o eigenwords.o
 
@@ -176,6 +176,14 @@ onlyI:
 ##########################################################################################################
 
 learn.main: history.o dependency.o lr.o word.o redo_parse.o model.o  \
+             statistical_parse.o value_of_forecasts.o \
+             forecast.o forecast_constant.o  transition_probability.o likelihood.o \
+             feature_generator.o feature.o feature_one_dimensional.o \
+             contrast.o eigenwords.o tp_eigenwords.o feature_eigenwords.o maximum_likelihood.o \
+             train_forecast_linear.o forecast_linear.o row.o value_of_forecasts.o tokenize.o learn.o \
+             feature_interaction.o decorated_dependency.o feature_shorten.o
+
+restore.main: history.o dependency.o lr.o word.o redo_parse.o model.o  \
              statistical_parse.o value_of_forecasts.o \
              forecast.o forecast_constant.o  transition_probability.o likelihood.o \
              feature_generator.o feature.o feature_one_dimensional.o \

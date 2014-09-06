@@ -35,7 +35,7 @@ auto_parse::Model::Model(std::istream& in)
       assert(check == a);
       Forecast* p_forecast;
       in >> p_forecast;
-      m_forecasts[a] = p_forecast->clone();
+      m_forecasts[a] = p_forecast->restore(in);
     }
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */

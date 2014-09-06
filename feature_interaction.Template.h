@@ -22,10 +22,26 @@ auto_parse::Interaction<T1, T2>::Interaction(const T1& x1, const T2& x2)
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 template<class T1, class T2>
+auto_parse::Interaction<T1, T2>::Interaction(std::istream& in)
+  :
+  m_x1(in),
+  m_x2(in),
+  m_dimension(m_x1.dimension() * m_x2.dimension())
+{
+};
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+template<class T1, class T2>
 auto_parse::Interaction<T1, T2>*
 auto_parse::Interaction<T1, T2>::clone() const
 {
   return new Interaction<T1, T2>(m_x1, m_x2);
+};
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+template<class T1, class T2>
+auto_parse::Interaction<T1, T2>*
+auto_parse::Interaction<T1, T2>::private_restore(std::istream& in) const
+{
+  return new Interaction<T1, T2>(in);
 };
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */

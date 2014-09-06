@@ -58,6 +58,44 @@ auto_parse::Eigenwords::Eigenwords(std::istream& in, int gram_number)
   assert(mp_eigenwords->find("<OOV>") != mp_eigenwords->end());
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+auto_parse::Eigenwords::Eigenwords(std::istream& in)
+  :  m_alive(true),
+     m_cache_index(-1),
+     mp_eigenwords()
+{
+  std::string eigenwords;
+  getline(in,eigenwords);
+  assert(eigenwords == "auto_parse::Eigenwords");
+  in >> std::ws;
+  in >> m_cache_index;
+  assert(m_cache_index <= s_cache.size());  // must be writen in order
+  if(m_cache_index < int(s_cache.size()))
+    { // it has been read in before, so reading necessary
+      std::string check;
+      getline(in,check);
+      assert(check == "Use a previously read Eigenwords dictionary.");
+    }
+  if(m_cache_index == int(s_cache.size()))
+    { // this one is new
+      auto p_dictionary =  new std::map<std::string,Eigen::VectorXd>;
+      int dimension, n;
+      in >> dimension >> n >> std::ws;
+      for(int i = 0; i < n; ++i)
+	{
+	  Word w;
+	  in >> w >> std::ws;
+	  Eigen::VectorXd data(dimension);
+	  for(int j = 0; j < dimension; ++j)
+	    in >> data[j] >> std::ws;
+	  (*p_dictionary)[w] = data;
+	}
+      s_cache.push_back(p_dictionary);
+      s_cache_counter.push_back(1);
+    }
+  mp_eigenwords = s_cache[m_cache_index];
+  assert(mp_eigenwords->find("<OOV>") != mp_eigenwords->end());
+};
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Eigenwords::Eigenwords()
   :  m_alive(true),
      m_cache_index(-1),

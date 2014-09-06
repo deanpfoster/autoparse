@@ -15,6 +15,7 @@ namespace auto_parse
     virtual ~Shorten();
     Shorten(const Feature& x1, int length);
     Shorten(const Shorten &);
+    Shorten(std::istream &);
     Shorten* clone() const;
 
 
@@ -28,6 +29,7 @@ namespace auto_parse
     Feature* mp_long;
     int m_dimension;
     Shorten& operator=(const Shorten &); // Don't delete this.
+    Shorten* private_restore(std::istream&) const;
   };
 }
 

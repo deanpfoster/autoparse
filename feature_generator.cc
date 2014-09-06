@@ -61,6 +61,18 @@ auto_parse::Feature_generator::Feature_generator(const Feature_generator & other
     }
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+auto_parse::Feature_generator::Feature_generator(std::istream & in)
+  :
+  m_number_features(),
+  m_features()
+{
+  in >> m_number_features >> std::ws;
+  for(int i = 0; i < m_number_features; ++i)
+    {
+      m_features.push_back(Feature::restore(in));
+    }
+};
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                             M A N I P U L A T O R S                          manipulators

@@ -29,10 +29,25 @@ auto_parse::Feature_eigenwords<T>::Feature_eigenwords(const auto_parse::Feature_
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 template<class T>
+auto_parse::Feature_eigenwords<T>::Feature_eigenwords(std::istream& in)
+  :
+  Feature(in),
+  m_eigenwords(in)
+{
+};
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+template<class T>
 auto_parse::Feature_eigenwords<T>*
 auto_parse::Feature_eigenwords<T>::clone() const
 {
   return new Feature_eigenwords<T>(*this); 
+};
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+template<class T>
+auto_parse::Feature_eigenwords<T>*
+auto_parse::Feature_eigenwords<T>::private_restore(std::istream& in) const
+{
+  return new Feature_eigenwords<T>(in); 
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////

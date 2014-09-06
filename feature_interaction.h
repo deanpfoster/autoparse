@@ -15,7 +15,9 @@ namespace auto_parse
     // CONSTRUCTORS
     virtual ~Interaction();
     Interaction(const T1& x1, const T2& x2);
+    Interaction(std::istream&);
     Interaction<T1,T2>* clone() const;
+    Interaction<T1,T2>* private_restore(std::istream&) const;
 
 
     // ACCESSORS

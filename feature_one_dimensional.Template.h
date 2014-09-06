@@ -25,10 +25,23 @@ auto_parse::Feature_one_dimensional<T>::Feature_one_dimensional(const auto_parse
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 template<class T>
+auto_parse::Feature_one_dimensional<T>::Feature_one_dimensional(std::istream&)
+  :Feature()
+{
+};
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+template<class T>
 auto_parse::Feature_one_dimensional<T>*
 auto_parse::Feature_one_dimensional<T>::clone() const
 {
   return new Feature_one_dimensional<T>(); // can use default constructor since no state (except v-table)
+};
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+template<class T>
+auto_parse::Feature_one_dimensional<T>*
+auto_parse::Feature_one_dimensional<T>::private_restore(std::istream& in) const
+{
+  return new Feature_one_dimensional<T>(in);
 };
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */

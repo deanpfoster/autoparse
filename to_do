@@ -2,9 +2,9 @@
 
 Bugs and imediate improvements:
 
-o  Make limited strategies: all left.  all right.  stack limited.
+o  save and restore models.
 
-o  Quit using hte first 10k over and over. Go through the rest
+o  Quit using the first 10k over and over. Go through the rest
    of the data instead.  This makes it very close to SGD.
 
 Future logic:
@@ -25,6 +25,8 @@ o  Find some labelled data to run on.  Write a likelihood estimator based
    on the correct parse.  Number of edges correct?  Right direction of
    dependence? guess as to distance?
 
+o  Make limited strategies: all left.  all right.  stack limited.  Use
+   these as strawmen.
 
 Runs:
 
@@ -36,6 +38,12 @@ might help with understanding start of sentences etc.
 Parse wiki into sentences and run on that.
 
 LOW PRIORITY
+
+speedup / storage: Divide up eigen dictionary into two pieces, the
+tokenization part (std::string) and the index part (int).  Then only
+pass around the tokenized version.  So an Eigen_Dictionary now takes a
+"word" which is represented as an integer.  Basically this can all be
+done by modifying the basic "Word" class.
 
 speedup: There is a map in value_of_forecasts which should be replaced
 by an vector for speed.

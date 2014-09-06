@@ -60,6 +60,7 @@ namespace auto_parse
     virtual ~Feature_eigenwords();
     Feature_eigenwords(const Eigenwords&);
     Feature_eigenwords(const Feature_eigenwords&);
+    Feature_eigenwords(std::istream&);
     Feature_eigenwords* clone() const;
     // ACCESSORS
     Eigen::VectorXd operator()(const LR&) const;  
@@ -70,6 +71,7 @@ namespace auto_parse
   private:
     Eigenwords m_eigenwords;
     Feature_eigenwords& operator=(const Feature_eigenwords &); // Don't delete this.
+    Feature_eigenwords* private_restore(std::istream&) const;
   };
 }
 

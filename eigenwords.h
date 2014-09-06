@@ -15,7 +15,8 @@ namespace auto_parse
   public:
     // CONSTRUCTORS
     ~Eigenwords();
-    Eigenwords(std::istream& in, int gram_number);
+    Eigenwords(std::istream& in, int gram_number); // reads a pretty.csv
+    Eigenwords(std::istream&);  // reads what an eigenword save generated
     Eigenwords(const Eigenwords&);
     static Eigenwords create_root_dictionary();
 
