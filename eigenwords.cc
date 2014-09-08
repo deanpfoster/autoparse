@@ -68,7 +68,7 @@ auto_parse::Eigenwords::Eigenwords(std::istream& in)
   assert(eigenwords == "auto_parse::Eigenwords");
   in >> std::ws;
   in >> m_cache_index;
-  assert(m_cache_index <= s_cache.size());  // must be writen in order
+  assert(m_cache_index <= int(s_cache.size()));  // must be writen in order
   if(m_cache_index < int(s_cache.size()))
     { // it has been read in before, so reading necessary
       std::string check;

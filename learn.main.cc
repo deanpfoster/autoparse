@@ -1,18 +1,10 @@
 //   -*- c++ -*-
 
-//
-//  This file is very close to learn.test.cc.  It can run very slowly, but
-// learn.test should always run fast since it is used for testing.
-//  Ideally, the code in both of these should live primarilly in learn.cc and not
-//  in the learn.test.cc or learn.main.cc.
-//
-
 #include "learn.h"
 
-// Might as well be random for production code, but until I want to run it twice
-// we'll leave it on reproducible.
-#define REPRODUCIBLE
-// #define TRULY_RANDOM
+// It should be random for production code. 
+// #define REPRODUCIBLE
+#define TRULY_RANDOM
 #include "utilities/z.Template.h"
 #include "utilities/iostream_box.h"
 
@@ -23,7 +15,7 @@ main(int argc,char** argv)
 
   //////////////////////////////////////////////////////////////////////////////////
   //
-  //  Read the command line parameters and set up some variables
+  //  Read the command line parameters and set up basic variables and basic files
   //
   //////////////////////////////////////////////////////////////////////////////////
   
@@ -37,22 +29,24 @@ main(int argc,char** argv)
   time_t start_time = time(0);  // used for final timing
   time_t running_time = time(0);  // used for timing 
   time_t last_print_time = time(0);  // used to print about once a minute
-  std::cout << "\n\n               " << comment  << "\n\n\n" << std::endl;
-
-
-  std::cout << "     --corpus = " << sentence_file << std::endl;
-  std::cout << " --dictionary = " << eigen_file << std::endl;
-  std::cout << "--gram_number = " << gram_number << std::endl;
-  std::cout << "      --latex = " << latex_prefix << std::endl;
-  std::cout << "--update_rate = " << update_rate << "    (" << 1 - update_rate << " * old_model + " << update_rate << " * new_model)" << std::endl;
-  std::cout << "    --scaling = " << scaling << "    (-(Y - Yhat)^2 + " << scaling << " * log(probability skip) )" << std::endl;
-  std::cout << "      --noise = " << noise << "    randomly pick best action with about accuracy noise level." << std::endl;
-  std::cout << "repeats_per_level= " << repeats_per_level << std::endl;
-  std::cout << "   --comment = " << comment << std::endl;
   std::ofstream latex(latex_prefix + ".tex");
   std::ofstream latex_final(latex_prefix + ".final.tex");
   auto_parse::latex_header(latex);  // write a "...\begin{document}" on latex_file
-      
+
+  //////////////////////////////////////////////////////////////////////////////////
+  //
+  //                    Read in the Eigendictionary
+  //
+  // It is used in both LR parser and likelihood.
+  //
+  //////////////////////////////////////////////////////////////////////////////////
+
+    std::ifstream in(eigen_file);
+    auto_parse::Eigenwords dictionary(in,gram_number); 
+    auto_parse::Eigenwords parent_dictionary(dictionary); 
+    auto_parse::Eigenwords child_dictionary = dictionary.with_constant_row_sum_squares(); 
+    int dim = dictionary.dimension();
+
   //////////////////////////////////////////////////////////////////////////////////
   //
   //                    SET UP THE CRUDE TOKENIZER
@@ -67,172 +61,191 @@ main(int argc,char** argv)
   corpus.reset();
   while(!corpus.eof())
     corpus_in_memory.push_back(corpus.next_sentence());
+
+  //////////////////////////////////////////////////////////////////////////////////
+  //
+  //   Print a big friendly blurb when we start processing
+  //
+  //////////////////////////////////////////////////////////////////////////////////
+  
+  std::cout << "\n\n               " << comment  << "\n\n\n" << std::endl;
+  std::cout << "     --corpus = " << sentence_file << std::endl;
+  std::cout << " --dictionary = " << eigen_file << std::endl;
+  std::cout << "--gram_number = " << gram_number << std::endl;
+  std::cout << "      --latex = " << latex_prefix << std::endl;
+  std::cout << "--update_rate = " << update_rate << "    (" << 1 - update_rate << " * old_model + " << update_rate << " * new_model)" << std::endl;
+  std::cout << "    --scaling = " << scaling << "    (-(Y - Yhat)^2 + " << scaling << " * log(probability skip) )" << std::endl;
+  std::cout << "      --noise = " << noise << "    randomly pick best action with about accuracy noise level." << std::endl;
+  std::cout << "repeats_per_level= " << repeats_per_level << std::endl;
+  std::cout << "   --comment = " << comment << std::endl;
+
+  std::cout << "Read a dictionary of size: " << dictionary.size()<< " x " << dim
+	    << " (time " << time(0) - running_time << " sec)" << std::endl;      running_time = time(0);
+
+  std::cout << "Trained on " << corpus_in_memory.size() << " sentence.    " << std::endl;
+  std::cout << "number threads = " << auto_parse::number_of_threads_used() << "." << std::endl;
       
+
   //////////////////////////////////////////////////////////////////////////////////
   //
-  //                    Read in the Eigendictionary
-  //
-  // It is used in both LR parser and likelihood.
+  //                            LR Parser setup
   //
   //////////////////////////////////////////////////////////////////////////////////
 
-    std::ifstream in(eigen_file);
-    auto_parse::Eigenwords dictionary(in,gram_number); 
-    auto_parse::Eigenwords parent_dictionary(dictionary); 
-    auto_parse::Eigenwords child_dictionary = dictionary.with_constant_row_sum_squares(); 
-    int dim = dictionary.dimension();
-    std::cout << "Read a dictionary of size: " << dictionary.size()<< " x " << dim
-	      << " (time " << time(0) - running_time << " sec)" << std::endl;      running_time = time(0);
+  auto_parse::Feature_generator feature_generator = standard_features(dictionary);
+  auto_parse::Model old_model = auto_parse::standard_model(feature_generator.dimension());
+  auto_parse::Statistical_parse parser(old_model,feature_generator,noise);
 
-    //////////////////////////////////////////////////////////////////////////////////
-    //
-    //                            LR Parser setup
-    //
-    //////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////
+  //
+  //                     Likelihood setup (mostly transition_probability setup)
+  //
+  //////////////////////////////////////////////////////////////////////////////////
 
-    auto_parse::Feature_generator feature_generator = standard_features(dictionary);
-    auto_parse::Model old_model = auto_parse::standard_model(feature_generator.dimension());
-    auto_parse::Statistical_parse parser(old_model,feature_generator,noise);
+  auto_parse::TP_eigenwords tp_left(dictionary,dictionary,scaling);  
+  auto_parse::TP_eigenwords tp_right(dictionary,dictionary,scaling);  
+  auto_parse::TP_eigenwords tp_root(auto_parse::Eigenwords::create_root_dictionary(),dictionary,scaling);  
+  auto_parse::Likelihood likelihood(tp_left,tp_right,tp_root);
 
-    //////////////////////////////////////////////////////////////////////////////////
-    //
-    //                            Likelihood setup
-    //
-    //////////////////////////////////////////////////////////////////////////////////
-
-    auto_parse::TP_eigenwords tp_left(dictionary,dictionary,scaling);  
-    auto_parse::TP_eigenwords tp_right(dictionary,dictionary,scaling);  
-    auto_parse::TP_eigenwords tp_root(auto_parse::Eigenwords::create_root_dictionary(),dictionary,scaling);  
-    auto_parse::Likelihood likelihood(tp_left,tp_right,tp_root);
-
-    //////////////////////////////////////////////////////////////////////////////////
-    //
-    //                            MAIN LOOP
-    //
-    //////////////////////////////////////////////////////////////////////////////////
-    std::cout << "Trained on " << corpus_in_memory.size() << " sentence.    " << std::endl;
-    std::cout << "number threads = " << auto_parse::number_of_threads_used() << "." << std::endl;
-
-    int n = corpus_in_memory.size();  // (About 462k)
-    assert(n > 400*1000);
-    std::vector<int> number_to_train_on(6*repeats_per_level, n);  // default = n
-    int K = 1000;
-    for(int i = 0; i < repeats_per_level;++i)
-      number_to_train_on[i] = 10*K;
-    for(int i = 1 * repeats_per_level; i < 2 * repeats_per_level;++i)
-      number_to_train_on[i] = 20*K;
-    for(int i = 2 * repeats_per_level; i < 3 * repeats_per_level;++i)
-      number_to_train_on[i] = 40*K;
-    for(int i = 3 * repeats_per_level; i < 4 * repeats_per_level;++i)
-      number_to_train_on[i] = 100*K;
-    for(int i = 4 * repeats_per_level; i < 5 * repeats_per_level;++i)
-      number_to_train_on[i] = 200*K;
+  //////////////////////////////////////////////////////////////////////////////////
+  //
+  //           Speed hack (aka SGD). Don't process all the data each update.
+  //           Instead, process more and more as time goes on.
+  //
+  //////////////////////////////////////////////////////////////////////////////////
     
-      
-    for(unsigned int rounds = 0; rounds < number_to_train_on.size(); ++rounds)
-      {
-	std::vector<auto_parse::Words>::const_iterator begin = corpus_in_memory.begin();
-	std::vector<auto_parse::Words>::const_iterator end   = begin + number_to_train_on[rounds];
-	double sampling_rate = .05;  // this generates about a factor of 10 speed up by only computing X'X 5% of the time
 
-	//
-	// Set up a debugging stream that will keep track of where we are in the file
-	//
-	std::stringstream s;
-	s << number_to_train_on[rounds]/1000 << "k: " << rounds << " | ";
-	std::string ostrm_prefix = s.str();
-	boost::iostreams::filtering_ostream ostrm;
-	ostrm.push(box_output_filter(100,ostrm_prefix,"",""));
-	ostrm.push(std::cout);
+  int n = corpus_in_memory.size();  // (About 462k)
+  assert(n > 400*1000);
+  std::vector<int> number_to_train_on(6*repeats_per_level, n);  // default = n
+  int K = 1000;
+  for(int i = 0; i < repeats_per_level;++i)
+    number_to_train_on[i] = 10*K;
+  for(int i = 1 * repeats_per_level; i < 2 * repeats_per_level;++i)
+    number_to_train_on[i] = 20*K;
+  for(int i = 2 * repeats_per_level; i < 3 * repeats_per_level;++i)
+    number_to_train_on[i] = 40*K;
+  for(int i = 3 * repeats_per_level; i < 4 * repeats_per_level;++i)
+    number_to_train_on[i] = 100*K;
+  for(int i = 4 * repeats_per_level; i < 5 * repeats_per_level;++i)
+    number_to_train_on[i] = 200*K;
+      
+  //////////////////////////////////////////////////////////////////////////////////
+  //
+  //                            MAIN LOOP
+  //
+  //////////////////////////////////////////////////////////////////////////////////
+
+  std::vector<auto_parse::Words>::const_iterator end_read_interval = corpus_in_memory.end();
+
+  for(unsigned int rounds = 0; rounds < number_to_train_on.size(); ++rounds)
+    {
+      std::vector<auto_parse::Words>::const_iterator begin = end_read_interval;
+      if(begin + number_to_train_on[rounds] > corpus_in_memory.end())
+	begin = corpus_in_memory.begin();
+      std::vector<auto_parse::Words>::const_iterator end = begin + number_to_train_on[rounds];
+      end_read_interval = end;
 	
-	///////////////////////////////////////////////
-	//                                           //
-	//           Likelihood --> Model            //
-	//                                           //
-	///////////////////////////////////////////////
+      double sampling_rate = .05;  // this generates about a factor of 10 speed up by only computing X'X 5% of the time
 
-	auto_parse::Model model = likelihood_to_model(likelihood, parser,
-						      feature_generator,
-						      sampling_rate,
-						      begin, end,
-						      ostrm);
-	old_model.tweak(model, update_rate);
-	parser.new_model(old_model);
+      //
+      // Set up a debugging stream that will keep track of where we are in the file
+      //
+      std::stringstream s;
+      s << number_to_train_on[rounds]/1000 << "k: " << rounds << " | ";
+      std::string ostrm_prefix = s.str();
+      boost::iostreams::filtering_ostream ostrm;
+      ostrm.push(box_output_filter(100,ostrm_prefix,"",""));
+      ostrm.push(std::cout);
+	
+      ///////////////////////////////////////////////
+      //                                           //
+      //           Likelihood --> Model            //
+      //                                           //
+      ///////////////////////////////////////////////
 
-	ostrm << "\t\t\t\tTraining time " << time(0) - running_time << " sec." << std::endl;      running_time = time(0);
+      auto_parse::Model model = likelihood_to_model(likelihood, parser,
+						    feature_generator,
+						    sampling_rate,
+						    begin, end,
+						    ostrm);
+      old_model.tweak(model, update_rate);
+      parser.new_model(old_model);
 
-	///////////////////////////////////////////////
-	//                                           //
-	//  Model  --> Parsed corpus -->  MLE        //
-	//                                           //
-	///////////////////////////////////////////////
+      ostrm << "\t\t\t\tTraining time " << time(0) - running_time << " sec." << std::endl;      running_time = time(0);
 
-	likelihood = model_to_likelihood(parent_dictionary, child_dictionary,
-					 parser, scaling, begin, end);
-	ostrm << "\t\t\t\tMLE time " << time(0) - running_time << " sec." << std::endl;      running_time = time(0);
+      ///////////////////////////////////////////////
+      //                                           //
+      //  Model  --> Parsed corpus -->  MLE        //
+      //                                           //
+      ///////////////////////////////////////////////
 
-	///////////////////////////////////////////////
-	//                                           //
-	//               EVALUATION                  //
-	//                                           //
-	///////////////////////////////////////////////
+      likelihood = model_to_likelihood(parent_dictionary, child_dictionary,
+				       parser, scaling, begin, end);
+      ostrm << "\t\t\t\tMLE time " << time(0) - running_time << " sec." << std::endl;      running_time = time(0);
 
-	if(time(0) - last_print_time > 600)  // print once every 10 minutes
-	  {
-	    last_print_time = time(0);
-	    std::vector<int> which_sentences {3643, 2, 4, 10, 17, 26};
-	    std::string summary =   evaluation(rounds, ostrm, latex,
-				   dictionary, parser, likelihood,
-				   which_sentences, begin, end);
-	    ostrm <<  summary  << std::endl;
-	    ostrm << "Evaluation time " << time(0) - running_time << " sec." << std::endl;      running_time = time(0);
+      ///////////////////////////////////////////////
+      //                                           //
+      //               EVALUATION                  //
+      //                                           //
+      ///////////////////////////////////////////////
+
+      if(time(0) - last_print_time > 600)  // print once every 10 minutes
+	{
+	  last_print_time = time(0);
+	  std::vector<int> which_sentences {3643, 2, 4, 10, 17, 26};
+	  std::string summary =   evaluation(rounds, ostrm, latex,
+					     dictionary, parser, likelihood,
+					     which_sentences, begin, end);
+	  ostrm <<  summary  << std::endl;
+	  ostrm << "Evaluation time " << time(0) - running_time << " sec." << std::endl;      running_time = time(0);
 	}
-      }
-    auto_parse::latex_footer(latex);
+    }
+  auto_parse::latex_footer(latex);
 
-    ///////////////////////////////////////////////////////////////////
-    //
-    //  Save the model.  (The likelihood can be recreated, so don't
-    //  bother saving that.)
-    //
-    ///////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////
+  //
+  //  Save the model.  (The likelihood can be recreated, so don't
+  //  bother saving that.)
+  //
+  ///////////////////////////////////////////////////////////////////
     
-    /*  Insert code here */
+  /*  Insert code here */
 
     
-    ///////////////////////////////////////////////////////////////////
-    //
-    //  Print some nice output.
-    //
-    //  (This should be moved to a different file which reads in the
-    //  model and then generates this output.  But we can't save yet,
-    //  so this is a stop gap solution.)
-    //
-    ///////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////
+  //
+  //  Print some nice output.
+  //
+  //  (This should be moved to a different file which reads in the
+  //  model and then generates this output.  But we can't save yet,
+  //  so this is a stop gap solution.)
+  //
+  ///////////////////////////////////////////////////////////////////
 
-    int num_seconds = time(0) - start_time;
-    int num_minutes = num_seconds / 60;
-    int num_hours = num_minutes / 60;
-    int extra_minutes = num_minutes - 60 * num_hours;
+  int num_seconds = time(0) - start_time;
+  int num_minutes = num_seconds / 60;
+  int num_hours = num_minutes / 60;
+  int extra_minutes = num_minutes - 60 * num_hours;
 
-    auto_parse::latex_header(latex_final);
-    latex_final << "\\section*{" << comment << "}\n";
-    latex_final << "Parameters:\n\\begin{itemize}";
-    latex_final << "\\item corpus: \\verb\"" << sentence_file << "\"" << std::endl;
-    latex_final << "\\item latex: \\verb\"" << latex_prefix << "\"" << std::endl;
-    latex_final << "\\item update: " << update_rate << std::endl;
-    latex_final << "\\item scaling: " << scaling << std::endl;
-    latex_final << "\\item noise: " << noise << std::endl;
-    latex_final << "\\item repeats: " << repeats_per_level << std::endl;
-    latex_final << "\\item Trained on " << corpus_in_memory.size() << " sentence.    " << std::endl;
-    latex_final << "\\item Threads used: " << auto_parse::number_of_threads_used()  << std::endl;
-    latex_final << "\\item Total time: " << num_seconds << "    (" << num_hours << ":" << extra_minutes  << " h:m)" << std::endl;
-    latex_final  << "\\item Date: \\today \n" ;
-    latex_final << "\\end{itemize}\\newpage" << std::endl;
+  auto_parse::latex_header(latex_final);
+  latex_final << "\\section*{" << comment << "}\n";
+  latex_final << "Parameters:\n\\begin{itemize}";
+  latex_final << "\\item corpus: \\verb\"" << sentence_file << "\"" << std::endl;
+  latex_final << "\\item latex: \\verb\"" << latex_prefix << "\"" << std::endl;
+  latex_final << "\\item update: " << update_rate << std::endl;
+  latex_final << "\\item scaling: " << scaling << std::endl;
+  latex_final << "\\item noise: " << noise << std::endl;
+  latex_final << "\\item repeats: " << repeats_per_level << std::endl;
+  latex_final << "\\item Trained on " << corpus_in_memory.size() << " sentence.    " << std::endl;
+  latex_final << "\\item Threads used: " << auto_parse::number_of_threads_used()  << std::endl;
+  latex_final << "\\item Total time: " << num_seconds << "    (" << num_hours << ":" << extra_minutes  << " h:m)" << std::endl;
+  latex_final  << "\\item Date: \\today \n" ;
+  latex_final << "\\end{itemize}\\newpage" << std::endl;
 
-    std::vector<int> which_sentences {3643, 2, 4, 10, 17, 26};
-    evaluation(*(number_to_train_on.end()-1), std::cout, latex_final, dictionary, parser, likelihood, which_sentences,
-	       begin(corpus_in_memory), end(corpus_in_memory));
+  std::vector<int> which_sentences {3643, 2, 4, 10, 17, 26};
+  evaluation(*(number_to_train_on.end()-1), std::cout, latex_final, dictionary, parser, likelihood, which_sentences,
+	     begin(corpus_in_memory), end(corpus_in_memory));
 
     which_sentences = std::vector<int>();
     std::multimap<int,std::vector<auto_parse::Words>::const_iterator> size_to_index;

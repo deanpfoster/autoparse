@@ -4,7 +4,12 @@
 
 #define REPRODUCIBLE
 #include "utilities/z.Template.h"
-
+//
+//  This file is very close to learn.main.cc.  learn.main can run very slowly, but
+//  learn.test should always run fast since it is used for testing.
+//  Ideally, the code in both of these should live primarilly in learn.cc and not
+//  in the learn.test.cc or learn.main.cc.  This ideal has only sort-of been met.
+//
 
 int
 main()

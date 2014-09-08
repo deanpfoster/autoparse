@@ -48,13 +48,13 @@ std::vector<auto_parse::Feature*>
 eigen_interactions(const auto_parse::Eigenwords& dictionary)
 {
   using namespace auto_parse;
-  // the following uses new C++11 standard to shove all these into a vector
-  typedef Feature_eigenwords<Next_word> nw;
+  //  typedef Feature_eigenwords<Next_word> nw;
   typedef Feature_eigenwords<Stack_top> st;
   typedef Feature_eigenwords<Stack_1>   s1;
   
+  // the following uses new C++11 standard to shove all these into a vector
   std::vector<Feature*> result
-  {
+  {// for speed, the other interactions are truncated before interacting (see_short_interactions_features)
     new Interaction<st, s1>(st(dictionary),s1(dictionary))
   };
   return result;
@@ -87,7 +87,7 @@ short_interactions_features(const auto_parse::Eigenwords& dictionary, int length
     new Interaction<Shorten,Shorten>(f_nw,f_st),
     new Interaction<Shorten,Shorten>(f_st,f_st),
       //    new Interaction<Shorten,Shorten>(f_st,f_s1),
-    new Interaction<ST,S1>(ST(dictionary),S1(dictionary)),
+    new Interaction<ST,S1>(ST(dictionary),S1(dictionary)), // use all of these
     new Interaction<Shorten,Shorten>(f_s1,f_s1)
   };
   return result;

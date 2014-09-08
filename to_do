@@ -4,9 +4,6 @@ Bugs and imediate improvements:
 
 o  save and restore models.
 
-o  Quit using the first 10k over and over. Go through the rest
-   of the data instead.  This makes it very close to SGD.
-
 Future logic:
 
 o  Add the ability to do continous contrasts.  Namely, don't break into
