@@ -4,9 +4,9 @@
 OPT = -O0
 INCLUDES =  -Iboost $(LOCALINCLUDES) -I/usr/include/eigen3
 LDFLAGS = -L/usr/local/lib $(LOCALLDFLAGS)
-LDLIBS = -lboost_regex -lboost_thread -lboost_filesystem  -fopenmp -lboost_iostreams -lboost_system -lboost_program_options $(LOCALLDLIBS)
+LDLIBS = $(LOCALLDLIBS) -lboost_regex -lboost_thread -lboost_filesystem  -fopenmp -lboost_iostreams -lboost_system -lboost_program_options 
 CFLAGS = -g -Wall -Werror -Wextra -W $(INCLUDES) -Woverloaded-virtual $(OPT) -fmessage-length=0    -fopenmp 
-LINKER = $(CXX) -g $(LDFLAGS) 
+LINKER = $(CXX) -g $(LDFLAGS) $(LDLIBS)
 CXX = g++ -std=c++11
 CC = ${CXX} -g
 
@@ -20,3 +20,4 @@ CC = ${CXX} -g
 #                            : Intel only allows micro parallization#
 #
 ##################################################################################################
+
