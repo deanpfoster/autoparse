@@ -28,7 +28,4 @@ date
 ./learn.main --latex=/home1/f/foster/old_runs/run_learner.t$JOB_ID $*
 date
 echo $*
-sed "s/runningTitle/$*/" ~/run_learner.t$JOB_ID.tex > ~/tmp
-rm ~/run_learner.t$JOB_ID.tex
-mv ~/tmp ~/run_learner.t$JOB_ID.tex
 echo SCRIPT OVER

@@ -80,9 +80,12 @@ int stack_increment(auto_parse::Action a)
 {
   switch(a)
     {
-    case auto_parse::Action::shift       : return 1;
+    case auto_parse::Action::shift       : return +1;
     case auto_parse::Action::left_reduce : return -1;
     case auto_parse::Action::right_reduce: return -1;
+    case auto_parse::Action::left_eager  : return -1;
+    case auto_parse::Action::right_eager : return +1;
+    case auto_parse::Action::reduce      : return -1;
     case auto_parse::Action::head_reduce : return -1;
     default :
       assert(0);
@@ -128,6 +131,9 @@ operator<<(std::ostream& os, auto_parse::Action a)
     case auto_parse::Action::shift       : os << "shift"; break;
     case auto_parse::Action::left_reduce : os << "<--"; break;
     case auto_parse::Action::right_reduce: os << "-->"; break;
+    case auto_parse::Action::reduce      : os << "reduce"; break;
+    case auto_parse::Action::left_eager  : os << "<-E-"; break;
+    case auto_parse::Action::right_eager : os << "-E->"; break;
     case auto_parse::Action::head_reduce : os << "HEAD"; break;
     default :
       int i = static_cast<int>(a);
@@ -148,8 +154,14 @@ operator>>(std::istream& in, auto_parse::Action & a)
     a = auto_parse::Action::shift;
   else if(name == "<--")
     a = auto_parse::Action::left_reduce;
+  else if(name == "<-E-")
+    a = auto_parse::Action::left_eager;
   else if(name == "-->")
     a = auto_parse::Action::right_reduce;
+  else if(name == "-E->")
+    a = auto_parse::Action::right_eager;
+  else if(name == "reduce")
+    a = auto_parse::Action::reduce;
   else if(name == "HEAD")
     a = auto_parse::Action::head_reduce;
   else if(name == "-2->")
