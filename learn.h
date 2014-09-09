@@ -35,9 +35,14 @@ namespace auto_parse
     Feature_generator
       standard_features(const Eigenwords& dictionary);
 
+
+    Feature_generator
+      eager_features(const Eigenwords& dictionary);
   
   Model
     standard_model(int);
+  Model
+    eager_model(int);
 
   Model
     likelihood_to_model(const Likelihood& likelihood,
@@ -66,7 +71,7 @@ namespace auto_parse
 	     std::vector<auto_parse::Words>::const_iterator end);
 
 
-  boost::tuple<int, std::string, std::string, int, std::string, double, double, double, std::string>
+  boost::tuple<int, std::string, std::string, int, std::string, double, double, double, std::string,bool>
   parse_argv(int argc, char** argv);
 
 

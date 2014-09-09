@@ -8,6 +8,9 @@
 #include <iostream>
 #include <iterator>
 
+
+std::vector<auto_parse::Action> auto_parse::all_actions = standard_actions;
+
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                              C O N S T R U C T O R S                         constructors
 
@@ -130,6 +133,7 @@ operator<<(std::ostream& os, auto_parse::Action a)
   switch(a)
     {
     case auto_parse::Action::shift       : os << "shift"; break;
+    case auto_parse::Action::shift_eager : os << "shiftE"; break;
     case auto_parse::Action::left_eager  : os << "<-E-"; break;
     case auto_parse::Action::right_eager : os << "-E->"; break;
     case auto_parse::Action::left_reduce : os << "<--"; break;
@@ -182,3 +186,10 @@ std::ostream & operator<<(std::ostream & ostrm, const auto_parse::History & obje
 };
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+void
+auto_parse::set_all_actions(const std::vector<Action>& other)
+{
+  auto_parse::all_actions = other;
+
+}

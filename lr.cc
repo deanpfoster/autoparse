@@ -84,7 +84,6 @@ auto_parse::LR::left_eager()
   m_stack.pop_back();
   Node right = m_next_input;
   m_parse.add(left - m_parse.sentence().begin(),Left_arrow(),right - m_parse.sentence().begin());
-  m_stack.push_back(right);
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 void
@@ -101,10 +100,10 @@ void
 auto_parse::LR::right_eager()
 {
   assert(check_right_eager());
-  Node right = *m_stack.rbegin();
-  m_stack.pop_back();
   Node left = *m_stack.rbegin();
+  Node right = m_next_input;
   m_parse.add(left - m_parse.sentence().begin(), Right_arrow(), right - m_parse.sentence().begin());
+  m_next_input++;
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 void
@@ -124,6 +123,7 @@ auto_parse::LR::take_action(Action a)
   switch(a)
     {
     case auto_parse::Action::shift       : shift(); break;
+    case auto_parse::Action::shift_eager : shift_eager(); break;
     case auto_parse::Action::left_reduce : left_reduce(); break;
     case auto_parse::Action::right_reduce: right_reduce(); break;
     case auto_parse::Action::head_reduce : head_reduce(); break;
@@ -146,6 +146,12 @@ auto_parse::Word
 auto_parse::LR::next_word() const
 {
   return *m_next_input;
+}
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+auto_parse::Word
+auto_parse::LR::next_next_word() const
+{
+  return *(m_next_input+1);
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Node

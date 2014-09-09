@@ -21,6 +21,17 @@ namespace auto_parse
     }
     std::string name() const{return "next_word";};
   };
+  struct Next_word_2
+  {
+    Word operator()(const LR& parser) const
+    {
+      if(parser.number_words_left() > 1)
+	return parser.next_next_word();
+      else
+	return "";
+    }
+    std::string name() const{return "next_word";};
+  };
   struct Stack_top
   {
     Word operator()(const LR& parser) const

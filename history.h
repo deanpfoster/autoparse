@@ -14,7 +14,9 @@ namespace auto_parse
 					Action::right_2, Action::right_3};
   const std::vector<Action> eager_actions = {Action::shift_eager, Action::left_eager, Action::right_eager, Action::head_reduce};
   const std::vector<Action> standard_actions = { Action::shift, Action::left_reduce, Action::right_reduce, Action::head_reduce};
-  const std::vector<Action> all_actions = standard_actions;
+  extern std::vector<Action> all_actions;
+
+  void set_all_actions(const std::vector<Action>&);
   
   class History
   {

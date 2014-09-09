@@ -22,9 +22,10 @@ main(int argc,char** argv)
   std::string sentence_file, eigen_file, latex_prefix;
   int gram_number, repeats_per_level;
   double update_rate,scaling, noise;
+  bool use_eager;
   scaling = 1.0;
   std::string comment;
-  boost::tie(repeats_per_level,latex_prefix, eigen_file, gram_number, sentence_file, update_rate, scaling, noise, comment)
+  boost::tie(repeats_per_level,latex_prefix, eigen_file, gram_number, sentence_file, update_rate, scaling, noise, comment,use_eager)
     = auto_parse::parse_argv(argc, argv);
   time_t start_time = time(0);  // used for final timing
   time_t running_time = time(0);  // used for timing 
@@ -75,6 +76,7 @@ main(int argc,char** argv)
   std::cout << "      --latex = " << latex_prefix << std::endl;
   std::cout << "--update_rate = " << update_rate << "    (" << 1 - update_rate << " * old_model + " << update_rate << " * new_model)" << std::endl;
   std::cout << "    --scaling = " << scaling << "    (-(Y - Yhat)^2 + " << scaling << " * log(probability skip) )" << std::endl;
+  std::cout << "      --eager = " << use_eager << std::endl;
   std::cout << "      --noise = " << noise << "    randomly pick best action with about accuracy noise level." << std::endl;
   std::cout << "repeats_per_level= " << repeats_per_level << std::endl;
   std::cout << "   --comment = " << comment << std::endl;
@@ -92,9 +94,26 @@ main(int argc,char** argv)
   //
   //////////////////////////////////////////////////////////////////////////////////
 
-  auto_parse::Feature_generator feature_generator = standard_features(dictionary);
-  auto_parse::Model old_model = auto_parse::standard_model(feature_generator.dimension());
-  auto_parse::Statistical_parse parser(old_model,feature_generator,noise);
+  auto_parse::Feature_generator* p_feature_generator = 0;
+  auto_parse::Model* p_old_model = 0;
+  auto_parse::Statistical_parse* p_parser = 0;
+  if(use_eager)
+    {
+      auto_parse::set_all_actions(auto_parse::eager_actions);
+      p_feature_generator = new auto_parse::Feature_generator(eager_features(dictionary));
+      p_old_model = new auto_parse::Model(auto_parse::eager_model(p_feature_generator->dimension()));
+      p_parser = new auto_parse::Statistical_parse(*p_old_model,*p_feature_generator,noise);
+    }
+  else
+    {
+      auto_parse::set_all_actions(auto_parse::standard_actions);
+      p_feature_generator = new auto_parse::Feature_generator(standard_features(dictionary));
+      p_old_model = new auto_parse::Model(auto_parse::standard_model(p_feature_generator->dimension()));
+      p_parser = new auto_parse::Statistical_parse(*p_old_model, *p_feature_generator, noise);
+    };
+  auto_parse::Feature_generator& feature_generator(*p_feature_generator);
+  auto_parse::Model& old_model(*p_old_model);
+  auto_parse::Statistical_parse& parser(*p_parser);
 
   //////////////////////////////////////////////////////////////////////////////////
   //
@@ -236,6 +255,7 @@ main(int argc,char** argv)
   latex_final << "\\item update: " << update_rate << std::endl;
   latex_final << "\\item scaling: " << scaling << std::endl;
   latex_final << "\\item noise: " << noise << std::endl;
+  latex_final << "\\item eager: " << use_eager << std::endl;
   latex_final << "\\item repeats: " << repeats_per_level << std::endl;
   latex_final << "\\item Trained on " << corpus_in_memory.size() << " sentence.    " << std::endl;
   latex_final << "\\item Threads used: " << auto_parse::number_of_threads_used()  << std::endl;
