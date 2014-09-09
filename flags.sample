@@ -1,0 +1,22 @@
+#  NOTE: The follow works under linux. (using open_mp).  -*- makefile -*-
+
+#OPT = -O3 -DNDEBUG
+OPT = -O0
+INCLUDES =  -Iboost $(LOCALINCLUDES) -I/usr/include/eigen3
+LDFLAGS = -L/usr/local/lib $(LOCALLDFLAGS)
+LDLIBS = -lboost_regex -lboost_thread -lboost_filesystem  -fopenmp -lboost_iostreams -lboost_system -lboost_program_options $(LOCALLDLIBS)
+CFLAGS = -g -Wall -Werror -Wextra -W $(INCLUDES) -Woverloaded-virtual $(OPT) -fmessage-length=0    -fopenmp 
+LINKER = $(CXX) -g $(LDFLAGS) 
+CXX = g++ -std=c++11
+CC = ${CXX} -g
+
+
+##################################################################################################
+#
+#                      g++       g++       g++       g++       g++       g++       g++       g++
+#
+#
+#     -mmmx, -msse, -msse2, -msse3 and -m3dnow
+#                            : Intel only allows micro parallization#
+#
+##################################################################################################
