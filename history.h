@@ -8,11 +8,11 @@
 
 namespace auto_parse
 {
-  enum class Action {shift=-5, left_eager, right_eager, reduce, left_reduce=-1, head_reduce=0, right_reduce=1, right_2=2, right_3, right_4, right_5 };
-  const Action all_legal_actions[] = { Action::shift,
+  enum class Action {shift, shift_eager, left_eager, right_eager, left_reduce, head_reduce, right_reduce, right_2, right_3 };
+  const Action all_possible_actions[] = { Action::shift,
 					Action::left_reduce, Action::right_reduce, Action::head_reduce,
-					Action::right_2, Action::right_3, Action::right_4, Action::right_5};
-  const std::vector<Action> eager_actions = {Action::shift, Action::left_eager, Action::right_eager, Action::reduce};
+					Action::right_2, Action::right_3};
+  const std::vector<Action> eager_actions = {Action::shift_eager, Action::left_eager, Action::right_eager, Action::head_reduce};
   const std::vector<Action> standard_actions = { Action::shift, Action::left_reduce, Action::right_reduce, Action::head_reduce};
   const std::vector<Action> all_actions = standard_actions;
   

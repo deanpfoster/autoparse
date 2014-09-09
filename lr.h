@@ -19,6 +19,9 @@ namespace auto_parse
     LR(const LR &); 
 
     // MANIPULATORS
+    void shift_eager();
+    void left_eager();
+    void right_eager();  
     void shift();
     void left_reduce();
     void head_reduce();  // used only to pop last item off the stack and set it as the head
@@ -42,6 +45,9 @@ namespace auto_parse
     
     
   private:
+    bool check_shift_eager() const;
+    bool check_left_eager() const;
+    bool check_right_eager() const;  
     bool check_shift() const;
     bool check_left_reduce() const;
     bool check_right_reduce() const;

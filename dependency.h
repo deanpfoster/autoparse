@@ -12,7 +12,7 @@ namespace auto_parse
   class Right_arrow{};
   class Left_arrow{};
 
-  typedef std::pair<Node,Node>  Link;  // Node is a pointer to a Word
+  typedef std::pair<Node,Node>  Link;  // make_pair(a,b) == b depends on a, i.e. a --> b
   typedef std::vector<Link> Links;
 
   class Dependency
@@ -29,6 +29,8 @@ namespace auto_parse
     Dependency(const Dependency &);            // Don't delete this.
 
     // MANIPULATORS
+    // The following should take a "Node" -- but I had problems of which
+    // sentence it was working with.  So I switched to an evil integer.
     void set_root(int);
     void add(int left, Left_arrow ,  int right);
     void add(int left, Right_arrow , int right);
@@ -39,6 +41,7 @@ namespace auto_parse
     void print_on(std::ostream &) const;
     bool full_parse() const;
     const Links& links() const;
+    bool has_parent(const Node&) const;
     const Words& sentence() const{return m_words;}
     double number_left_links() const;
 
@@ -55,7 +58,8 @@ namespace auto_parse
 
     Words m_words;
     Node  m_root;
-    Links m_links;
+    Links m_links; 
+    std::vector<int> m_parent;
     mutable bool  m_full_parse;
 
     Dependency& operator=(const Dependency &); // Don't delete this.

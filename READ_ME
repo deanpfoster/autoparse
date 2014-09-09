@@ -2,6 +2,41 @@
 
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+Conventions:
+
+Arcs:	Arc's are described as Left_location, direction_of_arc,
+	right_location.  (This will be checked by left_location <
+	right_location.)
+
+Arrows: A simple tree with three nodes might have:
+
+		Root --> A
+		A    --> B
+		A    --> C
+
+	The point is that flow is from the root to the children.
+	Sometimes this is drawn the other way around.
+
+Actions:
+	shift = push
+	shift_eager = push (different legality condition)
+	left_eager = top depends on queue.  Pop
+	right_eager = queue depends on top.  push
+	left_reduce = stack(1) depends on stack(0). Pop
+	right_reduce = stack(0) depends on stack(1). Pop
+	head_reduce = pop (but only allowed as last possible action)
+		(called simply "reduce" in eager version)
+	right_2 = stack(0) depends on stack(2). pop
+	right_3 = stack(0) depends on stack(3). pop
+
+	Standard actions:
+		shift, left_reduce, right_reduce, head_reduce.
+	Arc-Eager actions:
+		shift_eager, left_eager, right_eager, head_reduce.
+	To generate non-projective, include right_2, right 3, etc.
+
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 Overall work flow.
 
 (1) External to this code, tokenize the corpus.

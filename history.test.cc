@@ -21,9 +21,9 @@ namespace auto_parse
       std::cout << "Max stack: "  << h.maximum_stack_size() << std::endl;
       std::cout << "constructed!" << std::endl;
 
-      auto_parse::Action i = static_cast<auto_parse::Action>(10);
+      auto_parse::Action i = static_cast<auto_parse::Action>(5);
       int j = static_cast<int>(auto_parse::Action::shift);
-      std::cout << "\t 10 = " << i << "\n\t shift = "  << j << std::endl;
+      std::cout << "\t 5 = " << i << "\n\t shift = "  << j << std::endl;
     };
   }
 }

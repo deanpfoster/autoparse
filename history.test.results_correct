@@ -8,8 +8,8 @@
 shift <-- --> HEAD 
 Max stack: 1
 constructed!
-	 10 = -10->
-	 shift = -5
+	 5 = HEAD
+	 shift = 0
 
 
 DONE.

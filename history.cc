@@ -81,12 +81,13 @@ int stack_increment(auto_parse::Action a)
   switch(a)
     {
     case auto_parse::Action::shift       : return +1;
-    case auto_parse::Action::left_reduce : return -1;
-    case auto_parse::Action::right_reduce: return -1;
     case auto_parse::Action::left_eager  : return -1;
     case auto_parse::Action::right_eager : return +1;
-    case auto_parse::Action::reduce      : return -1;
+    case auto_parse::Action::left_reduce : return -1;
+    case auto_parse::Action::right_reduce: return -1;
     case auto_parse::Action::head_reduce : return -1;
+    case auto_parse::Action::right_2     : return -1;
+    case auto_parse::Action::right_3     : return -1;
     default :
       assert(0);
     }
@@ -129,17 +130,15 @@ operator<<(std::ostream& os, auto_parse::Action a)
   switch(a)
     {
     case auto_parse::Action::shift       : os << "shift"; break;
-    case auto_parse::Action::left_reduce : os << "<--"; break;
-    case auto_parse::Action::right_reduce: os << "-->"; break;
-    case auto_parse::Action::reduce      : os << "reduce"; break;
     case auto_parse::Action::left_eager  : os << "<-E-"; break;
     case auto_parse::Action::right_eager : os << "-E->"; break;
+    case auto_parse::Action::left_reduce : os << "<--"; break;
     case auto_parse::Action::head_reduce : os << "HEAD"; break;
+    case auto_parse::Action::right_reduce: os << "-->"; break;
+    case auto_parse::Action::right_2     : os << "-2->"; break;
+    case auto_parse::Action::right_3     : os << "-3->"; break;
     default :
-      int i = static_cast<int>(a);
-      if(i < 0)
 	assert(0);
-      os << "-" << i << "->";
     }
   return os;
 }
@@ -160,18 +159,12 @@ operator>>(std::istream& in, auto_parse::Action & a)
     a = auto_parse::Action::right_reduce;
   else if(name == "-E->")
     a = auto_parse::Action::right_eager;
-  else if(name == "reduce")
-    a = auto_parse::Action::reduce;
   else if(name == "HEAD")
     a = auto_parse::Action::head_reduce;
   else if(name == "-2->")
     a = auto_parse::Action::right_2;
   else if(name == "-3->")
     a = auto_parse::Action::right_3;
-  else if(name == "-4->")
-    a = auto_parse::Action::right_4;
-  else if(name == "-5->")
-    a = auto_parse::Action::right_5;
   else
     {
       std::cerr << "oops, can't read `" << name << "' as an action." << std::endl;
