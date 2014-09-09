@@ -84,8 +84,9 @@ int stack_increment(auto_parse::Action a)
   switch(a)
     {
     case auto_parse::Action::shift       : return +1;
+    case auto_parse::Action::shift_eager : return +1;
     case auto_parse::Action::left_eager  : return -1;
-    case auto_parse::Action::right_eager : return +1;
+    case auto_parse::Action::right_eager : return  0;
     case auto_parse::Action::left_reduce : return -1;
     case auto_parse::Action::right_reduce: return -1;
     case auto_parse::Action::head_reduce : return -1;
