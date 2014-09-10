@@ -16,6 +16,7 @@ namespace auto_parse
     virtual ~Interaction();
     Interaction(const T1& x1, const T2& x2);
     Interaction(std::istream&);
+    Interaction<T1,T2>(const Interaction<T1,T2> &);
     Interaction<T1,T2>* clone() const;
     Interaction<T1,T2>* private_restore(std::istream&) const;
 
@@ -30,9 +31,17 @@ namespace auto_parse
     T1 m_x1;
     T2 m_x2;
     int m_dimension;
-    Interaction<T1,T2>(const Interaction<T1,T2> &);            // Don't delete this.
     Interaction<T1,T2>& operator=(const Interaction<T1,T2> &); // Don't delete this.
   };
+
+  template<class T1, class T2>
+  inline
+  Interaction<T1,T2>
+  interaction(const T1& x1, const T2& x2)
+  {
+    return Interaction<T1,T2>(x1,x2);
+  }
+
 }
 
 #endif

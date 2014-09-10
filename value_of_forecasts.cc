@@ -102,7 +102,6 @@ auto_parse::Value_of_forecasts::smoothed_best_action(double noise) const
     }
   assert(total != 0);
   double which = total * my_random::U_thread_safe();
-  assert(which != 0);
   double cumsum = 0;
   for (Action a : all_actions)
     {

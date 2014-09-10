@@ -28,28 +28,19 @@
 namespace auto_parse
 {
   int number_of_threads_used();
+
+  Feature_generator fast_features();
+  Feature_generator standard_features(const Eigenwords& dictionary);
+  Feature_generator eager_features(const Eigenwords& dictionary);
   
-    Feature_generator
-      fast_features(const Eigenwords& dictionary);
-
-    Feature_generator
-      standard_features(const Eigenwords& dictionary);
-
-
-    Feature_generator
-      eager_features(const Eigenwords& dictionary);
-  
-  Model
-    generate_linear_model(int);
-
-  Model
-    likelihood_to_model(const Likelihood& likelihood,
-			const auto_parse::Statistical_parse& parser,
-			const Feature_generator& feature_generator,
-			double sampling_rate,
-			std::vector<auto_parse::Words>::const_iterator,
-			std::vector<auto_parse::Words>::const_iterator,
-			std::ostream&);
+  Model generate_linear_model(int);
+  Model likelihood_to_model(const Likelihood& likelihood,
+			    const auto_parse::Statistical_parse& parser,
+			    const Feature_generator& feature_generator,
+			    double sampling_rate,
+			    std::vector<auto_parse::Words>::const_iterator,
+			    std::vector<auto_parse::Words>::const_iterator,
+			    std::ostream&);
 
   Likelihood
     model_to_likelihood(const Eigenwords& parent,const Eigenwords& child,

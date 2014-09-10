@@ -76,7 +76,7 @@ auto_parse::TP_eigenwords::accumulate(const Node& p, const Node& c, const Words&
   const Eigen::VectorXd& pv = m_parent(p,w);
   const Eigen::VectorXd& cv = m_child(c,w);
   unsigned int distance = abs(p - c);
-  if(distance > m_distance.size())
+  if(distance >= m_distance.size())
     distance = m_distance.size() - 1;
   m_XtX += pv * (pv.transpose());  // outerproduct
   m_XtY += pv * (cv.transpose());  // outerproduct
@@ -142,7 +142,7 @@ auto_parse::TP_eigenwords::operator()(const auto_parse::Node& parent,
   Eigen::VectorXd prediction = p.transpose() * m_XtY; // only works since XtX = I
   Eigen::VectorXd error = c - prediction;
   unsigned int distance = abs(parent - child);
-  if(distance > m_distance.size())
+  if(distance >= m_distance.size())
     distance = m_distance.size() - 1;
   double prob_distance = m_distance[distance];
   double log_pd = m_scaling * log(prob_distance);  // this should likewise be negative

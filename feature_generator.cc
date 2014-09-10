@@ -61,6 +61,14 @@ auto_parse::Feature_generator::add(const std::initializer_list<Feature*>& cool_s
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Feature_generator&
+auto_parse::Feature_generator::add(const Feature& f)
+{
+  m_number_features += f.dimension();
+  m_features.push_back(f.clone());
+  return *this;
+};
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+auto_parse::Feature_generator&
 auto_parse::Feature_generator::add(const std::vector<Feature*>& vec)
 {
   for(auto i = vec.begin(); i != vec.end(); ++i)

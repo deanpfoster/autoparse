@@ -31,6 +31,12 @@ namespace auto_parse
     Shorten& operator=(const Shorten &); // Don't delete this.
     Shorten* private_restore(std::istream&) const;
   };
+
+  // helper
+  inline Shorten shorten(const Feature& x1, int length)
+  {
+    return Shorten(x1,length);
+  }
 }
 
 #endif

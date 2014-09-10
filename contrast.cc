@@ -79,11 +79,19 @@ auto_parse::Contrast::suggest_alternative_history(const Words& w,
   if(number_alternatives == 1)
     return History();  // oops.  We missed.  No legal alternative available.  Try the next sentence.
   int which_one = (number_alternatives - 1) * my_random::U_thread_safe();
+  assert(which_one <= number_alternatives);
+  Action alternative_action = action_taken;
   for(Action a: all_actions)
     if(parser.legal(a))
       if(a != action_taken)
 	if(which_one-- == 0)
-	  result.push_back(a);
+	  alternative_action = a;
+  if(alternative_action == action_taken)
+    {
+      std::cout << "Reached 1 in a million times.  Why? " << action_taken << " @ " << number_alternatives << " , " << which_one << std::endl;
+      return History();  // return empty
+    }
+  result.push_back(alternative_action);
   return result;
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */

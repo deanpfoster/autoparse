@@ -23,6 +23,7 @@ namespace auto_parse
     Feature_generator(const Feature_generator &);    
     Feature_generator(std::istream &);    
     Feature_generator& add(const std::initializer_list<Feature*>&);
+    Feature_generator& add(const Feature&);
     Feature_generator& add(const std::vector<Feature*>&);
 
     // MANIPULATORS
