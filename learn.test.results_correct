@@ -10,15 +10,15 @@ Typical deviation from zero is:0
   0    MLE
   0    Likelihood model:
 	Eigenword with transition matrix.
-	max = 0.542889
-	min = 2.97149e-06
-	mean= -0.000201197
-	 sd = 0.0308041
-	Eigenword with transition matrix.
 	max = 0.156749
 	min = 4.52804e-06
 	mean= -6.82017e-05
 	 sd = 0.0152984
+	Eigenword with transition matrix.
+	max = 0.542889
+	min = 2.97149e-06
+	mean= -0.000201197
+	 sd = 0.0308041
 	Eigenword with transition matrix.
 	max = 0.194576
 	min = 0.00134436
@@ -46,15 +46,15 @@ Typical deviation from zero is:1.22
   1    MLE
   1    Likelihood model:
 	Eigenword with transition matrix.
-	max = 0.365298
-	min = 3.08127e-06
-	mean= -0.00021027
-	 sd = 0.0258987
-	Eigenword with transition matrix.
 	max = 0.215835
 	min = 3.18343e-05
 	mean= 9.79253e-05
 	 sd = 0.0187331
+	Eigenword with transition matrix.
+	max = 0.365298
+	min = 3.08127e-06
+	mean= -0.00021027
+	 sd = 0.0258987
 	Eigenword with transition matrix.
 	max = 0.308919
 	min = 0.00174918
@@ -82,15 +82,15 @@ Typical deviation from zero is:1.34
   2    MLE
   2    Likelihood model:
 	Eigenword with transition matrix.
-	max = 0.496728
-	min = 2.43175e-05
-	mean= -0.000126903
-	 sd = 0.035627
-	Eigenword with transition matrix.
 	max = 0.192435
 	min = 1.63803e-05
 	mean= 0.000403011
 	 sd = 0.0213081
+	Eigenword with transition matrix.
+	max = 0.496728
+	min = 2.43175e-05
+	mean= -0.000126903
+	 sd = 0.035627
 	Eigenword with transition matrix.
 	max = 0.216668
 	min = 0.000946818
@@ -118,15 +118,15 @@ Typical deviation from zero is:1.37
   3    MLE
   3    Likelihood model:
 	Eigenword with transition matrix.
-	max = 0.397479
-	min = 3.38063e-06
-	mean= -0.000166163
-	 sd = 0.0285442
-	Eigenword with transition matrix.
 	max = 0.199953
 	min = 6.09021e-06
 	mean= 0.000480704
 	 sd = 0.0222772
+	Eigenword with transition matrix.
+	max = 0.397479
+	min = 3.38063e-06
+	mean= -0.000166163
+	 sd = 0.0285442
 	Eigenword with transition matrix.
 	max = 0.303863
 	min = 0.001383
@@ -154,15 +154,15 @@ Typical deviation from zero is:0.93
   4    MLE
   4    Likelihood model:
 	Eigenword with transition matrix.
-	max = 0.350087
-	min = 3.15694e-06
-	mean= 4.73588e-05
-	 sd = 0.021413
-	Eigenword with transition matrix.
 	max = 0.169567
 	min = 5.53598e-06
 	mean= 0.000394646
 	 sd = 0.0156155
+	Eigenword with transition matrix.
+	max = 0.350087
+	min = 3.15694e-06
+	mean= 4.73588e-05
+	 sd = 0.021413
 	Eigenword with transition matrix.
 	max = 0.396293
 	min = 0.00127448
@@ -190,15 +190,15 @@ Typical deviation from zero is:1.37
   5    MLE
   5    Likelihood model:
 	Eigenword with transition matrix.
-	max = 0.256409
-	min = 6.11133e-06
-	mean= 0.000121076
-	 sd = 0.0149206
-	Eigenword with transition matrix.
 	max = 0.200753
 	min = 8.90726e-06
 	mean= 0.000233431
 	 sd = 0.0206648
+	Eigenword with transition matrix.
+	max = 0.256409
+	min = 6.11133e-06
+	mean= 0.000121076
+	 sd = 0.0149206
 	Eigenword with transition matrix.
 	max = 0.411947
 	min = 0.000811894
@@ -226,15 +226,15 @@ Typical deviation from zero is:1.36
   6    MLE
   6    Likelihood model:
 	Eigenword with transition matrix.
-	max = 0.28671
-	min = 6.4756e-06
-	mean= -2.25538e-06
-	 sd = 0.0231386
-	Eigenword with transition matrix.
 	max = 0.201207
 	min = 9.57872e-06
 	mean= 0.000415937
 	 sd = 0.0184328
+	Eigenword with transition matrix.
+	max = 0.28671
+	min = 6.4756e-06
+	mean= -2.25538e-06
+	 sd = 0.0231386
 	Eigenword with transition matrix.
 	max = 0.385692
 	min = 0.00122709
@@ -262,15 +262,15 @@ Typical deviation from zero is:1.65
   7    MLE
   7    Likelihood model:
 	Eigenword with transition matrix.
-	max = 0.308844
-	min = 4.11488e-07
-	mean= -0.000144557
-	 sd = 0.0245316
-	Eigenword with transition matrix.
 	max = 0.208844
 	min = 1.67049e-05
 	mean= 0.00035904
 	 sd = 0.0216831
+	Eigenword with transition matrix.
+	max = 0.308844
+	min = 4.11488e-07
+	mean= -0.000144557
+	 sd = 0.0245316
 	Eigenword with transition matrix.
 	max = 0.346669
 	min = 0.00048729
@@ -298,15 +298,15 @@ Typical deviation from zero is:1.16
   8    MLE
   8    Likelihood model:
 	Eigenword with transition matrix.
-	max = 0.28117
-	min = 2.47293e-06
-	mean= -0.000295232
-	 sd = 0.0222531
-	Eigenword with transition matrix.
 	max = 0.216002
 	min = 1.49259e-05
 	mean= 0.00026314
 	 sd = 0.019613
+	Eigenword with transition matrix.
+	max = 0.28117
+	min = 2.47293e-06
+	mean= -0.000295232
+	 sd = 0.0222531
 	Eigenword with transition matrix.
 	max = 0.390138
 	min = 0.00113053
@@ -334,15 +334,15 @@ Typical deviation from zero is:1.32
   9    MLE
   9    Likelihood model:
 	Eigenword with transition matrix.
-	max = 0.305354
-	min = 4.21307e-06
-	mean= -0.000209357
-	 sd = 0.0202286
-	Eigenword with transition matrix.
 	max = 0.197852
 	min = 8.5739e-07
 	mean= 0.000112033
 	 sd = 0.0198164
+	Eigenword with transition matrix.
+	max = 0.305354
+	min = 4.21307e-06
+	mean= -0.000209357
+	 sd = 0.0202286
 	Eigenword with transition matrix.
 	max = 0.401502
 	min = 0.000463442

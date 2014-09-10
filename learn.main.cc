@@ -120,19 +120,25 @@ main(int argc,char** argv)
   //           Speed hack (aka SGD). Don't process all the data each update.
   //           Instead, process more and more as time goes on.
   //
+  // Timing: it takes about 10 seconds to futz with the matrixes in an update.
+  // So there is no point in spending only 2 seconds processing data.  At around
+  // 40K, it now takes about 10 seconds for the data and 10 seconds for futzing.
+  // so that is a resonable minimumal amount to play with.
+  //
+  // (I originally had 10K, 20K, 50K, 100K.)
+  //
   //////////////////////////////////////////////////////////////////////////////////
-    
 
   int n = corpus_in_memory.size();  // (About 462k)
   assert(n > 400*1000);
   std::vector<int> number_to_train_on(6*repeats_per_level, n);  // default = n
   int K = 1000;
   for(int i = 0; i < repeats_per_level;++i)
-    number_to_train_on[i] = 10*K;
-  for(int i = 1 * repeats_per_level; i < 2 * repeats_per_level;++i)
-    number_to_train_on[i] = 20*K;
-  for(int i = 2 * repeats_per_level; i < 3 * repeats_per_level;++i)
     number_to_train_on[i] = 40*K;
+  for(int i = 1 * repeats_per_level; i < 2 * repeats_per_level;++i)
+    number_to_train_on[i] = 50*K;
+  for(int i = 2 * repeats_per_level; i < 3 * repeats_per_level;++i)
+    number_to_train_on[i] = 80*K;
   for(int i = 3 * repeats_per_level; i < 4 * repeats_per_level;++i)
     number_to_train_on[i] = 100*K;
   for(int i = 4 * repeats_per_level; i < 5 * repeats_per_level;++i)

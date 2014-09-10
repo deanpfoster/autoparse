@@ -83,14 +83,13 @@ auto_parse::Likelihood::pieces(const Dependency& parse) const
   for(auto i = parse.links().begin(); i != parse.links().end(); ++i)
     {
       if(i->parent() < i->child())
-	{
-	  assert(0);  // this is backwards
-	  result[0] += (*mp_left)(i->parent(), i->child(),w);
+	{ //  parent  -->  child
+	  result[0] += (*mp_right)(i->parent(), i->child(),w);
 	  result[1] += 1.0;
 	}
       else
-	{
-	  result[2] += (*mp_right)(i->parent(), i->child(),w);
+	{ // child <-- parent
+	  result[2] += (*mp_left)(i->parent(), i->child(),w);
 	  result[3] += 1.0;
 	}
     };
@@ -137,9 +136,11 @@ auto_parse::Likelihood::link_probability(const Link& link, const Words& w) const
     result = (*mp_root)(w.end(), link.child(), w);
   else
     if(link.parent() < link.child())
-      result = (*mp_left)(link.parent(), link.child(),w);
-    else
+      // parent --> child
       result = (*mp_right)(link.parent(), link.child(),w);
+    else
+      // child <-- parent
+      result = (*mp_left)(link.parent(), link.child(),w);
   return result;
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */

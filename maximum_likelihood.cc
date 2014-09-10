@@ -84,9 +84,11 @@ auto_parse::Maximum_likelihood::operator()(const auto_parse::Dependency& parse)
   for(auto i = parse.links().begin(); i != parse.links().end(); ++i)
     {
       if(i->parent() < i->child())
-	mp_left->accumulate(i->parent(), i->child(),parse.sentence());
-      else
+	// parent --> child
 	mp_right->accumulate(i->parent(), i->child(),parse.sentence());
+      else
+	// child <-- parent
+	mp_left->accumulate(i->parent(), i->child(),parse.sentence());
     }
   mp_root->accumulate(parse.sentence().end(), parse.root(), parse.sentence());
 };
