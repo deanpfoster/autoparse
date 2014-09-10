@@ -83,10 +83,10 @@ auto_parse::Maximum_likelihood::operator()(const auto_parse::Dependency& parse)
     std::cout << "Warning:"  << parse << std::endl;
   for(auto i = parse.links().begin(); i != parse.links().end(); ++i)
     {
-      if(i->first < i->second)
-	mp_left->accumulate(i->first, i->second,parse.sentence());
+      if(i->parent() < i->child())
+	mp_left->accumulate(i->parent(), i->child(),parse.sentence());
       else
-	mp_right->accumulate(i->first, i->second,parse.sentence());
+	mp_right->accumulate(i->parent(), i->child(),parse.sentence());
     }
   mp_root->accumulate(parse.sentence().end(), parse.root(), parse.sentence());
 };

@@ -12,7 +12,25 @@ namespace auto_parse
   class Right_arrow{};
   class Left_arrow{};
 
-  typedef std::pair<Node,Node>  Link;  // make_pair(a,b) == b depends on a, i.e. a --> b
+  //  typedef std::pair<Node,Node>  Link;  // make_pair(a,b) == b depends on a, i.e. a --> b
+  class Link
+  {
+  public:
+    Link(const Node& parent, const Node& child)
+      :
+      m_parent(parent),
+      m_child(child){};
+
+    //accessor
+    Node parent() const {return m_parent;};
+    Node child() const {return m_child;};
+    bool operator<(const Link& rhs) const{return std::make_pair(m_parent,m_child) < std::make_pair(rhs.m_parent,rhs.m_child);};
+
+  private:
+    Node m_parent;
+    Node m_child;
+  };
+
   typedef std::vector<Link> Links;
 
   class Dependency

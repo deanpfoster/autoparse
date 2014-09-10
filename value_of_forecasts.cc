@@ -107,11 +107,10 @@ auto_parse::Value_of_forecasts::smoothed_best_action(double noise) const
     {
       double value = m_values.find(a)->second/noise;
       if(value > -100)
-	cumsum += exp(value);
-      if(cumsum >= which)
 	{
-	  assert(value > -100);
-	  return a;
+	  cumsum += exp(value);
+	  if(cumsum >= which)
+	    return a;
 	}
     };
   assert(0);

@@ -53,7 +53,7 @@ auto_parse::Dependency::Dependency(const Dependency & other)
   if(other.m_root != other.m_words.end())
     m_root = other.m_root + shift;
   for(auto i = other.m_links.begin(); i != other.m_links.end(); ++i)
-    m_links.push_back(std::make_pair(i->first + shift, i->second + shift));
+    m_links.push_back(Link(i->parent() + shift, i->child() + shift));
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Dependency::Dependency(const Dependency & left, Right_arrow, const Dependency& right)
@@ -69,7 +69,7 @@ auto_parse::Dependency::Dependency(const Dependency & left, Right_arrow, const D
   Node left_root = (left.m_root - left.m_words.begin()) + m_words.begin();
   Node right_offset = m_words.begin() + left.m_words.size();
   Node right_root = (right.m_root - right.m_words.begin()) + right_offset;
-  m_links.push_back(std::make_pair(left_root,right_root));
+  m_links.push_back(Link(left_root,right_root));
   m_parent[right_root - m_words.begin()] = left_root - m_words.begin();
   m_root = left_root;
 };
@@ -86,7 +86,7 @@ auto_parse::Dependency::Dependency(const Dependency & left, Left_arrow, const De
   Node left_root = (left.m_root - left.m_words.begin()) + m_words.begin();
   Node right_offset = m_words.begin() + left.m_words.size();
   Node right_root = (right.m_root - right.m_words.begin()) + right_offset;
-  m_links.push_back(std::make_pair(right_root,left_root));
+  m_links.push_back(Link(right_root,left_root));
   m_parent[left_root - m_words.begin()] = right_root - m_words.begin();
   m_root = right_root;
 };
@@ -125,7 +125,7 @@ auto_parse::Dependency::add(const auto_parse::Node& left,
   assert(left - m_words.begin() >= 0);
   assert(m_words.end() - right > 0);
   assert(!full_parse());
-  m_links.push_back(std::make_pair(right,left));
+  m_links.push_back(Link(right,left));
   m_parent[left - m_words.begin()] = right - m_words.begin();
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -138,7 +138,7 @@ auto_parse::Dependency::add(const auto_parse::Node& left,
   assert(left - m_words.begin() >= 0);
   assert(m_words.end() - right > 0);
   assert(!full_parse());
-  m_links.push_back(std::make_pair(left,right));
+  m_links.push_back(Link(left,right));
   m_parent[right - m_words.begin()] = left - m_words.begin();
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -197,8 +197,8 @@ auto_parse::Dependency::latex(std::ostream & ostrm) const
   ostrm << "\\deproot{" << root_index << "}{ROOT " << root_description() << "}" << std::endl;
   for(const_link_iterator i = m_links.begin(); i != m_links.end();++i)
     {
-      int from_index = i->first - m_words.begin() + 1;  // Latex uses 1 based indexing
-      int to_index = i->second - m_words.begin() + 1;
+      int from_index = i->parent() - m_words.begin() + 1;  // Latex uses 1 based indexing
+      int to_index = i->child() - m_words.begin() + 1;
       ostrm << "\\depedge{" << from_index << "}{" << to_index << "}{" << link_description(*i) << "}" << std::endl;
     }
   ostrm << "\\end{dependency}" << std::endl;
@@ -236,10 +236,10 @@ auto_parse::Dependency::print_on(std::ostream & ostrm) const
   std::multimap<Node, Node> children;
   for(const_link_iterator i = m_links.begin(); i != m_links.end(); ++i)
     {
-      assert(parent.find(i->second) == parent.end());
-      assert(m_parent[i->second - m_words.begin()] == i->first - m_words.begin());
-      parent[i->second] = i->first;
-      children.insert(*i);
+      assert(parent.find(i->child()) == parent.end());
+      assert(m_parent[i->child() - m_words.begin()] == i->parent() - m_words.begin());
+      parent[i->child()] = i->parent();
+      children.insert(std::make_pair(i->parent(),i->child()));
     }
   for(Word w : m_words)
     ostrm << word_description(w) << " ";
@@ -325,7 +325,7 @@ auto_parse::Dependency::full_parse() const
       for(const_link_iterator i = m_links.begin(); i != m_links.end(); ++i)
 	{
 	  //	  int from_index = i->first - m_words.begin();
-	  int to_index = i->second - m_words.begin();
+	  int to_index = i->child() - m_words.begin();
 	  assert(!is_pointed_to[to_index]);  // might as well check double pointers
 	  is_pointed_to[to_index] = true;
 	}
@@ -355,7 +355,7 @@ auto_parse::Dependency::number_left_links() const
 {
   double result = 0.0;
   for(const_link_iterator i = m_links.begin(); i != m_links.end(); ++i)
-      result += (i->first >  i->second);
+    result += (i->parent() >  i->child());
   return result;
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -379,23 +379,23 @@ auto_parse::Dependency::add_words_and_links(const Dependency & left, const Depen
   Node right_offset = m_words.begin() + left.m_words.size();
   for(const_link_iterator i = left.m_links.begin(); i != left.m_links.end();++i)
     {
-      Node start = i -> first;
-      Node end   = i -> second;
+      Node start = i -> parent();
+      Node end   = i -> child();
       int start_index = start - left.m_words.begin();
       int end_index = end - left.m_words.begin();
-      m_links.push_back(std::make_pair(start_index+left_offset, end_index+left_offset));
+      m_links.push_back(Link(start_index+left_offset, end_index+left_offset));
     }
   for(const_link_iterator i = right.m_links.begin(); i != right.m_links.end();++i)
     {
-      Node start = i -> first;
-      Node end   = i -> second;
+      Node start = i -> parent();
+      Node end   = i -> child();
       int start_index = start - right.m_words.begin();
       int end_index = end - right.m_words.begin();
-      m_links.push_back(std::make_pair(start_index+right_offset, end_index+right_offset));
+      m_links.push_back(Link(start_index+right_offset, end_index+right_offset));
     }
   m_parent = std::vector<int>(m_words.size(), -1);
   for(auto link : m_links)
-    m_parent[link.second - m_words.begin()] = link.first - m_words.begin();
+    m_parent[link.child() - m_words.begin()] = link.parent() - m_words.begin();
 }
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */

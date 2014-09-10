@@ -8,6 +8,8 @@ Arcs:	Arc's are described as Left_location, direction_of_arc,
 	right_location.  (This will be checked by left_location <
 	right_location.)
 
+Arcs:	Link(a,b) = a --> b, or b <-- a.  So a is parent, b is dependent.
+
 Arrows: A simple tree with three nodes might have:
 
 		Root --> A
