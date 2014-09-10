@@ -48,7 +48,8 @@ namespace auto_parse
       Feature_one_dimensional<Words_left> f1;
       Feature_one_dimensional<Stack_size> f2;
       Feature_one_dimensional<Sentence_length> f3;
-      Feature_generator feature_generator {&f1, &f2, &f3};
+      Feature_generator feature_generator;
+      feature_generator.add({&f1, &f2, &f3});
       {
 	auto sentence = Words() + "A" + "hearing" + "on" + "the" + "issue" + "is" + "scheduled" + "today" + ".";
 

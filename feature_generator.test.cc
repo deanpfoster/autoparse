@@ -80,7 +80,8 @@ namespace auto_parse
       Sample s(3,3.14159);
       Sample e(2,3.14159);
       Sample one(1,1);
-      auto_parse::Feature_generator generator{&one,&e,&s};
+      auto_parse::Feature_generator generator;
+      generator.add({&one,&e,&s});
       generator.print_on(std::cout);
       std::cout << "\nconstructed!" << std::endl;
     };

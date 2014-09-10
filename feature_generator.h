@@ -19,11 +19,11 @@ namespace auto_parse
   public:
     // CONSTRUCTORS
     ~Feature_generator();
-    Feature_generator(); // Wants to have an Eigen_Dictionary passed in
-    Feature_generator(const std::vector<Feature*>&);
-    Feature_generator(const std::initializer_list<Feature*>&);
+    Feature_generator();
     Feature_generator(const Feature_generator &);    
     Feature_generator(std::istream &);    
+    Feature_generator& add(const std::initializer_list<Feature*>&);
+    Feature_generator& add(const std::vector<Feature*>&);
 
     // MANIPULATORS
     // ACCESSORS

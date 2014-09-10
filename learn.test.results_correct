@@ -46,317 +46,317 @@ Typical deviation from zero is:1.22
   1    MLE
   1    Likelihood model:
 	Eigenword with transition matrix.
-	max = 0.363749
-	min = 1.02778e-07
-	mean= -0.000179657
-	 sd = 0.0255381
+	max = 0.36293
+	min = 1.80588e-06
+	mean= 2.69285e-05
+	 sd = 0.023039
 	Eigenword with transition matrix.
-	max = 0.21592
-	min = 3.93242e-07
-	mean= 9.24189e-05
-	 sd = 0.018786
+	max = 0.214529
+	min = 2.56129e-05
+	mean= 6.90506e-05
+	 sd = 0.0188323
 	Eigenword with transition matrix.
-	max = 0.314562
-	min = 0.00148497
-	mean= -0.00935619
-	 sd = 0.0852848
+	max = 0.325422
+	min = 0.00146889
+	mean= -0.00973642
+	 sd = 0.0883825
 
-  1     * * * * 288.882 * * * * 
+  1     * * * * 291.168 * * * * 
 on that by this with . 
--0.32	             on  <---  that                                                   on
--0.32	           that  <---  by                                          on  <---   that
--1.93	             by  <---  with                                      that  <---   by
--0.32	           this  <---  with                                                   this
--0.31	           with  <---  .                                     this, by  <---   with
--0.98	              .  <---  ROOT                                      with  <---   .
+-0.31	             on  <---  that                                                   on
+-0.31	           that  <---  by                                          on  <---   that
+-0.31	             by  <---  this                                      that  <---   by
+-1.95	           this  <---  .                                           by  <---   this   --->  with
+-0.43	           with  <---  this                                                   with
+-0.94	              .  <---  ROOT                                      this  <---   .
 
 
   2    Training
 
--0.51 = shift's average value in a contrast.
-0.72 = <--'s average value in a contrast.
--0.21 = -->'s average value in a contrast.
+-0.27 = shift's average value in a contrast.
+0.64 = <--'s average value in a contrast.
+-0.36 = -->'s average value in a contrast.
 0 = HEAD's average value in a contrast.
-Typical deviation from zero is:1.54
+Typical deviation from zero is:1.58
 
   2    MLE
   2    Likelihood model:
 	Eigenword with transition matrix.
-	max = 0.499752
-	min = 1.36123e-06
-	mean= -0.000270968
-	 sd = 0.0371643
+	max = 0.587379
+	min = 1.00575e-06
+	mean= 8.42247e-05
+	 sd = 0.0386233
 	Eigenword with transition matrix.
-	max = 0.194845
-	min = 2.87654e-05
-	mean= 0.000467507
-	 sd = 0.0222519
+	max = 0.182751
+	min = 1.66873e-06
+	mean= 0.000842152
+	 sd = 0.0209295
 	Eigenword with transition matrix.
-	max = 0.20652
-	min = 0.000707297
-	mean= -0.00557318
-	 sd = 0.0544058
+	max = 0.184829
+	min = 0.00108947
+	mean= -0.00504457
+	 sd = 0.0481033
 
-  2     * * * * 275.798 * * * * 
+  2     * * * * 304 * * * * 
 on that by this with . 
--1.98	             on  <---  by                                                     on   --->  that
--0.35	           that  <---  on                                                     that
--3.51	             by  <---  .                                           on  <---   by   --->  this
--0.36	           this  <---  by                                                     this
--0.28	           with  <---  .                                                      with
--1.59	              .  <---  ROOT                                  with, by  <---   .
+-4.95	             on  <---  .                                                      on   --->  that, this
+-0.5 	           that  <---  on                                                     that
+-0.33	             by  <---  this                                                   by
+-2.54	           this  <---  on                                          by  <---   this
+-0.33	           with  <---  .                                                      with
+-1.75	              .  <---  ROOT                                  with, on  <---   .
 
 
   3    Training
 
--0.34 = shift's average value in a contrast.
-0.85 = <--'s average value in a contrast.
--0.5 = -->'s average value in a contrast.
+-0.22 = shift's average value in a contrast.
+0.63 = <--'s average value in a contrast.
+-0.41 = -->'s average value in a contrast.
 0 = HEAD's average value in a contrast.
-Typical deviation from zero is:1.41
+Typical deviation from zero is:1.11
 
   3    MLE
   3    Likelihood model:
 	Eigenword with transition matrix.
-	max = 0.500361
-	min = 1.14398e-05
-	mean= -0.000209375
-	 sd = 0.0381828
+	max = 0.489715
+	min = 1.28996e-05
+	mean= 0.000349578
+	 sd = 0.0314673
 	Eigenword with transition matrix.
-	max = 0.200585
-	min = 1.6069e-05
-	mean= 0.000228183
-	 sd = 0.0207392
+	max = 0.179092
+	min = 1.09203e-06
+	mean= -0.000124859
+	 sd = 0.0159913
 	Eigenword with transition matrix.
-	max = 0.211223
-	min = 0.00120463
-	mean= -0.00572321
-	 sd = 0.0557072
+	max = 0.233343
+	min = 0.000554567
+	mean= -0.0064569
+	 sd = 0.0621345
 
-  3     * * * * 299.471 * * * * 
+  3     * * * * 351.622 * * * * 
 on that by this with . 
--2.73	             on  <---  this                                                   on   --->  that
--0.25	           that  <---  on                                                     that   --->  by
--0.25	             by  <---  that                                                   by
--0.45	           this  <---  with                                        on  <---   this
--1.25	           with  <---  ROOT                                      this  <---   with   --->  .
--0.81	              .  <---  with                                                   .
+-0.33	             on  <---  that                                                   on
+-0.33	           that  <---  by                                          on  <---   that
+-0.33	             by  <---  this                                      that  <---   by
+-1.93	           this  <---  ROOT                                        by  <---   this   --->  with
+-0.45	           with  <---  this                                                   with   --->  .
+-1.02	              .  <---  with                                                   .
 
 
   4    Training
 
--0.46 = shift's average value in a contrast.
-0.55 = <--'s average value in a contrast.
--0.09 = -->'s average value in a contrast.
+-0.45 = shift's average value in a contrast.
+1.19 = <--'s average value in a contrast.
+-0.73 = -->'s average value in a contrast.
 0 = HEAD's average value in a contrast.
-Typical deviation from zero is:1.26
+Typical deviation from zero is:2.5
 
   4    MLE
   4    Likelihood model:
 	Eigenword with transition matrix.
-	max = 0.512361
-	min = 2.33956e-05
-	mean= 6.64623e-05
-	 sd = 0.0363453
+	max = 0.359596
+	min = 1.33232e-06
+	mean= -2.23481e-05
+	 sd = 0.0269352
 	Eigenword with transition matrix.
-	max = 0.182186
-	min = 1.26504e-05
-	mean= 0.000296107
-	 sd = 0.0178683
+	max = 0.19301
+	min = 1.54719e-05
+	mean= 0.000491607
+	 sd = 0.0221418
 	Eigenword with transition matrix.
-	max = 0.228341
-	min = 0.00171563
-	mean= -0.00713155
-	 sd = 0.0605127
+	max = 0.343083
+	min = 0.00138758
+	mean= -0.0102581
+	 sd = 0.093292
 
-  4     * * * * 289.321 * * * * 
+  4     * * * * 277.047 * * * * 
 on that by this with . 
--0.31	             on  <---  that                                                   on
--0.31	           that  <---  by                                          on  <---   that
--1.92	             by  <---  with                                      that  <---   by   --->  this
--0.25	           this  <---  by                                                     this
--0.3 	           with  <---  .                                           by  <---   with
--1.45	              .  <---  ROOT                                      with  <---   .
+-1.09	             on  <---  by                                                     on   --->  that
+-0.19	           that  <---  on                                                     that
+-0.59	             by  <---  this                                        on  <---   by
+-0.6 	           this  <---  with                                        by  <---   this
+-0.59	           with  <---  .                                         this  <---   with
+-0.87	              .  <---  ROOT                                      with  <---   .
 
 
   5    Training
 
--0.34 = shift's average value in a contrast.
-0.62 = <--'s average value in a contrast.
--0.27 = -->'s average value in a contrast.
+-0.25 = shift's average value in a contrast.
+0.77 = <--'s average value in a contrast.
+-0.51 = -->'s average value in a contrast.
 0 = HEAD's average value in a contrast.
-Typical deviation from zero is:1.46
+Typical deviation from zero is:1.11
 
   5    MLE
   5    Likelihood model:
 	Eigenword with transition matrix.
-	max = 0.371262
-	min = 1.18465e-05
-	mean= 5.0441e-05
-	 sd = 0.0308139
+	max = 0.316259
+	min = 9.29676e-06
+	mean= -0.000215864
+	 sd = 0.0250908
 	Eigenword with transition matrix.
-	max = 0.230877
-	min = 2.56541e-05
-	mean= 0.000219619
-	 sd = 0.0212807
+	max = 0.214942
+	min = 3.98897e-06
+	mean= 0.000194323
+	 sd = 0.0217634
 	Eigenword with transition matrix.
-	max = 0.283066
-	min = 0.000923415
-	mean= -0.00817887
-	 sd = 0.0762884
+	max = 0.34236
+	min = 0.00114764
+	mean= -0.0098553
+	 sd = 0.0931887
 
-  5     * * * * 238.51 * * * * 
+  5     * * * * 267.905 * * * * 
 on that by this with . 
--2.36	             on  <---  by                                                     on
--0.19	           that  <---  by                                                     that
--0.18	             by  <---  this                                  that, on  <---   by
--0.19	           this  <---  with                                        by  <---   this
--1.55	           with  <---  ROOT                                      this  <---   with   --->  .
--0.96	              .  <---  with                                                   .
+-0.5 	             on  <---  that                                                   on
+-0.5 	           that  <---  by                                          on  <---   that
+-0.49	             by  <---  this                                      that  <---   by
+-0.5 	           this  <---  with                                        by  <---   this
+-1.69	           with  <---  ROOT                                      this  <---   with   --->  .
+-0.79	              .  <---  with                                                   .
 
 
   6    Training
 
--0.56 = shift's average value in a contrast.
-0.99 = <--'s average value in a contrast.
--0.42 = -->'s average value in a contrast.
+-0.2 = shift's average value in a contrast.
+0.55 = <--'s average value in a contrast.
+-0.34 = -->'s average value in a contrast.
 0 = HEAD's average value in a contrast.
-Typical deviation from zero is:1.52
+Typical deviation from zero is:1.05
 
   6    MLE
   6    Likelihood model:
 	Eigenword with transition matrix.
-	max = 0.270112
-	min = 7.44729e-06
-	mean= 3.96172e-05
-	 sd = 0.0206485
+	max = 0.268877
+	min = 3.46945e-06
+	mean= -3.45653e-05
+	 sd = 0.0168592
 	Eigenword with transition matrix.
-	max = 0.227985
-	min = 1.25603e-05
-	mean= 0.000282678
-	 sd = 0.0226374
+	max = 0.193735
+	min = 8.68161e-06
+	mean= 2.79983e-05
+	 sd = 0.0202776
 	Eigenword with transition matrix.
-	max = 0.363364
-	min = 0.00122722
-	mean= -0.0107223
-	 sd = 0.0993479
+	max = 0.435184
+	min = 0.00147137
+	mean= -0.0133015
+	 sd = 0.1198
 
-  6     * * * * 268.146 * * * * 
+  6     * * * * 272.132 * * * * 
 on that by this with . 
--0.2 	             on  <---  that                                                   on
--2.28	           that  <---  this                                        on  <---   that   --->  by
--0.45	             by  <---  that                                                   by
--0.21	           this  <---  with                                      that  <---   this
--0.2 	           with  <---  .                                         this  <---   with
--0.78	              .  <---  ROOT                                      with  <---   .
+-4.3 	             on  <---  with                                                   on
+-2.42	           that  <---  with                                                   that
+-1.1 	             by  <---  with                                                   by   --->  this
+-0.18	           this  <---  by                                                     this
+-0.68	           with  <---  .                                 by, that, on  <---   with
+-0.55	              .  <---  ROOT                                      with  <---   .
 
 
   7    Training
 
--0.63 = shift's average value in a contrast.
-1.08 = <--'s average value in a contrast.
--0.44 = -->'s average value in a contrast.
+-0.06 = shift's average value in a contrast.
+0.72 = <--'s average value in a contrast.
+-0.65 = -->'s average value in a contrast.
 0 = HEAD's average value in a contrast.
-Typical deviation from zero is:1.57
+Typical deviation from zero is:1.3
 
   7    MLE
   7    Likelihood model:
 	Eigenword with transition matrix.
-	max = 0.225148
-	min = 1.31419e-05
-	mean= 0.000250686
-	 sd = 0.0163469
+	max = 0.217577
+	min = 7.58143e-06
+	mean= 8.65917e-05
+	 sd = 0.0147961
 	Eigenword with transition matrix.
-	max = 0.203298
-	min = 5.06129e-06
-	mean= 0.000327056
-	 sd = 0.0173348
+	max = 0.217757
+	min = 4.58057e-06
+	mean= 0.000250341
+	 sd = 0.0221279
 	Eigenword with transition matrix.
-	max = 0.46746
-	min = 0.000742449
-	mean= -0.01422
-	 sd = 0.128993
+	max = 0.472655
+	min = 0.000414331
+	mean= -0.0144083
+	 sd = 0.130597
 
-  7     * * * * 269.954 * * * * 
+  7     * * * * 278.477 * * * * 
 on that by this with . 
--0.37	             on  <---  that                                                   on
--0.37	           that  <---  by                                          on  <---   that
--1.69	             by  <---  with                                      that  <---   by
--0.37	           this  <---  with                                                   this
--0.37	           with  <---  .                                     this, by  <---   with
--0.46	              .  <---  ROOT                                      with  <---   .
+-0.75	             on  <---  that                                                   on
+-1.08	           that  <---  this                                        on  <---   that   --->  by
+-0.22	             by  <---  that                                                   by
+-1.08	           this  <---  .                                         that  <---   this   --->  with
+-0.22	           with  <---  this                                                   with
+-0.45	              .  <---  ROOT                                      this  <---   .
 
 
   8    Training
 
--0.25 = shift's average value in a contrast.
-0.81 = <--'s average value in a contrast.
--0.55 = -->'s average value in a contrast.
+-0.2 = shift's average value in a contrast.
+0.54 = <--'s average value in a contrast.
+-0.33 = -->'s average value in a contrast.
 0 = HEAD's average value in a contrast.
-Typical deviation from zero is:1.13
+Typical deviation from zero is:1.12
 
   8    MLE
   8    Likelihood model:
 	Eigenword with transition matrix.
-	max = 0.220085
-	min = 3.70307e-06
-	mean= 0.000274924
-	 sd = 0.015572
+	max = 0.188106
+	min = 2.2386e-06
+	mean= -0.00021342
+	 sd = 0.0134378
 	Eigenword with transition matrix.
-	max = 0.194745
-	min = 1.63419e-07
-	mean= 0.000108683
-	 sd = 0.015523
+	max = 0.213261
+	min = 1.985e-06
+	mean= 0.000104538
+	 sd = 0.0210026
 	Eigenword with transition matrix.
-	max = 0.444509
-	min = 3.57418e-05
-	mean= -0.0135809
-	 sd = 0.122572
+	max = 0.499419
+	min = 0.000302069
+	mean= -0.0153472
+	 sd = 0.138353
 
-  8     * * * * 420.179 * * * * 
+  8     * * * * 287.794 * * * * 
 on that by this with . 
--0.86	             on  <---  that                                                   on
--0.87	           that  <---  by                                          on  <---   that
--0.86	             by  <---  this                                      that  <---   by
--1.95	           this  <---  .                                           by  <---   this   --->  with
--0.53	           with  <---  this                                                   with
--0.52	              .  <---  ROOT                                      this  <---   .
+-1.11	             on  <---  by                                                     on
+-0.81	           that  <---  by                                                     that
+-0.81	             by  <---  this                                  that, on  <---   by
+-1.11	           this  <---  .                                           by  <---   this   --->  with
+-0.26	           with  <---  this                                                   with
+-0.38	              .  <---  ROOT                                      this  <---   .
 
 
   9    Training
 
--0.54 = shift's average value in a contrast.
-0.34 = <--'s average value in a contrast.
-0.2 = -->'s average value in a contrast.
+-0.39 = shift's average value in a contrast.
+0.77 = <--'s average value in a contrast.
+-0.37 = -->'s average value in a contrast.
 0 = HEAD's average value in a contrast.
-Typical deviation from zero is:9.65
+Typical deviation from zero is:1.34
 
   9    MLE
   9    Likelihood model:
 	Eigenword with transition matrix.
-	max = 0.509727
-	min = 3.14837e-06
-	mean= -2.43719e-05
-	 sd = 0.0291997
+	max = 0.181386
+	min = 7.89241e-08
+	mean= 0.000278465
+	 sd = 0.0123685
 	Eigenword with transition matrix.
-	max = 0.173074
-	min = 4.59284e-06
-	mean= 0.000333841
-	 sd = 0.019918
+	max = 0.198655
+	min = 2.9556e-06
+	mean= -0.000241683
+	 sd = 0.0177637
 	Eigenword with transition matrix.
-	max = 0.249452
-	min = 0.000841436
-	mean= -0.00688889
-	 sd = 0.0663904
+	max = 0.499673
+	min = 0.000419596
+	mean= -0.0153761
+	 sd = 0.138368
 
-  9     * * * * 281.91 * * * * 
+  9     * * * * 294.481 * * * * 
 on that by this with . 
--2.85	             on  <---  ROOT                                                   on   --->  that, by, this, with, .
--1.97	           that  <---  on                                                     that
--2.07	             by  <---  on                                                     by
--2.09	           this  <---  on                                                     this
--2.09	           with  <---  on                                                     with
--2.8 	              .  <---  on                                                     .
+-1.55	             on  <---  by                                                     on   --->  that
+-0.36	           that  <---  on                                                     that
+-0.58	             by  <---  this                                        on  <---   by
+-0.58	           this  <---  with                                        by  <---   this
+-0.57	           with  <---  .                                         this  <---   with
+-0.38	              .  <---  ROOT                                      with  <---   .
 
 
 Finished!

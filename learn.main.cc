@@ -23,7 +23,6 @@ main(int argc,char** argv)
   int gram_number, repeats_per_level;
   double update_rate,scaling, noise;
   bool use_eager;
-  scaling = 1.0;
   std::string comment;
   boost::tie(repeats_per_level,latex_prefix, eigen_file, gram_number, sentence_file, update_rate, scaling, noise, comment,use_eager)
     = auto_parse::parse_argv(argc, argv);
@@ -31,7 +30,6 @@ main(int argc,char** argv)
   time_t running_time = time(0);  // used for timing 
   time_t last_print_time = time(0);  // used to print about once a minute
   std::ofstream latex(latex_prefix + ".tex");
-  std::ofstream latex_final(latex_prefix + ".final.tex");
   auto_parse::latex_header(latex);  // write a "...\begin{document}" on latex_file
 
   //////////////////////////////////////////////////////////////////////////////////
@@ -65,7 +63,7 @@ main(int argc,char** argv)
 
   //////////////////////////////////////////////////////////////////////////////////
   //
-  //   Print a big friendly blurb when we start processing
+  //   Print a big friendly blurb about our processing
   //
   //////////////////////////////////////////////////////////////////////////////////
   
@@ -80,11 +78,9 @@ main(int argc,char** argv)
   std::cout << "      --noise = " << noise << "    randomly pick best action with about accuracy noise level." << std::endl;
   std::cout << "repeats_per_level= " << repeats_per_level << std::endl;
   std::cout << "   --comment = " << comment << std::endl;
-
   std::cout << "Read a dictionary of size: " << dictionary.size()<< " x " << dim
 	    << " (time " << time(0) - running_time << " sec)" << std::endl;      running_time = time(0);
-
-  std::cout << "Trained on " << corpus_in_memory.size() << " sentence.    " << std::endl;
+  std::cout << "Training on " << corpus_in_memory.size() << " sentence.    " << std::endl;
   std::cout << "number threads = " << auto_parse::number_of_threads_used() << "." << std::endl;
       
 
@@ -97,7 +93,7 @@ main(int argc,char** argv)
   auto_parse::Feature_generator* p_feature_generator = 0;
   if(use_eager)
     {
-      auto_parse::set_all_actions(auto_parse::eager_actions);
+      auto_parse::set_all_actions(auto_parse::eager_actions);  // programming by side effects.
       p_feature_generator = new auto_parse::Feature_generator(eager_features(dictionary));
     }
   else
@@ -240,6 +236,7 @@ main(int argc,char** argv)
   int num_hours = num_minutes / 60;
   int extra_minutes = num_minutes - 60 * num_hours;
 
+  std::ofstream latex_final(latex_prefix + ".final.tex");  // open it here in case the program gets killed.
   auto_parse::latex_header(latex_final);
   latex_final << "\\section*{" << comment << "}\n";
   latex_final << "Parameters:\n\\begin{itemize}";

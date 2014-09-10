@@ -25,31 +25,6 @@ auto_parse::Feature_generator::Feature_generator()
 {
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-auto_parse::Feature_generator::Feature_generator(const std::vector<Feature*>& vec)
-  :
-  m_number_features(0),
-  m_features()
-{
-  for(auto i = vec.begin(); i != vec.end(); ++i)
-    {
-      m_number_features += (*i)->dimension();
-      m_features.push_back((*i)->clone());
-    }
-};
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-auto_parse::Feature_generator::Feature_generator(const std::initializer_list<Feature*>& cool_shit)
-  :
-  m_number_features(0),
-  m_features()
-{
-  std::vector<Feature*> tmp = cool_shit;
-  for(auto i = cool_shit.begin(); i != cool_shit.end(); ++i)
-    {
-      m_number_features += (*i)->dimension();
-      m_features.push_back((*i)->clone());
-    }
-};
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Feature_generator::Feature_generator(const Feature_generator & other)
   :
   m_number_features(other.m_number_features),
@@ -71,6 +46,29 @@ auto_parse::Feature_generator::Feature_generator(std::istream & in)
     {
       m_features.push_back(Feature::restore(in));
     }
+};
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+auto_parse::Feature_generator&
+auto_parse::Feature_generator::add(const std::initializer_list<Feature*>& cool_shit)
+{
+  std::vector<Feature*> tmp = cool_shit;
+  for(auto i = cool_shit.begin(); i != cool_shit.end(); ++i)
+    {
+      m_number_features += (*i)->dimension();
+      m_features.push_back((*i)->clone());
+    }
+  return *this;
+};
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+auto_parse::Feature_generator&
+auto_parse::Feature_generator::add(const std::vector<Feature*>& vec)
+{
+  for(auto i = vec.begin(); i != vec.end(); ++i)
+    {
+      m_number_features += (*i)->dimension();
+      m_features.push_back((*i)->clone());
+    }
+  return *this;
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 

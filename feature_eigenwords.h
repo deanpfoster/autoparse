@@ -21,7 +21,7 @@ namespace auto_parse
     }
     std::string name() const{return "next_word";};
   };
-  struct Next_word_2
+  struct Next_word_1  // zero based indexing.  :-)
   {
     Word operator()(const LR& parser) const
     {

@@ -38,6 +38,7 @@ linear_features(const auto_parse::Eigenwords& dictionary)
       new F_d1,
       new F_d2,
       new Feature_eigenwords<Next_word>(dictionary),
+      new Feature_eigenwords<Next_word_1>(dictionary),
       new Feature_eigenwords<Stack_top>(dictionary),
       new Feature_eigenwords<Stack_1>(dictionary)
       };
@@ -64,7 +65,8 @@ auto_parse::Feature_generator
 auto_parse::fast_features(const Eigenwords& dictionary)
 {
   std::vector<Feature*> features = linear_features(dictionary);
-  Feature_generator result = Feature_generator(features);
+  Feature_generator result;
+  result.add(features);
   return result;
 };
 
@@ -100,7 +102,8 @@ auto_parse::standard_features(const Eigenwords& dictionary)
   std::vector<Feature*> features = linear_features(dictionary);
   std::vector<Feature*> more = short_interactions_features(dictionary,10);
   std::copy(more.begin(), more.end(), std::back_inserter(features));
-  Feature_generator result = Feature_generator(features);
+  Feature_generator result;
+  result.add(features);
   return result;
 };
 
@@ -110,7 +113,8 @@ auto_parse::eager_features(const Eigenwords& dictionary)
   std::vector<Feature*> features = linear_features(dictionary);
   std::vector<Feature*> more = short_interactions_features(dictionary,10);
   std::copy(more.begin(), more.end(), std::back_inserter(features));
-  Feature_generator result = Feature_generator(features);
+  Feature_generator result;
+  result.add(features);
   return result;
 };
 
