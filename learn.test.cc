@@ -69,7 +69,7 @@ main()
     //////////////////////////////////////////////////////////////////////////////////
 
     auto_parse::Feature_generator feature_generator = fast_features(dictionary);
-    auto_parse::Model lr_model = auto_parse::standard_model(feature_generator.dimension());
+    auto_parse::Model lr_model = auto_parse::generate_linear_model(feature_generator.dimension());
     double noise = 1.0;
     auto_parse::Statistical_parse parser(lr_model,feature_generator,noise);
 

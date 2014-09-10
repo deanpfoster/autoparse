@@ -95,25 +95,18 @@ main(int argc,char** argv)
   //////////////////////////////////////////////////////////////////////////////////
 
   auto_parse::Feature_generator* p_feature_generator = 0;
-  auto_parse::Model* p_old_model = 0;
-  auto_parse::Statistical_parse* p_parser = 0;
   if(use_eager)
     {
       auto_parse::set_all_actions(auto_parse::eager_actions);
       p_feature_generator = new auto_parse::Feature_generator(eager_features(dictionary));
-      p_old_model = new auto_parse::Model(auto_parse::eager_model(p_feature_generator->dimension()));
-      p_parser = new auto_parse::Statistical_parse(*p_old_model,*p_feature_generator,noise);
     }
   else
     {
       auto_parse::set_all_actions(auto_parse::standard_actions);
       p_feature_generator = new auto_parse::Feature_generator(standard_features(dictionary));
-      p_old_model = new auto_parse::Model(auto_parse::standard_model(p_feature_generator->dimension()));
-      p_parser = new auto_parse::Statistical_parse(*p_old_model, *p_feature_generator, noise);
     };
-  auto_parse::Feature_generator& feature_generator(*p_feature_generator);
-  auto_parse::Model& old_model(*p_old_model);
-  auto_parse::Statistical_parse& parser(*p_parser);
+  auto_parse::Model old_model(auto_parse::generate_linear_model(p_feature_generator->dimension()));
+  auto_parse::Statistical_parse parser(old_model,*p_feature_generator,noise);
 
   //////////////////////////////////////////////////////////////////////////////////
   //
@@ -184,7 +177,7 @@ main(int argc,char** argv)
       ///////////////////////////////////////////////
 
       auto_parse::Model model = likelihood_to_model(likelihood, parser,
-						    feature_generator,
+						    *p_feature_generator,
 						    sampling_rate,
 						    begin, end,
 						    ostrm);

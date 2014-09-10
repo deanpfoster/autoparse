@@ -118,36 +118,11 @@ auto_parse::eager_features(const Eigenwords& dictionary)
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 auto_parse::Model
-auto_parse::standard_model(int num_features)
+auto_parse::generate_linear_model(int num_features)
 {
-  Forecast* p_example_shift = new Forecast_linear(Eigen::VectorXd::Zero(num_features));
-  Forecast* p_example_left  = new Forecast_linear(Eigen::VectorXd::Zero(num_features));
-  Forecast* p_example_right = new Forecast_linear(Eigen::VectorXd::Zero(num_features));
-  Forecast* p_example_reduce= new Forecast_linear(Eigen::VectorXd::Zero(num_features));
-  Model result(
-	       {   {Action::shift,       p_example_shift},
-		   {Action::left_reduce, p_example_left},
-		   {Action::right_reduce,p_example_right},
-		   {Action::head_reduce, p_example_reduce}
-	       });
-  return result;
-}
-
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-auto_parse::Model
-auto_parse::eager_model(int num_features)
-{
-  Forecast* p_example_shift = new Forecast_linear(Eigen::VectorXd::Zero(num_features));
-  Forecast* p_example_left  = new Forecast_linear(Eigen::VectorXd::Zero(num_features));
-  Forecast* p_example_right = new Forecast_linear(Eigen::VectorXd::Zero(num_features));
-  Forecast* p_example_reduce= new Forecast_linear(Eigen::VectorXd::Zero(num_features));
-  Model result(
-	       {   {Action::shift_eager, p_example_shift},
-		   {Action::left_eager,  p_example_left},
-		   {Action::right_eager, p_example_right},
-		   {Action::head_reduce, p_example_reduce}
-	       });
+  Model result;
+  for(auto_parse::Action a: all_actions)
+    result.add_forecast(a, Forecast_linear(Eigen::VectorXd::Zero(num_features)));
   return result;
 }
 

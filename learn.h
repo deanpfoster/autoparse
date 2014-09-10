@@ -40,9 +40,7 @@ namespace auto_parse
       eager_features(const Eigenwords& dictionary);
   
   Model
-    standard_model(int);
-  Model
-    eager_model(int);
+    generate_linear_model(int);
 
   Model
     likelihood_to_model(const Likelihood& likelihood,
