@@ -81,7 +81,6 @@ auto_parse::Value_of_forecasts::best_action() const
 	  result = a;
 	}
     }
-  assert(max < 100);
   return result;
 };
 
