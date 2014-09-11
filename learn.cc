@@ -22,106 +22,82 @@
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                     F R E E   F U N C T I O N S                            free functions
 
-std::vector<auto_parse::Feature*>
-linear_features()
-{
-  using namespace auto_parse;
-  // the following uses new C++11 standard to shove all these into a vector
-  typedef Feature_one_dimensional<Words_left> F_wl;
-  typedef Feature_one_dimensional<Stack_size> F_ss;
-  typedef Feature_one_dimensional<Sentence_length> F_sl;
-  typedef Feature_one_dimensional<Distance_to<0> > F_d0;
-  typedef Feature_one_dimensional<Distance_to<1> > F_d1;
-  typedef Feature_one_dimensional<Distance_to<2> > F_d2;
-  std::vector<Feature*> result
-  {
-    new F_wl,
-      interaction(F_sl(),F_wl()).clone(),
-      new Interaction<F_wl, F_wl>(F_wl(),F_wl()),
-      new F_ss,
-      new Interaction<F_ss, F_ss>(F_ss(),F_ss()),
-      new F_sl,
-      new Interaction<F_sl, F_sl>(F_sl(),F_sl()),
-      new Interaction<F_sl, F_wl>(F_sl(),F_wl()),
-      new Interaction<F_sl, F_ss>(F_sl(),F_ss()),
-      new Interaction<F_ss, F_wl>(F_ss(),F_wl()),
-      new F_d0,
-      new F_d1,
-      new F_d2
-      };
-  return result;
-}
-
-std::vector<auto_parse::Feature*>
-eigen_interactions(const auto_parse::Eigenwords& dictionary)
-{
-  using namespace auto_parse;
-  //  typedef Feature_eigenwords<Next_word> nw;
-  typedef Feature_eigenwords<Stack_top> st;
-  typedef Feature_eigenwords<Stack_1>   s1;
-  
-  // the following uses new C++11 standard to shove all these into a vector
-  std::vector<Feature*> result
-  {// for speed, the other interactions are truncated before interacting (see_short_interactions_features)
-    new Interaction<st, s1>(st(dictionary),s1(dictionary))
-  };
-  return result;
-}
 
 auto_parse::Feature_generator
 auto_parse::fast_features()
-{
-  std::vector<Feature*> features = linear_features();
+{  // these are all features that can be computed quickly.  
   Feature_generator result;
-  result.add(features);
-  return result;
+  Feature_one_dimensional<Sentence_length> sl;
+  Feature_one_dimensional<Words_left>      wl;
+  Feature_one_dimensional<Distance_to<0> > d0;
+  Feature_one_dimensional<Distance_to<1> > d1;
+  Feature_one_dimensional<Distance_to<2> > d2;
+  Feature_one_dimensional<Stack_size>      ss;
+  return result
+    .add(sl)
+    .add(wl)
+    .add(d0)
+    .add(d1)
+    .add(d2)
+    .add(ss)
+    .add(interaction(sl,sl))
+    .add(interaction(sl,wl))
+    .add(interaction(sl,d0))
+    .add(interaction(sl,d1))
+    .add(interaction(sl,d2))
+    .add(interaction(sl,ss))
+    .add(interaction(wl,wl))
+    .add(interaction(wl,d0))
+    .add(interaction(wl,ss))
+    .add(interaction(ss,ss))
+    .add(interaction(interaction(ss,ss),ss))
+    ;
 };
 
-std::vector<auto_parse::Feature*> 
-short_interactions_features(const auto_parse::Eigenwords& dictionary, int length)
+auto_parse::Feature_generator
+short_interaction_pairs(const auto_parse::Feature& a,
+			    const auto_parse::Feature& b,
+			    const auto_parse::Feature& c,
+			    int length)
 {
   using namespace auto_parse;
-  typedef Feature_eigenwords<Next_word> NW;
-  typedef Feature_eigenwords<Stack_top> ST;
-  typedef Feature_eigenwords<Stack_1>   S1;
-  Shorten f_nw(NW(dictionary),length);
-  Shorten f_st(ST(dictionary),length);
-  Shorten f_s1(S1(dictionary),length);
-  
-  // the following uses new C++11 standard to shove all these into a vector
-  std::vector<Feature*> result
-  {
-    new Interaction<Shorten,Shorten>(f_nw,f_nw),
-    new Interaction<Shorten,Shorten>(f_nw,f_s1),
-    new Interaction<Shorten,Shorten>(f_nw,f_st),
-    new Interaction<Shorten,Shorten>(f_st,f_st),
-      //    new Interaction<Shorten,Shorten>(f_st,f_s1),
-    new Interaction<ST,S1>(ST(dictionary),S1(dictionary)), // use all of these
-    new Interaction<Shorten,Shorten>(f_s1,f_s1)
-  };
-  return result;
-
+  Feature_generator result;
+  return result
+    .add(interaction(shorten(a,length), shorten(a, length)))
+    .add(interaction(shorten(a,length), shorten(b, length)))
+    .add(interaction(shorten(a,length), shorten(c, length)))
+    .add(interaction(shorten(b,length), shorten(b, length)))
+    .add(interaction(shorten(b,length), shorten(c, length)))
+    .add(interaction(shorten(c,length), shorten(c, length)));
 }
 
 auto_parse::Feature_generator
 auto_parse::standard_features(const Eigenwords& dictionary)
 {
-  typedef Feature_eigenwords<Next_word> NW;
   return Feature_generator()
-    .add(linear_features())
-    .add(short_interactions_features(dictionary,10))
-    .add({new Feature_eigenwords<Next_word>(dictionary),
-	  new Feature_eigenwords<Next_word_1>(dictionary),
-	  new Feature_eigenwords<Stack_top>(dictionary),
-	  new Feature_eigenwords<Stack_1>(dictionary)})
-    .add(interaction(shorten(NW(dictionary),10),shorten(NW(dictionary),10)));
+    .add(fast_features())
+    .add(short_interaction_pairs(Feature_eigenwords<Next_word>(dictionary),
+				 Feature_eigenwords<Stack_top>(dictionary),
+				 Feature_eigenwords<Stack_1>  (dictionary),
+				 10))
+
+    .add(Feature_eigenwords<Next_word>(dictionary))
+    .add(Feature_eigenwords<Stack_top>(dictionary))
+    .add(Feature_eigenwords<Stack_1>(dictionary));
 };
 
 auto_parse::Feature_generator
 auto_parse::eager_features(const Eigenwords& dictionary)
 {
-  return Feature_generator().add(linear_features())
-    .add(short_interactions_features(dictionary,10));
+  return Feature_generator()
+    .add(fast_features())
+    .add(short_interaction_pairs(Feature_eigenwords<Next_word>(dictionary),
+				 Feature_eigenwords<Stack_top>(dictionary),
+				 Feature_eigenwords<Next_word_1>(dictionary),
+				 10))
+    .add(Feature_eigenwords<Next_word>(dictionary))
+    .add(Feature_eigenwords<Next_word_1>(dictionary))
+    .add(Feature_eigenwords<Stack_top>(dictionary));
 };
 
 

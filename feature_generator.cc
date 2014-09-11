@@ -79,6 +79,12 @@ auto_parse::Feature_generator::add(const std::vector<Feature*>& vec)
   return *this;
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+auto_parse::Feature_generator&
+auto_parse::Feature_generator::add(const auto_parse::Feature_generator& gen)
+{
+  return add(gen.m_features);
+};
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                             M A N I P U L A T O R S                          manipulators

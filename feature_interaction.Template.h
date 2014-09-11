@@ -15,6 +15,7 @@ auto_parse::Interaction<T1, T2>::~Interaction()
 template<class T1, class T2>
 auto_parse::Interaction<T1, T2>::Interaction(const T1& x1, const T2& x2)
   :
+  Feature(),
   m_x1(x1),
   m_x2(x2),
   m_dimension(x1.dimension() * x2.dimension())
@@ -24,9 +25,20 @@ auto_parse::Interaction<T1, T2>::Interaction(const T1& x1, const T2& x2)
 template<class T1, class T2>
 auto_parse::Interaction<T1, T2>::Interaction(std::istream& in)
   :
+  Feature(),
   m_x1(in),
   m_x2(in),
   m_dimension(m_x1.dimension() * m_x2.dimension())
+{
+};
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+template<class T1, class T2>
+auto_parse::Interaction<T1, T2>::Interaction(const auto_parse::Interaction<T1,T2>& other)
+  :
+  Feature(other),
+  m_x1(other.m_x1),
+  m_x2(other.m_x2),
+  m_dimension(other.m_dimension)
 {
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */

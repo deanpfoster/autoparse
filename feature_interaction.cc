@@ -22,6 +22,7 @@ template class Interaction<sl, sl>;
 template class Interaction<sl, ss>;
 template class Interaction<sl, wl>;
 template class Interaction<ss, ss>;
+template class Interaction<Interaction<ss, ss> , ss>;
 template class Interaction<ss, wl>;
 template class Interaction<ss, sl>;
 
