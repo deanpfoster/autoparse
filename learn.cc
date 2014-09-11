@@ -8,6 +8,16 @@
 #include "feature_interaction.h"
 #include <boost/program_options.hpp>
 #include "feature_interaction.Template.h"
+#include "feature_one_dimensional.h"
+#include "feature_eigenwords.h"
+#include "train_forecast_linear.h"
+#include "row.h"
+#include "contrast.h"
+#include "tp_eigenwords.h"
+#include "maximum_likelihood.h"
+#include "redo_parse.h"
+
+#include "forecast_linear.h"
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                     F R E E   F U N C T I O N S                            free functions

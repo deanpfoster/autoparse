@@ -1,6 +1,11 @@
 //   -*- c++ -*-
 
 #include "learn.h"
+#include "redo_parse.h"
+#include "tp_eigenwords.h"
+#include "maximum_likelihood.h"
+#include "contrast.h"
+#include "tokenize.h"
 
 #define REPRODUCIBLE
 #include "utilities/z.Template.h"

@@ -2,27 +2,12 @@
 
 #ifndef INCLUDED_LEARN
 #define INCLUDED_LEARN
-
-#include <iostream>
-#include <assert.h>
-#include <fstream>
+#include "feature_generator.h"
 #include <boost/tuple/tuple.hpp>
-
+#include "eigenwords.h"
 #include "model.h"
 #include "likelihood.h"
 #include "statistical_parse.h"
-#include "redo_parse.h"
-#include "feature_generator.h"
-#include "feature_one_dimensional.h"
-#include "forecast_linear.h"
-#include "eigenwords.h"
-#include "tp_eigenwords.h"
-#include "maximum_likelihood.h"
-#include "feature_eigenwords.h"
-#include "train_forecast_linear.h"
-#include "row.h"
-#include "contrast.h"
-#include "tokenize.h"
 
 
 namespace auto_parse

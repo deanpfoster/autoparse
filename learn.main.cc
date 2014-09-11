@@ -2,6 +2,19 @@
 
 #include "learn.h"
 
+
+#include <iostream>
+#include <fstream>
+
+#include "redo_parse.h"
+#include "tp_eigenwords.h"
+#include "maximum_likelihood.h"
+#include "contrast.h"
+#include "tokenize.h"
+
+
+
+
 // It should be random for production code. 
 // #define REPRODUCIBLE
 #define TRULY_RANDOM
@@ -162,14 +175,15 @@ main(int argc,char** argv)
 	
       double sampling_rate = .05;  // this generates about a factor of 10 speed up by only computing X'X 5% of the time
 
+
       //
-      // Set up a debugging stream that will keep track of where we are in the file
+      //  Set up an ostream that will keep a running tab of where we are in the output
       //
       std::stringstream s;
       s << number_to_train_on[rounds]/1000 << "k: " << rounds << " | ";
       std::string ostrm_prefix = s.str();
       boost::iostreams::filtering_ostream ostrm;
-      ostrm.push(box_output_filter(100,ostrm_prefix,"",""));
+      ostrm.push(box_output_filter(100,ostrm_prefix , "" , "" ));
       ostrm.push(std::cout);
 	
       ///////////////////////////////////////////////
@@ -185,7 +199,6 @@ main(int argc,char** argv)
 						    ostrm);
       old_model.tweak(model, update_rate);
       parser.new_model(old_model);
-
       ostrm << "\t\t\t\tTraining time " << time(0) - running_time << " sec." << std::endl;      running_time = time(0);
 
       ///////////////////////////////////////////////
@@ -208,10 +221,7 @@ main(int argc,char** argv)
 	{
 	  last_print_time = time(0);
 	  std::vector<int> which_sentences {3643, 2, 4, 10, 17, 26};
-	  std::string summary =   evaluation(rounds, ostrm, latex,
-					     dictionary, parser, likelihood,
-					     which_sentences, begin, end);
-	  ostrm <<  summary  << std::endl;
+	  ostrm <<   evaluation(rounds, ostrm, latex, dictionary, parser, likelihood, which_sentences, begin, end) << std::endl;
 	  ostrm << "Evaluation time " << time(0) - running_time << " sec." << std::endl;      running_time = time(0);
 	}
     }
@@ -289,9 +299,6 @@ main(int argc,char** argv)
 	  }
       }
     auto_parse::latex_footer(latex_final);
-
-
-    // Over and out!
 
     std::cout << "\n\n               FINISHED: " << comment  << "\n\n\n" << std::endl;
 }
