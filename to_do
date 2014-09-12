@@ -4,6 +4,10 @@ Bugs and imediate improvements:
 
 o  save and restore models.
 
+o  scale randomness based on how big the typical difference is
+
+o  add reverse
+
 Future logic:
 
 o  Add the ability to do continous contrasts.  Namely, don't break into

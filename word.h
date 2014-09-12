@@ -13,6 +13,11 @@ namespace auto_parse
   typedef std::vector<Word>     Words;
   typedef Words::const_iterator Node; 
   typedef Words::const_iterator const_word_iterator;
+
+  Words reverse(const Words&);
+  std::vector<Words> reverse(const std::vector<Words>&);
+
+
 }
 
 //  Words w = Words() + "A" + "hearing" + "on" + "the" + "issue" + "is" + "scheduled" + "today" + ".";

@@ -45,7 +45,9 @@ namespace auto_parse
 	     std::vector<auto_parse::Words>::const_iterator end);
 
 
-  boost::tuple<int, std::string, std::string, int, std::string, double, double, double, std::string,bool>
+  typedef boost::tuple<std::string, std::string, int, std::string> File_names;
+
+  boost::tuple<File_names, int, double, double, double, std::string, bool, bool>
   parse_argv(int argc, char** argv);
 
   std::string print_time(const std::string& h);

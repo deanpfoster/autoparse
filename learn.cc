@@ -282,7 +282,7 @@ auto_parse::evaluation(int rounds,
 	
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-boost::tuple<int, std::string,std::string,int,std::string,double, double, double, std::string,bool >
+boost::tuple<auto_parse::File_names, int, double, double, double, std::string, bool, bool >
 auto_parse::parse_argv(int argc, char** argv)
 {
   namespace po = boost::program_options;
@@ -294,7 +294,7 @@ auto_parse::parse_argv(int argc, char** argv)
   std::string comment;
   int         gram,repeats_per_level;
   double      update,scaling,noise;
-  bool        use_eager;
+  bool        use_eager,r2l;
 
   // Declare the supported options.
   po::options_description desc("Allowed options");
@@ -308,6 +308,7 @@ auto_parse::parse_argv(int argc, char** argv)
     ("scaling", po::value<double>(&scaling)->default_value(1), "importance of distance in the likelihood calculation")
     ("noise", po::value<double>(&noise)->default_value(1), "how noisy the decision making should be. 0=best guess, 3=almost pure noise.")
     ("eager", po::value<bool>(&use_eager)->default_value(false), "use eager or standard parsing.")
+    ("reverse", po::value<bool>(&r2l)->default_value(false), "use right to left parsing.")
     ("repeats_per_level", po::value<int>(&repeats_per_level)->default_value(50), "number of times to process at each size")
     ("comment,c", po::value<std::vector<std::string> >(&comment_vec)->multitoken(), "comment about job to help organize output")
     ;
@@ -322,7 +323,8 @@ auto_parse::parse_argv(int argc, char** argv)
   }
   for(std::string s : comment_vec)
       comment += s + " ";
-  return boost::make_tuple(repeats_per_level,latex, dictionary, gram, corpus,update,scaling,noise,comment,use_eager);
+  File_names files(corpus, dictionary, gram, latex);
+  return boost::make_tuple(files, repeats_per_level, update, scaling, noise, comment, use_eager, r2l);
 }
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
