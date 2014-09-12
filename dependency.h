@@ -83,7 +83,7 @@ namespace auto_parse
     Dependency& operator=(const Dependency &); // Don't delete this.
   };
 
-  void latex_header(std::ostream&);
+  void latex_header(std::ostream&,std::string = "runningTitle");
   void latex_footer(std::ostream&);
 };
 

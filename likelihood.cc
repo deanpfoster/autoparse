@@ -105,15 +105,15 @@ auto_parse::Likelihood::summarize_pieces(const Eigen::VectorXd& pieces) const
   // generates string:  log(like) = 3.61 = 60\% lefts @ 4.00 + 40\% rights @ 3.00 + 1\% roots @ 10
   
   std::stringstream s;
-  double average_left  = pieces[0] / pieces[1];
-  double average_right = pieces[2] / pieces[3];
+  double average_right  = pieces[0] / pieces[1];
+  double average_left = pieces[2] / pieces[3];
   double average_root  = pieces[4] / pieces[5];
   double total = pieces[0] + pieces[2] + pieces[4];
 
-  s << "log(like) = " << abs_round(total,3)
-    << " = " << relative_round(100.*pieces[1],2) << "\\% lefts @ "  << abs_round(average_left ,3)
-    << " + " << relative_round(100.*pieces[3],2) << "\\% rights @ " << abs_round(average_right,3)
-    << " + " << relative_round(100.*pieces[5],2) << "\\% roots @ "  << abs_round(average_root,3);
+  s << "log(like) = " << abs_round(total,4)
+    << " = " << relative_round(100.*pieces[3],3) << "\\% lefts @ "  << abs_round(average_left ,3)
+    << " + " << relative_round(100.*pieces[1],3) << "\\% rights @ " << abs_round(average_right,3)
+    << " + " << relative_round(100.*pieces[5],3) << "\\% roots @ "  << abs_round(average_root,3);
   return s.str();
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */

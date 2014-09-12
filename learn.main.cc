@@ -260,7 +260,7 @@ main(int argc,char** argv)
   int extra_minutes = num_minutes - 60 * num_hours;
 
   std::ofstream latex_final(latex_prefix + ".final.tex");  // open it here in case the program gets killed.
-  auto_parse::latex_header(latex_final);
+  auto_parse::latex_header(latex_final,latex_prefix);
   latex_final << "\\section*{" << comment << "}\n";
   latex_final << "Parameters:\n\\begin{itemize}";
   latex_final << "\\item corpus: \\verb\"" << sentence_file << "\"" << std::endl;
