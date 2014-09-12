@@ -23,13 +23,13 @@ prob 	              .  <---  is                                                 
 \end{deptext}
 \deproot{6}{ROOT r00t}
 \depedge{2}{1}{prob}
-\depedge{5}{4}{prob}
-\depedge{3}{5}{prob}
 \depedge{2}{3}{prob}
-\depedge{7}{8}{prob}
+\depedge{3}{5}{prob}
+\depedge{5}{4}{prob}
+\depedge{6}{2}{prob}
 \depedge{6}{7}{prob}
 \depedge{6}{9}{prob}
-\depedge{6}{2}{prob}
+\depedge{7}{8}{prob}
 \end{dependency}
 
 Should delete a cached eigendictionary.

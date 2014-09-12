@@ -5,6 +5,7 @@
 
 #include <iosfwd>
 #include <vector>
+#include <set>
 #include "word.h"
 
 namespace auto_parse
@@ -31,7 +32,7 @@ namespace auto_parse
     Node m_child;
   };
 
-  typedef std::vector<Link> Links;
+  typedef std::set<Link> Links;
 
   class Dependency
   {
@@ -60,6 +61,8 @@ namespace auto_parse
     bool full_parse() const;
     const Links& links() const;
     bool has_parent(const Node&) const;
+    Node left_most_child(const Node&) const;  // returns end() on error
+    Node right_most_child(const Node&) const;
     const Words& sentence() const{return m_words;}
     double number_left_links() const;
 

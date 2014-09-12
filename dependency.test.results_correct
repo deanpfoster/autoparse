@@ -48,6 +48,16 @@ A hearing on the issue is scheduled today .
 
 
 Number left links: 3
+hearing -> A
+hearing -> on
+on -> issue
+issue -> the
+is -> hearing
+is -> scheduled
+is -> .
+scheduled -> today
+rightmost of is = .
+leftmost of is = hearing
 
 
 DONE.

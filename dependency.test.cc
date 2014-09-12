@@ -76,6 +76,11 @@ namespace auto_parse
       assert(d.full_parse());
       assert(copy.full_parse());
       std::cout << "Number left links: " << d.number_left_links() << std::endl;
+      auto is_pointer = d.sentence().begin() + 5;
+      for(auto l : d.links())
+	std::cout << *l.parent() << " -> " << *l.child() << std::endl;
+      std::cout << "rightmost of " << *is_pointer << " = " << *d.right_most_child(is_pointer) << std::endl;
+      std::cout << "leftmost of " << *is_pointer << " = " << *d.left_most_child(is_pointer) << std::endl;
     }
   }
 }

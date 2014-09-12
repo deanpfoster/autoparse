@@ -53,7 +53,12 @@ auto_parse::Dependency::Dependency(const Dependency & other)
   if(other.m_root != other.m_words.end())
     m_root = other.m_root + shift;
   for(auto i = other.m_links.begin(); i != other.m_links.end(); ++i)
-    m_links.push_back(Link(i->parent() + shift, i->child() + shift));
+    {
+      Node p = i->parent() + shift;
+      Node c = i->child() + shift;
+      Link l(p,c);
+      m_links.insert(m_links.end(),l);
+    }
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Dependency::Dependency(const Dependency & left, Right_arrow, const Dependency& right)
@@ -69,7 +74,7 @@ auto_parse::Dependency::Dependency(const Dependency & left, Right_arrow, const D
   Node left_root = (left.m_root - left.m_words.begin()) + m_words.begin();
   Node right_offset = m_words.begin() + left.m_words.size();
   Node right_root = (right.m_root - right.m_words.begin()) + right_offset;
-  m_links.push_back(Link(left_root,right_root));
+  m_links.insert(Link(left_root,right_root));
   m_parent[right_root - m_words.begin()] = left_root - m_words.begin();
   m_root = left_root;
 };
@@ -86,7 +91,7 @@ auto_parse::Dependency::Dependency(const Dependency & left, Left_arrow, const De
   Node left_root = (left.m_root - left.m_words.begin()) + m_words.begin();
   Node right_offset = m_words.begin() + left.m_words.size();
   Node right_root = (right.m_root - right.m_words.begin()) + right_offset;
-  m_links.push_back(Link(right_root,left_root));
+  m_links.insert(Link(right_root,left_root));
   m_parent[left_root - m_words.begin()] = right_root - m_words.begin();
   m_root = right_root;
 };
@@ -125,7 +130,7 @@ auto_parse::Dependency::add(const auto_parse::Node& left,
   assert(left - m_words.begin() >= 0);
   assert(m_words.end() - right > 0);
   assert(!full_parse());
-  m_links.push_back(Link(right,left));
+  m_links.insert(Link(right,left));
   m_parent[left - m_words.begin()] = right - m_words.begin();
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -138,7 +143,7 @@ auto_parse::Dependency::add(const auto_parse::Node& left,
   assert(left - m_words.begin() >= 0);
   assert(m_words.end() - right > 0);
   assert(!full_parse());
-  m_links.push_back(Link(left,right));
+  m_links.insert(Link(left,right));
   m_parent[right - m_words.begin()] = left - m_words.begin();
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -350,6 +355,33 @@ auto_parse::Dependency::has_parent(const auto_parse::Node& location) const
   return(m_parent[location-m_words.begin()] != -1);
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+auto_parse::Node
+auto_parse::Dependency::left_most_child(const auto_parse::Node& location) const
+{
+  if(m_links.size() == 0)
+    return m_words.end(); 
+  Link target(location,m_words.begin());
+  auto i = m_links.lower_bound(target);
+  assert(i != m_links.end());
+  if((i->parent() == location) && (i->child() < location))
+    // we found a link which starts with location and ends to the left.  Its a go!
+    return i->child();
+  return m_words.end();  // nothing useful found.
+}
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+auto_parse::Node
+auto_parse::Dependency::right_most_child(const auto_parse::Node& location) const
+{
+  auto i = m_links.upper_bound(Link(location,m_words.end()));
+  if(i == m_links.begin())
+    return m_words.end();
+  --i; // we now might be pointing at a link
+  if((i->parent() == location) && (i->child() > location))
+    // we found a link which starts with location and ends to the left.  Its a go!
+    return i->child();
+  return m_words.end();  // nothing useful found.
+}
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 double
 auto_parse::Dependency::number_left_links() const
 {
@@ -383,7 +415,7 @@ auto_parse::Dependency::add_words_and_links(const Dependency & left, const Depen
       Node end   = i -> child();
       int start_index = start - left.m_words.begin();
       int end_index = end - left.m_words.begin();
-      m_links.push_back(Link(start_index+left_offset, end_index+left_offset));
+      m_links.insert(Link(start_index+left_offset, end_index+left_offset));
     }
   for(const_link_iterator i = right.m_links.begin(); i != right.m_links.end();++i)
     {
@@ -391,7 +423,7 @@ auto_parse::Dependency::add_words_and_links(const Dependency & left, const Depen
       Node end   = i -> child();
       int start_index = start - right.m_words.begin();
       int end_index = end - right.m_words.begin();
-      m_links.push_back(Link(start_index+right_offset, end_index+right_offset));
+      m_links.insert(Link(start_index+right_offset, end_index+right_offset));
     }
   m_parent = std::vector<int>(m_words.size(), -1);
   for(auto link : m_links)
