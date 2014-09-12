@@ -40,10 +40,11 @@ main(int argc,char** argv)
   boost::tie(repeats_per_level,latex_prefix, eigen_file, gram_number, sentence_file, update_rate, scaling, noise, comment,use_eager)
     = auto_parse::parse_argv(argc, argv);
   time_t start_time = time(0);  // used for final timing
-  time_t running_time = time(0);  // used for timing 
   time_t last_print_time = time(0);  // used to print about once a minute
   std::ofstream latex(latex_prefix + ".tex");
   auto_parse::latex_header(latex);  // write a "...\begin{document}" on latex_file
+  using auto_parse::print_time;
+  print_time("starting the clock");
 
   //////////////////////////////////////////////////////////////////////////////////
   //
@@ -79,7 +80,6 @@ main(int argc,char** argv)
   //   Print a big friendly blurb about our processing
   //
   //////////////////////////////////////////////////////////////////////////////////
-  
   std::cout << "\n\n               " << comment  << "\n\n\n" << std::endl;
   std::cout << "     --corpus = " << sentence_file << std::endl;
   std::cout << " --dictionary = " << eigen_file << std::endl;
@@ -91,10 +91,10 @@ main(int argc,char** argv)
   std::cout << "      --noise = " << noise << "    randomly pick best action with about accuracy noise level." << std::endl;
   std::cout << "repeats_per_level= " << repeats_per_level << std::endl;
   std::cout << "   --comment = " << comment << std::endl;
-  std::cout << "Read a dictionary of size: " << dictionary.size()<< " x " << dim
-	    << " (time " << time(0) - running_time << " sec)" << std::endl;      running_time = time(0);
+  std::cout << "Read a dictionary of size: " << dictionary.size()<< " x " << dim << print_time("reading") << std::endl;
   std::cout << "Training on " << corpus_in_memory.size() << " sentence.    " << std::endl;
   std::cout << "number threads = " << auto_parse::number_of_threads_used() << "." << std::endl;
+
       
 
   //////////////////////////////////////////////////////////////////////////////////
@@ -167,18 +167,25 @@ main(int argc,char** argv)
 
   for(unsigned int rounds = 0; rounds < number_to_train_on.size(); ++rounds)
     {
+      //
+      // Compute which sentences we should be using
+      //
       std::vector<auto_parse::Words>::const_iterator begin = end_read_interval;
       if(begin + number_to_train_on[rounds] > corpus_in_memory.end())
 	begin = corpus_in_memory.begin();
       std::vector<auto_parse::Words>::const_iterator end = begin + number_to_train_on[rounds];
       end_read_interval = end;
 	
-      double sampling_rate = .05;  // this generates about a factor of 10 speed up by only computing X'X 5% of the time
+      // this generates about a factor of 10 speed up by only computing X'X 5% of the time
+      double sampling_rate = .05;
 
+      ////////////////////////////////////////////////////
+      //                                               //
+      //  Set up an ostream that will keep a          //
+      //  running tab of where we are in the output  //
+      //                                            //
+      ///////////////////////////////////////////////
 
-      //
-      //  Set up an ostream that will keep a running tab of where we are in the output
-      //
       std::stringstream s;
       s << number_to_train_on[rounds]/1000 << "k: " << rounds << " | ";
       std::string ostrm_prefix = s.str();
@@ -199,7 +206,7 @@ main(int argc,char** argv)
 						    ostrm);
       old_model.tweak(model, update_rate);
       parser.new_model(old_model);
-      ostrm << "\t\t\t\tTraining time " << time(0) - running_time << " sec." << std::endl;      running_time = time(0);
+      ostrm << print_time("Training");
 
       ///////////////////////////////////////////////
       //                                           //
@@ -209,7 +216,7 @@ main(int argc,char** argv)
 
       likelihood = model_to_likelihood(parent_dictionary, child_dictionary,
 				       parser, scaling, begin, end);
-      ostrm << "\t\t\t\tMLE time " << time(0) - running_time << " sec." << std::endl;      running_time = time(0);
+      ostrm << print_time("MLE");
 
       ///////////////////////////////////////////////
       //                                           //
@@ -222,7 +229,7 @@ main(int argc,char** argv)
 	  last_print_time = time(0);
 	  std::vector<int> which_sentences {3643, 2, 4, 10, 17, 26};
 	  ostrm <<   evaluation(rounds, ostrm, latex, dictionary, parser, likelihood, which_sentences, begin, end) << std::endl;
-	  ostrm << "Evaluation time " << time(0) - running_time << " sec." << std::endl;      running_time = time(0);
+	  ostrm << print_time("Evaluation");
 	}
     }
   auto_parse::latex_footer(latex);

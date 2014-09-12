@@ -25,7 +25,7 @@
 
 auto_parse::Feature_generator
 auto_parse::fast_features()
-{  // these are all features that can be computed quickly.  
+{  // these are one-D features that can be computed quickly.  
   Feature_generator result;
   Feature_one_dimensional<Sentence_length> sl;
   Feature_one_dimensional<Words_left>      wl;
@@ -56,9 +56,9 @@ auto_parse::fast_features()
 
 auto_parse::Feature_generator
 short_interaction_pairs(const auto_parse::Feature& a,
-			    const auto_parse::Feature& b,
-			    const auto_parse::Feature& c,
-			    int length)
+			const auto_parse::Feature& b,
+			const auto_parse::Feature& c,
+			int length)
 {
   using namespace auto_parse;
   Feature_generator result;
@@ -80,7 +80,6 @@ auto_parse::standard_features(const Eigenwords& dictionary)
 				 Feature_eigenwords<Stack_top>(dictionary),
 				 Feature_eigenwords<Stack_1>  (dictionary),
 				 10))
-
     .add(Feature_eigenwords<Next_word>(dictionary))
     .add(Feature_eigenwords<Stack_top>(dictionary))
     .add(Feature_eigenwords<Stack_1>(dictionary));
@@ -319,6 +318,18 @@ auto_parse::parse_argv(int argc, char** argv)
   for(std::string s : comment_vec)
       comment += s + " ";
   return boost::make_tuple(repeats_per_level,latex, dictionary, gram, corpus,update,scaling,noise,comment,use_eager);
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+std::string
+auto_parse::print_time(const std::string& h)
+{
+  static time_t running_time = time(0);  // used for timing 
+  std::stringstream s;
+  s << "\t\t\t\t" << h << " time " << time(0) - running_time << " sec." << std::endl;
+  running_time = time(0);
+  return s.str();
 }
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */

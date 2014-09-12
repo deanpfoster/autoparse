@@ -48,6 +48,8 @@ namespace auto_parse
   boost::tuple<int, std::string, std::string, int, std::string, double, double, double, std::string,bool>
   parse_argv(int argc, char** argv);
 
+  std::string print_time(const std::string& h);
+
 
 }
 
