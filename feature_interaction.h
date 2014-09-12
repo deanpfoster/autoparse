@@ -8,17 +8,16 @@
 
 namespace auto_parse
 {
-  template<class T1, class T2>
   class Interaction: public Feature
   {
   public:
     // CONSTRUCTORS
     virtual ~Interaction();
-    Interaction(const T1& x1, const T2& x2);
+    Interaction(const Feature& x1, const Feature& x2);
     Interaction(std::istream&);
-    Interaction<T1,T2>(const Interaction<T1,T2> &);
-    Interaction<T1,T2>* clone() const;
-    Interaction<T1,T2>* private_restore(std::istream&) const;
+    Interaction(const Interaction &);
+    Interaction* clone() const;
+    Interaction* private_restore(std::istream&) const;
 
 
     // ACCESSORS
@@ -28,18 +27,17 @@ namespace auto_parse
     int dimension() const;
 
   private:
-    T1 m_x1;
-    T2 m_x2;
+    Feature* mp_x1;
+    Feature* mp_x2;
     int m_dimension;
-    Interaction<T1,T2>& operator=(const Interaction<T1,T2> &); // Don't delete this.
+    Interaction& operator=(const Interaction &); // Don't delete this.
   };
 
-  template<class T1, class T2>
   inline
-  Interaction<T1,T2>
-  interaction(const T1& x1, const T2& x2)
+  Interaction
+  operator*(const Feature& x1, const Feature& x2)
   {
-    return Interaction<T1,T2>(x1,x2);
+    return Interaction(x1,x2);
   }
 
 }

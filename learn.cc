@@ -7,7 +7,7 @@
 #include <iostream>
 #include "feature_interaction.h"
 #include <boost/program_options.hpp>
-#include "feature_interaction.Template.h"
+#include "feature_interaction.h"
 #include "feature_one_dimensional.h"
 #include "feature_eigenwords.h"
 #include "train_forecast_linear.h"
@@ -40,17 +40,17 @@ auto_parse::fast_features()
     .add(d1)
     .add(d2)
     .add(ss)
-    .add(interaction(sl,sl))
-    .add(interaction(sl,wl))
-    .add(interaction(sl,d0))
-    .add(interaction(sl,d1))
-    .add(interaction(sl,d2))
-    .add(interaction(sl,ss))
-    .add(interaction(wl,wl))
-    .add(interaction(wl,d0))
-    .add(interaction(wl,ss))
-    .add(interaction(ss,ss))
-    .add(interaction(interaction(ss,ss),ss))
+    .add(sl * sl)
+    .add(sl * wl)
+    .add(sl * d0)
+    .add(sl * d1)
+    .add(sl * d2)
+    .add(sl * ss)
+    .add(wl * wl)
+    .add(wl * d0)
+    .add(wl * ss)
+    .add(ss * ss)
+    .add(ss *ss * ss)
     ;
 };
 
@@ -63,12 +63,12 @@ short_interaction_pairs(const auto_parse::Feature& a,
   using namespace auto_parse;
   Feature_generator result;
   return result
-    .add(interaction(shorten(a,length), shorten(a, length)))
-    .add(interaction(shorten(a,length), shorten(b, length)))
-    .add(interaction(shorten(a,length), shorten(c, length)))
-    .add(interaction(shorten(b,length), shorten(b, length)))
-    .add(interaction(shorten(b,length), shorten(c, length)))
-    .add(interaction(shorten(c,length), shorten(c, length)));
+    .add(shorten(a,length) * shorten(a, length))
+    .add(shorten(a,length) * shorten(b, length))
+    .add(shorten(a,length) * shorten(c, length))
+    .add(shorten(b,length) * shorten(b, length))
+    .add(shorten(b,length) * shorten(c, length))
+    .add(shorten(c,length) * shorten(c, length));
 }
 
 auto_parse::Feature_generator

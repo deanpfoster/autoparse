@@ -32,6 +32,7 @@ namespace auto_parse
   private:
     virtual Feature* private_restore(std::istream&) const = 0;
     Feature& operator=(const Feature &); // Don't delete this.
+    static void register_class(const std::string&, const Feature&);
   };
 }
 
