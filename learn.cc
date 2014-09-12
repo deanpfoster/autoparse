@@ -22,6 +22,7 @@
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                     F R E E   F U N C T I O N S                            free functions
 
+static int POS_length = 10; // Enough of the top eigen directions to compute a POS. (guessed value.)
 
 auto_parse::Feature_generator
 auto_parse::fast_features()
@@ -79,7 +80,7 @@ auto_parse::standard_features(const Eigenwords& dictionary)
     .add(short_interaction_pairs(Feature_eigenwords<Next_word>(dictionary),
 				 Feature_eigenwords<Stack_top>(dictionary),
 				 Feature_eigenwords<Stack_1>  (dictionary),
-				 10))
+				 POS_length))
     .add(Feature_eigenwords<Next_word>(dictionary))
     .add(Feature_eigenwords<Stack_top>(dictionary))
     .add(Feature_eigenwords<Stack_1>(dictionary));
@@ -93,10 +94,14 @@ auto_parse::eager_features(const Eigenwords& dictionary)
     .add(short_interaction_pairs(Feature_eigenwords<Next_word>(dictionary),
 				 Feature_eigenwords<Stack_top>(dictionary),
 				 Feature_eigenwords<Next_word_1>(dictionary),
-				 10))
+				 POS_length))
+    .add(shorten(Feature_eigenwords<Stack_top_left_most>(dictionary),POS_length))
+    .add(shorten(Feature_eigenwords<Stack_top_right_most>(dictionary),POS_length))
+    .add(shorten(Feature_eigenwords<Next_word_left_most>(dictionary),POS_length)) // can't have any right children...
     .add(Feature_eigenwords<Next_word>(dictionary))
     .add(Feature_eigenwords<Next_word_1>(dictionary))
-    .add(Feature_eigenwords<Stack_top>(dictionary));
+    .add(Feature_eigenwords<Stack_top>(dictionary))
+    ;
 };
 
 

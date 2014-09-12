@@ -16,7 +16,7 @@ namespace auto_parse
       Words w = Words() + "A" + "hearing" + "on" + "the" + "issue" + "is" + "scheduled" + "today" + ".";
       auto_parse::LR g(w);  // testing construction
       g.shift(); // A
-      assert(g.next_word() == "hearing");
+      assert(*g.next_word() == "hearing");
       g.shift(); // hearing
       assert(*(g.stack_top()) == "hearing");
       std::cout << g.parse();

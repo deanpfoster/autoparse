@@ -10,28 +10,30 @@
 
 namespace auto_parse
 {
+  /////////////////////////////////////////////////////////////////////////////////////////
   struct Next_word
   {
     Word operator()(const LR& parser) const
     {
-      if(parser.number_words_left() > 0)
-	return parser.next_word();
-      else
-	return "";
+      if(parser.number_words_left() == 0)
+	return Word();
+      return *parser.next_word();
     }
     std::string name() const{return "next_word";};
   };
+  /////////////////////////////////////////////////////////////////////////////////////////
   struct Next_word_1  // zero based indexing.  :-)
   {
     Word operator()(const LR& parser) const
     {
       if(parser.number_words_left() > 1)
-	return parser.next_next_word();
+	return *parser.next_next_word();
       else
 	return "";
     }
     std::string name() const{return "next_word";};
   };
+  /////////////////////////////////////////////////////////////////////////////////////////
   struct Stack_top
   {
     Word operator()(const LR& parser) const
@@ -43,13 +45,78 @@ namespace auto_parse
     }
     std::string name() const{return "stack_top";};
   };
+  /////////////////////////////////////////////////////////////////////////////////////////
+  struct Stack_top_left_most
+  {
+    Word operator()(const LR& parser) const
+    {
+      if(parser.stack_size() == 0)
+	return Word();
+      Node t = parser.stack_top();
+      assert(t != parser.parse().sentence().end());
+      Node child = parser.parse().left_most_child(t);
+      if(child == parser.parse().sentence().end())
+	return Word();
+      return *child;
+	return Word();
+    }
+    std::string name() const{return "stack_top_left_most";};
+  };
+  /////////////////////////////////////////////////////////////////////////////////////////
+  struct Stack_top_right_most
+  {
+    Word operator()(const LR& parser) const
+    {
+      if(parser.stack_size() == 0)
+	return Word();
+      Node t = parser.stack_top();
+      assert(t != parser.parse().sentence().end());
+      Node child = parser.parse().right_most_child(t);
+      if(child == parser.parse().sentence().end())
+	return Word();
+      return *child;
+    }
+    std::string name() const{return "stack_top_right_most";};
+  };
+  /////////////////////////////////////////////////////////////////////////////////////////
+  struct Next_word_right_most
+  {
+    Word operator()(const LR& parser) const
+    {
+      if(parser.number_words_left() == 0)
+	return Word();
+      Node t = parser.next_word();
+      assert(t != parser.parse().sentence().end());
+      Node child = parser.parse().right_most_child(t);
+      if(child == parser.parse().sentence().end())
+	return Word();
+      return *child;
+    }
+    std::string name() const{return "next_word_right_most";};
+  };
+  /////////////////////////////////////////////////////////////////////////////////////////
+  struct Next_word_left_most
+  {
+    Word operator()(const LR& parser) const
+    {
+      if(parser.number_words_left() == 0)
+	return Word();
+      Node t = parser.next_word();
+      assert(t != parser.parse().sentence().end());
+      Node child = parser.parse().left_most_child(t);
+      if(child == parser.parse().sentence().end())
+	return Word();
+      return *child;
+    }
+    std::string name() const{return "next_word_left_most";};
+  };
+  /////////////////////////////////////////////////////////////////////////////////////////
   struct Stack_1
   {
     Word operator()(const LR& parser) const{
-      if(parser.stack_size() > 1)
-	return *(parser.stack(1));
-      else
-	return "";
+      if(parser.stack_size() <= 1)
+	return Word();
+      return *(parser.stack(1));
     }
     std::string name() const{return "stack_1";};
   };

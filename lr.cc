@@ -142,16 +142,18 @@ auto_parse::LR::take_action(Action a)
 
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-auto_parse::Word
+auto_parse::Node
 auto_parse::LR::next_word() const
 {
-  return *m_next_input;
+  assert(number_words_left() >= 1);
+  return m_next_input;
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-auto_parse::Word
+auto_parse::Node
 auto_parse::LR::next_next_word() const
 {
-  return *(m_next_input+1);
+  assert(number_words_left() >= 2);
+  return m_next_input+1;
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Node
