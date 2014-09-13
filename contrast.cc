@@ -64,7 +64,7 @@ auto_parse::Contrast::suggest_alternative_history(const Words& w,
 						  const History& h) const
 {
   int n = h.size();
-  int location = (n - 1) * my_random::U_thread_safe();
+  int location = (n - 1.5) * my_random::U_thread_safe();
   assert(location >= 0);
   assert(location < n - 1);
   Action action_taken = h[location];

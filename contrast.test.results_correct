@@ -7,14 +7,14 @@
 
   common: shift shift <-- shift --> shift 
 original: shift shift <-- shift --> shift <-- shift --> shift --> shift <-- shift <-- shift <-- HEAD 
- new seq: shift shift <-- shift --> shift --> shift --> shift --> shift <-- shift shift <-- --> HEAD 
+ new seq: shift shift <-- shift --> shift --> shift <-- shift <-- shift --> shift --> shift --> HEAD 
   prefix: shift shift <-- shift --> shift --> 
     last: <--
 new last: -->
-1184.36,"<--",5,2,9
--1184.36,"-->",5,2,9
--9.75777,"<--",0,2,9
-9.75777,"-->",0,2,9
+-21.3917,"<--",5,2,9
+21.3917,"-->",5,2,9
+402.763,"<--",0,2,9
+-402.763,"-->",0,2,9
 constructed!
 
 

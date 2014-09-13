@@ -295,18 +295,30 @@ main(int argc,char** argv)
       {
 	if(sentence_size == 18)
 	  latex_final << "\\scriptsize\n";
-	if(size_to_index.count(sentence_size) >= 3)
+	if(size_to_index.count(sentence_size) >= 5)
 	  {
 	    auto i = size_to_index.lower_bound(sentence_size);
-	    latex_final << "\\subsection*{" << sentence_size -1 << " words  : \\#" << i->second - begin(*p_corpus) << " + " << std::endl;
+	    latex_final << "\\subsection*{" << sentence_size -1 << " words  : ";
+	    latex_final << "l\\#" << i->second - begin(*p_corpus);
 	    auto s1 = *(i->second);
-	    auto p1 = redo_parse(s1, parser(s1)).parse();
+	    auto p1 = redo_parse(s1, parser.best_parse(s1)).parse();
 	    ++i;
-	    latex_final << "\\#"  << i->second - begin(*p_corpus) << "}  " << std::endl;
+	    latex_final << " + \\#"  << i->second - begin(*p_corpus);
 	    auto s2 = *(i->second);
-	    auto p2 = redo_parse(s2, parser(s2)).parse();
+	    auto p2 = redo_parse(s2, parser.best_parse(s2)).parse();
+	    ++i;
+	    latex_final << " + \\#"  << i->second - begin(*p_corpus);
+	    auto s3 = *(i->second);
+	    auto p3 = redo_parse(s3, parser.best_parse(s3)).parse();
+	    ++i;
+	    latex_final << " + \\#"  << i->second - begin(*p_corpus);
+	    auto s4 = *(i->second);
+	    auto p4 = redo_parse(s4, parser.best_parse(s4)).parse();
+	    latex_final << "}  " << std::endl;
 	    likelihood.decorate(p1, dictionary).latex(latex_final);
 	    likelihood.decorate(p2, dictionary).latex(latex_final);
+	    likelihood.decorate(p3, dictionary).latex(latex_final);
+	    likelihood.decorate(p4, dictionary).latex(latex_final);
 	  }
       }
     auto_parse::latex_footer(latex_final);

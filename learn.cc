@@ -246,7 +246,7 @@ auto_parse::evaluation(int rounds,
       for(int counter = 0; counter < number_to_read;++counter)
 	{
 	  const auto_parse::Words& sentence = *(begin + counter);
-	  History h = parser(sentence);
+	  History h = parser.best_parse(sentence);  // by using best_parse here we can compare noisy methods with noise free methods.
 	  total_stack_depth += h.maximum_stack_size();
 	  auto_parse::Dependency parse = redo_parse(sentence, h).parse();
 	  int n = sentence.end() - sentence.begin();
@@ -271,7 +271,7 @@ auto_parse::evaluation(int rounds,
     {
       std::vector<auto_parse::Dependency> parses;
       for(int sentence_id : which_sentences)
-	parses.push_back(redo_parse(*(begin + sentence_id), parser(*(begin + sentence_id))).parse());
+	parses.push_back(redo_parse(*(begin + sentence_id), parser.best_parse(*(begin + sentence_id))).parse());
       latex << "\\newpage\n\\section*{\\bf{" << rounds << ":}  " << summary.str() << "}\n\n" << std::endl;
       for(auto_parse::Dependency p : parses)
 	likelihood.decorate(p, dictionary).latex(latex);
