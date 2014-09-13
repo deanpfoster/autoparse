@@ -273,6 +273,7 @@ main(int argc,char** argv)
   latex_final << "\\item scaling: " << scaling << std::endl;
   latex_final << "\\item noise: " << noise << std::endl;
   latex_final << "\\item eager: " << use_eager << std::endl;
+  latex_final << "\\item reverse: " << r2l << std::endl;
   latex_final << "\\item repeats: " << repeats_per_level << std::endl;
   latex_final << "\\item Trained on " << p_corpus->size() << " sentence.    " << std::endl;
   latex_final << "\\item Threads used: " << auto_parse::number_of_threads_used()  << std::endl;
@@ -299,7 +300,7 @@ main(int argc,char** argv)
 	  {
 	    auto i = size_to_index.lower_bound(sentence_size);
 	    latex_final << "\\subsection*{" << sentence_size -1 << " words  : ";
-	    latex_final << "l\\#" << i->second - begin(*p_corpus);
+	    latex_final << "\\#" << i->second - begin(*p_corpus);
 	    auto s1 = *(i->second);
 	    auto p1 = redo_parse(s1, parser.best_parse(s1)).parse();
 	    ++i;
@@ -315,10 +316,20 @@ main(int argc,char** argv)
 	    auto s4 = *(i->second);
 	    auto p4 = redo_parse(s4, parser.best_parse(s4)).parse();
 	    latex_final << "}  " << std::endl;
-	    likelihood.decorate(p1, dictionary).latex(latex_final);
-	    likelihood.decorate(p2, dictionary).latex(latex_final);
-	    likelihood.decorate(p3, dictionary).latex(latex_final);
-	    likelihood.decorate(p4, dictionary).latex(latex_final);
+	    if(r2l)
+	      {
+		likelihood.decorate(p1, dictionary).latex_reversed(latex_final);
+		likelihood.decorate(p2, dictionary).latex_reversed(latex_final);
+		likelihood.decorate(p3, dictionary).latex_reversed(latex_final);
+		likelihood.decorate(p4, dictionary).latex_reversed(latex_final);
+	      }
+	    else
+	      {
+		likelihood.decorate(p1, dictionary).latex(latex_final);
+		likelihood.decorate(p2, dictionary).latex(latex_final);
+		likelihood.decorate(p3, dictionary).latex(latex_final);
+		likelihood.decorate(p4, dictionary).latex(latex_final);
+	      }
 	  }
       }
     auto_parse::latex_footer(latex_final);

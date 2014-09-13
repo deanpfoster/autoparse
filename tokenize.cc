@@ -40,6 +40,8 @@ auto_parse::Tokenize::next_sentence()
       std::string next_word;
       s >> next_word;
       boost::algorithm::to_lower(next_word);
+      if(next_word == "\"")
+	next_word = "QUOTE";
       result.push_back(next_word);
     }
   return result;

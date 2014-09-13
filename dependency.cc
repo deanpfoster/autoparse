@@ -209,6 +209,35 @@ auto_parse::Dependency::latex(std::ostream & ostrm) const
   ostrm << "\\end{dependency}" << std::endl;
   ostrm << std::endl;
 }
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+void
+auto_parse::Dependency::latex_reversed(std::ostream & ostrm) const
+{
+  ostrm << "\t\t%\t Include in header: \\usepackage{tikz-dependency}" << std::endl;
+  ostrm << "\\begin{dependency}[theme = simple]" << std::endl;
+  ostrm << "\\begin{deptext}[column sep=1em]" << std::endl;
+  ostrm << "     ";
+  for(auto i = m_words.rbegin(); i != m_words.rend();++i)
+    {
+      ostrm << word_description(*i) ;
+      auto next = i;
+      ++next;
+      if(next != m_words.rend())
+	ostrm << " \\& ";
+    };
+  ostrm << "  \\\\" << std::endl;
+  ostrm << "\\end{deptext}" << std::endl;
+  int root_index = m_words.end() - root();
+  ostrm << "\\deproot{" << root_index << "}{ROOT " << root_description() << "}" << std::endl;
+  for(const_link_iterator i = m_links.begin(); i != m_links.end();++i)
+    {
+      int from_index = m_words.end() - i->parent();  // Latex uses 1 based indexing
+      int to_index = m_words.end() - i->child();
+      ostrm << "\\depedge{" << from_index << "}{" << to_index << "}{" << link_description(*i) << "}" << std::endl;
+    }
+  ostrm << "\\end{dependency}" << std::endl;
+  ostrm << std::endl;
+}
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
@@ -362,7 +391,8 @@ auto_parse::Dependency::left_most_child(const auto_parse::Node& location) const
     return m_words.end(); 
   Link target(location,m_words.begin());
   auto i = m_links.lower_bound(target);
-  assert(i != m_links.end());
+  if(i == m_links.end())
+    return m_words.end();
   if((i->parent() == location) && (i->child() < location))
     // we found a link which starts with location and ends to the left.  Its a go!
     return i->child();
@@ -456,12 +486,13 @@ operator>(const auto_parse::Dependency& l, const auto_parse::Dependency& r)
   
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 void
-auto_parse::latex_header(std::ostream& out, std::string running_title)
+auto_parse::latex_header(std::ostream& out, std::string /* running_title */)
 {
   out << "\\documentclass{article}\n\n";
   out << "\\usepackage[left=.25in,top=.25in,bottom=.25in,right=.25in]{geometry}\n";  
   out << "\\usepackage{tikz-dependency}\n\n";
-  out << "\\pagestyle{myheadings}\\markright{" << running_title << ": \\thepage}";
+  // I can't get the running header to work.  Oh well.
+  //  out << "\\pagestyle{myheadings}\\markright{" << running_title << ": \\thepage}";
   out << "\\begin{document}\n\n" << std::endl;
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */

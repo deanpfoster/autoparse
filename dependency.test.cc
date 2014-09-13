@@ -46,8 +46,10 @@ namespace auto_parse
                 \\depedge{5}{7}{PC}\
                 \\depedge[arc angle=50]{7}{6}{ATT}\
                 \\end{dependency}\n\n\n";
-      latex << "The best we could do since we don't do crosses:\n\n" 
-	    << complex;
+      latex << "The best we could do since we don't do crosses:\n\n";
+      complex.latex(latex);
+      latex << "And now backwards:\n\n";
+      complex.latex_reversed(latex);
       latex_footer(latex);
      
     }	

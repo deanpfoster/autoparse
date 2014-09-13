@@ -57,6 +57,7 @@ namespace auto_parse
     // ACCESSORS
     Node root() const;
     void latex(std::ostream &) const;
+    void latex_reversed(std::ostream &) const;
     void print_on(std::ostream &) const;
     bool full_parse() const;
     const Links& links() const;
