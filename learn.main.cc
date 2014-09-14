@@ -299,7 +299,7 @@ main(int argc,char** argv)
 	if(size_to_index.count(sentence_size) >= 5)
 	  {
 	    auto i = size_to_index.lower_bound(sentence_size);
-	    latex_final << "\\subsection*{" << sentence_size -1 << " words  : ";
+	    latex_final << "\\newpage\n\\subsection*{" << sentence_size -1 << " words  : ";
 	    latex_final << "\\#" << i->second - begin(*p_corpus);
 	    auto s1 = *(i->second);
 	    auto p1 = redo_parse(s1, parser.best_parse(s1)).parse();
