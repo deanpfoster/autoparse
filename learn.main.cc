@@ -24,7 +24,7 @@
 int
 main(int argc,char** argv)
 {
-  Eigen::initParallel();  // this will help eigen not walk on top of itself.
+  //  Eigen::initParallel();  // this will help eigen not walk on top of itself.
 
   //////////////////////////////////////////////////////////////////////////////////
   //
