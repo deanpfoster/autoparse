@@ -92,7 +92,7 @@ only2:  lr.OK feature_generator.OK tp_eigenwords.OK train_forecast_linear.OK  \
 ################################################################################
 lr.test: dependency.o word.o
 
-feature_generator.test: feature.o history.o dependency.o
+feature_generator.test: feature.o history.o dependency.o word.o
 
 tp_eigenwords.test: eigenwords.o word.o transition_probability.o
 

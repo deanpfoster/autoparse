@@ -25,7 +25,7 @@ namespace auto_parse
     const Eigen::VectorXd& operator()(const Word&w) const{return (*this)[w];};
     const Eigen::VectorXd& operator[](const Word&) const;
     const Eigen::VectorXd& operator()(const Node&, const Words&) const;
-    std::map<std::string,Eigen::VectorXd>::const_iterator find(const Word& w) const{return mp_eigenwords->find(w);}
+    std::map<std::string,Eigen::VectorXd>::const_iterator find(const Word& w) const;
     std::map<std::string,Eigen::VectorXd>::const_iterator end() const{return mp_eigenwords->end();}
     int dimension() const;
     int size() const{return mp_eigenwords->size();};

@@ -4,6 +4,46 @@
 #include <iomanip>
 #include <iterator>
 
+
+
+auto_parse::Word::Word()
+  :
+  m_word()
+{
+}
+
+auto_parse::Word::Word(const std::string& word)
+  :
+  m_word(word)
+{
+}
+
+auto_parse::Word::Word(const auto_parse::Word& other)
+  :
+  m_word(other.m_word)
+{
+}
+
+auto_parse::Word&
+auto_parse::Word::operator=(const auto_parse::Word& other) 
+{
+  m_word = other.m_word;
+  return *this;
+}
+
+void
+auto_parse::Word::print_on(std::ostream& s)  const
+{
+  s << convert_to_string();
+}
+
+std::string
+auto_parse::Word::convert_to_string()  const
+{
+  return(m_word);
+}
+
+
 auto_parse::Words
 auto_parse::reverse(const Words& w)
 {
@@ -22,17 +62,21 @@ auto_parse::reverse(const std::vector<Words>& sentences)
 }
 
 auto_parse::Words
-operator+(const auto_parse::Words& W, auto_parse::Word w)
+operator+(const auto_parse::Words& W, std::string w)
 {
   auto_parse::Words result = W;
-  result.push_back(w);
+  result.push_back(auto_parse::Word(w));
   return(result);
 }
 
 
 std::ostream&
-operator<<(std::ostream & ostrm,const auto_parse::Words & w)
+operator<<(std::ostream & ostrm,const auto_parse::Words & sentence)
 {
-  std::copy(w.begin(), w.end(), std::ostream_iterator<std::string>(ostrm," , "));
+  for(auto_parse::Word w: sentence)
+    {
+      w.print_on(ostrm);
+      ostrm << " , ";
+    }
   return ostrm;
 }

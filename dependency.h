@@ -41,7 +41,7 @@ namespace auto_parse
 
     // CONSTRUCTORS
     virtual ~Dependency();
-    Dependency(const Word&); // generates most trival parse possible
+    explicit Dependency(const Word&); // generates most trival parse possible
     Dependency(const Words&); // generates an empty parse
     Dependency(const Dependency& left, Right_arrow, const Dependency& right);  // Head is left.head, old right.head comes from left now
     Dependency(const Dependency& left, Left_arrow, const Dependency& right);

@@ -12,9 +12,9 @@ namespace auto_parse
   {
     std::cout << "\n\n\n\t\t\t DEPENDENCY  DEPENDENCY  DEPENDENCY\n\n\n"<< std::endl;
     {
-      Word wa = "four";
-      Word wb = "five";
-      Word wc = "six";
+      Word wa("four");
+      Word wb("five");
+      Word wc("six");
       auto_parse::Dependency a(wa);  // testing construction
       auto_parse::Dependency b(wb);  // testing construction
       auto_parse::Dependency c(wc);  // testing construction
@@ -26,8 +26,8 @@ namespace auto_parse
     };
     {
       typedef auto_parse::Dependency D;
-      D complex =  (D("A") < D("hearing") > (D("on") > (D("the") < D("issue"))))
-	< ((D("is") > (D("scheduled") > D("today"))) > D("."));
+      D complex =  (D(Word("A")) < D(Word("hearing")) > (D(Word("on")) > (D(Word("the")) < D(Word("issue")))))
+	< ((D(Word("is")) > (D(Word("scheduled")) > D(Word("today")))) > D(Word(".")));
       std::cout << complex;
       std::ofstream latex("dependency.test.tex");
       auto_parse::latex_header(latex);
@@ -80,9 +80,9 @@ namespace auto_parse
       std::cout << "Number left links: " << d.number_left_links() << std::endl;
       auto is_pointer = d.sentence().begin() + 5;
       for(auto l : d.links())
-	std::cout << *l.parent() << " -> " << *l.child() << std::endl;
-      std::cout << "rightmost of " << *is_pointer << " = " << *d.right_most_child(is_pointer) << std::endl;
-      std::cout << "leftmost of " << *is_pointer << " = " << *d.left_most_child(is_pointer) << std::endl;
+	std::cout << l.parent()->convert_to_string() << " -> " << l.child()->convert_to_string() << std::endl;
+      std::cout << "rightmost of " << is_pointer->convert_to_string() << " = " << d.right_most_child(is_pointer)->convert_to_string() << std::endl;
+      std::cout << "leftmost of " << is_pointer->convert_to_string() << " = " << d.left_most_child(is_pointer)->convert_to_string() << std::endl;
     }
   }
 }

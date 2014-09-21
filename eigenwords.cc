@@ -82,7 +82,7 @@ auto_parse::Eigenwords::Eigenwords(std::istream& in)
       in >> dimension >> n >> std::ws;
       for(int i = 0; i < n; ++i)
 	{
-	  Word w;
+	  std::string w;
 	  in >> w >> std::ws;
 	  Eigen::VectorXd data(dimension);
 	  for(int j = 0; j < dimension; ++j)
@@ -143,13 +143,13 @@ auto_parse::Eigenwords::create_root_dictionary()
 const Eigen::VectorXd&
 auto_parse::Eigenwords::operator[](const auto_parse::Word& w) const
 {
-  auto location = mp_eigenwords->find(w);
+  auto location = mp_eigenwords->find(w.convert_to_string());
   if(location != mp_eigenwords->end())
     return location->second;
   location = mp_eigenwords->find("<OOV>");
   if(location == mp_eigenwords->end())
     {
-      std::cout << "Struggling with " << w << std::endl;
+      std::cout << "Struggling with " << w.convert_to_string() << std::endl;
       assert(0);
     };
   return location->second;
@@ -159,9 +159,15 @@ const Eigen::VectorXd&
 auto_parse::Eigenwords::operator()(const auto_parse::Node& pointer, const auto_parse::Words& sentence) const
 {
   if(pointer == sentence.end())
-    return((*this)[""]);
+    return((*this)[Word("")]);
   else
     return((*this)(*pointer));
+};
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+std::map<std::string,Eigen::VectorXd>::const_iterator
+auto_parse::Eigenwords::find(const Word& w) const
+{
+  return mp_eigenwords->find(w.convert_to_string());
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 int

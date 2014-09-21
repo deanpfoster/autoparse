@@ -11,6 +11,15 @@
 #include "eigenwords.h"
 #include "feature_eigenwords.h"
 
+std::ostream & operator<<(std::ostream & ostrm, const std::vector<std::string> & variables)
+{
+  for(auto w: variables)
+    ostrm << w << " : ";
+  return ostrm;
+};
+
+
+
 namespace auto_parse
 {
   void test_shorten()

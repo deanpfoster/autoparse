@@ -27,8 +27,8 @@ namespace auto_parse
       std::cout << Interval(2,3).cross_check(Interval(0,1));
 
       typedef auto_parse::Dependency D;
-      D complex =  (D("A") < D("hearing") > (D("on") > (D("the") < D("issue"))))
-	< ((D("is") > (D("scheduled") > D("today"))) > D("."));
+      D complex =  (D(Word("A")) < D(Word("hearing")) > (D(Word("on")) > (D(Word("the")) < D(Word("issue")))))
+	< ((D(Word("is")) > (D(Word("scheduled")) > D(Word("today")))) > D(Word(".")));
       auto_parse::Intervals i1(complex);
       auto_parse::Intervals i2(complex);
       // note: i1 = i2.  So there shouldn't be any crosses

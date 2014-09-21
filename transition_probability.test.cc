@@ -22,12 +22,9 @@ public:
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
  double
- operator()(const auto_parse::Node& parent,const auto_parse::Node& child, const auto_parse::Words&) const
+ operator()(const auto_parse::Node& ,const auto_parse::Node& , const auto_parse::Words&) const
   {
-    if(*parent < *child)
-      return 1.0;
-    else
-      return 0.0;
+    return 2./3.;
   };
 
   void
@@ -50,8 +47,8 @@ namespace auto_parse
       sample t;  // testing construction
       std::cout << "constructed!" << std::endl;
       Words words;
-      words.push_back("A");
-      words.push_back("B");
+      words.push_back(Word("A"));
+      words.push_back(Word("B"));
       Words::const_iterator a = words.begin();
       Words::const_iterator b = words.begin();
       ++b;

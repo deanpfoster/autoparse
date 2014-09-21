@@ -26,14 +26,14 @@ namespace auto_parse
       auto_parse::TP_eigenwords root(Eigenwords::create_root_dictionary(),dictionary,1.0);  // testing construction
       auto_parse::Maximum_likelihood lambda(left,right,root); 
       typedef auto_parse::Dependency D;
-      D complex =  (D("A") < D("hearing") > (D("on") > (D("the") < D("issue"))))
-	< ((D("is") > (D("scheduled") > D("today"))) > D("."));
+      D complex =  (D(Word("A")) < D(Word("hearing")) > (D(Word("on")) > (D(Word("the")) < D(Word("issue")))))
+	< ((D(Word("is")) > (D(Word("scheduled")) > D(Word("today")))) > D(Word(".")));
       lambda(complex);
-      D sorted = D("A") < D("B") < D("C") < D("D") < D("E");
+      D sorted = D(Word("A")) < D(Word("B")) < D(Word("C")) < D(Word("D")) < D(Word("E"));
       lambda(sorted);
-      D r = D("A") > D("B") > D("C") > D("D") > D("E");
+      D r = D(Word("A")) > D(Word("B")) > D(Word("C")) > D(Word("D")) > D(Word("E"));
       lambda(r);
-      D reverse = D("E") < D("D") < D("C") < D("B") < D("A");
+      D reverse = D(Word("E")) < D(Word("D")) < D(Word("C")) < D(Word("B")) < D(Word("A"));
       lambda(reverse);
       std::cout << lambda.output();
     };

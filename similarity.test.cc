@@ -14,8 +14,8 @@ namespace auto_parse
     std::cout << "\n\n\n\t\t\t INTERVAL  INTERVAL  INTERVAL\n\n\n"<< std::endl;
     {
       typedef auto_parse::Dependency D;
-      D complex =  (D("A") < D("hearing") > (D("on") > (D("the") < D("issue"))))
-	< ((D("is") > (D("scheduled") > D("today"))) > D("."));
+      D complex =  (D(Word("A")) < D(Word("hearing")) > (D(Word("on")) > (D(Word("the")) < D(Word("issue")))))
+	< ((D(Word("is")) > (D(Word("scheduled")) > D(Word("today")))) > D(Word(".")));
       std::cout << similarity(complex, complex);
     };
   }

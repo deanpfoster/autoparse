@@ -168,3 +168,11 @@ std::ostream & operator<<(std::ostream & ostrm, const auto_parse::Feature_genera
 };
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+std::ostream & operator<<(std::ostream & ostrm, const std::vector<std::string> & variables)
+{
+  for(auto w: variables)
+    ostrm << w << " : ";
+  return ostrm;
+};
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */

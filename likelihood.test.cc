@@ -33,18 +33,18 @@ namespace auto_parse
       auto_parse::Likelihood lambda(left,right,root); 
       std::cout << lambda << std::endl;
       typedef auto_parse::Dependency D;
-      D complex =  (D("A") < D("hearing") > (D("on") > (D("the") < D("issue"))))
-	< ((D("is") > (D("scheduled") > D("today"))) > D("."));
+      D complex =  (D(Word("A")) < D(Word("hearing")) > (D(Word("on")) > (D(Word("the")) < D(Word("issue")))))
+	< ((D(Word("is")) > (D(Word("scheduled")) > D(Word("today")))) > D(Word(".")));
       std::cout << lambda(complex) << std::endl;
       std::cout << "constructed!" << std::endl;
 
-      D sorted = D("A") < D("B") < D("C") < D("D") < D("E");
+      D sorted = D(Word("A")) < D(Word("B")) < D(Word("C")) < D(Word("D")) < D(Word("E"));
       std::cout << sorted;
       std::cout << "Sorted: " << lambda(sorted) << std::endl;
-      D r = D("A") > D("B") > D("C") > D("D") > D("E");
+      D r = D(Word("A")) > D(Word("B")) > D(Word("C")) > D(Word("D")) > D(Word("E"));
       std::cout << r;
       std::cout << "right hanging: " << lambda(r) << std::endl;
-      D reverse = D("E") < D("D") < D("C") < D("B") < D("A");
+      D reverse = D(Word("E")) < D(Word("D")) < D(Word("C")) < D(Word("B")) < D(Word("A"));
       std::cout << reverse;
       std::cout << "reverse: " << lambda(reverse) << std::endl;
       std::cout << "Pretty version: " << lambda.decorate(reverse,dictionary) << std::endl;

@@ -149,9 +149,9 @@ auto_parse::TP_eigenwords::operator()(const auto_parse::Node& parent,
   if(isnan(log_pd))
     {
       if(parent == sentence.end())
-	std::cout << "NAN in TP: root --> " << *child << " raw = " << parent - child << " with prob = " << prob_distance << std::endl;
+	std::cout << "NAN in TP: root --> " << child->convert_to_string() << " raw = " << parent - child << " with prob = " << prob_distance << std::endl;
       else
-	std::cout << "NAN in TP: " << *parent << " --> " << *child << " raw = " << parent - child << " with prob = " << prob_distance << std::endl;
+	std::cout << "NAN in TP: " << parent->convert_to_string() << " --> " << child->convert_to_string() << " raw = " << parent - child << " with prob = " << prob_distance << std::endl;
       log_pd = -100;
     }
   return log_pd - error.squaredNorm();

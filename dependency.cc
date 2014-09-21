@@ -26,7 +26,7 @@ auto_parse::Dependency::Dependency(const Word& w)
   : m_words(),
     m_root(),
     m_links(),
-    m_parent(w.size(),-1),
+    m_parent(1,-1),
     m_full_parse(true)
 {
   m_words.push_back(w);
@@ -252,7 +252,7 @@ auto_parse::Dependency:: link_description(const Link& ) const
 std::string
 auto_parse::Dependency:: word_description(const Word &w) const
 {
-  return(w);
+  return(w.convert_to_string());
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 std::string
@@ -289,13 +289,13 @@ auto_parse::Dependency::print_on(std::ostream & ostrm) const
     }
   for(const_word_iterator i = m_words.begin(); i != m_words.end(); ++i)
     {
-	  if(parent.find(i) != parent.end())
-	    ostrm << std::left << std::setw(5) << link_description(Link(parent.find(i)->second,i)) <<std::right;
-	  else
-	    if(root() == i)
-	      ostrm << std::left << std::setw(5) << root_description() <<std::right;
-	    else
-	      ostrm << "     ";
+      if(parent.find(i) != parent.end())
+	ostrm << std::left << std::setw(5) << link_description(Link(parent.find(i)->second,i)) <<std::right;
+      else
+	if(root() == i)
+	  ostrm << std::left << std::setw(5) << root_description() <<std::right;
+	else
+	  ostrm << "     ";
 
       //       foo    <---    bar     (foo --> A, B, C)
       ostrm << "\t" << std::setw(15) << word_description(*i);
@@ -321,7 +321,7 @@ auto_parse::Dependency::print_on(std::ostream & ostrm) const
 		{
 		  if(!first_left)
 		    left_kids << ", ";
-		  left_kids << *(j->second);
+		  left_kids << j->second->convert_to_string();
 		  first_left = false;
 		}
 	      if(j->second > i)
@@ -330,16 +330,16 @@ auto_parse::Dependency::print_on(std::ostream & ostrm) const
 		    right_kids << ", ";
 		  else
 		    right_kids << "   --->  ";
-		  right_kids << *(j->second);
+		  right_kids << j->second->convert_to_string();
 		  first_right = false;
 		}
 	    }
 	  if(!first_left)
 	    left_kids << "  <---   ";
-	  ostrm << std::setw(40) << left_kids.str() << *i << right_kids.str();
+	  ostrm << std::setw(40) << left_kids.str() << i->convert_to_string() << right_kids.str();
 	}
       else
-	ostrm << std::setw(40) << " " << *i;
+	ostrm << std::setw(40) << " " << i->convert_to_string();
       ostrm << std::endl;
     }
   ostrm << std::endl;
