@@ -6,9 +6,24 @@
 #include <iosfwd>
 #include <string>
 #include <vector>
+#include <map>
+#include <set>
 
 namespace auto_parse
 {
+  class Lexicon
+  {
+  public:
+    Lexicon(const std::set<std::string>& map);
+    Lexicon(const std::map<std::string,int>& map);
+    // ACCESSORS
+    int operator()(const std::string& word) const;
+    std::string operator()(int) const;
+  private:
+    std::map<std::string, int> m_index;
+    std::vector<std::string> m_words;
+  };
+
   class Word
   {
   public:
@@ -24,15 +39,6 @@ namespace auto_parse
 
   private:
     std::string m_word;
-  };
-  
-  class Token_dictionary
-  {
-  public:
-    Token_dictionary(std::istream&);
-    // ACCESSORS
-    Word operator()(const std::string&) const;
-    std::string operator()(Word) const;
   };
 
   typedef std::vector<Word>     Words;

@@ -3,8 +3,54 @@
 #include "word.h"
 #include <iomanip>
 #include <iterator>
+#include <assert.h>
 
+auto_parse::Lexicon::Lexicon(const std::set<std::string>& indexes)
+  :
+  m_index(),
+  m_words(indexes.size())
+{
+  for(auto i = begin(indexes), e = end(indexes); i != e; ++i)
+    m_index.insert(m_index.end(),std::make_pair(*i,m_index.size()));
+  assert(m_index.find("<OOV>") != m_index.end());
+  for(auto i = begin(m_index), e = end(m_index); i != e; ++i)
+    {
+      assert(i->second >= 0);
+      assert(i->second < int(m_index.size()));
+      m_words[i->second] = i->first;
+    }
+}
 
+auto_parse::Lexicon::Lexicon(const std::map<std::string, int>& indexes)
+  :
+  m_index(indexes),
+  m_words(m_index.size())
+{
+  assert(m_index.find("<OOV>") != m_index.end());
+  for(auto i = begin(m_index), e = end(m_index); i != e; ++i)
+    {
+      assert(i->second >= 0);
+      assert(i->second < int(m_index.size()));
+      m_words[i->second] = i->first;
+    }
+}
+
+int
+auto_parse::Lexicon::operator()(const std::string& word) const
+{
+  auto location = m_index.find(word);
+  if(location == m_index.end())
+    location = m_index.find("<OOV>");
+  assert(location != m_index.end());
+  return(location->second);
+}
+std::string
+auto_parse::Lexicon::operator()(int location) const
+{
+  assert(location >= 0);
+  assert(location < int(m_words.size()));
+  return m_words[location];
+}
 
 auto_parse::Word::Word()
   :
