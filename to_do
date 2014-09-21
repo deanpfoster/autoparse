@@ -1,12 +1,20 @@
 	                         -*- text -*-
 
-Bugs and imediate improvements:
+Immediate improvements:
 
-o  save and restore models.
+o  Build scoring rule based on comparing two different parses.  This
+   can be used both for training data and for telling if a forward
+   parse looks like a reverse parse.
+
+o  save models (can already restore them).
 
 o  scale randomness based on how big the typical difference is
 
-o  add reverse
+o  Added the ability to make a new eigen-dictionary based off of
+   bigrams computed between parent-child pairs.
+
+o  add construction of eigen dictionary, so we can start from zero and
+   work forward.  (i.e. no google eigenwords.)
 
 Future logic:
 
@@ -17,21 +25,25 @@ o  Add the ability to do continous contrasts.  Namely, don't break into
    pushing stuff to the future--so links that never come down should be
    penalized. 
 
-o  Added the ability to make a new eigen-dictionary based off of
-   bigrams computed between parent-child pairs.
 
 Experiments:
 
+o  Insert random "orit"'s in the corpus and see if they get hung on
+   leaves. 
+
 o  Find some labelled data to run on.  Write a likelihood estimator based
    on the correct parse.  Number of edges correct?  Right direction of
-   dependence? guess as to distance?
+   dependence? guess as to distance?  What is the liklihood of these
+   hand labelled sentences?  
 
-o  Make limited strategies: all left.  all right.  stack limited.  Use
-   these as strawmen.
+o  Lyle says there is a overlapping regions statistic.  I can compare
+   random sentences to correct sentences to see if I'm beating
+   chance. 
+
+o  Make limited strategies: all left.  all right.  stack limited.
+   Pure random guessing.  Use these as strawmen.
 
 Runs:
-
-See what the coverage is for our dictionary.
 
 Build a new google grams dictionary which doesn't downcase.  This
 might help with understanding start of sentences etc.
@@ -52,5 +64,5 @@ by an vector for speed.
 speedup: profile code to see what actually is taking time.
 
 speedup: compute matrix*vector for parser to generate new vector.
-This should make parsing instatnious.  Since this isn't actually the
-slow step, it may be more for show.
+This should make parsing instantaneous.  Since this isn't actually the
+slow step, it may be more for show, i.e. I can parse 100k per second.
