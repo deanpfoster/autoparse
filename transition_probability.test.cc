@@ -46,9 +46,10 @@ namespace auto_parse
     {
       sample t;  // testing construction
       std::cout << "constructed!" << std::endl;
-      Words words;
-      words.push_back(Word("A"));
-      words.push_back(Word("B"));
+      Lexicon l {"<OOV>", "A", "hearing", "on", "the", "issue", "is", "scheduled", "today", "."};
+      Words words(&l);
+      words.push_back(Word(l,"A"));
+      words.push_back(Word(l,"B"));
       Words::const_iterator a = words.begin();
       Words::const_iterator b = words.begin();
       ++b;

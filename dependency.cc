@@ -22,8 +22,8 @@ auto_parse::Dependency::~Dependency()
 {
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-auto_parse::Dependency::Dependency(const Word& w)
-  : m_words(),
+auto_parse::Dependency::Dependency(const Lexicon& l, const Word& w)
+  : m_words(l,w.p_lexicon()),
     m_root(),
     m_links(),
     m_parent(1,-1),
@@ -188,10 +188,10 @@ auto_parse::Dependency::latex(std::ostream & ostrm) const
   ostrm << "\\begin{dependency}[theme = simple]" << std::endl;
   ostrm << "\\begin{deptext}[column sep=1em]" << std::endl;
   ostrm << "     ";
-  for(const_word_iterator i = m_words.begin(); i != m_words.end();++i)
+  for(auto i = m_words.begin(); i != m_words.end();++i)
     {
       ostrm << word_description(*i) ;
-      const_word_iterator next = i;
+      auto next = i;
       ++next;
       if(next != m_words.end())
 	ostrm << " \\& ";
@@ -287,7 +287,7 @@ auto_parse::Dependency::print_on(std::ostream & ostrm) const
       //      for(auto i = parent.begin(); i != parent.end();++i)
       //	ostrm << i->first - m_words.begin() << " --> " << i->second - m_words.begin() << std::endl;
     }
-  for(const_word_iterator i = m_words.begin(); i != m_words.end(); ++i)
+  for(auto i = m_words.begin(); i != m_words.end(); ++i)
     {
       if(parent.find(i) != parent.end())
 	ostrm << std::left << std::setw(5) << link_description(Link(parent.find(i)->second,i)) <<std::right;

@@ -14,8 +14,9 @@ namespace auto_parse
     std::cout << "\n\n\n\t\t\t INTERVAL  INTERVAL  INTERVAL\n\n\n"<< std::endl;
     {
       typedef auto_parse::Dependency D;
-      D complex =  (D(Word("A")) < D(Word("hearing")) > (D(Word("on")) > (D(Word("the")) < D(Word("issue")))))
-	< ((D(Word("is")) > (D(Word("scheduled")) > D(Word("today")))) > D(Word(".")));
+      Lexicon l {"<OOV>", "A", "hearing", "on", "the", "issue", "is", "scheduled", "today", "."};
+      D complex =  (D(Word(l,"A")) < D(Word(l,"hearing")) > (D(Word(l,"on")) > (D(Word(l,"the")) < D(Word(l,"issue")))))
+	< ((D(Word(l,"is")) > (D(Word(l,"scheduled")) > D(Word(l,"today")))) > D(Word(l,".")));
       std::cout << similarity(complex, complex);
     };
   }

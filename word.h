@@ -16,6 +16,7 @@ namespace auto_parse
   public:
     Lexicon(const std::set<std::string>& map);
     Lexicon(const std::map<std::string,int>& map);
+    Lexicon(const std::initializer_list<std::string>&);
     // ACCESSORS
     int operator()(const std::string& word) const;
     std::string operator()(int) const;
@@ -28,22 +29,41 @@ namespace auto_parse
   {
   public:
     Word();
-    Word(const std::string&);
+    Word(const Lexicon&, const std::string&);
     Word(const Word&);
     Word& operator=(const Word&);
-    bool operator==(const Word&rhs) const{return m_word == rhs.m_word;};
+    bool operator==(const Word&rhs) const{return m_index == rhs.m_index;};
 
     // ACCESSORS
-    void print_on(std::ostream&) const;
-    std::string convert_to_string() const;
+    void print_on(const Lexicon&, std::ostream&) const;
+    std::string convert_to_string(const Lexicon&) const;
 
   private:
-    std::string m_word;
+    int m_index;
   };
 
-  typedef std::vector<Word>     Words;
+  class Words
+  {
+  public:
+    typedef std::vector<Word>::const_iterator const_iterator;
+    typedef std::vector<Word>::const_reverse_iterator const_reverse_iterator;
+    Words(const Lexicon*);
+    void push_back(const Word& w){m_words.push_back(w);};
+    //ACCESSORS
+    const Lexicon* p_lexicon() const{return mp_l;};
+    const Lexicon& lexicon() const{return *mp_l;};
+    const_iterator begin() const{return m_words.begin();};
+    const_iterator end() const{return m_words.end();};
+    const_reverse_iterator rbegin() const{return m_words.rbegin();};
+    const_reverse_iterator rend() const{return m_words.rend();};
+    int size() const{return m_words.size();};
+  private:
+    const Lexicon*           mp_l;
+    std::vector<Word>  m_words;
+
+  };
+
   typedef Words::const_iterator Node; 
-  typedef Words::const_iterator const_word_iterator;
 
   Words reverse(const Words&);
   std::vector<Words> reverse(const std::vector<Words>&);

@@ -12,9 +12,10 @@ namespace auto_parse
   {
     std::cout << "\n\n\n\t\t\t DEPENDENCY  DEPENDENCY  DEPENDENCY\n\n\n"<< std::endl;
     {
-      Word wa("four");
-      Word wb("five");
-      Word wc("six");
+      Lexicon l {"<OOV>", "A", "hearing", "on", "the", "issue", "is", "scheduled", "today", "."};
+      Word wa(l,"four");
+      Word wb(l,"five");
+      Word wc(l,"six");
       auto_parse::Dependency a(wa);  // testing construction
       auto_parse::Dependency b(wb);  // testing construction
       auto_parse::Dependency c(wc);  // testing construction
@@ -26,8 +27,9 @@ namespace auto_parse
     };
     {
       typedef auto_parse::Dependency D;
-      D complex =  (D(Word("A")) < D(Word("hearing")) > (D(Word("on")) > (D(Word("the")) < D(Word("issue")))))
-	< ((D(Word("is")) > (D(Word("scheduled")) > D(Word("today")))) > D(Word(".")));
+      Lexicon l {"<OOV>", "A", "hearing", "on", "the", "issue", "is", "scheduled", "today", "."};
+      D complex =  (D(Word(l,"A")) < D(Word(l,"hearing")) > (D(Word(l,"on")) > (D(Word(l,"the")) < D(Word(l,"issue")))))
+	< ((D(Word(l,"is")) > (D(Word(l,"scheduled")) > D(Word(l,"today")))) > D(Word(l,".")));
       std::cout << complex;
       std::ofstream latex("dependency.test.tex");
       auto_parse::latex_header(latex);
@@ -55,7 +57,8 @@ namespace auto_parse
     }	
     {
       // Partial parsing example
-      Words w = Words() + "A" + "hearing" + "on" + "the" + "issue" + "is" + "scheduled" + "today" + ".";
+      Lexicon l {"<OOV>", "A", "hearing", "on", "the", "issue", "is", "scheduled", "today", "."};
+      Words w = Words(&l) + "A" + "hearing" + "on" + "the" + "issue" + "is" + "scheduled" + "today" + ".";
       auto_parse::Dependency d(w);
       assert(!d.full_parse());
       d.set_root(5);  // Zero based indexing
@@ -79,10 +82,10 @@ namespace auto_parse
       assert(copy.full_parse());
       std::cout << "Number left links: " << d.number_left_links() << std::endl;
       auto is_pointer = d.sentence().begin() + 5;
-      for(auto l : d.links())
-	std::cout << l.parent()->convert_to_string() << " -> " << l.child()->convert_to_string() << std::endl;
-      std::cout << "rightmost of " << is_pointer->convert_to_string() << " = " << d.right_most_child(is_pointer)->convert_to_string() << std::endl;
-      std::cout << "leftmost of " << is_pointer->convert_to_string() << " = " << d.left_most_child(is_pointer)->convert_to_string() << std::endl;
+      for(auto link : d.links())
+	std::cout << link.parent()->convert_to_string(l) << " -> " << link.child()->convert_to_string(l) << std::endl;
+      std::cout << "rightmost of " << is_pointer->convert_to_string(l) << " = " << d.right_most_child(is_pointer)->convert_to_string(l) << std::endl;
+      std::cout << "leftmost of " << is_pointer->convert_to_string(l) << " = " << d.left_most_child(is_pointer)->convert_to_string(l) << std::endl;
     }
   }
 }

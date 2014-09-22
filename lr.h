@@ -58,7 +58,7 @@ namespace auto_parse
 
     Dependency m_parse;
     std::vector<Node> m_stack; 
-    auto_parse::const_word_iterator m_next_input;
+    auto_parse::Node  m_next_input;
     
     LR& operator=(const LR &); // Don't delete this.
   };
