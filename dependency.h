@@ -41,7 +41,7 @@ namespace auto_parse
 
     // CONSTRUCTORS
     virtual ~Dependency();
-    explicit Dependency(const Word&); // generates most trival parse possible
+    Dependency(const Lexicon&, const std::string&); // helper function for *.test.cc
     Dependency(const Words&); // generates an empty parse
     Dependency(const Dependency& left, Right_arrow, const Dependency& right);  // Head is left.head, old right.head comes from left now
     Dependency(const Dependency& left, Left_arrow, const Dependency& right);
@@ -66,6 +66,8 @@ namespace auto_parse
     Node right_most_child(const Node&) const;
     const Words& sentence() const{return m_words;}
     double number_left_links() const;
+    const Lexicon* p_lexicon() const{return m_words.p_lexicon();};
+    const Lexicon& lexicon() const{return m_words.lexicon();};
 
   protected:
     virtual std::string link_description(const Link&) const;

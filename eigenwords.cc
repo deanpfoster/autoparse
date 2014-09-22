@@ -48,7 +48,8 @@ auto_parse::Eigenwords::~Eigenwords()
 auto_parse::Eigenwords::Eigenwords(std::istream& in, int gram_number)
   :  m_alive(true),
      m_cache_index(-1),
-     mp_eigenwords()
+     mp_eigenwords(),
+     m_lexicon()
 {
   m_cache_index = s_cache.size();
   s_cache_counter.push_back(1);
@@ -56,12 +57,14 @@ auto_parse::Eigenwords::Eigenwords(std::istream& in, int gram_number)
   *s_cache[m_cache_index] = read_CSV(in, 0, gram_number);
   mp_eigenwords = s_cache[m_cache_index];
   assert(mp_eigenwords->find("<OOV>") != mp_eigenwords->end());
+  m_lexicon = generate_lexicon();
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Eigenwords::Eigenwords(std::istream& in)
   :  m_alive(true),
      m_cache_index(-1),
-     mp_eigenwords()
+     mp_eigenwords(),
+     m_lexicon()
 {
   std::string eigenwords;
   getline(in,eigenwords);
@@ -94,19 +97,22 @@ auto_parse::Eigenwords::Eigenwords(std::istream& in)
     }
   mp_eigenwords = s_cache[m_cache_index];
   assert(mp_eigenwords->find("<OOV>") != mp_eigenwords->end());
+  m_lexicon = generate_lexicon();
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Eigenwords::Eigenwords()
   :  m_alive(true),
      m_cache_index(-1),
-     mp_eigenwords()
+     mp_eigenwords(),
+     m_lexicon()
 {
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Eigenwords::Eigenwords(const auto_parse::Eigenwords& other)
   :  m_alive(true),
      m_cache_index(other.m_cache_index),
-     mp_eigenwords(other.mp_eigenwords)
+     mp_eigenwords(other.mp_eigenwords),
+     m_lexicon(other.m_lexicon)
 {
   s_cache_counter[m_cache_index]++;
 };
@@ -114,11 +120,13 @@ auto_parse::Eigenwords::Eigenwords(const auto_parse::Eigenwords& other)
 auto_parse::Eigenwords::Eigenwords(int i1, int i2, int i3)
   :  m_alive(true),
      m_cache_index(i1),
-     mp_eigenwords(s_cache[i2])
+     mp_eigenwords(s_cache[i2]),
+     m_lexicon()
 {
   assert(i1 == i2);  // this is the secrete password to call this constructor
   assert(i2 == i3);
   s_cache_counter[i3]++;
+  m_lexicon = generate_lexicon();
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Eigenwords
@@ -143,13 +151,13 @@ auto_parse::Eigenwords::create_root_dictionary()
 const Eigen::VectorXd&
 auto_parse::Eigenwords::operator[](const auto_parse::Word& w) const
 {
-  auto location = mp_eigenwords->find(w.convert_to_string());
+  auto location = mp_eigenwords->find(w.convert_to_string(lexicon()));
   if(location != mp_eigenwords->end())
     return location->second;
   location = mp_eigenwords->find("<OOV>");
   if(location == mp_eigenwords->end())
     {
-      std::cout << "Struggling with " << w.convert_to_string() << std::endl;
+      std::cout << "Struggling with " << w.convert_to_string(lexicon()) << std::endl;
       assert(0);
     };
   return location->second;
@@ -159,7 +167,7 @@ const Eigen::VectorXd&
 auto_parse::Eigenwords::operator()(const auto_parse::Node& pointer, const auto_parse::Words& sentence) const
 {
   if(pointer == sentence.end())
-    return((*this)[Word("")]);
+    return((*this)[Word(lexicon(),"")]);
   else
     return((*this)(*pointer));
 };
@@ -167,7 +175,7 @@ auto_parse::Eigenwords::operator()(const auto_parse::Node& pointer, const auto_p
 std::map<std::string,Eigen::VectorXd>::const_iterator
 auto_parse::Eigenwords::find(const Word& w) const
 {
-  return mp_eigenwords->find(w.convert_to_string());
+  return mp_eigenwords->find(w.convert_to_string(lexicon()));
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 int
@@ -196,11 +204,20 @@ auto_parse::Eigenwords::with_constant_row_sum_squares() const
   return result;
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                           P R O T E C T E D                                     protected
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                           P R I V A T E                                           private
+std::vector<std::string>
+auto_parse::Eigenwords::generate_lexicon() const
+{
+  std::vector<std::string> result;
+  for(auto a : *mp_eigenwords)
+    {
+      result.push_back(a.first);
+    }
+  return result;
+}
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                     F R E E   F U N C T I O N S                            free functions
 

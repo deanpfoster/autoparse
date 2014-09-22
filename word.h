@@ -8,15 +8,19 @@
 #include <vector>
 #include <map>
 #include <set>
+#include <assert.h>
 
 namespace auto_parse
 {
   class Lexicon
   {
   public:
+    Lexicon(){};  // generates broken lexicon, please use operator= soon!
     Lexicon(const std::set<std::string>& map);
     Lexicon(const std::map<std::string,int>& map);
     Lexicon(const std::initializer_list<std::string>&);
+    Lexicon(const std::vector<std::string>&);
+    void operator=(const Lexicon& rhs){assert(m_index.size() == 0);m_index=rhs.m_index;m_words=rhs.m_words;};
     // ACCESSORS
     int operator()(const std::string& word) const;
     std::string operator()(int) const;
@@ -45,9 +49,11 @@ namespace auto_parse
   class Words
   {
   public:
+    typedef Word value_type;
     typedef std::vector<Word>::const_iterator const_iterator;
     typedef std::vector<Word>::const_reverse_iterator const_reverse_iterator;
     Words(const Lexicon*);
+    Words(const Lexicon&,const std::string&); // inserts one word, useful in *.test.cc
     void push_back(const Word& w){m_words.push_back(w);};
     //ACCESSORS
     const Lexicon* p_lexicon() const{return mp_l;};

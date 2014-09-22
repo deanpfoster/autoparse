@@ -15,11 +15,12 @@ namespace auto_parse
     {
       std::ifstream in("pretty_5_c_sample.csv");
       auto_parse::Eigenwords g(in,5);  // testing construction
-      std::cout << g[Word("foo")] << std::endl << std::endl;
-      std::cout << g[Word("and")] << std::endl;
-      Eigenwords root = Eigenwords::create_root_dictionary();
-      std::cout << root[Word("foo")] << std::endl;
-      Words sentence;
+      Lexicon l = g.lexicon();
+      std::cout << g[Word(l, "foo")] << std::endl << std::endl;
+      std::cout << g[Word(l, "and")] << std::endl;
+      Eigenwords root = Eigenwords::create_root_dictionary(l);
+      std::cout << root[Word(root.lexicon(), "foo")] << std::endl;
+      Words sentence(&l);
       std::cout << root(sentence.end(),sentence) << std::endl;
     };
   }

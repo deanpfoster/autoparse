@@ -5,6 +5,21 @@
 
 
 
+four 
+     	           four  <---  ROOT                                                   four
+
+
+four five 
+     	           four  <---  ROOT                                                   four   --->  five
+     	           five  <---  four                                                   five
+
+
+four five six 
+     	           four  <---  six                                                    four   --->  five
+     	           five  <---  four                                                   five
+     	            six  <---  ROOT                                      four  <---   six
+
+
 constructed!
 four five six 
      	           four  <---  six                                                    four   --->  five
@@ -21,6 +36,7 @@ A hearing on the issue is scheduled today .
      	      scheduled  <---  is                                                     scheduled   --->  today
      	          today  <---  scheduled                                              today
      	              .  <---  is                                                     .
+
 
 A hearing on the issue is scheduled today . 
 			 * * * * Incomplete parse structure:   3 / 9 * * * *

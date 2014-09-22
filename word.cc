@@ -21,6 +21,16 @@ auto_parse::Lexicon::Lexicon(const std::set<std::string>& indexes)
     }
 }
 
+auto_parse::Lexicon::Lexicon(const std::vector<std::string>& words)
+  :
+  m_index(),
+  m_words(words)
+{
+  for(unsigned int i = 0;i < m_words.size(); ++i)
+    m_index[m_words[i]] = i;
+  assert(m_index.find("<OOV>") != m_index.end());
+}
+
 auto_parse::Lexicon::Lexicon(const std::initializer_list<std::string>& list)
   :
   m_index(),
@@ -111,6 +121,14 @@ auto_parse::Words::Words(const Lexicon* pl)
   mp_l(pl),
    m_words()
 {
+}
+
+auto_parse::Words::Words(const Lexicon& l,const std::string& w )
+  :
+  mp_l(&l),
+   m_words()
+{
+  m_words.push_back(Word(l,w));
 }
 
 

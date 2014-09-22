@@ -12,15 +12,15 @@ namespace auto_parse
   {
     std::cout << "\n\n\n\t\t\t DEPENDENCY  DEPENDENCY  DEPENDENCY\n\n\n"<< std::endl;
     {
-      Lexicon l {"<OOV>", "A", "hearing", "on", "the", "issue", "is", "scheduled", "today", "."};
-      Word wa(l,"four");
-      Word wb(l,"five");
-      Word wc(l,"six");
-      auto_parse::Dependency a(wa);  // testing construction
-      auto_parse::Dependency b(wb);  // testing construction
-      auto_parse::Dependency c(wc);  // testing construction
+      Lexicon l {"<OOV>", "four", "five", "six"};
+      auto_parse::Dependency a(l,"four");  // testing construction
+      std::cout << a << std::endl;
+      auto_parse::Dependency b(l,"five"); 
+      auto_parse::Dependency c(l,"six"); 
       auto_parse::Dependency d(a,auto_parse::Right_arrow(),b);  // testing construction
+      std::cout << d << std::endl;
       auto_parse::Dependency e(d,auto_parse::Left_arrow(),c);  // testing construction
+      std::cout << e << std::endl;
       
       std::cout << "constructed!" << std::endl;
       std::cout << e;
@@ -28,9 +28,9 @@ namespace auto_parse
     {
       typedef auto_parse::Dependency D;
       Lexicon l {"<OOV>", "A", "hearing", "on", "the", "issue", "is", "scheduled", "today", "."};
-      D complex =  (D(Word(l,"A")) < D(Word(l,"hearing")) > (D(Word(l,"on")) > (D(Word(l,"the")) < D(Word(l,"issue")))))
-	< ((D(Word(l,"is")) > (D(Word(l,"scheduled")) > D(Word(l,"today")))) > D(Word(l,".")));
-      std::cout << complex;
+      D complex =  (D(l,"A") < D(l,"hearing") > (D(l,"on") > (D(l,"the") < D(l,"issue"))))
+	< ((D(l,"is") > (D(l,"scheduled") > D(l,"today"))) > D(l,"."));
+      std::cout << complex << std::endl;
       std::ofstream latex("dependency.test.tex");
       auto_parse::latex_header(latex);
       latex << "Original sentence--which has crosses in it:\n\n" << std::endl;
