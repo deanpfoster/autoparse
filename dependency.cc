@@ -23,7 +23,7 @@ auto_parse::Dependency::~Dependency()
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Dependency::Dependency(const Lexicon& l, const Word& w)
-  : m_words(l,w.p_lexicon()),
+  : m_words(l),
     m_root(),
     m_links(),
     m_parent(1,-1),
@@ -62,7 +62,7 @@ auto_parse::Dependency::Dependency(const Dependency & other)
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Dependency::Dependency(const Dependency & left, Right_arrow, const Dependency& right)
-  : m_words(),
+  : m_words(left.m_words.p_lexicon()),
     m_root(),
     m_links(),
     m_parent(),
@@ -80,7 +80,7 @@ auto_parse::Dependency::Dependency(const Dependency & left, Right_arrow, const D
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Dependency::Dependency(const Dependency & left, Left_arrow, const Dependency& right)
-  : m_words(),
+  : m_words(left.m_words.p_lexicon()),
     m_root(),
     m_links(),
     m_full_parse(true)
@@ -252,7 +252,7 @@ auto_parse::Dependency:: link_description(const Link& ) const
 std::string
 auto_parse::Dependency:: word_description(const Word &w) const
 {
-  return(w.convert_to_string());
+  return(w.convert_to_string(m_sentence.lexicon()));
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 std::string
