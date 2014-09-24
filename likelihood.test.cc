@@ -23,6 +23,7 @@ namespace auto_parse
   void test_likelihood()
   {
     std::cout << "\n\n\n\t\t\t LIKELIHOOD  LIKELIHOOD  LIKELIHOOD\n\n\n"<< std::endl;
+    typedef auto_parse::Dependency D;
     {
       std::ifstream in("pretty_5_c_sample.csv");
       auto_parse::Eigenwords dictionary(in,5);  // testing construction
@@ -32,19 +33,24 @@ namespace auto_parse
       sample root;
       auto_parse::Likelihood lambda(left,right,root); 
       std::cout << lambda << std::endl;
-      typedef auto_parse::Dependency D;
-      D complex =  (D(Word("A")) < D(Word("hearing")) > (D(Word("on")) > (D(Word("the")) < D(Word("issue")))))
-	< ((D(Word("is")) > (D(Word("scheduled")) > D(Word("today")))) > D(Word(".")));
+      const Lexicon& l = dictionary.lexicon();
+      D complex =  (D(l,"A") < D(l,"hearing") > (D(l,"on") > (D(l,"the") < D(l,"issue"))))
+	< ((D(l,"is") > (D(l,"scheduled") > D(l,"today"))) > D(l,"."));
       std::cout << lambda(complex) << std::endl;
       std::cout << "constructed!" << std::endl;
-
-      D sorted = D(Word("A")) < D(Word("B")) < D(Word("C")) < D(Word("D")) < D(Word("E"));
+    }
+    {
+      Lexicon l {"<OOV>", "A", "B", "C", "D", "E"};
+      Eigenwords dictionary = Eigenwords::create_root_dictionary(l);
+      sample root;
+      auto_parse::Likelihood lambda(root,root,root); 
+      D sorted = D(l,"A") < D(l,"B") < D(l,"C") < D(l,"D") < D(l,"E");
       std::cout << sorted;
       std::cout << "Sorted: " << lambda(sorted) << std::endl;
-      D r = D(Word("A")) > D(Word("B")) > D(Word("C")) > D(Word("D")) > D(Word("E"));
+      D r = D(l,"A") > D(l,"B") > D(l,"C") > D(l,"D") > D(l,"E");
       std::cout << r;
       std::cout << "right hanging: " << lambda(r) << std::endl;
-      D reverse = D(Word("E")) < D(Word("D")) < D(Word("C")) < D(Word("B")) < D(Word("A"));
+      D reverse = D(l,"E") < D(l,"D") < D(l,"C") < D(l,"B") < D(l,"A");
       std::cout << reverse;
       std::cout << "reverse: " << lambda(reverse) << std::endl;
       std::cout << "Pretty version: " << lambda.decorate(reverse,dictionary) << std::endl;

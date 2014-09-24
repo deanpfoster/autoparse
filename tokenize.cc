@@ -17,10 +17,11 @@ auto_parse::Tokenize::~Tokenize()
   m_input.close();
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-auto_parse::Tokenize::Tokenize(const std::string & name)
+auto_parse::Tokenize::Tokenize(const std::string & name, const Lexicon* pl)
   :
   m_file_name(name),
-  m_input(name)
+  m_input(name),
+  mp_lexicon(pl)
 {
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -34,7 +35,7 @@ auto_parse::Tokenize::next_sentence()
   getline(m_input,one_line);
   m_input >> std::ws; 
   std::stringstream s(one_line);
-  Words result;
+  Words result(mp_lexicon);
   while(!s.eof())
     {
       std::string next_word;
@@ -42,7 +43,7 @@ auto_parse::Tokenize::next_sentence()
       boost::algorithm::to_lower(next_word);
       if(next_word == "\"")
 	next_word = "QUOTE";
-      result.push_back(next_word);
+      result.push_back(Word(*mp_lexicon,next_word));
     }
   return result;
 };

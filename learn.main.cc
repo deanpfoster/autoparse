@@ -70,7 +70,7 @@ main(int argc,char** argv)
   //
   //////////////////////////////////////////////////////////////////////////////////
 
-  auto_parse::Tokenize corpus_file(sentence_file);
+    auto_parse::Tokenize corpus_file(sentence_file,&dictionary.lexicon());
   std::vector<auto_parse::Words> raw_corpus;
   while(!corpus_file.eof())
     raw_corpus.push_back(corpus_file.next_sentence());
@@ -129,7 +129,7 @@ main(int argc,char** argv)
 
   auto_parse::TP_eigenwords tp_left(dictionary,dictionary,scaling);  
   auto_parse::TP_eigenwords tp_right(dictionary,dictionary,scaling);  
-  auto_parse::TP_eigenwords tp_root(auto_parse::Eigenwords::create_root_dictionary(),dictionary,scaling);  
+  auto_parse::TP_eigenwords tp_root(auto_parse::Eigenwords::create_root_dictionary(dictionary.lexicon()),dictionary,scaling);  
   auto_parse::Likelihood likelihood(tp_left,tp_right,tp_root);
 
   //////////////////////////////////////////////////////////////////////////////////

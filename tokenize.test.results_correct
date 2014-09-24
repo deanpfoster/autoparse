@@ -1,37 +1,40 @@
+ 
 
 
-
-			 TOKENIZE  TOKENIZE  TOKENIZE
-
-
-
-// , -*- , c++ , -*- , 
-#include , <iostream> , 
-#include , <assert.h> , 
-#include , "tokenize.h" , 
-namespace , auto_parse , 
+			 TOKENIZE  TOKENIZE  TOKENIZE 
+ 
+ 
+ 
+<OOV> , <OOV> , <OOV> , <OOV> , 
+#include , <OOV> , 
+#include , <OOV> , 
+#include , <OOV> , 
+namespace , <OOV> , 
 { , 
-void , test_tokenize() , 
+<OOV> , <OOV> , 
 { , 
-std::cout , << , "\n\n\n\t\t\t , tokenize , tokenize , tokenize\n\n\n"<< , std::endl; , 
+std::cout , << , QUOTE , <OOV> , tokenize , tokenize , tokenize , \n , \n , \n , QUOTE , << , std::endl; , 
 { , 
-auto_parse::tokenize , in("tokenize.test.cc"); , // , testing , construction , 
-while(!in.eof()) , 
+<OOV> , <OOV> , <OOV> , <OOV> , <OOV> , <OOV> , <OOV> , <OOV> , 
+<OOV> , <OOV> , <OOV> , <OOV> , <OOV> , <OOV> , <OOV> , <OOV> , <OOV> , 
+<OOV> , 
+<OOV> , <OOV> , <OOV> , <OOV> , <OOV> , 
+<OOV> , 
 { , 
-std::cout , << , in.next_sentence() , << , std::endl; , 
+std::cout , << , <OOV> , << , std::endl; , 
 } , 
-std::cout , << , "constructed!" , << , std::endl; , 
-}; , 
+std::cout , << , <OOV> , << , std::endl; , 
+<OOV> , 
 } , 
 } , 
-#ifndef , no_main , 
+<OOV> , <OOV> , 
 int , 
 main() , 
 { , 
-auto_parse::test_tokenize(); ,  , 
-std::cout , << , "\n\ndone." , << , std::endl; ,  , 
-}; , 
-#endif , 
+<OOV> , <OOV> , 
+std::cout , << , <OOV> , << , std::endl; , <OOV> , 
+<OOV> , 
+<OOV> , 
 constructed!
 
 

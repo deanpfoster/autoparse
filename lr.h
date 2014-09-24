@@ -41,7 +41,7 @@ namespace auto_parse
     bool legal(auto_parse::Action) const;
     int  number_words_left() const;
     int  stack_size() const{return m_stack.size();};
-
+    const Lexicon& lexicon() const{return m_parse.lexicon();};
   protected:
     
     

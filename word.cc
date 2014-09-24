@@ -8,11 +8,12 @@
 auto_parse::Lexicon::Lexicon(const std::set<std::string>& indexes)
   :
   m_index(),
-  m_words(indexes.size())
+  m_words(indexes.size()),
+  m_cache_id(-1)
 {
   for(auto i = begin(indexes), e = end(indexes); i != e; ++i)
     m_index.insert(m_index.end(),std::make_pair(*i,m_index.size()));
-  assert(m_index.find("<OOV>") != m_index.end());
+  assert(m_index.find(oov()) != m_index.end());
   for(auto i = begin(m_index), e = end(m_index); i != e; ++i)
     {
       assert(i->second >= 0);
@@ -24,21 +25,47 @@ auto_parse::Lexicon::Lexicon(const std::set<std::string>& indexes)
 auto_parse::Lexicon::Lexicon(const std::vector<std::string>& words)
   :
   m_index(),
-  m_words(words)
+  m_words(words),
+  m_cache_id(-1)
+
 {
   for(unsigned int i = 0;i < m_words.size(); ++i)
     m_index[m_words[i]] = i;
-  assert(m_index.find("<OOV>") != m_index.end());
+  assert(m_index.find(oov()) != m_index.end());
+}
+
+auto_parse::Lexicon::Lexicon(std::istream& in)
+  :
+  m_index(),
+  m_words(),
+  m_cache_id(-1)
+{
+  std::string start_string;
+  getline(in, start_string);
+  assert(start_string == "start<Lexicon>");
+  int n;
+  in >> n >> std::ws;
+  m_words = std::vector<std::string>(n,"");
+  for(int i = 0; i < n; ++i)
+    in >> m_words[i] >> std::ws;
+  for(unsigned int i = 0;i < m_words.size(); ++i)
+    m_index[m_words[i]] = i;
+  assert(m_index.find(oov()) != m_index.end());
+  std::string end_string;
+  getline(in, end_string);
+  assert(end_string == "end<Lexicon>");
+
 }
 
 auto_parse::Lexicon::Lexicon(const std::initializer_list<std::string>& list)
   :
   m_index(),
-  m_words(list.size())
+  m_words(list.size()),
+  m_cache_id(-1)
 {
   for(auto i = begin(list), e = end(list); i != e; ++i)
     m_index.insert(m_index.end(),std::make_pair(*i,m_index.size()));
-  assert(m_index.find("<OOV>") != m_index.end());
+  assert(m_index.find(oov()) != m_index.end());
   for(auto i = begin(m_index), e = end(m_index); i != e; ++i)
     {
       assert(i->second >= 0);
@@ -50,9 +77,10 @@ auto_parse::Lexicon::Lexicon(const std::initializer_list<std::string>& list)
 auto_parse::Lexicon::Lexicon(const std::map<std::string, int>& indexes)
   :
   m_index(indexes),
-  m_words(m_index.size())
+  m_words(m_index.size()),
+  m_cache_id(-1)
 {
-  assert(m_index.find("<OOV>") != m_index.end());
+  assert(m_index.find(oov()) != m_index.end());
   for(auto i = begin(m_index), e = end(m_index); i != e; ++i)
     {
       assert(i->second >= 0);
@@ -66,7 +94,7 @@ auto_parse::Lexicon::operator()(const std::string& word) const
 {
   auto location = m_index.find(word);
   if(location == m_index.end())
-    location = m_index.find("<OOV>");
+    location = m_index.find(oov());
   assert(location != m_index.end());
   return(location->second);
 }

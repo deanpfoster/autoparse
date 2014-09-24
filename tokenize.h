@@ -14,7 +14,7 @@ namespace auto_parse
   public:
     // CONSTRUCTORS
     ~Tokenize();
-    Tokenize(const std::string&);
+    Tokenize(const std::string&,const Lexicon* l);
 
     // MANIPULATORS
     auto_parse::Words next_sentence();
@@ -28,6 +28,7 @@ namespace auto_parse
   private:
     std::string m_file_name;
     std::ifstream m_input;
+    const Lexicon* mp_lexicon;
   };
 }
 

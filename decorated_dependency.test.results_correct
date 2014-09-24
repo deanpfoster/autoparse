@@ -5,21 +5,21 @@
 
 
 
-A.OOV hearing.OOV on the issue.OOV is scheduled.OOV today.OOV . 
-prob 	          A.OOV  <---  hearing.OOV                                            A
-prob 	    hearing.OOV  <---  is                                           A  <---   hearing   --->  on
-prob 	             on  <---  hearing.OOV                                            on   --->  issue
-prob 	            the  <---  issue.OOV                                              the
-prob 	      issue.OOV  <---  on                                         the  <---   issue
+A hearing on the issue is scheduled today . 
+prob 	              A  <---  hearing                                                A
+prob 	        hearing  <---  is                                           A  <---   hearing   --->  on
+prob 	             on  <---  hearing                                                on   --->  issue
+prob 	            the  <---  issue                                                  the
+prob 	          issue  <---  on                                         the  <---   issue
 r00t 	             is  <---  ROOT                                   hearing  <---   is   --->  scheduled, .
-prob 	  scheduled.OOV  <---  is                                                     scheduled   --->  today
-prob 	      today.OOV  <---  scheduled.OOV                                          today
+prob 	      scheduled  <---  is                                                     scheduled   --->  today
+prob 	          today  <---  scheduled                                              today
 prob 	              .  <---  is                                                     .
 
 		%	 Include in header: \usepackage{tikz-dependency}
 \begin{dependency}[theme = simple]
 \begin{deptext}[column sep=1em]
-     A.OOV \& hearing.OOV \& on \& the \& issue.OOV \& is \& scheduled.OOV \& today.OOV \& .  \\
+     A \& hearing \& on \& the \& issue \& is \& scheduled \& today \& .  \\
 \end{deptext}
 \deproot{6}{ROOT r00t}
 \depedge{2}{1}{prob}
@@ -32,8 +32,6 @@ prob 	              .  <---  is                                                 
 \depedge{7}{8}{prob}
 \end{dependency}
 
-Should delete a cached eigendictionary.
-But we aren't going to since it seems to be having problems when we do so.
 
 
 DONE.

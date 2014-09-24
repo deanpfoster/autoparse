@@ -123,7 +123,7 @@ feature_eigenwords.test: lr.o dependency.o word.o feature.o eigenwords.o
 
 likelihood.test: dependency.o transition_probability.o word.o decorated_dependency.o eigenwords.o
 
-similarity.test: dependency.o word.o interval.o
+similarity.test: dependency.o word.o interval.o lr.o
 
 ################################################################################
 #           L E V E L     F O U R    T E S T I N G     C O D E

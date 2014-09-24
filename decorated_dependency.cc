@@ -75,9 +75,8 @@ auto_parse::Decorated_dependency:: link_description(const Link& link) const
 std::string
 auto_parse::Decorated_dependency:: word_description(const Word &w) const
 {
-  std::string result = w.convert_to_string();
-
-  if(m_dictionary.find(w) == m_dictionary.end())
+  std::string result = w.convert_to_string(lexicon());
+  if(w.as_index() == lexicon().oov_index())
     result += ".OOV";
   return(result);
 }

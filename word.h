@@ -20,13 +20,20 @@ namespace auto_parse
     Lexicon(const std::map<std::string,int>& map);
     Lexicon(const std::initializer_list<std::string>&);
     Lexicon(const std::vector<std::string>&);
+    Lexicon(std::istream&);
     void operator=(const Lexicon& rhs){assert(m_index.size() == 0);m_index=rhs.m_index;m_words=rhs.m_words;};
+    void set_cache_id(int id) const{m_cache_id=id;};// fake const
     // ACCESSORS
+    std::string oov() const {return "<OOV>";};
+    int oov_index() const {return m_index.find("<OOV>")->second;};
     int operator()(const std::string& word) const;
     std::string operator()(int) const;
+    int size() const{return m_words.size();};
+    int cache_id() const{return m_cache_id;};
   private:
     std::map<std::string, int> m_index;
     std::vector<std::string> m_words;
+    mutable int m_cache_id;
   };
 
   class Word
@@ -41,7 +48,7 @@ namespace auto_parse
     // ACCESSORS
     void print_on(const Lexicon&, std::ostream&) const;
     std::string convert_to_string(const Lexicon&) const;
-
+    int as_index() const {return m_index;};
   private:
     int m_index;
   };
