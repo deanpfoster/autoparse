@@ -16,8 +16,8 @@ namespace auto_parse
   // If we need to call serious Eigen code (i.e. SVD / LU) then it might be
   // worth while changing rows and columns around since Eigen code is setup
   // to use MatrixXd by default and so might run faster / better.
-  //  typedef Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic, Eigen::ColMajor> Matrix;
-  typedef Eigen::MatrixXd Matrix;
+  typedef Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic, Eigen::ColMajor> Matrix;
+  //  typedef Eigen::MatrixXd Matrix;
 
   class Eigenwords
   {

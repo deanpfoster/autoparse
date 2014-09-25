@@ -2,9 +2,6 @@
 
 Immediate improvements:
 
-o  Insert a string back into the word class for debugging.  This will
-   make .OOV's meaningful.  Turn off when NDEBUG is used?  Maybe.
-
 o  Try doing row major now that I've fixed a memory allocation issue. 
 
 o  Try doing the RowXPtr thing instead of a vector.  This probably
