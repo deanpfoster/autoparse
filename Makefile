@@ -62,7 +62,8 @@ feature.test:
 #          (This code can depend on level zero code)
 #
 only1:  dependency.OK transition_probability.OK forecast_constant.OK \
-        value_of_forecasts.OK forecast_linear.OK eigenwords.OK tokenize.OK
+        value_of_forecasts.OK forecast_linear.OK eigenwords.OK tokenize.OK \
+        feature_generator.OK
 #
 ################################################################################
 dependency.test:   word.o
@@ -79,6 +80,8 @@ eigenwords.test: word.o
 
 tokenize.test: word.o
 
+feature_generator.test: feature.o history.o word.o
+
 
 ################################################################################
 #
@@ -86,13 +89,11 @@ tokenize.test: word.o
 #
 #          (This code can depend on level zero or level one code)
 #
-only2:  lr.OK feature_generator.OK tp_eigenwords.OK train_forecast_linear.OK  \
+only2:  lr.OK tp_eigenwords.OK train_forecast_linear.OK  \
         decorated_dependency.OK model.OK interval.OK
 #
 ################################################################################
 lr.test: dependency.o word.o
-
-feature_generator.test: feature.o history.o dependency.o word.o
 
 tp_eigenwords.test: eigenwords.o word.o transition_probability.o
 
