@@ -14,7 +14,7 @@ namespace auto_parse
   public:
     // CONSTRUCTORS
     ~Tokenize();
-    Tokenize(const std::string&,const Lexicon* l);
+    Tokenize(const std::string&, const Lexicon* l);
 
     // MANIPULATORS
     auto_parse::Words next_sentence();

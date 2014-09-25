@@ -15,6 +15,7 @@ namespace auto_parse
   class Lexicon
   {
   public:
+    virtual ~Lexicon(){}; 
     Lexicon(){};  // generates broken lexicon, please use operator= soon!
     Lexicon(const std::set<std::string>& map);
     Lexicon(const std::map<std::string,int>& map);
@@ -26,11 +27,11 @@ namespace auto_parse
     // ACCESSORS
     std::string oov() const {return "<OOV>";};
     int oov_index() const {return m_index.find("<OOV>")->second;};
-    int operator()(const std::string& word) const;
+    virtual int operator()(const std::string& word) const;
     std::string operator()(int) const;
     int size() const{return m_words.size();};
     int cache_id() const{return m_cache_id;};
-  private:
+  protected:
     std::map<std::string, int> m_index;
     std::vector<std::string> m_words;
     mutable int m_cache_id;

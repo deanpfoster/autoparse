@@ -2,10 +2,14 @@
 
 Immediate improvements:
 
-o  Try doing row major now that I've fixed a memory allocation issue. 
+o  Construct a lexicon from a corpus.  This will be necessary to first
+   step to doing the automatic eigen dictionary.
 
-o  Try doing the RowXPtr thing instead of a vector.  This probably
-   doesn't matter for speed.
+o  Added the ability to make a new eigen-dictionary based off of
+   bigrams computed between parent-child pairs.
+
+o  add construction of eigen dictionary, so we can start from zero and
+   work forward.  (i.e. no google eigenwords.)
 
 o  Build scoring rule based on comparing two different parses.  This
    can be used both for training data and for telling if a forward
@@ -15,14 +19,6 @@ o  save models (can already restore them).
 
 o  scale randomness based on how big the typical difference is
 
-o  Added the ability to make a new eigen-dictionary based off of
-   bigrams computed between parent-child pairs.
-
-o  Construct a lexicon from a corpus.  This will be necessary to first
-   step to doing the automatic eigen dictionary.
-
-o  add construction of eigen dictionary, so we can start from zero and
-   work forward.  (i.e. no google eigenwords.)
 
 Future logic:
 
@@ -68,3 +64,7 @@ speedup: profile code to see what actually is taking time.
 speedup: compute matrix*vector for parser to generate new vector.
 This should make parsing instantaneous.  Since this isn't actually the
 slow step, it may be more for show, i.e. I can parse 100k per second.
+
+o  Try doing the ConstRowXpr thing instead of a vector in eigenwords.  This probably
+   doesn't matter for speed.
+

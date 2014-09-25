@@ -90,7 +90,7 @@ feature_generator.test: feature.o history.o word.o
 #          (This code can depend on level zero or level one code)
 #
 only2:  lr.OK tp_eigenwords.OK train_forecast_linear.OK  \
-        decorated_dependency.OK model.OK interval.OK
+        decorated_dependency.OK model.OK interval.OK lexicon_generator.OK
 #
 ################################################################################
 lr.test: dependency.o word.o
@@ -104,6 +104,8 @@ decorated_dependency.test: dependency.o word.o eigenwords.o
 model.test: forecast.o history.o value_of_forecasts.o
 
 interval.test: dependency.o word.o
+
+lexicon_generator.test: word.o tokenize.o
 
 ################################################################################
 #
