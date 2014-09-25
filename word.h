@@ -51,6 +51,9 @@ namespace auto_parse
     int as_index() const {return m_index;};
   private:
     int m_index;
+#ifndef NDEBUG
+    std::string m_string;
+#endif
   };
 
   class Words

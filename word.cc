@@ -109,18 +109,27 @@ auto_parse::Lexicon::operator()(int location) const
 auto_parse::Word::Word()
   :
   m_index(-1)
+#ifndef NDEBUG  /* notice the , is with the m_string */
+  , m_string("")
+#endif
 {
 }
 
 auto_parse::Word::Word(const Lexicon& l, const std::string& word)
   :
   m_index(l(word))
+#ifndef NDEBUG  /* notice the , is with the m_string */
+  ,m_string(word)
+#endif
 {
 }
 
 auto_parse::Word::Word(const auto_parse::Word& other)
   :
   m_index(other.m_index)
+#ifndef NDEBUG  /* notice the , is with the m_string */
+  ,m_string(other.m_string)
+#endif
 {
 }
 
@@ -128,19 +137,38 @@ auto_parse::Word&
 auto_parse::Word::operator=(const auto_parse::Word& other) 
 {
   m_index = other.m_index;
+#ifndef NDEBUG
+  m_string = other.m_string;
+#endif
   return *this;
 }
 
 void
-auto_parse::Word::print_on(const Lexicon& l, std::ostream& s)  const
+auto_parse::Word::print_on(const Lexicon&
+#ifdef NDEBUG  /* only used in this case */
+    l
+#endif
+    , std::ostream& s)  const
 {
+#ifndef NDEBUG
+  s << m_string;
+#else
   s << l(m_index);
+#endif
 }
 
 std::string
-auto_parse::Word::convert_to_string(const Lexicon& l)  const
+auto_parse::Word::convert_to_string(const Lexicon&
+#ifdef NDEBUG  /* only used in this case */
+    l
+#endif
+    )  const
 {
+#ifndef NDEBUG
+  return m_string;
+#else
   return(l(m_index));
+#endif
 }
 
 

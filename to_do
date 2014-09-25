@@ -2,6 +2,14 @@
 
 Immediate improvements:
 
+o  Insert a string back into the word class for debugging.  This will
+   make .OOV's meaningful.  Turn off when NDEBUG is used?  Maybe.
+
+o  Try doing row major now that I've fixed a memory allocation issue. 
+
+o  Try doing the RowXPtr thing instead of a vector.  This probably
+   doesn't matter for speed.
+
 o  Build scoring rule based on comparing two different parses.  This
    can be used both for training data and for telling if a forward
    parse looks like a reverse parse.
@@ -12,6 +20,9 @@ o  scale randomness based on how big the typical difference is
 
 o  Added the ability to make a new eigen-dictionary based off of
    bigrams computed between parent-child pairs.
+
+o  Construct a lexicon from a corpus.  This will be necessary to first
+   step to doing the automatic eigen dictionary.
 
 o  add construction of eigen dictionary, so we can start from zero and
    work forward.  (i.e. no google eigenwords.)
@@ -51,12 +62,6 @@ might help with understanding start of sentences etc.
 Parse wiki into sentences and run on that.
 
 LOW PRIORITY
-
-speedup / storage: Divide up eigen dictionary into two pieces, the
-tokenization part (std::string) and the index part (int).  Then only
-pass around the tokenized version.  So an Eigen_Dictionary now takes a
-"word" which is represented as an integer.  Basically this can all be
-done by modifying the basic "Word" class.
 
 speedup: There is a map in value_of_forecasts which should be replaced
 by an vector for speed.
