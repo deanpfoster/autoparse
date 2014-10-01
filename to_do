@@ -2,8 +2,6 @@
 
 Immediate improvements:
 
-o  Construct a lexicon from a corpus.  This will be necessary to first
-   step to doing the automatic eigen dictionary.
 
 o  Added the ability to make a new eigen-dictionary based off of
    bigrams computed between parent-child pairs.
