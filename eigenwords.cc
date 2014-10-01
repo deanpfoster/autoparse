@@ -161,7 +161,7 @@ auto_parse::Eigenwords::Eigenwords(const auto_parse::Eigenwords& other)
 auto_parse::Eigenwords::Eigenwords(int i1, int i2, int i3)
   :  m_alive(true),
      m_cache_index(i1),
-     m_lexicon_index(s_which_lexicon[i1]),
+     m_lexicon_index(s_which_lexicon[i2]),
      mp_data(s_data[m_cache_index]),
      mp_lexicon(&s_lexicon[m_lexicon_index])
 {
