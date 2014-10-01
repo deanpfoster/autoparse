@@ -62,7 +62,8 @@ feature.test:
 #          (This code can depend on level zero code)
 #
 only1:  dependency.OK transition_probability.OK forecast_constant.OK \
-        value_of_forecasts.OK forecast_linear.OK eigenwords.OK tokenize.OK
+        value_of_forecasts.OK forecast_linear.OK eigenwords.OK tokenize.OK \
+        feature_generator.OK
 #
 ################################################################################
 dependency.test:   word.o
@@ -79,6 +80,8 @@ eigenwords.test: word.o
 
 tokenize.test: word.o
 
+feature_generator.test: feature.o history.o word.o
+
 
 ################################################################################
 #
@@ -86,12 +89,11 @@ tokenize.test: word.o
 #
 #          (This code can depend on level zero or level one code)
 #
-only2:  lr.OK feature_generator.OK tp_eigenwords.OK train_forecast_linear.OK decorated_dependency.OK model.OK
+only2:  lr.OK tp_eigenwords.OK train_forecast_linear.OK  \
+        decorated_dependency.OK model.OK interval.OK lexicon_generator.OK
 #
 ################################################################################
 lr.test: dependency.o word.o
-
-feature_generator.test: feature.o history.o dependency.o
 
 tp_eigenwords.test: eigenwords.o word.o transition_probability.o
 
@@ -101,13 +103,18 @@ decorated_dependency.test: dependency.o word.o eigenwords.o
 
 model.test: forecast.o history.o value_of_forecasts.o
 
+interval.test: dependency.o word.o
+
+lexicon_generator.test: word.o tokenize.o
+
 ################################################################################
 #
 #           L E V E L     T H R E E    T E S T I N G     C O D E
 #
 #          (This code can depend on level 0, 1, or 2 code)
 #
-only3: redo_parse.OK feature_eigenwords.OK feature_one_dimensional.OK  likelihood.OK
+only3: redo_parse.OK feature_eigenwords.OK feature_one_dimensional.OK \
+       likelihood.OK similarity.OK
 #
 ################################################################################
 
@@ -118,6 +125,8 @@ feature_one_dimensional.test: lr.o dependency.o word.o feature.o
 feature_eigenwords.test: lr.o dependency.o word.o feature.o eigenwords.o
 
 likelihood.test: dependency.o transition_probability.o word.o decorated_dependency.o eigenwords.o
+
+similarity.test: dependency.o word.o interval.o lr.o
 
 ################################################################################
 #           L E V E L     F O U R    T E S T I N G     C O D E

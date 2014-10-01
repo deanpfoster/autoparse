@@ -12,7 +12,8 @@ namespace auto_parse
   {
     std::cout << "\n\n\n\t\t\t REDO_PARSE  REDO_PARSE  REDO_PARSE\n\n\n"<< std::endl;
     {
-      Words sentence = Words() + "A" + "hearing" + "on" + "the" + "issue" + "is" + "scheduled" + "today" + ".";
+      Lexicon l {"<OOV>", "A", "hearing", "on", "the", "issue", "is", "scheduled", "today", "."};
+      Words sentence = Words(&l) + "A" + "hearing" + "on" + "the" + "issue" + "is" + "scheduled" + "today" + ".";
       auto_parse::History h;
       std::cout << redo_parse(sentence, h);
       h.push_back(auto_parse::Action::shift); // A

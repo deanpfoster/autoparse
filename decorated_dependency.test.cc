@@ -13,8 +13,9 @@ namespace auto_parse
     std::cout << "\n\n\n\t\t\t DECORATED_DEPENDENCY  DECORATED_DEPENDENCY  DECORATED_DEPENDENCY\n\n\n"<< std::endl;
     {
       typedef auto_parse::Dependency D;
-      D complex =  (D("A") < D("hearing") > (D("on") > (D("the") < D("issue"))))
-	< ((D("is") > (D("scheduled") > D("today"))) > D("."));
+      Lexicon l {"<OOV>", "A", "hearing", "on", "the", "issue", "is", "scheduled", "today", "."};
+      D complex =  (D(l,"A") < D(l,"hearing") > (D(l,"on") > (D(l,"the") < D(l,"issue"))))
+	< ((D(l,"is") > (D(l,"scheduled") > D(l,"today"))) > D(l,"."));
       std::ifstream in("pretty_5_c_sample.csv");
       auto_parse::Eigenwords dictionary(in,5);  // testing construction
       Decorated_dependency pretty(complex, dictionary);

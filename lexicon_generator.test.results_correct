@@ -1,10 +1,12 @@
- 
 
 
-			 TOKENIZE  TOKENIZE  TOKENIZE 
- 
- 
- 
+
+			 LEXICON_GENERATOR  LEXICON_GENERATOR  LEXICON_GENERATOR
+
+
+
+Lexicon start off at: 1
+constructed!
 // , -*- , c++ , -*- , 
 #include , <iostream> , 
 #include , <assert.h> , 
@@ -35,7 +37,6 @@ auto_parse::test_tokenize(); ,  ,
 std::cout , << , "\n\ndone." , << , std::endl; ,  , 
 }; , 
 #endif , 
-constructed!
-
+Lexicon is now: 55
 
 DONE.

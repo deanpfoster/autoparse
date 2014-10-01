@@ -12,7 +12,8 @@ namespace auto_parse
   {
     std::cout << "\n\n\n\t\t\t WORD   WORD   WORD\n\n\n"<< std::endl;
     {
-      Words w = Words() + "A" + "hearing" + "on" + "the" + "issue" + "is" + "scheduled" + "today" + ".";
+      Lexicon l {"<OOV>", "A", "hearing", "on", "the", "issue", "is", "scheduled", "today", "."};
+      Words w = Words(&l) + "A" + "hearing" + "on" + "the" + "issue" + "is" + "scheduled" + "today" + ".";
       std::cout << "constructed!" << std::endl;
 
       std::cout << w << std::endl;

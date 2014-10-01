@@ -199,7 +199,7 @@ auto_parse::model_to_likelihood(const Eigenwords& parent,const Eigenwords& child
 {
   auto_parse::TP_eigenwords left(parent,child,scaling); 
   auto_parse::TP_eigenwords right(parent,child,scaling); 
-  auto_parse::TP_eigenwords root(Eigenwords::create_root_dictionary(),child,scaling); 
+  auto_parse::TP_eigenwords root(Eigenwords::create_root_dictionary(child.lexicon()),child,scaling); 
   auto_parse::Maximum_likelihood mle(left,right,root);
 #pragma omp parallel default(shared)
   {

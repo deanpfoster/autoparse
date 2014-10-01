@@ -8,6 +8,13 @@
 
 #include "feature_one_dimensional.h"
 
+std::ostream & operator<<(std::ostream & ostrm, const std::vector<std::string> & variables)
+{
+  for(auto w: variables)
+    ostrm << w << " : ";
+  return ostrm;
+};
+
 namespace auto_parse
 {
   void test_feature_one_dimensional()

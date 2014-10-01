@@ -29,7 +29,7 @@ namespace auto_parse
       if(parser.number_words_left() > 1)
 	return *parser.next_next_word();
       else
-	return "";
+	return Word();
     }
     std::string name() const{return "next_word";};
   };

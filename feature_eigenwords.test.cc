@@ -7,6 +7,13 @@
 #include <iterator>
 
 #include "feature_eigenwords.h"
+#include "utilities/string_handling.h"
+std::ostream & operator<<(std::ostream & ostrm, const std::vector<std::string> & variables)
+{
+  for(auto w: variables)
+    ostrm << w << " : ";
+  return ostrm;
+};
 
 namespace auto_parse
 {

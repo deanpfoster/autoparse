@@ -73,8 +73,8 @@ auto_parse::TP_eigenwords::clone() const
 void
 auto_parse::TP_eigenwords::accumulate(const Node& p, const Node& c, const Words& w) 
 {
-  const Eigen::VectorXd& pv = m_parent(p,w);
-  const Eigen::VectorXd& cv = m_child(c,w);
+  Eigen::VectorXd pv = m_parent(p,w);
+  Eigen::VectorXd cv = m_child(c,w);
   unsigned int distance = abs(p - c);
   if(distance >= m_distance.size())
     distance = m_distance.size() - 1;
@@ -149,9 +149,9 @@ auto_parse::TP_eigenwords::operator()(const auto_parse::Node& parent,
   if(isnan(log_pd))
     {
       if(parent == sentence.end())
-	std::cout << "NAN in TP: root --> " << *child << " raw = " << parent - child << " with prob = " << prob_distance << std::endl;
+	std::cout << "NAN in TP: root --> " << child->convert_to_string(sentence.lexicon()) << " raw = " << parent - child << " with prob = " << prob_distance << std::endl;
       else
-	std::cout << "NAN in TP: " << *parent << " --> " << *child << " raw = " << parent - child << " with prob = " << prob_distance << std::endl;
+	std::cout << "NAN in TP: " << parent->convert_to_string(sentence.lexicon()) << " --> " << child->convert_to_string(sentence.lexicon()) << " raw = " << parent - child << " with prob = " << prob_distance << std::endl;
       log_pd = -100;
     }
   return log_pd - error.squaredNorm();

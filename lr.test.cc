@@ -13,27 +13,28 @@ namespace auto_parse
   {
     std::cout << "\n\n\n\t\t\t LR  LR  LR\n\n\n"<< std::endl;
     {
-      Words w = Words() + "A" + "hearing" + "on" + "the" + "issue" + "is" + "scheduled" + "today" + ".";
+      Lexicon l {"<OOV>", "A", "hearing", "on", "the", "issue", "is", "scheduled", "today", "."};
+      Words w = Words(&l) + "A" + "hearing" + "on" + "the" + "issue" + "is" + "scheduled" + "today" + ".";
       auto_parse::LR g(w);  // testing construction
       g.shift(); // A
-      assert(*g.next_word() == "hearing");
+      assert(*g.next_word() == Word(l,"hearing"));
       g.shift(); // hearing
-      assert(*(g.stack_top()) == "hearing");
+      assert(*(g.stack_top()) == Word(l,"hearing"));
       std::cout << g.parse();
       g.left_reduce();
       std::cout << g.parse();
-      assert(*(g.stack_top()) == "hearing");
+      assert(*(g.stack_top()) == Word(l,"hearing"));
       g.shift(); // on
-      assert(*(g.stack(1)) == "hearing");
+      assert(*(g.stack(1)) == Word(l,"hearing"));
       g.shift(); // the
       g.shift(); // issue
       g.left_reduce();
       g.right_reduce();
       g.right_reduce();  // stack = [hearing,S]
-      assert(*(g.stack_top()) == "hearing");
+      assert(*(g.stack_top()) == Word(l,"hearing"));
       g.shift(); // is
       g.left_reduce();
-      assert(*(g.stack_top()) == "is");
+      assert(*(g.stack_top()) == Word(l,"is"));
       g.shift(); // schedule
       g.shift(); // today
       g.right_reduce();
@@ -45,7 +46,8 @@ namespace auto_parse
       
     };
     {
-      Words w = Words() + "A" + "hearing"  + "is" + "scheduled" + "on" + "the" + "issue"+ "today" + ".";
+      Lexicon l {"<OOV>", "A", "hearing", "on", "the", "issue", "is", "scheduled", "today", "."};
+      Words w = Words(&l) + "A" + "hearing"  + "is" + "scheduled" + "on" + "the" + "issue"+ "today" + ".";
       auto_parse::LR g(w);  // testing construction
       g.shift(); // A
       g.shift(); // hearing

@@ -22,15 +22,14 @@ auto_parse::Dependency::~Dependency()
 {
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-auto_parse::Dependency::Dependency(const Word& w)
-  : m_words(),
-    m_root(),
+auto_parse::Dependency::Dependency(const Lexicon& l, const std::string& w)
+  : m_words(l,w),
+    m_root(m_words.begin()),
     m_links(),
     m_parent(w.size(),-1),
-    m_full_parse(true)
+    m_full_parse(false)
 {
-  m_words.push_back(w);
-  m_root = m_words.begin();
+  assert(full_parse());
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Dependency::Dependency(const Words& w)
@@ -62,14 +61,14 @@ auto_parse::Dependency::Dependency(const Dependency & other)
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Dependency::Dependency(const Dependency & left, Right_arrow, const Dependency& right)
-  : m_words(),
-    m_root(),
+  : m_words(left.p_lexicon()),
+    m_root(m_words.end()),
     m_links(),
     m_parent(),
     m_full_parse(true)
 {
-  assert(left.m_full_parse);
-  assert(right.m_full_parse);
+  assert(left.full_parse());
+  assert(right.full_parse());
   add_words_and_links(left,right);
   Node left_root = (left.m_root - left.m_words.begin()) + m_words.begin();
   Node right_offset = m_words.begin() + left.m_words.size();
@@ -77,16 +76,17 @@ auto_parse::Dependency::Dependency(const Dependency & left, Right_arrow, const D
   m_links.insert(Link(left_root,right_root));
   m_parent[right_root - m_words.begin()] = left_root - m_words.begin();
   m_root = left_root;
+  assert(full_parse());
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Dependency::Dependency(const Dependency & left, Left_arrow, const Dependency& right)
-  : m_words(),
-    m_root(),
+  : m_words(left.p_lexicon()),
+    m_root(m_words.end()),
     m_links(),
     m_full_parse(true)
 {
-  assert(left.m_full_parse);
-  assert(right.m_full_parse);
+  assert(left.full_parse());
+  assert(right.full_parse());
   add_words_and_links(left,right);
   Node left_root = (left.m_root - left.m_words.begin()) + m_words.begin();
   Node right_offset = m_words.begin() + left.m_words.size();
@@ -94,6 +94,7 @@ auto_parse::Dependency::Dependency(const Dependency & left, Left_arrow, const De
   m_links.insert(Link(right_root,left_root));
   m_parent[left_root - m_words.begin()] = right_root - m_words.begin();
   m_root = right_root;
+  assert(full_parse());
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
@@ -116,6 +117,8 @@ auto_parse::Dependency::operator=(const auto_parse::Dependency & rhs)
 void
 auto_parse::Dependency::set_root(const Node& root)
 {
+  assert(root >= m_words.begin());
+  assert(root < m_words.end());
   assert(m_root == m_words.end());// confirm we haven't set it yet
   m_root = root;
   m_parent[m_root - m_words.begin()] = m_words.end() - m_words.begin();
@@ -188,10 +191,10 @@ auto_parse::Dependency::latex(std::ostream & ostrm) const
   ostrm << "\\begin{dependency}[theme = simple]" << std::endl;
   ostrm << "\\begin{deptext}[column sep=1em]" << std::endl;
   ostrm << "     ";
-  for(const_word_iterator i = m_words.begin(); i != m_words.end();++i)
+  for(auto i = m_words.begin(); i != m_words.end();++i)
     {
       ostrm << word_description(*i) ;
-      const_word_iterator next = i;
+      auto next = i;
       ++next;
       if(next != m_words.end())
 	ostrm << " \\& ";
@@ -252,7 +255,7 @@ auto_parse::Dependency:: link_description(const Link& ) const
 std::string
 auto_parse::Dependency:: word_description(const Word &w) const
 {
-  return(w);
+  return(w.convert_to_string(lexicon()));
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 std::string
@@ -287,15 +290,15 @@ auto_parse::Dependency::print_on(std::ostream & ostrm) const
       //      for(auto i = parent.begin(); i != parent.end();++i)
       //	ostrm << i->first - m_words.begin() << " --> " << i->second - m_words.begin() << std::endl;
     }
-  for(const_word_iterator i = m_words.begin(); i != m_words.end(); ++i)
+  for(auto i = m_words.begin(); i != m_words.end(); ++i)
     {
-	  if(parent.find(i) != parent.end())
-	    ostrm << std::left << std::setw(5) << link_description(Link(parent.find(i)->second,i)) <<std::right;
-	  else
-	    if(root() == i)
-	      ostrm << std::left << std::setw(5) << root_description() <<std::right;
-	    else
-	      ostrm << "     ";
+      if(parent.find(i) != parent.end())
+	ostrm << std::left << std::setw(5) << link_description(Link(parent.find(i)->second,i)) <<std::right;
+      else
+	if(root() == i)
+	  ostrm << std::left << std::setw(5) << root_description() <<std::right;
+	else
+	  ostrm << "     ";
 
       //       foo    <---    bar     (foo --> A, B, C)
       ostrm << "\t" << std::setw(15) << word_description(*i);
@@ -321,7 +324,7 @@ auto_parse::Dependency::print_on(std::ostream & ostrm) const
 		{
 		  if(!first_left)
 		    left_kids << ", ";
-		  left_kids << *(j->second);
+		  left_kids << j->second->convert_to_string(lexicon());
 		  first_left = false;
 		}
 	      if(j->second > i)
@@ -330,16 +333,16 @@ auto_parse::Dependency::print_on(std::ostream & ostrm) const
 		    right_kids << ", ";
 		  else
 		    right_kids << "   --->  ";
-		  right_kids << *(j->second);
+		  right_kids << j->second->convert_to_string(lexicon());
 		  first_right = false;
 		}
 	    }
 	  if(!first_left)
 	    left_kids << "  <---   ";
-	  ostrm << std::setw(40) << left_kids.str() << *i << right_kids.str();
+	  ostrm << std::setw(40) << left_kids.str() << i->convert_to_string(lexicon()) << right_kids.str();
 	}
       else
-	ostrm << std::setw(40) << " " << *i;
+	ostrm << std::setw(40) << " " << i->convert_to_string(lexicon());
       ostrm << std::endl;
     }
   ostrm << std::endl;
@@ -351,10 +354,12 @@ auto_parse::Dependency::full_parse() const
 {
   if(!m_full_parse)
     {
-      // Bummer--we ahve to compute it ourselves
-      if(m_root == Node())
+      // Bummer--we have to compute it ourselves
+      if(m_root == m_words.end())
 	return false; // root isn't set yet
-      std::vector<bool> is_pointed_to(m_words.size());
+      std::vector<bool> is_pointed_to(m_words.size(),false); // default is false?
+      assert(m_root >= m_words.begin());
+      assert(m_root < m_words.end());
       is_pointed_to[m_root - m_words.begin()] = true;
       for(const_link_iterator i = m_links.begin(); i != m_links.end(); ++i)
 	{

@@ -51,7 +51,8 @@ namespace auto_parse
       Feature_generator feature_generator;
       feature_generator.add({&f1, &f2, &f3});
       {
-	auto sentence = Words() + "A" + "hearing" + "on" + "the" + "issue" + "is" + "scheduled" + "today" + ".";
+      Lexicon lexicon {"<OOV>", "A", "hearing", "on", "the", "issue", "is", "scheduled", "today", "."};
+	auto sentence = Words(&lexicon) + "A" + "hearing" + "on" + "the" + "issue" + "is" + "scheduled" + "today" + ".";
 
 	
 

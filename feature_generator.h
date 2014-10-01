@@ -47,5 +47,6 @@ namespace auto_parse
 }
 
 std::ostream& operator<<(std::ostream &,const auto_parse::Feature_generator &);
+std::ostream& operator<<(std::ostream &,const std::vector<std::string> &);
 
 #endif

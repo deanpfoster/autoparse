@@ -12,23 +12,25 @@ namespace auto_parse
   {
     std::cout << "\n\n\n\t\t\t DEPENDENCY  DEPENDENCY  DEPENDENCY\n\n\n"<< std::endl;
     {
-      Word wa = "four";
-      Word wb = "five";
-      Word wc = "six";
-      auto_parse::Dependency a(wa);  // testing construction
-      auto_parse::Dependency b(wb);  // testing construction
-      auto_parse::Dependency c(wc);  // testing construction
+      Lexicon l {"<OOV>", "four", "five", "six"};
+      auto_parse::Dependency a(l,"four");  // testing construction
+      std::cout << a << std::endl;
+      auto_parse::Dependency b(l,"five"); 
+      auto_parse::Dependency c(l,"six"); 
       auto_parse::Dependency d(a,auto_parse::Right_arrow(),b);  // testing construction
+      std::cout << d << std::endl;
       auto_parse::Dependency e(d,auto_parse::Left_arrow(),c);  // testing construction
+      std::cout << e << std::endl;
       
       std::cout << "constructed!" << std::endl;
       std::cout << e;
     };
     {
       typedef auto_parse::Dependency D;
-      D complex =  (D("A") < D("hearing") > (D("on") > (D("the") < D("issue"))))
-	< ((D("is") > (D("scheduled") > D("today"))) > D("."));
-      std::cout << complex;
+      Lexicon l {"<OOV>", "A", "hearing", "on", "the", "issue", "is", "scheduled", "today", "."};
+      D complex =  (D(l,"A") < D(l,"hearing") > (D(l,"on") > (D(l,"the") < D(l,"issue"))))
+	< ((D(l,"is") > (D(l,"scheduled") > D(l,"today"))) > D(l,"."));
+      std::cout << complex << std::endl;
       std::ofstream latex("dependency.test.tex");
       auto_parse::latex_header(latex);
       latex << "Original sentence--which has crosses in it:\n\n" << std::endl;
@@ -55,7 +57,8 @@ namespace auto_parse
     }	
     {
       // Partial parsing example
-      Words w = Words() + "A" + "hearing" + "on" + "the" + "issue" + "is" + "scheduled" + "today" + ".";
+      Lexicon l {"<OOV>", "A", "hearing", "on", "the", "issue", "is", "scheduled", "today", "."};
+      Words w = Words(&l) + "A" + "hearing" + "on" + "the" + "issue" + "is" + "scheduled" + "today" + ".";
       auto_parse::Dependency d(w);
       assert(!d.full_parse());
       d.set_root(5);  // Zero based indexing
@@ -79,10 +82,10 @@ namespace auto_parse
       assert(copy.full_parse());
       std::cout << "Number left links: " << d.number_left_links() << std::endl;
       auto is_pointer = d.sentence().begin() + 5;
-      for(auto l : d.links())
-	std::cout << *l.parent() << " -> " << *l.child() << std::endl;
-      std::cout << "rightmost of " << *is_pointer << " = " << *d.right_most_child(is_pointer) << std::endl;
-      std::cout << "leftmost of " << *is_pointer << " = " << *d.left_most_child(is_pointer) << std::endl;
+      for(auto link : d.links())
+	std::cout << link.parent()->convert_to_string(l) << " -> " << link.child()->convert_to_string(l) << std::endl;
+      std::cout << "rightmost of " << is_pointer->convert_to_string(l) << " = " << d.right_most_child(is_pointer)->convert_to_string(l) << std::endl;
+      std::cout << "leftmost of " << is_pointer->convert_to_string(l) << " = " << d.left_most_child(is_pointer)->convert_to_string(l) << std::endl;
     }
   }
 }

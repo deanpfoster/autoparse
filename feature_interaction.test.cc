@@ -18,6 +18,12 @@ typedef auto_parse::Feature_one_dimensional<auto_parse::Stack_size> ss;
 typedef auto_parse::Interaction I_wl_wl;
 typedef auto_parse::Interaction I_wl_sl;
 
+std::ostream & operator<<(std::ostream & ostrm, const std::vector<std::string> & variables)
+{
+  for(auto w: variables)
+    ostrm << w << " : ";
+  return ostrm;
+};
 
 namespace auto_parse
 {

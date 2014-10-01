@@ -1,69 +1,49 @@
 // -*- c++ -*-
 
 
-#include "tokenize.h"
+#include "lexicon_generator.h"
 
 // put other includes here
 #include "assert.h"
 #include <iostream>
-#include <sstream>
-#include <boost/algorithm/string.hpp>
+
+////////////////////////////////////////////////////////////////////////////////////////////
+//                          U S I N G   D I R E C T I V E S                            using
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                              C O N S T R U C T O R S                         constructors
 
-auto_parse::Tokenize::~Tokenize()
+auto_parse::Lexicon_generator::~Lexicon_generator()
 {
-  m_input.close();
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-auto_parse::Tokenize::Tokenize(const std::string & name, const Lexicon* pl)
+auto_parse::Lexicon_generator::Lexicon_generator()
   :
-  m_file_name(name),
-  m_input(name),
-  mp_lexicon(pl)
+  Lexicon()
 {
+  (*this)(oov()); // forces "<OOV>"
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                             M A N I P U L A T O R S                          manipulators
-auto_parse::Words
-auto_parse::Tokenize::next_sentence() 
-{
-  std::string one_line;
-  getline(m_input,one_line);
-  m_input >> std::ws; 
-  std::stringstream s(one_line);
-  Words result(mp_lexicon);
-  while(!s.eof())
-    {
-      std::string next_word;
-      s >> next_word;
-      boost::algorithm::to_lower(next_word);
-      if(next_word == "\"")
-	next_word = "QUOTE";
-      result.push_back(Word(*mp_lexicon,next_word));
-    }
-  return result;
-};
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-void
-auto_parse::Tokenize::reset() 
-{
-  m_input.close();
-  m_input.open(m_file_name);
-};
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                               A C C E S S O R S                                 accessors
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-bool
-auto_parse::Tokenize::eof() const
+int
+auto_parse::Lexicon_generator::operator()(const std::string & word) const
 {
-  return m_input.eof();
+  auto location = m_index.find(word);
+  if(location == m_index.end())
+    {
+      int result = m_words.size();
+      Lexicon_generator* write_me = const_cast<Lexicon_generator*>(this);
+      write_me->m_words.push_back(word);
+      write_me->m_index[word] = result;
+      return result;
+    }
+  return(location->second);
 };
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                           P R O T E C T E D                                     protected
@@ -72,4 +52,9 @@ auto_parse::Tokenize::eof() const
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                           P R I V A T E                                           private
+
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+////////////////////////////////////////////////////////////////////////////////////////////
+//                     F R E E   F U N C T I O N S                            free functions
 

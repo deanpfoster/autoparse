@@ -36,20 +36,6 @@ main()
   latex << "\\renewcommand{\\thepage}{runningTitle-\\arabic{page}}" << std::endl;  
 
       
-  //////////////////////////////////////////////////////////////////////////////////
-  //
-  //                    SET UP THE CRUDE TOKENIZER
-  //
-  // Note: if the corpus is too big to fit in memory, some other method should be used
-  // Doing it this way allows a way of easilly using OpenMP.
-  //
-  //////////////////////////////////////////////////////////////////////////////////
-
-  auto_parse::Tokenize corpus(sentence_file);
-  std::vector<auto_parse::Words> corpus_in_memory;
-  corpus.reset();
-  while(!corpus.eof())
-    corpus_in_memory.push_back(corpus.next_sentence());
       
   //////////////////////////////////////////////////////////////////////////////////
   //
@@ -59,13 +45,27 @@ main()
   //
   //////////////////////////////////////////////////////////////////////////////////
 
-    std::ifstream in(eigen_file);
-    auto_parse::Eigenwords dictionary(in,gram_number); 
-    auto_parse::Eigenwords parent_dictionary(dictionary);  
-    auto_parse::Eigenwords child_dictionary(dictionary); 
-    int dim = dictionary.dimension();
-    debugging << "Read a dictionary of size: " << dictionary.size()<< " x " << dim << std::endl;
+  std::ifstream in(eigen_file);
+  auto_parse::Eigenwords dictionary(in,gram_number); 
+  auto_parse::Eigenwords parent_dictionary(dictionary);  
+  auto_parse::Eigenwords child_dictionary(dictionary); 
+  int dim = dictionary.dimension();
+  debugging << "Read a dictionary of size: " << dictionary.size()<< " x " << dim << std::endl;
 
+  //////////////////////////////////////////////////////////////////////////////////
+  //
+  //                    SET UP THE CRUDE TOKENIZER
+  //
+  // Note: if the corpus is too big to fit in memory, some other method should be used
+  // Doing it this way allows a way of easilly using OpenMP.
+  //
+  //////////////////////////////////////////////////////////////////////////////////
+
+  auto_parse::Tokenize corpus(sentence_file,&dictionary.lexicon());
+  std::vector<auto_parse::Words> corpus_in_memory;
+  corpus.reset();
+  while(!corpus.eof())
+    corpus_in_memory.push_back(corpus.next_sentence());
 
     //////////////////////////////////////////////////////////////////////////////////
     //

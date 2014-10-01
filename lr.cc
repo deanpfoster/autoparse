@@ -187,7 +187,7 @@ auto_parse::LR::print_on(std::ostream & ostrm) const
 {
   ostrm << "\nStack: ";
   for(Node n : m_stack)
-    ostrm << *n << " ";
+    ostrm << n->convert_to_string(lexicon()) << " ";
   ostrm << "\n" << m_parse;  
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */

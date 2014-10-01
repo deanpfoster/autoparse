@@ -36,17 +36,15 @@ E D C B A
      	              A  <---  ROOT                                         B  <---   A
 
 reverse: 0
-Pretty version: E.OOV D.OOV C.OOV B.OOV A.OOV 
-0    	          E.OOV  <---  D.OOV                                                  E
-0    	          D.OOV  <---  C.OOV                                        E  <---   D
-0    	          C.OOV  <---  B.OOV                                        D  <---   C
-0    	          B.OOV  <---  A.OOV                                        C  <---   B
-0    	          A.OOV  <---  ROOT                                         B  <---   A
+Pretty version: E D C B A 
+0    	              E  <---  D                                                      E
+0    	              D  <---  C                                            E  <---   D
+0    	              C  <---  B                                            D  <---   C
+0    	              B  <---  A                                            C  <---   B
+0    	              A  <---  ROOT                                         B  <---   A
 
 
 log(like) = 0 = 80\% lefts @ 0 + 0\% rights @ -nan + 20\% roots @ 0
-Should delete a cached eigendictionary.
-But we aren't going to since it seems to be having problems when we do so.
 
 
 DONE.

@@ -11,9 +11,10 @@
 //
 ////////////////////////////////////////////////////////////////////////////////////////////
 
-std::vector<std::map<std::string, Eigen::VectorXd>*> auto_parse::Eigenwords::s_cache(0);
-std::vector<int> auto_parse::Eigenwords::s_cache_counter(0);
-
+std::vector<auto_parse::Lexicon> auto_parse::Eigenwords::s_lexicon;
+std::vector<auto_parse::Matrix*> auto_parse::Eigenwords::s_data;
+std::vector<int> auto_parse::Eigenwords::s_which_lexicon;
+std::vector<int> auto_parse::Eigenwords::s_cache_counter;
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////
@@ -29,84 +30,130 @@ read_CSV(std::istream& in, int pos, int gram_number);
 
 auto_parse::Eigenwords::~Eigenwords()
 {
-  assert(m_alive);
+  assert(m_alive); // checks for double delete
   m_alive = false;
   assert(m_cache_index >= 0);
   assert(m_cache_index < static_cast<int>(s_cache_counter.size()));
-  assert(s_cache_counter.size() == s_cache.size());
+  assert(s_cache_counter.size() == s_data.size());
 
   s_cache_counter[m_cache_index]--;
+  bool brave = true;
   if(s_cache_counter[m_cache_index] == 0)
     {
-      std::cout << "Should delete a cached eigendictionary." << std::endl;
-      std::cout << "But we aren't going to since it seems to be having problems when we do so." << std::endl;
-      //      delete(s_cache[m_cache_index]);
-      //      s_cache[m_cache_index] = 0;  // we don't bother recovering the empty space left behind
+      if(brave)
+	{
+	  // delete(s_cache[m_cache_index]); // no longer a pointer
+          s_data[m_cache_index] = new Matrix(0,0); // this effectively deletes it
+	}
+      else
+	{
+	  std::cout << "Should delete cache dictionary " << m_cache_index << "." << std::endl;
+	  std::cout << "But we aren't going to since it seems to be having problems when we do so." << std::endl;
+	}
     };
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Eigenwords::Eigenwords(std::istream& in, int gram_number)
   :  m_alive(true),
      m_cache_index(-1),
-     mp_eigenwords()
+     m_lexicon_index(-1),
+     mp_data(),
+     mp_lexicon()
 {
-  m_cache_index = s_cache.size();
+  std::map<std::string,Eigen::VectorXd> from_disk = read_CSV(in, 0, gram_number);
+  assert(from_disk.size() != 0); // assume we have read something real
+  std::vector<std::string> raw_lex = generate_lexicon(from_disk);
+  Lexicon lexicon(raw_lex);
+  int d = from_disk.begin()->second.size();
+  int n = raw_lex.size();
+  Matrix data(n,d);
+  for(unsigned int i = 0; i < raw_lex.size(); ++i)
+    data.row(i) = from_disk[raw_lex[i]];
+
+  m_cache_index = s_data.size();
+  m_lexicon_index = s_lexicon.size();
+  s_lexicon.push_back(lexicon);
+  s_lexicon[m_lexicon_index].set_cache_id(m_lexicon_index);
+  s_data.push_back(new Matrix(data));
+  s_which_lexicon.push_back(m_lexicon_index);
   s_cache_counter.push_back(1);
-  s_cache.push_back(new std::map<std::string,Eigen::VectorXd>);
-  *s_cache[m_cache_index] = read_CSV(in, 0, gram_number);
-  mp_eigenwords = s_cache[m_cache_index];
-  assert(mp_eigenwords->find("<OOV>") != mp_eigenwords->end());
+  
+  mp_data = s_data[m_cache_index];
+  mp_lexicon = &s_lexicon[m_lexicon_index];
+  assert(lexicon(lexicon.oov()) >= 0); // looks to ensure <OOV> is found
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Eigenwords::Eigenwords(std::istream& in)
   :  m_alive(true),
      m_cache_index(-1),
-     mp_eigenwords()
+     m_lexicon_index(-1),
+     mp_data(),
+     mp_lexicon()
 {
   std::string eigenwords;
   getline(in,eigenwords);
   assert(eigenwords == "auto_parse::Eigenwords");
   in >> std::ws;
-  in >> m_cache_index;
-  assert(m_cache_index <= int(s_cache.size()));  // must be writen in order
-  if(m_cache_index < int(s_cache.size()))
-    { // it has been read in before, so reading necessary
+  in >> m_lexicon_index;
+  assert(m_lexicon_index <= int(s_lexicon.size()));  // must be writen in order
+  if(m_lexicon_index < int(s_lexicon.size()))
+    { // it has been read in before, so reading is not necessary
       std::string check;
       getline(in,check);
+      in >> std::ws;
+      assert(check == "Use a previously read lexicon.");
+    }
+  else
+    { // this one is new
+      assert(m_lexicon_index == int(s_lexicon.size()));
+      Lexicon lexicon(in);
+      lexicon.set_cache_id(m_lexicon_index);
+      s_lexicon.push_back(lexicon);
+    }
+
+  in >> m_cache_index;
+  assert(m_cache_index <= int(s_data.size()));  // must be writen in order
+  if(m_cache_index < int(s_data.size()))
+    { // it has been read in before, so reading is not necessary
+      std::string check;
+      getline(in,check);
+      in >> std::ws;
       assert(check == "Use a previously read Eigenwords dictionary.");
     }
-  if(m_cache_index == int(s_cache.size()))
+  else
     { // this one is new
-      auto p_dictionary =  new std::map<std::string,Eigen::VectorXd>;
-      int dimension, n;
-      in >> dimension >> n >> std::ws;
+      assert(m_cache_index == int(s_data.size()));
+      int cache_index, dimension, n;
+      in >> cache_index >> dimension >> n >> std::ws;
+      assert(m_cache_index == cache_index);
+      Matrix data(n,dimension);
       for(int i = 0; i < n; ++i)
-	{
-	  Word w;
-	  in >> w >> std::ws;
-	  Eigen::VectorXd data(dimension);
-	  for(int j = 0; j < dimension; ++j)
-	    in >> data[j] >> std::ws;
-	  (*p_dictionary)[w] = data;
-	}
-      s_cache.push_back(p_dictionary);
+	for(int j = 0; j < dimension; ++j)
+	  in >> data(i,j) >> std::ws;
+      s_data.push_back(new Matrix(data));
+      s_which_lexicon.push_back(m_lexicon_index);
       s_cache_counter.push_back(1);
     }
-  mp_eigenwords = s_cache[m_cache_index];
-  assert(mp_eigenwords->find("<OOV>") != mp_eigenwords->end());
+  mp_data = s_data[m_cache_index];
+  mp_lexicon = &s_lexicon[m_lexicon_index];
+  assert((*mp_lexicon)(mp_lexicon->oov()) >= 0);
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Eigenwords::Eigenwords()
   :  m_alive(true),
      m_cache_index(-1),
-     mp_eigenwords()
+     m_lexicon_index(-1),
+     mp_data(),
+     mp_lexicon()
 {
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Eigenwords::Eigenwords(const auto_parse::Eigenwords& other)
   :  m_alive(true),
      m_cache_index(other.m_cache_index),
-     mp_eigenwords(other.mp_eigenwords)
+     m_lexicon_index(other.m_lexicon_index),
+     mp_data(other.mp_data),
+     mp_lexicon(other.mp_lexicon)
 {
   s_cache_counter[m_cache_index]++;
 };
@@ -114,7 +161,9 @@ auto_parse::Eigenwords::Eigenwords(const auto_parse::Eigenwords& other)
 auto_parse::Eigenwords::Eigenwords(int i1, int i2, int i3)
   :  m_alive(true),
      m_cache_index(i1),
-     mp_eigenwords(s_cache[i2])
+     m_lexicon_index(s_which_lexicon[i1]),
+     mp_data(s_data[m_cache_index]),
+     mp_lexicon(&s_lexicon[m_lexicon_index])
 {
   assert(i1 == i2);  // this is the secrete password to call this constructor
   assert(i2 == i3);
@@ -122,15 +171,24 @@ auto_parse::Eigenwords::Eigenwords(int i1, int i2, int i3)
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Eigenwords
-auto_parse::Eigenwords::create_root_dictionary()
+auto_parse::Eigenwords::create_root_dictionary(const auto_parse::Lexicon& lexicon)
 {
+  if(lexicon.cache_id() == -1)
+    {  // cache it
+      int lexicon_index = s_lexicon.size();
+      s_lexicon.push_back(lexicon);
+      s_which_lexicon.push_back(lexicon_index);
+      s_lexicon[lexicon_index].set_cache_id(lexicon_index);
+    };
   static int root_dictionary_id = -1;  // this will be changed
   if(root_dictionary_id == -1)
     { // no root_dictionary created yet
-      root_dictionary_id = s_cache.size();
-      s_cache_counter.push_back(1);
-      s_cache.push_back(new std::map<std::string,Eigen::VectorXd>);
-      (*s_cache[root_dictionary_id])["<OOV>"] = Eigen::VectorXd::Ones(1);
+      root_dictionary_id = s_data.size();
+      s_cache_counter.push_back(0); // we aren't keeping a copy
+      s_data.push_back(new Matrix(lexicon.size(),1));
+      for(int i = 0; i < lexicon.size(); ++i)
+	(*s_data[root_dictionary_id])(i,0) = 1.0; // set it up to be a constand matrix
+      s_which_lexicon.push_back(lexicon.cache_id());
     }
   return Eigenwords(root_dictionary_id, root_dictionary_id, root_dictionary_id);  // use secret password constructor
 };
@@ -140,26 +198,26 @@ auto_parse::Eigenwords::create_root_dictionary()
 //                             M A N I P U L A T O R S                          manipulators
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                               A C C E S S O R S                                 accessors
-const Eigen::VectorXd&
+Eigen::VectorXd
 auto_parse::Eigenwords::operator[](const auto_parse::Word& w) const
 {
-  auto location = mp_eigenwords->find(w);
-  if(location != mp_eigenwords->end())
-    return location->second;
-  location = mp_eigenwords->find("<OOV>");
-  if(location == mp_eigenwords->end())
+  int location = w.as_index();
+  if(location >= mp_lexicon->size())
     {
-      std::cout << "Struggling with " << w << std::endl;
+      std::cout << "Struggling with " << location << " :" << w.convert_to_string(lexicon()) << std::endl;
       assert(0);
     };
-  return location->second;
+  assert(location >= 0);
+  assert(location < mp_data->rows());
+  Eigen::VectorXd result = mp_data->row(location);
+  return result;
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-const Eigen::VectorXd&
+Eigen::VectorXd
 auto_parse::Eigenwords::operator()(const auto_parse::Node& pointer, const auto_parse::Words& sentence) const
 {
   if(pointer == sentence.end())
-    return((*this)[""]);
+    return((*this)[Word(lexicon(),"")]);
   else
     return((*this)(*pointer));
 };
@@ -167,34 +225,34 @@ auto_parse::Eigenwords::operator()(const auto_parse::Node& pointer, const auto_p
 int
 auto_parse::Eigenwords::dimension() const
 {
-  return mp_eigenwords->begin()->second.size();
+  return mp_data->cols();
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Eigenwords
 auto_parse::Eigenwords::with_constant_row_sum_squares() const
 {
   // make a place on the cache for the result to live
-  s_cache.push_back(new std::map<std::string, Eigen::VectorXd>);
+  s_data.push_back(new Matrix(*mp_data)); // copy current data into new location
   s_cache_counter.push_back(1);
+  s_which_lexicon.push_back(m_lexicon_index);
   int index = s_cache_counter.size()-1;
-  // make our return object actually point at the same place
-  auto_parse::Eigenwords result;  // yes, we are calling the default constructor
-  result.m_cache_index = index;
-  result.mp_eigenwords = s_cache[index];
-  for(auto i = mp_eigenwords->begin(); i != mp_eigenwords->end(); ++i)
-    {
-      Eigen::VectorXd values = i->second;
-      double ss = values.norm();
-      (*s_cache[index])[i->first] = i->second / ss;
-    }
-  return result;
+  for(int i = 0; i < mp_data->rows(); ++i)
+    (*s_data[index]).row(i) = mp_data->row(i) / mp_data->row(i).norm();
+  return   auto_parse::Eigenwords(index,index,index);  
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                           P R O T E C T E D                                     protected
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                           P R I V A T E                                           private
+std::vector<std::string>
+auto_parse::Eigenwords::generate_lexicon(const std::map<std::string,Eigen::VectorXd>& from_disk) const
+{
+  std::vector<std::string> result;
+  for(auto a : from_disk)
+    result.push_back(a.first);
+  return result;
+}
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                     F R E E   F U N C T I O N S                            free functions
 

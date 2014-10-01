@@ -41,7 +41,7 @@ namespace auto_parse
     bool legal(auto_parse::Action) const;
     int  number_words_left() const;
     int  stack_size() const{return m_stack.size();};
-
+    const Lexicon& lexicon() const{return m_parse.lexicon();};
   protected:
     
     
@@ -58,7 +58,7 @@ namespace auto_parse
 
     Dependency m_parse;
     std::vector<Node> m_stack; 
-    auto_parse::const_word_iterator m_next_input;
+    auto_parse::Node  m_next_input;
     
     LR& operator=(const LR &); // Don't delete this.
   };
