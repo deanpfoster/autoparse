@@ -43,7 +43,7 @@ it seem tailor made for automatic methods
 following commands:
 \begin{itemize}
 \item shift
-\item arc-eagar: top + head to make a tree
+\item arc-eager: top + head to make a tree
 \item regular: top + one-deep to make a tree
 \item generate head from last item
 \item non-projective: top + two-deep to make a tree
@@ -51,14 +51,14 @@ following commands:
 \item Implemented a regression based oracle
 \begin{itemize}
 \item Uses ``eigenwords'' for features
-\item Does interactions bewteen two words
+\item Does interactions between two words
 \item Keeps track of basic statistics (length of sentence, number
-words left)
+words left, etc)
 \item Even does 3-way interactions
 \item Missing: No concept of ``arity'' for verbs
 \item Missing: No official POS
 \end{itemize}
-\item Can run L2R, or R2L, in either arc-eagar or regular.  
+\item Can run L2R, or R2L, in either arc-eager or regular.  
 \end{itemize}
 
 \section*{Likelihood}
@@ -80,7 +80,7 @@ generating a number of left children and a number of right children.
 \item Pick a random word in each sentence
 \item Parse it differently
 \item Compute likelihood for both parses.
-\item Voila!  We now have a ``labelled'' training set.
+\item Voila!  We now have a ``labeled'' training set.
 \end{itemize}
 
 \section*{So it runs}
@@ -93,9 +93,9 @@ generating a number of left children and a number of right children.
 \section*{Questions for you}
 \begin{itemize}
 \item How can the model be improved?  Hopefully to one that generates
-better parses
-\item What is the easist test you can think of to test a parser?\footnote{I
-flunked the easist one I could think of: Joel liked random parses as
+better parses.
+\item What is the easiest test you can think of to test a parser?\footnote{I
+flunked the easiest one I could think of: Joel liked random parses as
 well as mine.}
 \item What should I be reading?
 \item Assuming it actually does better than chance, do you have any
@@ -107,8 +107,14 @@ useful things to do with it?
 
 
 \cleardoublepage
-\centerline{\Huge\bf Dependency parsing without training data (t3247)}
+\centerline{\Huge\bf Example parses (t3247)}
 
+\vfill
+
+\centerline{log(Likelihood) of each ``edge'' is shown.  Numbers closer to zero are
+higher likelihoods.}
+
+\vfill
 
 		%	 Include in header: \usepackage{tikz-dependency}
 \begin{dependency}[theme = simple]
@@ -227,14 +233,14 @@ useful things to do with it?
 
 \vfill
 \begin{center}
-\begin{minipage}{4in}
+\begin{minipage}{5in}
 \begin{itemize}
-\item regular eager, R2L
+\item Regular (not eager) but backwards (i.e. R2L).
 \item Trained on 462604 sentence.    
-\item 400 rounds on full data training (+2000 rounds of pre-training)
-\item Threads used: 64
+\item 400 rounds on full data training (+2000 rounds of pre-training).
+\item Threads used: 64.
 \item Total time: 51515 seconds  (14:18 h:m)
-\item corpus: English sentences from tatoeba (typical length is only
+\item corpus: English sentences from tatoeba (average length is only
 10 words)
 \end{itemize}
 \end{minipage}
