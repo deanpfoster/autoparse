@@ -77,9 +77,9 @@ generating a number of left children and a number of right children.
 
 \section*{Training the LR(1) Oracle}
 \begin{itemize}
-\item Pick a random word in each sentence
-\item Parse it differently
-\item Compute likelihood for both parses.
+\item Pick a word and consider the action associated with it
+\item Change that action and Parse the rest of the sentence
+\item Compute likelihood for both actions and following.
 \item Voila!  We now have a ``labeled'' training set.
 \end{itemize}
 
@@ -107,7 +107,7 @@ useful things to do with it?
 
 
 \cleardoublepage
-\centerline{\Huge\bf Example parses (t3247)}
+\centerline{\Huge\bf Example parses (run=t3247)}
 
 \vfill
 
@@ -203,7 +203,7 @@ higher likelihoods.}
 \depedge{2}{1}{-0.13}
 \end{dependency}
 
-\scriptsize
+{\scriptsize
 		%	 Include in header: \usepackage{tikz-dependency}
 \begin{dependency}[theme = simple]
 \begin{deptext}[column sep=1em]
@@ -230,12 +230,13 @@ higher likelihoods.}
 \depedge{2}{3}{-0.38}
 \depedge{2}{1}{-0.16}
 \end{dependency}
-
+}
 \vfill
 \begin{center}
-\begin{minipage}{5in}
+\begin{minipage}{6in}
 \begin{itemize}
-\item Regular (not eager) but backwards (i.e. R2L).
+\item Regular (not eager) parsing
+\item Done backwards! (i.e. R2L).
 \item Trained on 462604 sentence.    
 \item 400 rounds on full data training (+2000 rounds of pre-training).
 \item Threads used: 64.
