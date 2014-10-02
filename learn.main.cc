@@ -24,7 +24,7 @@
 int
 main(int argc,char** argv)
 {
-  Eigen::initParallel();  // this will help eigen not walk on top of itself.
+  //  Eigen::initParallel();  // this will help eigen not walk on top of itself.
 
   //////////////////////////////////////////////////////////////////////////////////
   //
@@ -147,19 +147,26 @@ main(int argc,char** argv)
   //////////////////////////////////////////////////////////////////////////////////
 
   int n = p_corpus->size();  // (About 462k)
-  assert(n > 400*1000);
-  std::vector<int> number_to_train_on(6*repeats_per_level, n);  // default = n
+  assert(n > 100*1000);
+  std::vector<int> number_to_train_on;
   int K = 1000;
   for(int i = 0; i < repeats_per_level;++i)
-    number_to_train_on[i] = 40*K;
-  for(int i = 1 * repeats_per_level; i < 2 * repeats_per_level;++i)
-    number_to_train_on[i] = 50*K;
-  for(int i = 2 * repeats_per_level; i < 3 * repeats_per_level;++i)
-    number_to_train_on[i] = 80*K;
-  for(int i = 3 * repeats_per_level; i < 4 * repeats_per_level;++i)
-    number_to_train_on[i] = 100*K;
-  for(int i = 4 * repeats_per_level; i < 5 * repeats_per_level;++i)
-    number_to_train_on[i] = 200*K;
+    number_to_train_on.push_back(40*K);
+  for(int i = 0; i < repeats_per_level;++i)
+    number_to_train_on.push_back(50*K);
+  for(int i = 0; i < repeats_per_level;++i)
+    number_to_train_on.push_back(80*K);
+  if(n > 100*K)
+    for(int i = 0; i < repeats_per_level;++i)
+      number_to_train_on.push_back(100*K);
+  if(n > 200*K)
+    for(int i = 0; i < repeats_per_level;++i)
+      number_to_train_on.push_back(200*K);
+  if(n > 400*K)
+    for(int i = 0; i < repeats_per_level;++i)
+      number_to_train_on.push_back(400*K);
+  for(int i = 0; i < repeats_per_level;++i)
+      number_to_train_on.push_back(n);
       
   //////////////////////////////////////////////////////////////////////////////////
   //

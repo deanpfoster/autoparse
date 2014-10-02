@@ -212,6 +212,11 @@ learn.output.all: learn.main eng_only pretty.csv
 
 
 ##########################################################################################################
+
+onto-train: ~stent/data/autotag/trn-pmd/on5-trn-auto.conll2006
+	cat $^ |cut -f3  |tr '\n' ' ' | sed -e 's/  /\n/g' > $@
+
+##########################################################################################################
 #
 #  Makefile.rules has the following code I don't look at or edit very often.
 #
