@@ -52,8 +52,17 @@ namespace auto_parse
   public:
     Parse_args(int argc, char** argv);  // constructs and packs all the variables into a bundle
 
-    //  The arg's read in.  Note this is a struct, so no "m_" since these are all public
+    std::string friendly_message(const auto_parse::Eigenwords&,
+				 const std::vector<auto_parse::Words>&) const; 
 
+    void print_latex(time_t start_time,
+		     const std::vector<auto_parse::Words>& corpus,
+		     const auto_parse::Likelihood& likelihood,
+		     const std::vector<int>& number_to_train_on,
+		     const auto_parse::Eigenwords& dictionary,
+		     const auto_parse::Statistical_parse& parser) const;
+
+    // DATA  (exposed to the world)
     std::string sentence_file, eigen_file, latex_prefix;
     int gram_number, repeats_per_level;
     double update_rate,scaling, noise;
