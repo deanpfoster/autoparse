@@ -5,18 +5,8 @@
 #include <assert.h>
 
 #include "likelihood.h"
-class sample: public auto_parse::Transition_probability
-{ public:
-  ~sample(){};
-  sample(){};
-  sample* clone() const  { return new sample(*this);};
-  void accumulate(const auto_parse::Node&, const auto_parse::Node&, const auto_parse::Words&){};
-  Transition_probability* renormalize() const{return 0;};
-  double operator()(const auto_parse::Node& parent,const auto_parse::Node& child, const auto_parse::Words&) const
-  {    if(parent < child) return 1.0; else return 0.0; };
-  void print_on(std::ostream & ostrm) const
-  { ostrm << "Heap: left is less than right." << std::endl;  };
-};
+#include "tp_eigenwords.h"
+#include "tp_iid.h"
 
 namespace auto_parse
 {
@@ -27,13 +17,19 @@ namespace auto_parse
     {
       std::ifstream in("pretty_5_c_sample.csv");
       auto_parse::Eigenwords dictionary(in,5);  // testing construction
-
-      sample left;
-      sample right;
-      sample root;
-      auto_parse::Likelihood lambda(left,right,root); 
-      std::cout << lambda << std::endl;
       const Lexicon& l = dictionary.lexicon();
+      int v = dictionary.size();
+      int dim = dictionary.dimension();
+      Eigen::MatrixXd parent = Eigen::MatrixXd::Random(dim,dim);
+      Eigen::MatrixXd child = Eigen::MatrixXd::Random(dim,dim);
+      std::vector<double> prob(20,.05);
+      std::vector<double> out_degree(v,.5);
+
+      auto_parse::TP_eigenwords left(dictionary, dictionary, parent, child, 1, prob, out_degree);  // testing construction
+      auto_parse::TP_eigenwords right(dictionary, dictionary, parent, child, 1, prob, out_degree);  // testing construction
+      auto_parse::TP_iid root(v,1);
+      auto_parse::Likelihood lambda(left,right,*root.renormalize()); 
+      std::cout << lambda << std::endl;
       D complex =  (D(l,"A") < D(l,"hearing") > (D(l,"on") > (D(l,"the") < D(l,"issue"))))
 	< ((D(l,"is") > (D(l,"scheduled") > D(l,"today"))) > D(l,"."));
       std::cout << lambda(complex) << std::endl;
@@ -42,7 +38,7 @@ namespace auto_parse
     {
       Lexicon l {"<OOV>", "A", "B", "C", "D", "E"};
       Eigenwords dictionary = Eigenwords::create_root_dictionary(l);
-      sample root;
+      TP_iid root(l.size(),1.0);
       auto_parse::Likelihood lambda(root,root,root); 
       D sorted = D(l,"A") < D(l,"B") < D(l,"C") < D(l,"D") < D(l,"E");
       std::cout << sorted;

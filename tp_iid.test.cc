@@ -4,25 +4,17 @@
 #include <iostream>
 #include <assert.h>
 
-#include "tp_eigenwords.h"
+#include "tp_iid.h"
 #include "eigenwords.h"
 
 namespace auto_parse
 {
-  void test_tp_eigenwords()
+  void test_tp_iid()
   {
-    std::cout << "\n\n\n\t\t\t TP_EIGENWORDS  TP_EIGENWORDS  TP_EIGENWORDS\n\n\n"<< std::endl;
+    std::cout << "\n\n\n\t\t\t TP_IID  TP_IID  TP_IID\n\n\n"<< std::endl;
     {
-      std::ifstream in("pretty_5_c_sample.csv");
-      auto_parse::Eigenwords g(in,5);  // testing construction
-      int v = g.size();
-      int dim = g.dimension();
-      Eigen::MatrixXd parent = Eigen::MatrixXd::Random(dim,dim);
-      Eigen::MatrixXd child = Eigen::MatrixXd::Random(dim,dim);
-      std::vector<double> prob(20,.05);
-      std::vector<double> out_degree(v,1);
-      auto_parse::TP_eigenwords tp(g, g, parent, child, 1, prob, out_degree);  // testing construction
       Lexicon l {"<OOV>", "", "a", "hearing", "on", "the", "issue", "is", "scheduled", "today", "."};
+      auto_parse::TP_iid tp(l.size(), .5);
       Words words(l,"");
       words.push_back(Word(l,"<OOV>"));
       words.push_back(Word(l,"the"));
@@ -43,7 +35,7 @@ namespace auto_parse
 int
 main()
 {
-  auto_parse::test_tp_eigenwords();  
+  auto_parse::test_tp_iid();  
   std::cout << "\n\nDONE." << std::endl;  
 };
 #endif

@@ -90,7 +90,8 @@ feature_generator.test: feature.o history.o word.o
 #          (This code can depend on level zero or level one code)
 #
 only2:  lr.OK tp_eigenwords.OK train_forecast_linear.OK  \
-        decorated_dependency.OK model.OK interval.OK lexicon_generator.OK
+        decorated_dependency.OK model.OK interval.OK lexicon_generator.OK \
+        tp_iid.OK
 #
 ################################################################################
 lr.test: dependency.o word.o
@@ -106,6 +107,8 @@ model.test: forecast.o history.o value_of_forecasts.o
 interval.test: dependency.o word.o
 
 lexicon_generator.test: word.o tokenize.o
+
+tp_iid.test: word.o transition_probability.o
 
 ################################################################################
 #
@@ -124,7 +127,7 @@ feature_one_dimensional.test: lr.o dependency.o word.o feature.o
 
 feature_eigenwords.test: lr.o dependency.o word.o feature.o eigenwords.o
 
-likelihood.test: dependency.o transition_probability.o word.o decorated_dependency.o eigenwords.o
+likelihood.test: dependency.o transition_probability.o word.o decorated_dependency.o eigenwords.o tp_eigenwords.o tp_iid.o
 
 similarity.test: dependency.o word.o interval.o lr.o
 
@@ -134,7 +137,7 @@ similarity.test: dependency.o word.o interval.o lr.o
 only4: statistical_parse.OK row.OK feature_interaction.OK maximum_likelihood.OK feature_shorten.OK
 ################################################################################
 
-maximum_likelihood.test: dependency.o transition_probability.o likelihood.o word.o likelihood.o tp_eigenwords.o eigenwords.o decorated_dependency.o
+maximum_likelihood.test: dependency.o transition_probability.o likelihood.o word.o likelihood.o tp_eigenwords.o eigenwords.o decorated_dependency.o tp_iid.o
 
 statistical_parse.test: history.o dependency.o lr.o word.o redo_parse.o model.o value_of_forecasts.o forecast.o forecast_constant.o feature_generator.o feature.o
 
@@ -154,7 +157,8 @@ contrast.test: history.o dependency.o lr.o word.o redo_parse.o model.o \
                statistical_parse.o value_of_forecasts.o \
                forecast.o forecast_constant.o  transition_probability.o likelihood.o \
                feature_generator.o feature.o feature_one_dimensional.o\
-               eigenwords.o tp_eigenwords.o row.o decorated_dependency.o
+               eigenwords.o tp_eigenwords.o row.o decorated_dependency.o tp_eigenwords.o\
+               tp_iid.o
 
 
 ################################################################################
@@ -169,7 +173,7 @@ learn.test: history.o dependency.o lr.o word.o redo_parse.o model.o \
              feature_generator.o feature.o feature_one_dimensional.o \
              contrast.o eigenwords.o tp_eigenwords.o feature_eigenwords.o maximum_likelihood.o \
              train_forecast_linear.o forecast_linear.o row.o value_of_forecasts.o tokenize.o decorated_dependency.o\
-             feature_interaction.o feature_shorten.o
+             feature_interaction.o feature_shorten.o tp_iid.o
 
 
 ################################################################################
@@ -190,7 +194,7 @@ learn.main: history.o dependency.o lr.o word.o redo_parse.o model.o  \
              feature_generator.o feature.o feature_one_dimensional.o \
              contrast.o eigenwords.o tp_eigenwords.o feature_eigenwords.o maximum_likelihood.o \
              train_forecast_linear.o forecast_linear.o row.o value_of_forecasts.o tokenize.o learn.o \
-             feature_interaction.o decorated_dependency.o feature_shorten.o
+             feature_interaction.o decorated_dependency.o feature_shorten.o tp_iid.o
 
 restore.main: history.o dependency.o lr.o word.o redo_parse.o model.o  \
              statistical_parse.o value_of_forecasts.o \
@@ -198,7 +202,7 @@ restore.main: history.o dependency.o lr.o word.o redo_parse.o model.o  \
              feature_generator.o feature.o feature_one_dimensional.o \
              contrast.o eigenwords.o tp_eigenwords.o feature_eigenwords.o maximum_likelihood.o \
              train_forecast_linear.o forecast_linear.o row.o value_of_forecasts.o tokenize.o learn.o \
-             feature_interaction.o decorated_dependency.o feature_shorten.o
+             feature_interaction.o decorated_dependency.o feature_shorten.o tp_iid.o
 
 learn.output: learn.main
 	./learn.main | tee learn.output

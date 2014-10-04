@@ -45,6 +45,7 @@ namespace auto_parse
     Word(const Word&);
     Word& operator=(const Word&);
     bool operator==(const Word&rhs) const{return m_index == rhs.m_index;};
+    bool operator<(const Word&rhs) const{return m_index < rhs.m_index;};
 
     // ACCESSORS
     void print_on(const Lexicon&, std::ostream&) const;

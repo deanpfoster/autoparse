@@ -19,10 +19,12 @@ namespace auto_parse
 
     // MANIPULATORS
     virtual void accumulate(const Node&, const Node&, const Words&) = 0;
+    virtual void accumulate(const Words&);
     virtual void merge(const Transition_probability&);
     
     // ACCESSORS
     virtual double operator()(const Node&,  const Node&, const Words&) const = 0;
+    virtual double operator()(const Words&) const = 0;
     virtual void print_on(std::ostream &) const = 0;
     virtual Transition_probability* renormalize() const = 0;
 

@@ -30,6 +30,11 @@ auto_parse::Transition_probability::Transition_probability(const Transition_prob
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                             M A N I P U L A T O R S                          manipulators
 void
+auto_parse::Transition_probability::accumulate(const Words &)
+{
+};
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+void
 auto_parse::Transition_probability::merge(const Transition_probability & )
 {
   // should be written in the dependent class.  

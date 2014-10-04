@@ -14,6 +14,7 @@
 #include <fstream>
 #include "eigenwords.h"
 #include "tp_eigenwords.h"
+#include "tp_iid.h"
 #include "row.h"
 
 #include "contrast.h"
@@ -43,8 +44,9 @@ namespace auto_parse
       int dim = g.dimension();
       Eigen::MatrixXd matrix = Eigen::MatrixXd::Random(dim,dim);
       std::vector<double> prob(20,.05);
-      auto_parse::TP_eigenwords markov(g,g,matrix,matrix,1.0, prob);  // testing construction
-      Likelihood likelihood(markov,markov,markov);
+      auto_parse::TP_eigenwords markov(g,g,1.0);  // testing construction
+      auto_parse::TP_iid root(g.size(),1.0);  // testing construction
+      Likelihood likelihood(*markov.renormalize(),*markov.renormalize(),root);
       Feature_one_dimensional<Words_left> f1;
       Feature_one_dimensional<Stack_size> f2;
       Feature_one_dimensional<Sentence_length> f3;

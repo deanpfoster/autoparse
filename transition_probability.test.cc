@@ -13,6 +13,7 @@ public:
   sample(){};
 
   void accumulate(const auto_parse::Node&, const auto_parse::Node&, const auto_parse::Words&){};
+  void accumulate(const auto_parse::Words&){};
   Transition_probability* renormalize() const{return 0;};
 
   sample* clone() const
@@ -23,6 +24,11 @@ public:
 
  double
  operator()(const auto_parse::Node& ,const auto_parse::Node& , const auto_parse::Words&) const
+  {
+    return 2./3.;
+  };
+double
+ operator()(const auto_parse::Words&) const
   {
     return 2./3.;
   };

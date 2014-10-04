@@ -6,8 +6,13 @@
 // put other includes here
 #include "assert.h"
 #include <iostream>
-#include <math.h>
+#include <cmath>
 #include <Eigen/Dense>
+
+static const int prior_count = 2;
+static const double prior_total = 1.0;
+static const double prior_distance = 1.0;
+static const double prior_XtX_scale = 1.0;
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                          U S I N G   D I R E C T I V E S                            using
@@ -25,7 +30,8 @@ auto_parse::TP_eigenwords::TP_eigenwords(const auto_parse::Eigenwords& parent,
 					 const Eigen::MatrixXd& XtX,
 					 const Eigen::MatrixXd& XtY,
 					 double scaling,
-					 const std::vector<double> distances)
+					 const std::vector<double>& distances,
+					 const std::vector<double>& total)
   :
   Transition_probability(),
   m_parent(parent),
@@ -33,8 +39,11 @@ auto_parse::TP_eigenwords::TP_eigenwords(const auto_parse::Eigenwords& parent,
   m_XtY(XtY),
   m_XtX(XtX),
   m_scaling(scaling),
-  m_distance(distances) 
+  m_distance(distances),
+  m_count(0), // we don't need the count since they have been normalized away already
+  m_total(total) 
 {
+  assert(int(total.size()) == m_parent.lexicon().size());
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::TP_eigenwords::TP_eigenwords(const auto_parse::Eigenwords& parent, const auto_parse::Eigenwords& child, double scaling)
@@ -44,10 +53,12 @@ auto_parse::TP_eigenwords::TP_eigenwords(const auto_parse::Eigenwords& parent, c
     m_XtY(),
     m_XtX(),
     m_scaling(scaling),
-    m_distance(20,1) 
+    m_distance(20,prior_distance),
+    m_count(parent.lexicon().size(),prior_count), // Bayeisian prior
+    m_total(parent.lexicon().size(),prior_total)  // Bayeisian prior
 {
   m_XtY = Eigen::MatrixXd::Zero(parent.dimension(),child.dimension());
-  m_XtX = 1 * Eigen::MatrixXd::Identity(parent.dimension(),parent.dimension()); // some regulirization
+  m_XtX = prior_XtX_scale * Eigen::MatrixXd::Identity(parent.dimension(),parent.dimension()); // some regulirization
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::TP_eigenwords::TP_eigenwords(const auto_parse::TP_eigenwords& other)
@@ -57,7 +68,9 @@ auto_parse::TP_eigenwords::TP_eigenwords(const auto_parse::TP_eigenwords& other)
     m_XtY(other.m_XtY),
     m_XtX(other.m_XtX),
     m_scaling(other.m_scaling),
-    m_distance(other.m_distance) 
+    m_distance(other.m_distance),
+    m_count(other.m_count), 
+    m_total(other.m_total) 
 {
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -81,6 +94,15 @@ auto_parse::TP_eigenwords::accumulate(const Node& p, const Node& c, const Words&
   m_XtX += pv * (pv.transpose());  // outerproduct
   m_XtY += pv * (cv.transpose());  // outerproduct
   m_distance[distance] += 1;
+  m_count[p->as_index()] += 1;  // 
+  m_total[p->as_index()] += 1;  // 
+};
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+void
+auto_parse::TP_eigenwords::accumulate(const Words& words) 
+{
+  for(auto w: words)
+    m_count[w.as_index()]  += 1;
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 void
@@ -89,8 +111,13 @@ auto_parse::TP_eigenwords::merge(const Transition_probability& tp)
   const TP_eigenwords& other = dynamic_cast<const TP_eigenwords&>(tp);
   m_XtY += other.m_XtY;
   m_XtX += other.m_XtX;
+  m_XtX -= prior_XtX_scale * Eigen::MatrixXd::Identity(m_XtX.rows(),m_XtX.cols()); // remove other prior
+  for(unsigned int i = 0; i < m_count.size(); ++i)
+    m_count[i] += other.m_count[i] - prior_count;  // remove other prior
+  for(unsigned int i = 0; i < m_total.size(); ++i)
+    m_total[i] += other.m_total[i] - prior_total; // remove other prior
   for(unsigned int i = 0; i < m_distance.size(); ++i)
-    m_distance[i] += other.m_distance[i];
+    m_distance[i] += other.m_distance[i] - prior_distance; // remove other prior
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::TP_eigenwords*
@@ -121,7 +148,13 @@ auto_parse::TP_eigenwords::renormalize() const
   // no NaN?
   //  Eigen::VectorXd new_XtY = m_XtY;
   Eigen::MatrixXd new_XtX = Eigen::MatrixXd::Identity(m_parent.dimension(),m_parent.dimension());
-  return new TP_eigenwords(m_parent, m_child, new_XtX, new_XtY, m_scaling, distance);
+
+  assert(m_total.size() == m_count.size());
+  std::vector<double> average(m_total.size(),0);
+  for(unsigned int i = 0; i < average.size(); ++i)
+    average[i] = m_total[i] / m_count[i];
+
+  return new TP_eigenwords(m_parent, m_child, new_XtX, new_XtY, m_scaling, distance, average);
 };
 
 
@@ -154,7 +187,20 @@ auto_parse::TP_eigenwords::operator()(const auto_parse::Node& parent,
 	std::cout << "NAN in TP: " << parent->convert_to_string(sentence.lexicon()) << " --> " << child->convert_to_string(sentence.lexicon()) << " raw = " << parent - child << " with prob = " << prob_distance << std::endl;
       log_pd = -100;
     }
-  return log_pd - error.squaredNorm();
+  double prob_gen_child = m_total[parent->as_index()];
+  double log_gen = m_scaling * log(prob_gen_child);
+  assert(std::isnormal(log_gen) || (log_gen == 0.0));
+  return log_gen + log_pd - error.squaredNorm();
+};
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+double
+auto_parse::TP_eigenwords::operator()( const auto_parse::Words& sentence) const
+{
+  double result = 0;
+  for(auto w : sentence)
+    result += log(1 - m_total[w.as_index()]);  // each word needs to be 
+  assert(std::isnormal(result) || (result == 0));
+  return m_scaling * result;
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 

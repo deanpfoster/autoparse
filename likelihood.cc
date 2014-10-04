@@ -70,6 +70,8 @@ auto_parse::Likelihood::operator()(const Dependency& parse) const
       double delta = link_probability(*i,parse.sentence());
       result += delta;
     };
+  result += (*mp_left)(parse.sentence());
+  result += (*mp_right)(parse.sentence());
   double root = (*mp_root)(parse.sentence().end(), parse.root(), parse.sentence());
   return result + root;
 };
@@ -93,6 +95,8 @@ auto_parse::Likelihood::pieces(const Dependency& parse) const
 	  result[3] += 1.0;
 	}
     };
+  result[0] += (*mp_right)(w);
+  result[2] += (*mp_left)(w);
   result[4] = (*mp_root)(w.end(), parse.root(), w);
   result[5] = 1;
   result = result / n;

@@ -3,6 +3,7 @@
 #include "learn.h"
 #include "redo_parse.h"
 #include "tp_eigenwords.h"
+#include "tp_iid.h"
 #include "maximum_likelihood.h"
 #include "contrast.h"
 #include "tokenize.h"
@@ -85,7 +86,8 @@ main()
     //////////////////////////////////////////////////////////////////////////////////
 
     auto_parse::TP_eigenwords tp(dictionary,dictionary,1.0);  
-    auto_parse::Likelihood likelihood(tp,tp,tp);
+    auto_parse::TP_iid tp_root(dictionary.size(),1.0);  
+    auto_parse::Likelihood likelihood(*tp.renormalize(),*tp.renormalize(),tp_root);
 
     //////////////////////////////////////////////////////////////////////////////////
     //

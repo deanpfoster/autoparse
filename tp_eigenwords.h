@@ -18,17 +18,19 @@ namespace auto_parse
     ~TP_eigenwords();
     TP_eigenwords(const Eigenwords& parent,const Eigenwords& child,
 		  const Eigen::MatrixXd& Parent_x_Parent, const Eigen::MatrixXd& Parent_x_Child, double scaling,
-		  const std::vector<double> distances);
+		  const std::vector<double>& distances, const std::vector<double>& average_number_children);
     TP_eigenwords(const Eigenwords& parent, const Eigenwords& child, double scaling);
     TP_eigenwords(const TP_eigenwords &);          
     virtual TP_eigenwords* clone() const;
 
     // MANIPULATORS
     virtual void accumulate(const Node& parent, const Node& child, const Words&);
+    virtual void accumulate(const Words&);
     virtual void merge(const Transition_probability&);
     
     // ACCESSORS
     virtual double operator()(const Node& parent,  const Node& child, const Words&) const;
+    virtual double operator()(const Words&) const;
     virtual void print_on(std::ostream &) const;
     virtual TP_eigenwords* renormalize() const;
 
@@ -40,6 +42,8 @@ namespace auto_parse
     Eigen::MatrixXd m_XtX;
     double m_scaling;  // arbitary tradeoff between distance and fit, eventually should be a parameter
     std::vector<double> m_distance;
+    std::vector<double> m_count;  // how often a parent occurs
+    std::vector<double> m_total; // total number of children
 
     TP_eigenwords& operator=(const TP_eigenwords &); // Don't delete this.
   };

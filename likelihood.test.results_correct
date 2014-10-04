@@ -6,11 +6,19 @@
 
 
 Likelihood model:
-	Heap: left is less than right.
-	Heap: left is less than right.
-	Heap: left is less than right.
+	Eigenword with transition matrix.
+	max = 0.999906
+	min = 3.71966e-05
+	mean= -0.00625997
+	 sd = 0.582915
+	Eigenword with transition matrix.
+	max = 0.999906
+	min = 3.71966e-05
+	mean= -0.00625997
+	 sd = 0.582915
+	IID transition matrix.
 
-5
+-3468.05
 constructed!
 A B C D E 
      	              A  <---  B                                                      A
@@ -27,7 +35,7 @@ A B C D E
      	              D  <---  A                                                      D
      	              E  <---  A                                                      E
 
-right hanging: 4
+right hanging: 0
 E D C B A 
      	              E  <---  D                                                      E
      	              D  <---  C                                            E  <---   D
