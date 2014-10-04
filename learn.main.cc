@@ -31,18 +31,12 @@ main(int argc,char** argv)
   //  Read the command line parameters and set up basic variables and basic files
   //
   //////////////////////////////////////////////////////////////////////////////////
-  
-  std::string sentence_file, eigen_file, latex_prefix;
-  int gram_number, repeats_per_level;
-  double update_rate,scaling, noise;
-  bool use_eager, r2l;
-  std::string comment;
-  auto_parse::File_names files;
-  boost::tie(files, repeats_per_level, update_rate, scaling, noise, comment,use_eager, r2l) = auto_parse::parse_argv(argc, argv);
-  boost::tie(sentence_file, eigen_file, gram_number, latex_prefix) = files;
+
+  auto_parse::Parse_args a(argc, argv);
+
   time_t start_time = time(0);  // used for final timing
   time_t last_print_time = time(0);  // used to print about once a minute
-  std::ofstream latex(latex_prefix + ".tex");
+  std::ofstream latex(a.latex_prefix + ".tex");
   auto_parse::latex_header(latex);  // write a "...\begin{document}" on latex_file
   using auto_parse::print_time;
   print_time("starting the clock");
@@ -55,8 +49,8 @@ main(int argc,char** argv)
   //
   //////////////////////////////////////////////////////////////////////////////////
 
-    std::ifstream in(eigen_file);
-    auto_parse::Eigenwords dictionary(in,gram_number); 
+    std::ifstream in(a.eigen_file);
+    auto_parse::Eigenwords dictionary(in,a.gram_number); 
     auto_parse::Eigenwords parent_dictionary(dictionary); 
     auto_parse::Eigenwords child_dictionary = dictionary.with_constant_row_sum_squares(); 
     int dim = dictionary.dimension();
@@ -70,12 +64,12 @@ main(int argc,char** argv)
   //
   //////////////////////////////////////////////////////////////////////////////////
 
-    auto_parse::Tokenize corpus_file(sentence_file,&dictionary.lexicon());
+    auto_parse::Tokenize corpus_file(a.sentence_file,&dictionary.lexicon());
   std::vector<auto_parse::Words> raw_corpus;
   while(!corpus_file.eof())
     raw_corpus.push_back(corpus_file.next_sentence());
   std::vector<auto_parse::Words>* p_corpus = &raw_corpus;
-  if(r2l)
+  if(a.r2l)
     p_corpus = new std::vector<auto_parse::Words>(auto_parse::reverse(raw_corpus)); // reverses each sentence
 
   //////////////////////////////////////////////////////////////////////////////////
@@ -83,18 +77,18 @@ main(int argc,char** argv)
   //   Print a big friendly blurb about our processing
   //
   //////////////////////////////////////////////////////////////////////////////////
-  std::cout << "\n\n               " << comment  << "\n\n\n" << std::endl;
-  std::cout << "     --corpus = " << sentence_file << std::endl;
-  std::cout << " --dictionary = " << eigen_file << std::endl;
-  std::cout << "--gram_number = " << gram_number << std::endl;
-  std::cout << "      --latex = " << latex_prefix << std::endl;
-  std::cout << "--update_rate = " << update_rate << "    (" << 1 - update_rate << " * old_model + " << update_rate << " * new_model)" << std::endl;
-  std::cout << "    --scaling = " << scaling << "    (-(Y - Yhat)^2 + " << scaling << " * log(probability skip) )" << std::endl;
-  std::cout << "      --eager = " << use_eager << std::endl;
-  std::cout << "      --noise = " << noise << "    randomly pick best action with about accuracy noise level." << std::endl;
-  std::cout << "    --reverse = " << r2l   << " process R to L" << std::endl;
-  std::cout << "repeats_per_level= " << repeats_per_level << std::endl;
-  std::cout << "   --comment = " << comment << std::endl;
+  std::cout << "\n\n               " << a.comment  << "\n\n\n" << std::endl;
+  std::cout << "     --corpus = " << a.sentence_file << std::endl;
+  std::cout << " --dictionary = " << a.eigen_file << std::endl;
+  std::cout << "--gram_number = " << a.gram_number << std::endl;
+  std::cout << "      --latex = " << a.latex_prefix << std::endl;
+  std::cout << "--update_rate = " << a.update_rate << "    (" << 1 - a.update_rate << " * old_model + " << a.update_rate << " * new_model)" << std::endl;
+  std::cout << "    --scaling = " << a.scaling << "    (-(Y - Yhat)^2 + " << a.scaling << " * log(probability skip) )" << std::endl;
+  std::cout << "      --eager = " << a.use_eager << std::endl;
+  std::cout << "      --noise = " << a.noise << "    randomly pick best action with about accuracy noise level." << std::endl;
+  std::cout << "    --reverse = " << a.r2l   << " process R to L" << std::endl;
+  std::cout << "repeats_per_level= " << a.repeats_per_level << std::endl;
+  std::cout << "   --comment = " << a.comment << std::endl;
   std::cout << "Read a dictionary of size: " << dictionary.size()<< " x " << dim << print_time("reading") << std::endl;
   std::cout << "Training on " << p_corpus->size() << " sentence.    " << std::endl;
   std::cout << "number threads = " << auto_parse::number_of_threads_used() << "." << std::endl;
@@ -108,7 +102,7 @@ main(int argc,char** argv)
   //////////////////////////////////////////////////////////////////////////////////
 
   auto_parse::Feature_generator* p_feature_generator = 0;
-  if(use_eager)
+  if(a.use_eager)
     {
       auto_parse::set_all_actions(auto_parse::eager_actions);  // programming by side effects.
       p_feature_generator = new auto_parse::Feature_generator(eager_features(dictionary));
@@ -119,7 +113,7 @@ main(int argc,char** argv)
       p_feature_generator = new auto_parse::Feature_generator(standard_features(dictionary));
     };
   auto_parse::Model old_model(auto_parse::generate_linear_model(p_feature_generator->dimension()));
-  auto_parse::Statistical_parse parser(old_model,*p_feature_generator,noise);
+  auto_parse::Statistical_parse parser(old_model,*p_feature_generator,a.noise);
 
   //////////////////////////////////////////////////////////////////////////////////
   //
@@ -127,9 +121,9 @@ main(int argc,char** argv)
   //
   //////////////////////////////////////////////////////////////////////////////////
 
-  auto_parse::TP_eigenwords tp_left(dictionary,dictionary,scaling);  
-  auto_parse::TP_eigenwords tp_right(dictionary,dictionary,scaling);  
-  auto_parse::TP_eigenwords tp_root(auto_parse::Eigenwords::create_root_dictionary(dictionary.lexicon()),dictionary,scaling);  
+  auto_parse::TP_eigenwords tp_left(dictionary,dictionary,a.scaling);  
+  auto_parse::TP_eigenwords tp_right(dictionary,dictionary,a.scaling);  
+  auto_parse::TP_eigenwords tp_root(auto_parse::Eigenwords::create_root_dictionary(dictionary.lexicon()),dictionary,a.scaling);  
   auto_parse::Likelihood likelihood(tp_left,tp_right,tp_root);
 
   //////////////////////////////////////////////////////////////////////////////////
@@ -150,22 +144,22 @@ main(int argc,char** argv)
   assert(n > 100*1000);
   std::vector<int> number_to_train_on;
   int K = 1000;
-  for(int i = 0; i < repeats_per_level;++i)
+  for(int i = 0; i < a.repeats_per_level;++i)
     number_to_train_on.push_back(40*K);
-  for(int i = 0; i < repeats_per_level;++i)
+  for(int i = 0; i < a.repeats_per_level;++i)
     number_to_train_on.push_back(50*K);
-  for(int i = 0; i < repeats_per_level;++i)
+  for(int i = 0; i < a.repeats_per_level;++i)
     number_to_train_on.push_back(80*K);
   if(n > 100*K)
-    for(int i = 0; i < repeats_per_level;++i)
+    for(int i = 0; i < a.repeats_per_level;++i)
       number_to_train_on.push_back(100*K);
   if(n > 200*K)
-    for(int i = 0; i < repeats_per_level;++i)
+    for(int i = 0; i < a.repeats_per_level;++i)
       number_to_train_on.push_back(200*K);
   if(n > 400*K)
-    for(int i = 0; i < repeats_per_level;++i)
+    for(int i = 0; i < a.repeats_per_level;++i)
       number_to_train_on.push_back(400*K);
-  for(int i = 0; i < repeats_per_level;++i)
+  for(int i = 0; i < a.repeats_per_level;++i)
       number_to_train_on.push_back(n);
       
   //////////////////////////////////////////////////////////////////////////////////
@@ -215,7 +209,7 @@ main(int argc,char** argv)
 						    sampling_rate,
 						    begin, end,
 						    ostrm);
-      old_model.tweak(model, update_rate);
+      old_model.tweak(model, a.update_rate);
       parser.new_model(old_model);
       ostrm << print_time("Training");
 
@@ -226,7 +220,7 @@ main(int argc,char** argv)
       ///////////////////////////////////////////////
 
       likelihood = model_to_likelihood(parent_dictionary, child_dictionary,
-				       parser, scaling, begin, end);
+				       parser, a.scaling, begin, end);
       ostrm << print_time("MLE");
 
       ///////////////////////////////////////////////
@@ -270,18 +264,18 @@ main(int argc,char** argv)
   int num_hours = num_minutes / 60;
   int extra_minutes = num_minutes - 60 * num_hours;
 
-  std::ofstream latex_final(latex_prefix + ".final.tex");  // open it here in case the program gets killed.
-  auto_parse::latex_header(latex_final,latex_prefix);
-  latex_final << "\\section*{" << comment << "}\n";
+  std::ofstream latex_final(a.latex_prefix + ".final.tex");  // open it here in case the program gets killed.
+  auto_parse::latex_header(latex_final,a.latex_prefix);
+  latex_final << "\\section*{" << a.comment << "}\n";
   latex_final << "Parameters:\n\\begin{itemize}";
-  latex_final << "\\item corpus: \\verb\"" << sentence_file << "\"" << std::endl;
-  latex_final << "\\item latex: \\verb\"" << latex_prefix << "\"" << std::endl;
-  latex_final << "\\item update: " << update_rate << std::endl;
-  latex_final << "\\item scaling: " << scaling << std::endl;
+  latex_final << "\\item corpus: \\verb\"" << a.sentence_file << "\"" << std::endl;
+  latex_final << "\\item latex: \\verb\"" << a.latex_prefix << "\"" << std::endl;
+  latex_final << "\\item update: " << a.update_rate << std::endl;
+  latex_final << "\\item scaling: " << a.scaling << std::endl;
   latex_final << "\\item noise: " << noise << std::endl;
-  latex_final << "\\item eager: " << use_eager << std::endl;
-  latex_final << "\\item reverse: " << r2l << std::endl;
-  latex_final << "\\item repeats: " << repeats_per_level << std::endl;
+  latex_final << "\\item eager: " << a.use_eager << std::endl;
+  latex_final << "\\item reverse: " << a.r2l << std::endl;
+  latex_final << "\\item repeats: " << a.repeats_per_level << std::endl;
   latex_final << "\\item Trained on " << p_corpus->size() << " sentence.    " << std::endl;
   latex_final << "\\item Threads used: " << auto_parse::number_of_threads_used()  << std::endl;
   latex_final << "\\item Total time: " << num_seconds << "    (" << num_hours << ":" << extra_minutes  << " h:m)" << std::endl;
@@ -323,7 +317,7 @@ main(int argc,char** argv)
 	    auto s4 = *(i->second);
 	    auto p4 = redo_parse(s4, parser.best_parse(s4)).parse();
 	    latex_final << "}  " << std::endl;
-	    if(r2l)
+	    if(a.r2l)
 	      {
 		likelihood.decorate(p1, dictionary).latex_reversed(latex_final);
 		likelihood.decorate(p2, dictionary).latex_reversed(latex_final);
@@ -341,5 +335,5 @@ main(int argc,char** argv)
       }
     auto_parse::latex_footer(latex_final);
 
-    std::cout << "\n\n               FINISHED: " << comment  << "\n\n\n" << std::endl;
+    std::cout << "\n\n               FINISHED: " << a.comment  << "\n\n\n" << std::endl;
 }

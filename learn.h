@@ -44,15 +44,26 @@ namespace auto_parse
 	     std::vector<auto_parse::Words>::const_iterator begin,
 	     std::vector<auto_parse::Words>::const_iterator end);
 
-
+  
   typedef boost::tuple<std::string, std::string, int, std::string> File_names;
 
-  boost::tuple<File_names, int, double, double, double, std::string, bool, bool>
-  parse_argv(int argc, char** argv);
+  class Parse_args
+  {
+  public:
+    Parse_args(int argc, char** argv);  // constructs and packs all the variables into a bundle
+
+    //  The arg's read in.  Note this is a struct, so no "m_" since these are all public
+
+    std::string sentence_file, eigen_file, latex_prefix;
+    int gram_number, repeats_per_level;
+    double update_rate,scaling, noise;
+    bool use_eager, r2l;
+    std::string comment;
+  };
 
   std::string print_time(const std::string& h);
 
 
-}
+};
 
 #endif
