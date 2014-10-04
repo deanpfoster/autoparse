@@ -8,6 +8,7 @@
 #include "model.h"
 #include "likelihood.h"
 #include "statistical_parse.h"
+#include "gold_standard.h"
 
 
 namespace auto_parse
@@ -26,6 +27,15 @@ namespace auto_parse
 			    std::vector<auto_parse::Words>::const_iterator,
 			    std::vector<auto_parse::Words>::const_iterator,
 			    std::ostream&);
+
+  Model gold_standard_to_model(const auto_parse::Statistical_parse& parser,
+			       const Feature_generator& feature_generator,
+			       double sampling_rate,
+			       std::vector<Gold_standard>::const_iterator gold_begin,
+			       std::vector<Gold_standard>::const_iterator gold_end,
+			       std::vector<auto_parse::Words>::const_iterator begin,
+			       std::vector<auto_parse::Words>::const_iterator end);
+
 
   Likelihood
     model_to_likelihood(const Eigenwords& parent,const Eigenwords& child,

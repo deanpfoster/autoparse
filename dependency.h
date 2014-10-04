@@ -61,6 +61,7 @@ namespace auto_parse
     void print_on(std::ostream &) const;
     bool full_parse() const;
     const Links& links() const;
+    const std::vector<int>& parents() const{return m_parent;};
     bool has_parent(const Node&) const;
     Node left_most_child(const Node&) const;  // returns end() on error
     Node right_most_child(const Node&) const;

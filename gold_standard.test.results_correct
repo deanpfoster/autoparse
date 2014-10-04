@@ -1,0 +1,58 @@
+
+
+
+			 GOLD_STANDARD  GOLD_STANDARD  GOLD_STANDARD
+
+
+
+A hearing on the issue is scheduled today . 
+     	              A  <---  hearing                                                A
+     	        hearing  <---  is                                           A  <---   hearing   --->  on
+     	             on  <---  hearing                                                on   --->  issue
+     	            the  <---  issue                                                  the
+     	          issue  <---  on                                         the  <---   issue
+     	             is  <---  ROOT                                   hearing  <---   is   --->  scheduled, .
+     	      scheduled  <---  is                                                     scheduled   --->  today
+     	          today  <---  scheduled                                              today
+     	              .  <---  is                                                     .
+
+A hearing on the issue is scheduled today . 
+     	              A  <---  is                                                     A
+     	        hearing  <---  is                                                     hearing   --->  on
+     	             on  <---  hearing                                                on   --->  issue
+     	            the  <---  issue                                                  the
+     	          issue  <---  on                                         the  <---   issue
+     	             is  <---  ROOT                                A, hearing  <---   is   --->  scheduled, .
+     	      scheduled  <---  is                                                     scheduled   --->  today
+     	          today  <---  scheduled                                              today
+     	              .  <---  is                                                     .
+
+A hearing on the issue is scheduled today . 
+     	              A  <---  hearing                                                A
+     	        hearing  <---  .                                            A  <---   hearing   --->  on
+     	             on  <---  hearing                                                on   --->  issue
+     	            the  <---  issue                                                  the
+     	          issue  <---  on                                         the  <---   issue
+     	             is  <---  .                                                      is   --->  scheduled
+     	      scheduled  <---  is                                                     scheduled   --->  today
+     	          today  <---  scheduled                                              today
+     	              .  <---  ROOT                               hearing, is  <---   .
+
+A hearing on the issue is scheduled today . 
+     	              A  <---  .                                                      A   --->  hearing, issue
+     	        hearing  <---  A                                                      hearing
+     	             on  <---  issue                                                  on
+     	            the  <---  issue                                                  the
+     	          issue  <---  A                                      on, the  <---   issue
+     	             is  <---  .                                                      is   --->  scheduled
+     	      scheduled  <---  is                                                     scheduled   --->  today
+     	          today  <---  scheduled                                              today
+     	              .  <---  ROOT                                     A, is  <---   .
+
+difference 0
+difference -2.66667
+difference -8.18276
+difference -16.11
+
+
+DONE.

@@ -78,13 +78,13 @@ main(int argc,char** argv)
   auto_parse::Model old_model;
   if(a.use_eager)
     {
-      old_model = auto_parse::generate_linear_model(p_feature_generator->dimension(), auto_parse::eager_actions);
       p_feature_generator = new auto_parse::Feature_generator(eager_features(dictionary));
+      old_model = auto_parse::generate_linear_model(p_feature_generator->dimension(), auto_parse::eager_actions);
     }
   else
     {
-      old_model = auto_parse::generate_linear_model(p_feature_generator->dimension(), auto_parse::standard_actions);
       p_feature_generator = new auto_parse::Feature_generator(standard_features(dictionary));
+      old_model = auto_parse::generate_linear_model(p_feature_generator->dimension(), auto_parse::standard_actions);
     };
   auto_parse::Statistical_parse parser(old_model,*p_feature_generator,a.noise);
 

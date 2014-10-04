@@ -17,6 +17,8 @@
 #include "tp_iid.h"
 #include "maximum_likelihood.h"
 #include "redo_parse.h"
+#include "gold_standard.h"
+#include "golden_contrast.h"
 
 #include "forecast_linear.h"
 
@@ -183,6 +185,47 @@ auto_parse::likelihood_to_model(const Likelihood& likelihood,
   ostrm << "Typical deviation from zero is:" << round(100. * all_abs/number_to_read)/100. << std::endl;
   ostrm << std::endl;
     
+  auto_parse::Model new_model; //  = parser.model();
+  for(auto_parse::Action a : parser.all_actions())
+    new_model.add_forecast(a,all_training[a].result());
+  return new_model;
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+auto_parse::Model
+auto_parse::gold_standard_to_model(const auto_parse::Statistical_parse& parser,
+				   const Feature_generator& feature_generator,
+				   double sampling_rate,
+				   std::vector<auto_parse::Gold_standard>::const_iterator gold_begin,
+				   std::vector<auto_parse::Gold_standard>::const_iterator gold_end,
+				   std::vector<auto_parse::Words>::const_iterator begin,
+				   std::vector<auto_parse::Words>::const_iterator end)
+{
+  assert(gold_end - gold_begin == end - begin);
+  Model lr_model = parser.model();
+  std::map<auto_parse::Action, auto_parse::Train_forecast_linear> all_training;
+  for(auto_parse::Action a: parser.all_actions())
+    all_training[a] = auto_parse::Train_forecast_linear(lr_model.forecast(a),sampling_rate);
+  int number_to_read = end - begin;
+
+  auto_parse::Golden_contrast contrast(parser, feature_generator);
+
+#pragma omp parallel default(shared)
+  {
+    std::map<auto_parse::Action, auto_parse::Train_forecast_linear> training = all_training;
+
+#pragma omp for 
+    for(int counter = 0; counter < number_to_read; ++counter)
+      {
+	std::vector<auto_parse::Row> contrast_pair = contrast(*(gold_begin + counter) ,  *(begin + counter) );
+	for(auto i = contrast_pair.begin(); i != contrast_pair.end(); ++i)
+	    training[i->m_a](i->m_X, i->m_Y);
+      };
+#pragma omp critical
+    for(auto_parse::Action a: parser.all_actions())
+      all_training[a].merge(training[a]);
+  }
+
   auto_parse::Model new_model; //  = parser.model();
   for(auto_parse::Action a : parser.all_actions())
     new_model.add_forecast(a,all_training[a].result());

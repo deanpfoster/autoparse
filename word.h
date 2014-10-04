@@ -75,6 +75,7 @@ namespace auto_parse
     const_reverse_iterator rbegin() const{return m_words.rbegin();};
     const_reverse_iterator rend() const{return m_words.rend();};
     int size() const{return m_words.size();};
+    bool operator==(const Words& rhs) const;
   private:
     const Lexicon*           mp_l;
     std::vector<Word>  m_words;

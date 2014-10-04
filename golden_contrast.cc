@@ -1,7 +1,7 @@
 // -*- c++ -*-
 
 
-#include "contrast.h"
+#include "golden_contrast.h"
 #include "row.h"
 #include "redo_parse.h" 
 #include "utilities/z.h"
@@ -11,15 +11,13 @@
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                              C O N S T R U C T O R S                         constructors
 
-auto_parse::Contrast::~Contrast()
+auto_parse::Golden_contrast::~Golden_contrast()
 {
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-auto_parse::Contrast::Contrast(const Statistical_parse& parse,
-			       const Likelihood& like,
-			       const Feature_generator& gen)
-  :Contrast_helper(parse, gen),
-   m_likelihood(like)
+auto_parse::Golden_contrast::Golden_contrast(const Statistical_parse& parse,
+					     const Feature_generator& gen)
+  :Contrast_helper(parse,gen)
 {
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -30,7 +28,7 @@ auto_parse::Contrast::Contrast(const Statistical_parse& parse,
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                               A C C E S S O R S                                 accessors
 std::vector<auto_parse::Row>
-auto_parse::Contrast::operator()(const Words& sentence) const
+auto_parse::Golden_contrast::operator()(const Gold_standard& g, const Words& sentence) const
 {
   History h = m_parser(sentence);
   History alt;
@@ -45,8 +43,8 @@ auto_parse::Contrast::operator()(const Words& sentence) const
   Action a       = h  [alt.size()-1];
   assert(a != a_prime);
   History h_prime = m_parser.finish(sentence, alt);
-  double l        = m_likelihood(redo_parse(sentence, h      ).parse());
-  double l_prime  = m_likelihood(redo_parse(sentence, h_prime).parse());
+  double l        = g(redo_parse(sentence, h      ).parse())/sentence.size();
+  double l_prime  = g(redo_parse(sentence, h_prime).parse())/sentence.size();
   History common = alt;
   common.pop_back();
   return(rows(m_feature_generator,sentence,common, a, l, a_prime, l_prime));
@@ -54,6 +52,10 @@ auto_parse::Contrast::operator()(const Words& sentence) const
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
+
+
+////////////////////////////////////////////////////////////////////////////////////////////
+//                           P R O T E C T E D                                     protected
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                           P R I V A T E                                           private
 ////////////////////////////////////////////////////////////////////////////////////////////

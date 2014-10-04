@@ -91,7 +91,7 @@ feature_generator.test: feature.o history.o word.o
 #
 only2:  lr.OK tp_eigenwords.OK train_forecast_linear.OK  \
         decorated_dependency.OK model.OK interval.OK lexicon_generator.OK \
-        tp_iid.OK
+        tp_iid.OK gold_standard.OK
 #
 ################################################################################
 lr.test: dependency.o word.o
@@ -109,6 +109,8 @@ interval.test: dependency.o word.o
 lexicon_generator.test: word.o tokenize.o
 
 tp_iid.test: word.o transition_probability.o
+
+gold_standard.test: dependency.o word.o
 
 ################################################################################
 #
@@ -151,9 +153,9 @@ feature_shorten.test: feature.o lr.o dependency.o word.o feature_eigenwords.o ei
 ################################################################################
 #           L E V E L     F I V E    T E S T I N G     C O D E
 #          (This code can depend on level 0, 1, 2, 3 or 4 code)
-only5: contrast.OK
+only5: contrast_helper.OK
 ################################################################################
-contrast.test: history.o dependency.o lr.o word.o redo_parse.o model.o \
+contrast_helper.test: history.o dependency.o lr.o word.o redo_parse.o model.o \
                statistical_parse.o value_of_forecasts.o \
                forecast.o forecast_constant.o  transition_probability.o likelihood.o \
                feature_generator.o feature.o feature_one_dimensional.o\
@@ -163,7 +165,26 @@ contrast.test: history.o dependency.o lr.o word.o redo_parse.o model.o \
 
 ################################################################################
 #           L E V E L     S I X    T E S T I N G     C O D E
-only6: learn.OK
+only6: learn.OK contrast.OK golden_contrast.OK
+################################################################################
+
+contrast.test: history.o dependency.o lr.o word.o redo_parse.o model.o \
+               statistical_parse.o value_of_forecasts.o \
+               forecast.o forecast_constant.o  transition_probability.o likelihood.o \
+               feature_generator.o feature.o feature_one_dimensional.o\
+               eigenwords.o tp_eigenwords.o row.o decorated_dependency.o tp_eigenwords.o\
+               tp_iid.o contrast_helper.o
+
+golden_contrast.test: history.o dependency.o lr.o word.o redo_parse.o model.o \
+               statistical_parse.o value_of_forecasts.o \
+               forecast.o forecast_constant.o  transition_probability.o likelihood.o \
+               feature_generator.o feature.o feature_one_dimensional.o\
+               eigenwords.o tp_eigenwords.o row.o decorated_dependency.o tp_eigenwords.o\
+               tp_iid.o contrast_helper.o gold_standard.o 
+
+################################################################################
+#           L E V E L     S E V E N    T E S T I N G     C O D E
+only7: learn.OK
 ################################################################################
 
 
@@ -173,7 +194,7 @@ learn.test: history.o dependency.o lr.o word.o redo_parse.o model.o \
              feature_generator.o feature.o feature_one_dimensional.o \
              contrast.o eigenwords.o tp_eigenwords.o feature_eigenwords.o maximum_likelihood.o \
              train_forecast_linear.o forecast_linear.o row.o value_of_forecasts.o tokenize.o decorated_dependency.o\
-             feature_interaction.o feature_shorten.o tp_iid.o
+             feature_interaction.o feature_shorten.o tp_iid.o golden_contrast.o contrast_helper.o gold_standard.o
 
 
 ################################################################################
@@ -194,7 +215,9 @@ learn.main: history.o dependency.o lr.o word.o redo_parse.o model.o  \
              feature_generator.o feature.o feature_one_dimensional.o \
              contrast.o eigenwords.o tp_eigenwords.o feature_eigenwords.o maximum_likelihood.o \
              train_forecast_linear.o forecast_linear.o row.o value_of_forecasts.o tokenize.o learn.o \
-             feature_interaction.o decorated_dependency.o feature_shorten.o tp_iid.o
+             feature_interaction.o decorated_dependency.o feature_shorten.o tp_iid.o \
+             golden_contrast.o contrast_helper.o gold_standard.o
+
 
 restore.main: history.o dependency.o lr.o word.o redo_parse.o model.o  \
              statistical_parse.o value_of_forecasts.o \
@@ -202,7 +225,8 @@ restore.main: history.o dependency.o lr.o word.o redo_parse.o model.o  \
              feature_generator.o feature.o feature_one_dimensional.o \
              contrast.o eigenwords.o tp_eigenwords.o feature_eigenwords.o maximum_likelihood.o \
              train_forecast_linear.o forecast_linear.o row.o value_of_forecasts.o tokenize.o learn.o \
-             feature_interaction.o decorated_dependency.o feature_shorten.o tp_iid.o
+             feature_interaction.o decorated_dependency.o feature_shorten.o tp_iid.o \
+             golden_contrast.o contrast_helper.o
 
 learn.output: learn.main
 	./learn.main | tee learn.output

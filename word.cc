@@ -215,6 +215,19 @@ operator+(const auto_parse::Words& W, std::string w)
 }
 
 
+
+bool
+auto_parse::Words::operator==(const auto_parse::Words& other) const
+{
+  assert(mp_l == other.mp_l);
+  if(m_words.size() != other.m_words.size())
+    return false;
+  for(unsigned int i = 0; i < m_words.size(); ++i)
+    if(m_words[i].as_index() != other.m_words[i].as_index())
+      return false;
+  return true;
+}
+
 std::ostream&
 operator<<(std::ostream & ostrm,const auto_parse::Words & sentence)
 {
