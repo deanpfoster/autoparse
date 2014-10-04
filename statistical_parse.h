@@ -23,6 +23,7 @@ namespace auto_parse
     // MANIPULATORS
     void new_model(const Model& new_model){m_model = new_model;};
     // ACCESSORS
+    const std::vector<Action>& all_actions() const{return m_model.all_actions();};
     Model model() const{return m_model;};
     History best_parse(const Words&) const; 
     History operator()(const Words&) const; 

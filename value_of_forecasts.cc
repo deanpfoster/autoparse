@@ -39,51 +39,39 @@ auto_parse::Value_of_forecasts::operator[](Action a)
 void
 auto_parse::Value_of_forecasts::zero_second_best()
 {
-  double max = m_values[Action::shift];
-  Action arg_max = Action::shift;
-  for(Action a: auto_parse::all_actions)
-    {
-      assert(!isnan(m_values[a]));
-    if(m_values[a] > max)
-      {
-	max = m_values[a];
-	arg_max = a;
-      }
-    }
+  assert(m_values.size() > 0);
+  std::pair<Action,double> best = *m_values.begin();
+  for(std::pair<Action,double> p: m_values)
+    if(p.second > best.second)
+      best = p;
+  
   double second_best = -1e10;
-  for(Action a: all_actions)
-    if(m_values[a] > second_best)
-      if(a != arg_max)
-	{
-	  second_best = m_values[a];
-	}
-  if(second_best > -1e9)
-    for(Action a: all_actions)
-      m_values[a] = m_values[a] - second_best;
-  else
-    for(Action a: all_actions)
-      m_values[a] = m_values[a] - max;
-}
+  for(std::pair<Action,double> p: m_values)
+    if(p.second > second_best)
+      if(p != best)
+	second_best = p.second;
 
+  if(second_best > -1e9)
+    for(std::pair<Action,double> p: m_values)
+      p.second = p.second - second_best;
+  else
+    for(std::pair<Action,double> p: m_values)
+      p.second = p.second - best.second;
+}
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                               A C C E S S O R S                                 accessors
 auto_parse::Action
 auto_parse::Value_of_forecasts::best_action() const
 {
-  Action result = Action::head_reduce;
-  double max = m_values.find(result)->second;
-  for (Action a : all_actions)
-    {
-      double value = m_values.find(a)->second;
-      if(value > max)
-	{
-	  max = value;
-	  result = a;
-	}
-    }
-  return result;
+  assert(m_values.size() > 0);
+  std::pair<Action,double> best = *m_values.begin();
+  for(std::pair<Action,double> p: m_values)
+    if(p.second > best.second)
+      best = p;
+  return best.first;
 };
-
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Action
 auto_parse::Value_of_forecasts::smoothed_best_action(double noise) const
 {
@@ -91,25 +79,25 @@ auto_parse::Value_of_forecasts::smoothed_best_action(double noise) const
     return best_action();
 
   double total = 0;
-  for (Action a : all_actions)
+  for(std::pair<Action,double> p: m_values)
     {
-      double value = m_values.find(a)->second/noise;
+      double value = p.second/noise;
       if(value > 100)
-	return a;
+	return p.first;
       if(value > -100)
 	total += exp(value);
     }
   assert(total != 0);
   double which = total * my_random::U_thread_safe();
   double cumsum = 0;
-  for (Action a : all_actions)
+  for(std::pair<Action,double> p: m_values)
     {
-      double value = m_values.find(a)->second/noise;
+      double value = p.second/noise;
       if(value > -100)
 	{
 	  cumsum += exp(value);
 	  if(cumsum >= which)
-	    return a;
+	    return p.first;
 	}
     };
   assert(0);

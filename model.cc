@@ -19,16 +19,26 @@
 
 auto_parse::Model::~Model()
 {
-  for(Action a: all_actions)
+  for(Action a: all_actions())
     {
       delete(m_forecasts[a]);
     }
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Model::Model(std::istream& in)
-  : m_forecasts()
+  : m_forecasts(),
+    m_all_actions()
 {
-  for(Action a: all_actions)
+  int num_actions;
+  in >> num_actions >> std::ws;
+  for(int i = 0; i < num_actions;++i)
+    {
+      Action a;
+      in >> a;
+      m_all_actions.push_back(a);
+    };
+
+  for(Action a: all_actions())
     {
       Action check;
       in >> check >> std::ws;
@@ -41,9 +51,10 @@ auto_parse::Model::Model(std::istream& in)
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Model::Model(const auto_parse::Model & other)
   :
-  m_forecasts()
+  m_forecasts(),
+  m_all_actions(other.all_actions())
 {
-    for(Action a: all_actions)
+  for(Action a: all_actions())
     {
       m_forecasts[a] = other.m_forecasts.find(a)->second->clone();
     }
@@ -52,27 +63,28 @@ auto_parse::Model::Model(const auto_parse::Model & other)
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Model::Model()
   :
-  m_forecasts()
+  m_forecasts(),
+  m_all_actions()
 {
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Model::Model(const std::initializer_list<std::pair<auto_parse::Action,Forecast*> >& args)
   :
-  m_forecasts()
+  m_forecasts(),
+  m_all_actions()
 {
-  std::set<auto_parse::Action> check;
   for(std::pair<auto_parse::Action,Forecast*> p : args)
     {
       m_forecasts[p.first] = p.second->clone();
-      check.insert(p.first);
+      m_all_actions.push_back(p.first);
     }
-  assert(check.size() == all_actions.size()); // there are better tests, but this will catch some errors
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 void
 auto_parse::Model::add_forecast(Action a, const Forecast& f)
 {
-  delete(m_forecasts[a]);
+  m_all_actions.push_back(a);
+  assert(m_forecasts.find(a) == m_forecasts.end());
   m_forecasts[a] = f.clone();
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -85,7 +97,7 @@ auto_parse::Model::tweak_forecast(Action a, const Forecast& f, double fraction)
 void
 auto_parse::Model::tweak(const Model& m, double fraction)
 {
-  for(auto_parse::Action a : auto_parse::all_actions)
+  for(auto_parse::Action a : all_actions())
     tweak_forecast(a,*m.m_forecasts.find(a)->second,fraction);
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
@@ -93,9 +105,8 @@ auto_parse::Model::tweak(const Model& m, double fraction)
 auto_parse::Model&
 auto_parse::Model::operator=(const auto_parse::Model& rhs)
 {
-  //  for(Action a : all_actions)
-  //    delete m_forecasts[a];
-  for(Action a : all_actions)
+  m_all_actions = rhs.m_all_actions;
+  for(Action a : all_actions())
     {
       delete m_forecasts[a];
       m_forecasts[a] = rhs.m_forecasts.find(a)->second->clone();
@@ -109,7 +120,7 @@ auto_parse::Value_of_forecasts
 auto_parse::Model::operator()(const Eigen::VectorXd& features) const
 {
   Value_of_forecasts result;
-  for(Action a: all_actions)
+  for(Action a: all_actions())
     {
       double value = (*m_forecasts.find(a)->second)(features);
       assert(!isnan(value));
@@ -127,7 +138,7 @@ auto_parse::Model::operator()(const Eigen::VectorXd& features) const
 void
 auto_parse::Model::print_on(std::ostream & ostrm) const
 {
-  for(Action a : all_actions)
+  for(Action a : all_actions())
     ostrm << "Forecast " << a << ":  " << *m_forecasts.find(a)->second;
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -135,7 +146,7 @@ auto_parse::Model::print_on(std::ostream & ostrm) const
 void
 auto_parse::Model::save(std::ostream & ostrm) const
 {
-  for(Action a : all_actions)
+  for(Action a : all_actions())
     {
       ostrm << a << std::endl;
       ostrm << *m_forecasts.find(a)->second;

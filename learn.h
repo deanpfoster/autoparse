@@ -18,7 +18,7 @@ namespace auto_parse
   Feature_generator standard_features(const Eigenwords& dictionary);
   Feature_generator eager_features(const Eigenwords& dictionary);
   
-  Model generate_linear_model(int);
+  Model generate_linear_model(int, const std::vector<auto_parse::Action>&);
   Model likelihood_to_model(const Likelihood& likelihood,
 			    const auto_parse::Statistical_parse& parser,
 			    const Feature_generator& feature_generator,
@@ -55,8 +55,7 @@ namespace auto_parse
     std::string friendly_message(const auto_parse::Eigenwords&,
 				 const std::vector<auto_parse::Words>&) const; 
 
-    void print_latex(time_t start_time,
-		     const std::vector<auto_parse::Words>& corpus,
+    void print_latex(const std::vector<auto_parse::Words>& corpus,
 		     const auto_parse::Likelihood& likelihood,
 		     const std::vector<int>& number_to_train_on,
 		     const auto_parse::Eigenwords& dictionary,
@@ -68,6 +67,8 @@ namespace auto_parse
     double update_rate,scaling, noise;
     bool use_eager, r2l;
     std::string comment;
+    time_t start_time = time(0);  // used for final timing
+
   };
 
   std::string print_time(const std::string& h);

@@ -74,248 +74,248 @@ Typical deviation from zero is:1.7
   2    MLE
   2    Likelihood model:
 	Eigenword with transition matrix.
-	max = 0.268209
-	min = 1.66386e-06
-	mean= -0.000556142
-	 sd = 0.0240767
+	max = 0.270983
+	min = 7.014e-06
+	mean= -0.000337006
+	 sd = 0.0219102
 	Eigenword with transition matrix.
-	max = 0.424956
-	min = 1.07021e-06
-	mean= 0.000778485
-	 sd = 0.0247061
+	max = 0.376283
+	min = 5.20395e-06
+	mean= 0.000276315
+	 sd = 0.0256499
 	IID transition matrix.
 
-  2     * * * * 481.144 * * * * 
+  2     * * * * 485.311 * * * * 
 on that by this with . 
--5.24	             on  <---  ROOT                                                   on   --->  that, by, this, with, .
--1.7 	           that  <---  on                                                     that
--2.85	             by  <---  on                                                     by
--3.4 	           this  <---  on                                                     this
--3.81	           with  <---  on                                                     with
--5.03	              .  <---  on                                                     .
+-1.01	             on  <---  that                                                   on
+-3.84	           that  <---  with                                        on  <---   that   --->  by, this
+-1.7 	             by  <---  that                                                   by
+-2.83	           this  <---  that                                                   this
+-0.95	           with  <---  .                                         that  <---   with
+-0.82	              .  <---  ROOT                                      with  <---   .
 
 
   3    Training
 
-0.07 = shift's average value in a contrast.
-1.07 = <--'s average value in a contrast.
--1.15 = -->'s average value in a contrast.
+0 = shift's average value in a contrast.
+0.96 = <--'s average value in a contrast.
+-0.95 = -->'s average value in a contrast.
 0 = HEAD's average value in a contrast.
-Typical deviation from zero is:1.9
+Typical deviation from zero is:1.86
 
   3    MLE
   3    Likelihood model:
 	Eigenword with transition matrix.
-	max = 0.244821
-	min = 8.09627e-06
-	mean= 0.000155188
-	 sd = 0.0228867
+	max = 0.241466
+	min = 2.77487e-05
+	mean= -0.000116754
+	 sd = 0.0267607
 	Eigenword with transition matrix.
-	max = 0.437766
-	min = 3.78177e-06
-	mean= -0.000133406
-	 sd = 0.0260681
+	max = 0.692137
+	min = 3.67722e-05
+	mean= 9.59206e-05
+	 sd = 0.0478445
 	IID transition matrix.
 
-  3     * * * * 481.696 * * * * 
+  3     * * * * 495.128 * * * * 
 on that by this with . 
--1.4 	             on  <---  that                                                   on
--4.1 	           that  <---  .                                           on  <---   that
--4.15	             by  <---  .                                                      by   --->  this, with
--1.37	           this  <---  by                                                     this
--3.55	           with  <---  by                                                     with
--0.9 	              .  <---  ROOT                                  that, by  <---   .
+-3.31	             on  <---  this                                                   on
+-2.58	           that  <---  this                                                   that
+-1.16	             by  <---  this                                                   by
+-5.24	           this  <---  ROOT                              on, that, by  <---   this   --->  with
+-1.25	           with  <---  this                                                   with   --->  .
+-1.78	              .  <---  with                                                   .
 
 
   4    Training
 
--0.89 = shift's average value in a contrast.
-0.95 = <--'s average value in a contrast.
--0.05 = -->'s average value in a contrast.
+-0.06 = shift's average value in a contrast.
+-0.42 = <--'s average value in a contrast.
+0.48 = -->'s average value in a contrast.
 0 = HEAD's average value in a contrast.
-Typical deviation from zero is:2.34
+Typical deviation from zero is:1.84
 
   4    MLE
   4    Likelihood model:
 	Eigenword with transition matrix.
-	max = 0.318427
-	min = 1.27323e-05
-	mean= 0.000573446
-	 sd = 0.0324336
+	max = 0.242201
+	min = 1.01811e-05
+	mean= 0.000537144
+	 sd = 0.0262394
 	Eigenword with transition matrix.
-	max = 0.248177
-	min = 8.80915e-07
-	mean= -0.000128396
-	 sd = 0.016311
+	max = 0.438964
+	min = 3.31963e-06
+	mean= 0.000766634
+	 sd = 0.0263301
 	IID transition matrix.
 
-  4     * * * * 418.84 * * * * 
+  4     * * * * 493.315 * * * * 
 on that by this with . 
--0.79	             on  <---  that                                                   on
--0.79	           that  <---  by                                          on  <---   that
--0.78	             by  <---  this                                      that  <---   by
--0.79	           this  <---  with                                        by  <---   this
--0.76	           with  <---  .                                         this  <---   with
--0.81	              .  <---  ROOT                                      with  <---   .
+-1.39	             on  <---  that                                                   on
+-1.4 	           that  <---  by                                          on  <---   that
+-0.8 	             by  <---  this                                      that  <---   by
+-0.99	           this  <---  with                                        by  <---   this
+-0.97	           with  <---  .                                         this  <---   with
+-0.91	              .  <---  ROOT                                      with  <---   .
 
 
   5    Training
 
--1.21 = shift's average value in a contrast.
-2.85 = <--'s average value in a contrast.
--1.64 = -->'s average value in a contrast.
+-0.22 = shift's average value in a contrast.
+1.19 = <--'s average value in a contrast.
+-0.97 = -->'s average value in a contrast.
 0 = HEAD's average value in a contrast.
-Typical deviation from zero is:3.28
+Typical deviation from zero is:1.91
 
   5    MLE
   5    Likelihood model:
 	Eigenword with transition matrix.
-	max = 0.33841
-	min = 3.50316e-06
-	mean= 0.000451553
-	 sd = 0.0343294
+	max = 0.321505
+	min = 1.34914e-06
+	mean= 0.000368013
+	 sd = 0.0336965
 	Eigenword with transition matrix.
-	max = 0.236692
-	min = 3.66838e-06
-	mean= -0.000224224
-	 sd = 0.023887
+	max = 0.222225
+	min = 4.19553e-06
+	mean= 0.000638205
+	 sd = 0.0144734
 	IID transition matrix.
 
-  5     * * * * 394.388 * * * * 
+  5     * * * * 424.964 * * * * 
 on that by this with . 
--0.76	             on  <---  that                                                   on
--0.76	           that  <---  by                                          on  <---   that
--0.76	             by  <---  this                                      that  <---   by
--0.77	           this  <---  with                                        by  <---   this
--0.84	           with  <---  .                                         this  <---   with
--0.89	              .  <---  ROOT                                      with  <---   .
+-0.83	             on  <---  that                                                   on
+-0.83	           that  <---  by                                          on  <---   that
+-0.83	             by  <---  this                                      that  <---   by
+-0.84	           this  <---  with                                        by  <---   this
+-0.83	           with  <---  .                                         this  <---   with
+-0.79	              .  <---  ROOT                                      with  <---   .
 
 
   6    Training
 
--1.4 = shift's average value in a contrast.
-2.57 = <--'s average value in a contrast.
--1.16 = -->'s average value in a contrast.
+-0.63 = shift's average value in a contrast.
+1.85 = <--'s average value in a contrast.
+-1.22 = -->'s average value in a contrast.
 0 = HEAD's average value in a contrast.
-Typical deviation from zero is:2.65
+Typical deviation from zero is:2.33
 
   6    MLE
   6    Likelihood model:
 	Eigenword with transition matrix.
-	max = 0.342292
-	min = 6.28969e-06
-	mean= 0.000569862
-	 sd = 0.0348925
+	max = 0.323315
+	min = 4.24923e-06
+	mean= 0.00061416
+	 sd = 0.0325351
 	Eigenword with transition matrix.
-	max = 0.093193
-	min = 1.3643e-06
-	mean= 0.000293174
-	 sd = 0.00738005
+	max = 0.121723
+	min = 1.87712e-06
+	mean= -5.77853e-05
+	 sd = 0.00970518
 	IID transition matrix.
 
-  6     * * * * 375.947 * * * * 
+  6     * * * * 392.783 * * * * 
 on that by this with . 
--0.73	             on  <---  that                                                   on
--0.73	           that  <---  by                                          on  <---   that
--0.73	             by  <---  this                                      that  <---   by
--0.74	           this  <---  with                                        by  <---   this
--0.74	           with  <---  .                                         this  <---   with
--0.8 	              .  <---  ROOT                                      with  <---   .
+-3.8 	             on  <---  by                                                     on   --->  that
+-1.69	           that  <---  on                                                     that
+-0.77	             by  <---  this                                        on  <---   by
+-0.78	           this  <---  with                                        by  <---   this
+-0.76	           with  <---  .                                         this  <---   with
+-0.74	              .  <---  ROOT                                      with  <---   .
 
 
   7    Training
 
--1.61 = shift's average value in a contrast.
-3.53 = <--'s average value in a contrast.
--1.92 = -->'s average value in a contrast.
+-0.95 = shift's average value in a contrast.
+2.41 = <--'s average value in a contrast.
+-1.46 = -->'s average value in a contrast.
 0 = HEAD's average value in a contrast.
-Typical deviation from zero is:3.63
+Typical deviation from zero is:2.59
 
   7    MLE
   7    Likelihood model:
 	Eigenword with transition matrix.
-	max = 0.325488
-	min = 3.23056e-05
-	mean= 0.000424739
-	 sd = 0.0342199
+	max = 0.348172
+	min = 1.82907e-06
+	mean= 0.000650349
+	 sd = 0.0342726
 	Eigenword with transition matrix.
-	max = 0.196748
-	min = 6.87946e-07
-	mean= -0.000110184
-	 sd = 0.0125177
+	max = 0.0860576
+	min = 2.73108e-06
+	mean= -3.18929e-05
+	 sd = 0.00913877
 	IID transition matrix.
 
-  7     * * * * 373.381 * * * * 
+  7     * * * * 369.965 * * * * 
 on that by this with . 
--0.72	             on  <---  that                                                   on
--0.73	           that  <---  by                                          on  <---   that
--0.72	             by  <---  this                                      that  <---   by
--0.73	           this  <---  with                                        by  <---   this
+-0.74	             on  <---  that                                                   on
+-0.74	           that  <---  by                                          on  <---   that
+-0.74	             by  <---  this                                      that  <---   by
+-0.75	           this  <---  with                                        by  <---   this
 -0.75	           with  <---  .                                         this  <---   with
--0.8 	              .  <---  ROOT                                      with  <---   .
+-0.78	              .  <---  ROOT                                      with  <---   .
 
 
   8    Training
 
--5.99 = shift's average value in a contrast.
-10.62 = <--'s average value in a contrast.
--4.62 = -->'s average value in a contrast.
+-0.84 = shift's average value in a contrast.
+2.74 = <--'s average value in a contrast.
+-1.9 = -->'s average value in a contrast.
 0 = HEAD's average value in a contrast.
-Typical deviation from zero is:10.64
+Typical deviation from zero is:2.8
 
   8    MLE
   8    Likelihood model:
 	Eigenword with transition matrix.
-	max = 0.346703
-	min = 1.09443e-05
-	mean= 0.000634427
-	 sd = 0.0349883
+	max = 0.344975
+	min = 1.96309e-06
+	mean= 0.000603829
+	 sd = 0.0346688
 	Eigenword with transition matrix.
-	max = 0
-	min = 0
-	mean= 0
-	 sd = 0
+	max = 0.0358989
+	min = 1.18483e-06
+	mean= 0.00014349
+	 sd = 0.0032808
 	IID transition matrix.
 
-  8     * * * * 357.445 * * * * 
+  8     * * * * 371.676 * * * * 
 on that by this with . 
--5.24	             on  <---  ROOT                                                   on   --->  .
--0.72	           that  <---  by                                                     that
--0.72	             by  <---  this                                      that  <---   by
--0.72	           this  <---  with                                        by  <---   this
--0.72	           with  <---  .                                         this  <---   with
--4.74	              .  <---  on                                        with  <---   .
+-0.74	             on  <---  that                                                   on
+-0.74	           that  <---  by                                          on  <---   that
+-0.74	             by  <---  this                                      that  <---   by
+-0.75	           this  <---  with                                        by  <---   this
+-0.74	           with  <---  .                                         this  <---   with
+-0.74	              .  <---  ROOT                                      with  <---   .
 
 
   9    Training
 
--2.05 = shift's average value in a contrast.
-5.78 = <--'s average value in a contrast.
--3.72 = -->'s average value in a contrast.
+-0.79 = shift's average value in a contrast.
+3.1 = <--'s average value in a contrast.
+-2.31 = -->'s average value in a contrast.
 0 = HEAD's average value in a contrast.
-Typical deviation from zero is:5.78
+Typical deviation from zero is:3.11
 
   9    MLE
   9    Likelihood model:
 	Eigenword with transition matrix.
-	max = 0.342298
-	min = 9.30959e-06
-	mean= 0.000700858
-	 sd = 0.0348595
+	max = 0.345935
+	min = 9.42531e-06
+	mean= 0.000586057
+	 sd = 0.035005
 	Eigenword with transition matrix.
-	max = 0.027013
-	min = 7.20722e-08
-	mean= 2.53292e-06
-	 sd = 0.00176117
+	max = 0.00898681
+	min = 5.87371e-08
+	mean= 1.42283e-06
+	 sd = 0.000515904
 	IID transition matrix.
 
-  9     * * * * 364.655 * * * * 
+  9     * * * * 367.756 * * * * 
 on that by this with . 
 -0.73	             on  <---  that                                                   on
 -0.73	           that  <---  by                                          on  <---   that
 -0.73	             by  <---  this                                      that  <---   by
 -0.73	           this  <---  with                                        by  <---   this
--0.73	           with  <---  .                                         this  <---   with
+-0.71	           with  <---  .                                         this  <---   with
 -0.74	              .  <---  ROOT                                      with  <---   .
 
 

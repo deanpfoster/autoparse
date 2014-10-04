@@ -18,7 +18,7 @@ namespace auto_parse
     {
       Forecast_constant example(10);
       Model m;
-      for(Action a : all_actions)
+      for(Action a : eager_actions)
 	{
 	  m.add_forecast(a,example);
 	};

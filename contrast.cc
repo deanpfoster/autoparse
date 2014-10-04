@@ -73,7 +73,7 @@ auto_parse::Contrast::suggest_alternative_history(const Words& w,
     result.push_back(h[i]);
   LR parser = redo_parse(w,result);
   int number_alternatives = 0;
-  for(Action a: all_actions)
+  for(Action a: m_parser.all_actions())
     number_alternatives += parser.legal(a);
   assert(number_alternatives != 0);
   if(number_alternatives == 1)
@@ -81,7 +81,7 @@ auto_parse::Contrast::suggest_alternative_history(const Words& w,
   int which_one = (number_alternatives - 1) * my_random::U_thread_safe();
   assert(which_one <= number_alternatives);
   Action alternative_action = action_taken;
-  for(Action a: all_actions)
+  for(Action a: m_parser.all_actions())
     if(parser.legal(a))
       if(a != action_taken)
 	if(which_one-- == 0)

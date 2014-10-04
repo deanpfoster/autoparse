@@ -38,7 +38,7 @@ namespace auto_parse
     {
       Sample example(10);
       Model m;
-      for(Action a : all_actions)
+      for(Action a : standard_actions)
 	{
 	  m.add_forecast(a,example);
 	};

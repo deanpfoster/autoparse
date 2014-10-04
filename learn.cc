@@ -109,10 +109,10 @@ auto_parse::eager_features(const Eigenwords& dictionary)
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 auto_parse::Model
-auto_parse::generate_linear_model(int num_features)
+auto_parse::generate_linear_model(int num_features, const std::vector<auto_parse::Action>& actions)
 {
   Model result;
-  for(auto_parse::Action a: all_actions)
+  for(auto_parse::Action a: actions)
     result.add_forecast(a, Forecast_linear(Eigen::VectorXd::Zero(num_features)));
   return result;
 }
@@ -140,7 +140,7 @@ auto_parse::likelihood_to_model(const Likelihood& likelihood,
 {
   Model lr_model = parser.model();
   std::map<auto_parse::Action, auto_parse::Train_forecast_linear> all_training;
-  for(auto_parse::Action a: auto_parse::all_actions)
+  for(auto_parse::Action a: parser.all_actions())
     all_training[a] = auto_parse::Train_forecast_linear(lr_model.forecast(a),sampling_rate);
   std::map<Action, double> all_contrasts;
   double all_abs =  0;
@@ -168,7 +168,7 @@ auto_parse::likelihood_to_model(const Likelihood& likelihood,
 	  }
       };
 #pragma omp critical
-    for(auto_parse::Action a: auto_parse::all_actions)
+    for(auto_parse::Action a: parser.all_actions())
       {
 	all_training[a].merge(training[a]);
 	all_contrasts[a] += contrasts[a];
@@ -178,13 +178,13 @@ auto_parse::likelihood_to_model(const Likelihood& likelihood,
 
   // Friendly output
   ostrm << std::endl;
-  for(auto_parse::Action a: auto_parse::all_actions)
+  for(auto_parse::Action a: parser.all_actions())
     ostrm << int(100.*all_contrasts[a]/number_to_read)/100. << " = " << a << "'s average value in a contrast." << std::endl;
   ostrm << "Typical deviation from zero is:" << round(100. * all_abs/number_to_read)/100. << std::endl;
   ostrm << std::endl;
     
-  auto_parse::Model new_model = parser.model();
-  for(auto_parse::Action a : auto_parse::all_actions)
+  auto_parse::Model new_model; //  = parser.model();
+  for(auto_parse::Action a : parser.all_actions())
     new_model.add_forecast(a,all_training[a].result());
   return new_model;
 }
@@ -288,6 +288,7 @@ auto_parse::Parse_args::Parse_args(int argc, char** argv)
   sentence_file(), eigen_file(), latex_prefix(), gram_number(0), repeats_per_level(0),
   update_rate(0),scaling(0), noise(0), use_eager(false), r2l(false), comment()
 {
+  start_time = time(0);  // used for final timing
   namespace po = boost::program_options;
 
   std::vector<std::string> comment_vec;
@@ -348,8 +349,7 @@ auto_parse::Parse_args::friendly_message(const auto_parse::Eigenwords& dictionar
 
 
 void
-auto_parse::Parse_args::print_latex(time_t start_time,
-				    const std::vector<auto_parse::Words>& corpus,
+auto_parse::Parse_args::print_latex(const std::vector<auto_parse::Words>& corpus,
 				    const auto_parse::Likelihood& likelihood,
 				    const std::vector<int>& number_to_train_on,
 				    const auto_parse::Eigenwords& dictionary,

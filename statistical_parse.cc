@@ -109,7 +109,7 @@ auto_parse::Statistical_parse::do_actual_parse(LR* p_parser, double noise) const
   while(!done)
     {
       Value_of_forecasts values = m_model(m_generator(*p_parser));
-      for(Action a : all_actions)
+      for(Action a : all_actions())
 	if(!p_parser->legal(a))
 	  values[a] = -1e100;
       values.zero_second_best();

@@ -2,22 +2,16 @@
 
 #include "learn.h"
 
-
-#include <iostream>
-#include <fstream>
-
-#include "redo_parse.h"
 #include "tp_eigenwords.h"
 #include "tp_iid.h"
 #include "maximum_likelihood.h"
-#include "contrast.h"
 #include "tokenize.h"
+#include "utilities/iostream_box.h"
 
 // It should be random for production code. 
 // #define REPRODUCIBLE
 #define TRULY_RANDOM
 #include "utilities/z.Template.h"
-#include "utilities/iostream_box.h"
 
 int
 main(int argc,char** argv)
@@ -32,7 +26,6 @@ main(int argc,char** argv)
 
   auto_parse::Parse_args a(argc, argv);
 
-  time_t start_time = time(0);  // used for final timing
   time_t last_print_time = time(0);  // used to print about once a minute
   std::ofstream latex(a.latex_prefix + ".tex");
   auto_parse::latex_header(latex);  // write a "...\begin{document}" on latex_file
@@ -82,17 +75,17 @@ main(int argc,char** argv)
   //////////////////////////////////////////////////////////////////////////////////
 
   auto_parse::Feature_generator* p_feature_generator = 0;
+  auto_parse::Model old_model;
   if(a.use_eager)
     {
-      auto_parse::set_all_actions(auto_parse::eager_actions);  // programming by side effects.
+      old_model = auto_parse::generate_linear_model(p_feature_generator->dimension(), auto_parse::eager_actions);
       p_feature_generator = new auto_parse::Feature_generator(eager_features(dictionary));
     }
   else
     {
-      auto_parse::set_all_actions(auto_parse::standard_actions);
+      old_model = auto_parse::generate_linear_model(p_feature_generator->dimension(), auto_parse::standard_actions);
       p_feature_generator = new auto_parse::Feature_generator(standard_features(dictionary));
     };
-  auto_parse::Model old_model(auto_parse::generate_linear_model(p_feature_generator->dimension()));
   auto_parse::Statistical_parse parser(old_model,*p_feature_generator,a.noise);
 
   //////////////////////////////////////////////////////////////////////////////////
@@ -234,7 +227,7 @@ main(int argc,char** argv)
   //
   ///////////////////////////////////////////////////////////////////
 
-  a.print_latex(start_time, *p_corpus, likelihood, number_to_train_on, dictionary, parser);
+  a.print_latex(*p_corpus, likelihood, number_to_train_on, dictionary, parser);
 
   std::cout << "\n\n               FINISHED: " << a.comment  << "\n\n\n" << std::endl;
 }

@@ -32,12 +32,14 @@ namespace auto_parse
     // ACCESSORS
     Value_of_forecasts operator()(const Eigen::VectorXd& features) const;
     const Forecast& forecast(Action a) const{return *(m_forecasts.find(a)->second);};
+    const std::vector<Action>& all_actions() const{return m_all_actions;};
 
     void print_on(std::ostream &) const;
     void save(std::ostream & ) const;
 
   protected:
     std::map<Action, Forecast*> m_forecasts;
+    std::vector<Action> m_all_actions;
 
   private:
   };

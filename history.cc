@@ -9,7 +9,6 @@
 #include <iterator>
 
 
-std::vector<auto_parse::Action> auto_parse::all_actions = standard_actions;
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                              C O N S T R U C T O R S                         constructors
@@ -188,9 +187,3 @@ std::ostream & operator<<(std::ostream & ostrm, const auto_parse::History & obje
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-void
-auto_parse::set_all_actions(const std::vector<Action>& other)
-{
-  auto_parse::all_actions = other;
-
-}
