@@ -67,7 +67,9 @@ namespace auto_parse
     Words(const Lexicon*);
     Words(const Lexicon&,const std::string&); // inserts one word, useful in *.test.cc
     void push_back(const Word& w){m_words.push_back(w);};
+    void push_back(const std::string& w){m_words.push_back(Word(*mp_l,w));};
     //ACCESSORS
+    Word operator[](int i) const{return m_words[i];};
     const Lexicon* p_lexicon() const{return mp_l;};
     const Lexicon& lexicon() const{return *mp_l;};
     const_iterator begin() const{return m_words.begin();};

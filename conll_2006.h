@@ -4,6 +4,7 @@
 #define INCLUDED_CONLL_2006
 
 #include "word.h"
+#include "dependency.h"
 #include <string>
 #include <fstream>
 
@@ -14,15 +15,15 @@ namespace auto_parse
   public:
     // CONSTRUCTORS
     ~Conll_2006();
-    Conll_2006(const std::string&, const Lexicon* l);
+    Conll_2006(const std::string&, const Lexicon* p_l);
 
     // MANIPULATORS
-    auto_parse::Words next_sentence();
-
+    Dependency next_sentence();
     void reset();
 
     // ACCESSORS
     bool eof() const;
+    void write_parse(const Dependency&, std::ostream&) const;
   protected:
 
   private:

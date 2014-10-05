@@ -91,7 +91,7 @@ feature_generator.test: feature.o history.o word.o
 #
 only2:  lr.OK tp_eigenwords.OK train_forecast_linear.OK  \
         decorated_dependency.OK model.OK interval.OK lexicon_generator.OK \
-        tp_iid.OK gold_standard.OK
+        tp_iid.OK gold_standard.OK conll_2006.OK
 #
 ################################################################################
 lr.test: dependency.o word.o
@@ -111,6 +111,8 @@ lexicon_generator.test: word.o tokenize.o
 tp_iid.test: word.o transition_probability.o
 
 gold_standard.test: dependency.o word.o
+
+conll_2006.text: word.o dependency.o
 
 ################################################################################
 #

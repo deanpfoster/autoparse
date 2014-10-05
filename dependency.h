@@ -53,6 +53,7 @@ namespace auto_parse
     void set_root(int);
     void add(int left, Left_arrow ,  int right);
     void add(int left, Right_arrow , int right);
+    void child_to_its_parent(int child, int parent);
 
     // ACCESSORS
     Node root() const;
