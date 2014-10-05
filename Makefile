@@ -218,6 +218,15 @@ learn.main: history.o dependency.o lr.o word.o redo_parse.o model.o  \
              feature_interaction.o decorated_dependency.o feature_shorten.o tp_iid.o \
              golden_contrast.o contrast_helper.o gold_standard.o
 
+golden.main: history.o dependency.o lr.o word.o redo_parse.o model.o  \
+             statistical_parse.o value_of_forecasts.o \
+             forecast.o forecast_constant.o  transition_probability.o likelihood.o \
+             feature_generator.o feature.o feature_one_dimensional.o \
+             contrast.o eigenwords.o tp_eigenwords.o feature_eigenwords.o maximum_likelihood.o \
+             train_forecast_linear.o forecast_linear.o row.o value_of_forecasts.o tokenize.o learn.o \
+             feature_interaction.o decorated_dependency.o feature_shorten.o tp_iid.o \
+             golden_contrast.o contrast_helper.o gold_standard.o
+
 
 restore.main: history.o dependency.o lr.o word.o redo_parse.o model.o  \
              statistical_parse.o value_of_forecasts.o \

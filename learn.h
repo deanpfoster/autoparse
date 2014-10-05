@@ -72,7 +72,7 @@ namespace auto_parse
 		     const auto_parse::Statistical_parse& parser) const;
 
     // DATA  (exposed to the world)
-    std::string sentence_file, eigen_file, latex_prefix;
+    std::string golden_file, sentence_file, eigen_file, latex_prefix;
     int gram_number, repeats_per_level;
     double update_rate,scaling, noise;
     bool use_eager, r2l;

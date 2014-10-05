@@ -328,7 +328,7 @@ auto_parse::evaluation(int rounds,
 
 auto_parse::Parse_args::Parse_args(int argc, char** argv)
   :
-  sentence_file(), eigen_file(), latex_prefix(), gram_number(0), repeats_per_level(0),
+  golden_file(), sentence_file(), eigen_file(), latex_prefix(), gram_number(0), repeats_per_level(0),
   update_rate(0),scaling(0), noise(0), use_eager(false), r2l(false), comment()
 {
   start_time = time(0);  // used for final timing
@@ -341,6 +341,7 @@ auto_parse::Parse_args::Parse_args(int argc, char** argv)
   desc.add_options()
     ("help,h", "produce help message (see parse_argv in learn.cc)")
     ("corpus", po::value<std::string>(&sentence_file)->default_value("eng_only"), "corpus to read from")
+    ("gold",   po::value<std::string>(&golden_file)->default_value(""), "Gold standard parses")
     ("dictionary", po::value<std::string>(&eigen_file)->default_value("pretty.csv"), "dictionary to read from")
     ("gram_number", po::value<int>(&gram_number)->default_value(3), "gram number for dictionary")
     ("latex", po::value<std::string>(&latex_prefix)->default_value("learn.output"), "latex file to write to (both a FILENAME.log.tex and a FILENAME.final.tex will be written to.)")
@@ -374,6 +375,8 @@ auto_parse::Parse_args::friendly_message(const auto_parse::Eigenwords& dictionar
   int dim = dictionary.dimension();
   out << "\n\n               " << comment  << "\n\n\n" << std::endl;
   out << "     --corpus = " << sentence_file << std::endl;
+  if(golden_file != "")
+  out << "     --gold = " << golden_file << std::endl;
   out << " --dictionary = " << eigen_file << std::endl;
   out << "--gram_number = " << gram_number << std::endl;
   out << "      --latex = " << latex_prefix << std::endl;
