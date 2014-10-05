@@ -9,10 +9,6 @@ o  Added the ability to make a new eigen-dictionary based off of
 o  add construction of eigen dictionary, so we can start from zero and
    work forward.  (i.e. no google eigenwords.)
 
-o  Build scoring rule based on comparing two different parses.  This
-   can be used both for training data and for telling if a forward
-   parse looks like a reverse parse.
-
 o  save models (can already restore them).
 
 o  scale randomness based on how big the typical difference is
