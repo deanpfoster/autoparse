@@ -10,27 +10,8 @@
 
 namespace auto_parse
 {
-  class Conll_2006
-  {
-  public:
-    // CONSTRUCTORS
-    ~Conll_2006();
-    Conll_2006(const std::string&, const Lexicon* p_l);
-
-    // MANIPULATORS
-    Dependency next_sentence();
-    void reset();
-
-    // ACCESSORS
-    bool eof() const;
-    void write_parse(const Dependency&, std::ostream&) const;
-  protected:
-
-  private:
-    std::string m_file_name;
-    std::ifstream m_input;
-    const Lexicon* mp_lexicon;
-  };
+  Dependency read_conll(std::istream&, const Lexicon& );
+  void write_conll(const Dependency&, std::ostream&) ;
 }
 
 #endif

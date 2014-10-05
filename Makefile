@@ -112,7 +112,7 @@ tp_iid.test: word.o transition_probability.o
 
 gold_standard.test: dependency.o word.o
 
-conll_2006.text: word.o dependency.o
+conll_2006.test: word.o dependency.o
 
 ################################################################################
 #

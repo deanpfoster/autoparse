@@ -151,6 +151,18 @@ auto_parse::Dependency::add(const auto_parse::Node& left,
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 void
+auto_parse::Dependency::child_to_its_parent(int child, int parent)
+{
+  assert(0 <= child);
+  assert(child < sentence().size());
+  assert(0 <= parent);
+  assert(parent < sentence().size());
+  m_links.insert(Link(parent + m_words.begin(),child + m_words.begin()));
+  m_parent[child] = parent;
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+void
 auto_parse::Dependency::set_root(int root)
 {
   assert(root < int(m_words.size()));

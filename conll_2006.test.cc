@@ -18,12 +18,10 @@ namespace auto_parse
 	< ((D(l,"is") > (D(l,"scheduled") > D(l,"today"))) > D(l,"."));
 
       std::stringstream s,t;
-      auto_parse::Conll_2006 write_only("conll_2066.test.cc",&l);
-      write_only.write_parse(complex, s);
+      write_conll(complex, s);
       std::cout << s.str() << std::endl;
-      auto_parse::Conll_2006 conll(s,&l);
-      Dependency copy = conll.next_sentence();
-      conll.write_parse(copy, t);
+      Dependency copy = read_conll(s, l);
+      write_conll(copy, t);
       assert(s.str() == t.str());  // we can read what we write at least!
     };
   }

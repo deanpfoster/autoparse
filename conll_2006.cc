@@ -10,30 +10,13 @@
 #include <boost/algorithm/string.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////////////////
-//                              C O N S T R U C T O R S                         constructors
-
-auto_parse::Conll_2006::~Conll_2006()
-{
-  m_input.close();
-};
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-auto_parse::Conll_2006::Conll_2006(const std::string & name, const Lexicon* pl)
-  :
-  m_file_name(name),
-  m_input(name),
-  mp_lexicon(pl)
-{
-};
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-////////////////////////////////////////////////////////////////////////////////////////////
 //                             M A N I P U L A T O R S                          manipulators
 auto_parse::Dependency
-auto_parse::Conll_2006::next_sentence() 
+auto_parse::read_conll(std::istream& in, const Lexicon& lexicon) 
 {
   std::string one_line;
-  getline(m_input,one_line);
-  m_input >> std::ws; 
+  getline(in,one_line);
+  in >> std::ws; 
   std::map<int, int> parent_map;
   std::vector<std::string> word_vec;
   while(one_line != "")
@@ -47,10 +30,10 @@ auto_parse::Conll_2006::next_sentence()
       assert(empty == "");  // if not, we counted wrong!
       parent_map[word_id] = parent_id;
       word_vec.push_back(lc_word);
-      getline(m_input,one_line);
+      getline(in,one_line);
     }
   // Now we have to convert it to a dependency parse
-  Words sentence(mp_lexicon);
+  Words sentence(&lexicon);
   for(auto w:word_vec)
     sentence.push_back(w);
   Dependency result(sentence);
@@ -62,18 +45,9 @@ auto_parse::Conll_2006::next_sentence()
   return result;
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-void
-auto_parse::Conll_2006::reset() 
-{
-  m_input.close();
-  m_input.open(m_file_name);
-};
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-////////////////////////////////////////////////////////////////////////////////////////////
-//                               A C C E S S O R S                                 accessors
 void
-auto_parse::Conll_2006::write_parse(const auto_parse::Dependency& d, std::ostream& out) const
+auto_parse::write_conll(const auto_parse::Dependency& d, std::ostream& out) 
 {
   const Words& sentence = d.sentence();
   for(int i = 0; i < sentence.size(); ++i)
@@ -82,9 +56,9 @@ auto_parse::Conll_2006::write_parse(const auto_parse::Dependency& d, std::ostrea
       int parent_id = d.parents()[i] + 1;
       if(i == d.root() - d.sentence().begin())
 	parent_id = 0; // this actually is magiclly true since we use -1 for root as the parent
-      std::string raw_word = sentence[i].convert_to_string(*mp_lexicon);
+      std::string raw_word = sentence[i].convert_to_string(sentence.lexicon());
       std::string lc_word = raw_word;
-      std::string POS, semantic_role, pos2, UK1, UK2, UK3;
+      std::string POS("_"), semantic_role("_"), pos2("_"), UK1("_"), UK2("_"), UK3("_");
       out << word_id << "\t"
 	  << raw_word << "\t"
 	  << lc_word <<  "\t"
@@ -98,20 +72,3 @@ auto_parse::Conll_2006::write_parse(const auto_parse::Dependency& d, std::ostrea
     }
   out << std::endl;
 };
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-bool
-auto_parse::Conll_2006::eof() const
-{
-  return m_input.eof();
-};
-
-
-
-////////////////////////////////////////////////////////////////////////////////////////////
-//                           P R O T E C T E D                                     protected
-
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-////////////////////////////////////////////////////////////////////////////////////////////
-//                           P R I V A T E                                           private
-
