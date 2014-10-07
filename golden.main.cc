@@ -5,7 +5,7 @@
 #include "tp_eigenwords.h"
 #include "tp_iid.h"
 #include "maximum_likelihood.h"
-#include "tokenize.h"
+#include "conll_2006.h"
 #include "utilities/iostream_box.h"
 
 // It should be random for production code. 
@@ -49,13 +49,21 @@ main(int argc,char** argv)
   //
   //////////////////////////////////////////////////////////////////////////////////
 
-  auto_parse::Tokenize corpus_file(a.sentence_file,&dictionary.lexicon());
+  std::ifstream  conll(a.golden_file);
   std::vector<auto_parse::Words> raw_corpus;
-  while(!corpus_file.eof())
-    raw_corpus.push_back(corpus_file.next_sentence());
+  std::vector<auto_parse::Dependency> gold_parses;
+  while(!conll.eof())
+    {
+      auto_parse::Dependency d = auto_parse::read_conll(conll, dictionary.lexicon());
+      gold_parses.push_back(d);
+      raw_corpus.push_back(d.sentence());
+    };
   std::vector<auto_parse::Words>* p_corpus = &raw_corpus;
   if(a.r2l)
-    p_corpus = new std::vector<auto_parse::Words>(auto_parse::reverse(raw_corpus)); // reverses each sentence
+    {
+      p_corpus = new std::vector<auto_parse::Words>(auto_parse::reverse(raw_corpus)); // reverses each sentence
+      assert(0); // need to write code to reverse the parses
+    };
 
   //////////////////////////////////////////////////////////////////////////////////
   //
@@ -110,14 +118,16 @@ main(int argc,char** argv)
 
   int K = 1000;
   int n = p_corpus->size();  // (default corpus has 462k)
-  assert(n > 100*K);
   std::vector<int> number_to_train_on;
-  for(int i = 0; i < a.repeats_per_level;++i)
-    number_to_train_on.push_back(40*K);
-  for(int i = 0; i < a.repeats_per_level;++i)
-    number_to_train_on.push_back(60*K);
-  for(int i = 0; i < a.repeats_per_level;++i)
-    number_to_train_on.push_back(80*K);
+  if(n > 40*K)
+    for(int i = 0; i < a.repeats_per_level;++i)
+      number_to_train_on.push_back(40*K);
+  if(n > 60*K)
+    for(int i = 0; i < a.repeats_per_level;++i)
+      number_to_train_on.push_back(60*K);
+  if(n > 80*K)
+    for(int i = 0; i < a.repeats_per_level;++i)
+      number_to_train_on.push_back(80*K);
   if(n > 100*K)
     for(int i = 0; i < a.repeats_per_level;++i)
       number_to_train_on.push_back(100*K);

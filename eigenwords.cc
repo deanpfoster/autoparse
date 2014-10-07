@@ -207,6 +207,9 @@ auto_parse::Eigenwords::operator[](const auto_parse::Word& w) const
       std::cout << "Struggling with " << location << " :" << w.convert_to_string(lexicon()) << std::endl;
       assert(0);
     };
+  if(location < 0)
+    if(w == Word())
+      return Eigen::VectorXd::Zero(dimension());
   assert(location >= 0);
   assert(location < mp_data->rows());
   Eigen::VectorXd result = mp_data->row(location);

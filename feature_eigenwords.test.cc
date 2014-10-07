@@ -24,6 +24,16 @@ namespace auto_parse
       std::ifstream in("pretty_5_c_sample.csv");
       auto_parse::Eigenwords g(in,5);  // testing construction
       {
+	Lexicon l {"<OOV>", "A", "hearing", "on", "the", "issue", "is", "scheduled", "today", "."};
+	Words w = Words(&l) + "A" + "hearing" + "on" + "the" + "issue" + "is" + "scheduled" + "today" + ".";
+	auto_parse::LR lr(w);  // testing construction
+	Feature_eigenwords<Stack_top>  s1(g);
+	std::cout << s1(lr) << std::endl;
+	lr.shift(); // A
+	std::cout << s1(lr) << std::endl;
+
+	//  INSERT A LR parser and cause it to crash!!!
+
 	Feature_eigenwords<Stack_top>  s(g);
 	std::cout << s.name() << std::endl;
 	std::cout << s.dimension() << std::endl;

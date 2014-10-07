@@ -227,7 +227,7 @@ golden.main: history.o dependency.o lr.o word.o redo_parse.o model.o  \
              contrast.o eigenwords.o tp_eigenwords.o feature_eigenwords.o maximum_likelihood.o \
              train_forecast_linear.o forecast_linear.o row.o value_of_forecasts.o tokenize.o learn.o \
              feature_interaction.o decorated_dependency.o feature_shorten.o tp_iid.o \
-             golden_contrast.o contrast_helper.o gold_standard.o
+             golden_contrast.o contrast_helper.o gold_standard.o conll_2006.o
 
 
 restore.main: history.o dependency.o lr.o word.o redo_parse.o model.o  \
