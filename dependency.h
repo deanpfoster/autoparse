@@ -70,6 +70,7 @@ namespace auto_parse
     double number_left_links() const;
     const Lexicon* p_lexicon() const{return m_words.p_lexicon();};
     const Lexicon& lexicon() const{return m_words.lexicon();};
+    bool operator==(const Dependency&) const;
 
   protected:
     virtual std::string link_description(const Link&) const;

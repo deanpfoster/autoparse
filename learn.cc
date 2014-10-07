@@ -197,11 +197,9 @@ auto_parse::gold_standard_to_model(const auto_parse::Statistical_parse& parser,
 				   const Feature_generator& feature_generator,
 				   double sampling_rate,
 				   std::vector<auto_parse::Gold_standard>::const_iterator gold_begin,
-				   std::vector<auto_parse::Gold_standard>::const_iterator gold_end,
 				   std::vector<auto_parse::Words>::const_iterator begin,
 				   std::vector<auto_parse::Words>::const_iterator end)
 {
-  assert(gold_end - gold_begin == end - begin);
   Model lr_model = parser.model();
   std::map<auto_parse::Action, auto_parse::Train_forecast_linear> all_training;
   for(auto_parse::Action a: parser.all_actions())
@@ -322,6 +320,32 @@ auto_parse::evaluation(int rounds,
       debugging << likelihood.decorate(parses[0],dictionary);
     };
   return summary.str();
+}
+	
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+std::string
+auto_parse::golden_evaluation(const Statistical_parse& parser,
+			      std::vector<auto_parse::Words>::const_iterator begin,
+			      std::vector<auto_parse::Words>::const_iterator end,
+			      std::vector<auto_parse::Gold_standard>::const_iterator gold_begin)
+{
+  int number_to_read = end - begin;
+  double total_score = 0;
+  int total_correct = 0;
+#pragma omp parallel for reduction(+:total_score, total_correct)
+  for(int counter = 0; counter < number_to_read; ++counter)
+    {
+      const auto_parse::Words& sentence = *(begin + counter);
+      History h = parser.best_parse(sentence); 
+      auto_parse::Dependency parse = redo_parse(sentence, h).parse();
+      const Gold_standard& g = (*(gold_begin + counter));
+      total_score += g(parse);
+      total_correct += (parse == g.standard());
+    };
+  std::stringstream result;
+  result << "Average_score = " << total_score / number_to_read;
+  result << "    (" << 100. * double(total_correct) / number_to_read << "% correct)";
+  return result.str();
 }
 	
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */

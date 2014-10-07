@@ -26,7 +26,7 @@ include flags
 #   very_clean  kills everything we can think of.  Back to the beginning.
 #
 ################################################################################
-current_target: test learn.main
+current_target: test learn.main golden.main
 
 
 ################################################################################

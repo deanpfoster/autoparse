@@ -32,7 +32,6 @@ namespace auto_parse
 			       const Feature_generator& feature_generator,
 			       double sampling_rate,
 			       std::vector<Gold_standard>::const_iterator gold_begin,
-			       std::vector<Gold_standard>::const_iterator gold_end,
 			       std::vector<auto_parse::Words>::const_iterator begin,
 			       std::vector<auto_parse::Words>::const_iterator end);
 
@@ -53,6 +52,12 @@ namespace auto_parse
 	     std::vector<int>& which_sentences,
 	     std::vector<auto_parse::Words>::const_iterator begin,
 	     std::vector<auto_parse::Words>::const_iterator end);
+
+  std::string
+  golden_evaluation(const Statistical_parse& parser,
+		    std::vector<auto_parse::Words>::const_iterator begin,
+		    std::vector<auto_parse::Words>::const_iterator end,
+		    std::vector<auto_parse::Gold_standard>::const_iterator gold_begin);
 
   
   typedef boost::tuple<std::string, std::string, int, std::string> File_names;

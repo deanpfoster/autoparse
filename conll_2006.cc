@@ -24,14 +24,19 @@ auto_parse::read_conll(std::istream& in, const Lexicon& lexicon)
       std::stringstream s(one_line);
       int word_id;
       int parent_id;
-      std::string raw_word, lc_word, POS, semantic_role, pos2, UK1, UK2, UK3, empty;
-      s >> word_id >> raw_word >> lc_word >> UK1 >> POS >> semantic_role >> parent_id >> pos2 >> UK2 >> UK3 >> std::ws;
+      std::string raw_word, lemma_word, POS, semantic_role, pos2, UK1, UK2, UK3, empty;
+      s >> word_id >> raw_word >> lemma_word >> UK1 >> POS >> semantic_role >> parent_id >> pos2 >> UK2 >> UK3 >> std::ws;
       s >> empty;
       assert(empty == "");  // if not, we counted wrong!
       parent_map[word_id] = parent_id;
-      word_vec.push_back(lc_word);
+      boost::algorithm::to_lower(raw_word);
+      if(raw_word == "\"")
+	raw_word = "QUOTE";
+      word_vec.push_back(raw_word);
       getline(in,one_line);
     }
+  if(!in.eof())
+    in >> std::ws;
   // Now we have to convert it to a dependency parse
   Words sentence(&lexicon);
   for(auto w:word_vec)
@@ -57,11 +62,11 @@ auto_parse::write_conll(const auto_parse::Dependency& d, std::ostream& out)
       if(i == d.root() - d.sentence().begin())
 	parent_id = 0; // this actually is magiclly true since we use -1 for root as the parent
       std::string raw_word = sentence[i].convert_to_string(sentence.lexicon());
-      std::string lc_word = raw_word;
+      std::string lemma_word = raw_word;
       std::string POS("_"), semantic_role("_"), pos2("_"), UK1("_"), UK2("_"), UK3("_");
       out << word_id << "\t"
 	  << raw_word << "\t"
-	  << lc_word <<  "\t"
+	  << lemma_word <<  "\t"
 	  << UK1 << "\t"
 	  << POS <<  "\t"
 	  << semantic_role <<  "\t"

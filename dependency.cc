@@ -438,6 +438,19 @@ auto_parse::Dependency::number_left_links() const
   return result;
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+bool
+auto_parse::Dependency::operator==(const auto_parse::Dependency& rhs) const
+{
+  assert(m_words == rhs.m_words);
+  if(m_root != rhs.m_root)
+    return false;
+  assert(m_parent.size() == other.m_parent.size());
+  for(unsigned int i = 0; i < m_parent.size(); ++i)
+    if(m_parent[i] != rhs.m_parent[i])
+      return false;
+  return true;
+}
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                           P R O T E C T E D                                     protected

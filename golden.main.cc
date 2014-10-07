@@ -51,12 +51,12 @@ main(int argc,char** argv)
 
   std::ifstream  conll(a.golden_file);
   std::vector<auto_parse::Words> raw_corpus;
-  std::vector<auto_parse::Dependency> gold_parses;
+  std::vector<auto_parse::Gold_standard> gold_parses;
   while(!conll.eof())
     {
-      auto_parse::Dependency d = auto_parse::read_conll(conll, dictionary.lexicon());
+      auto_parse::Gold_standard d = auto_parse::read_conll(conll, dictionary.lexicon());
       gold_parses.push_back(d);
-      raw_corpus.push_back(d.sentence());
+      raw_corpus.push_back(d.standard().sentence());
     };
   std::vector<auto_parse::Words>* p_corpus = &raw_corpus;
   if(a.r2l)
@@ -92,17 +92,6 @@ main(int argc,char** argv)
       old_model = auto_parse::generate_linear_model(p_feature_generator->dimension(), auto_parse::standard_actions);
     };
   auto_parse::Statistical_parse parser(old_model,*p_feature_generator,a.noise);
-
-  //////////////////////////////////////////////////////////////////////////////////
-  //
-  //                     Likelihood setup
-  //
-  //////////////////////////////////////////////////////////////////////////////////
-
-  auto_parse::TP_eigenwords tp_left(dictionary,dictionary,a.scaling);  
-  auto_parse::TP_eigenwords tp_right(dictionary,dictionary,a.scaling);  
-  auto_parse::TP_iid        tp_root(dictionary.lexicon().size(),a.scaling);  
-  auto_parse::Likelihood    likelihood(tp_left,tp_right,tp_root);
 
   //////////////////////////////////////////////////////////////////////////////////
   //
@@ -151,6 +140,10 @@ main(int argc,char** argv)
 
   std::vector<auto_parse::Words>::const_iterator end_read_interval = p_corpus->end();
 
+  std::cout << "Gold standard for 3643:" << std::endl;
+  std::cout << gold_parses[3643].standard() << std::endl;
+
+
   for(unsigned int rounds = 0; rounds < number_to_train_on.size(); ++rounds)
     {
       //
@@ -161,6 +154,7 @@ main(int argc,char** argv)
 	begin = p_corpus->begin();
       std::vector<auto_parse::Words>::const_iterator end = begin + number_to_train_on[rounds];
       end_read_interval = end;
+      std::vector<auto_parse::Gold_standard>::const_iterator  gold_begin = gold_parses.begin() + (begin - p_corpus->begin());
 	
       // this generates about a factor of 10 speed up by only computing X'X 5% of the time
       double sampling_rate = .05;
@@ -181,28 +175,18 @@ main(int argc,char** argv)
 	
       ///////////////////////////////////////////////
       //                                           //
-      //           Likelihood --> Model            //
+      //        gold standard --> Model            //
       //                                           //
       ///////////////////////////////////////////////
 
-      auto_parse::Model model = likelihood_to_model(likelihood, parser,
-						    *p_feature_generator,
-						    sampling_rate,
-						    begin, end,
-						    ostrm);
+      auto_parse::Model model = gold_standard_to_model(parser,
+						       *p_feature_generator,
+						       sampling_rate,
+						       gold_begin, 
+						       begin, end);
       old_model.tweak(model, a.update_rate);
       parser.new_model(old_model);
       ostrm << print_time("Training");
-
-      ///////////////////////////////////////////////
-      //                                           //
-      //  Model  --> Parsed corpus -->  MLE        //
-      //                                           //
-      ///////////////////////////////////////////////
-
-      likelihood = model_to_likelihood(parent_dictionary, child_dictionary,
-				       parser, a.scaling, begin, end);
-      ostrm << print_time("MLE");
 
       ///////////////////////////////////////////////
       //                                           //
@@ -210,11 +194,18 @@ main(int argc,char** argv)
       //                                           //
       ///////////////////////////////////////////////
 
-      if(time(0) - last_print_time > 600)  // Evaluate once every 10 minutes
+      //      if(time(0) - last_print_time > 600)  // Evaluate once every 10 minutes
+      if(time(0) - last_print_time > 30) 
 	{
+	  auto_parse::Likelihood likelihood = model_to_likelihood(parent_dictionary, child_dictionary,
+								  parser, a.scaling, begin, end);
+
+
 	  last_print_time = time(0);
 	  std::vector<int> which_sentences {3643, 2, 4, 10, 17, 26};
 	  ostrm <<   evaluation(rounds, ostrm, latex, dictionary, parser, likelihood, which_sentences, begin, end) << std::endl;
+	  ostrm <<   golden_evaluation(parser, begin, end, gold_begin) << std::endl;
+	  
 	  ostrm << print_time("Evaluation");
 	}
     }
@@ -234,6 +225,8 @@ main(int argc,char** argv)
   //
   ///////////////////////////////////////////////////////////////////
 
+  auto_parse::Likelihood likelihood = model_to_likelihood(parent_dictionary, child_dictionary,
+							  parser, a.scaling, p_corpus->begin(), p_corpus->end());
   a.print_latex(*p_corpus, likelihood, number_to_train_on, dictionary, parser);
 
   std::cout << "\n\n               FINISHED: " << a.comment  << "\n\n\n" << std::endl;

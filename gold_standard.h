@@ -13,6 +13,7 @@ namespace auto_parse
     // CONSTRUCTORS
     ~Gold_standard();
     Gold_standard(const auto_parse::Dependency&);
+    Gold_standard(const Gold_standard &other):m_gold(other.m_gold){};
 
     // MANIPULATORS
     // ACCESSORS
@@ -20,7 +21,6 @@ namespace auto_parse
     Dependency standard() const{return m_gold;}; // used only for debugging I exect
 
   private:
-    Gold_standard(const Gold_standard &);            // Don't delete this.
     Gold_standard& operator=(const Gold_standard &); // Don't delete this.
     Dependency m_gold;
   };
