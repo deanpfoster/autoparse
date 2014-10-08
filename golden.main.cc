@@ -64,6 +64,7 @@ main(int argc,char** argv)
       p_corpus = new std::vector<auto_parse::Words>(auto_parse::reverse(raw_corpus)); // reverses each sentence
       assert(0); // need to write code to reverse the parses
     };
+  std::cout << "Running on " << gold_parses.size() << " gold standard sentences." << std::endl;
 
   //////////////////////////////////////////////////////////////////////////////////
   //
@@ -71,7 +72,7 @@ main(int argc,char** argv)
   //
   //////////////////////////////////////////////////////////////////////////////////
 
-  std::cout << a.friendly_message(dictionary, *p_corpus);
+  std::cout << friendly_message(a,dictionary, *p_corpus);
 
   //////////////////////////////////////////////////////////////////////////////////
   //
@@ -150,7 +151,7 @@ main(int argc,char** argv)
       // Compute which sentences we should be using
       //
       std::vector<auto_parse::Words>::const_iterator begin = end_read_interval;
-      if(begin + number_to_train_on[rounds] > p_corpus->end())
+      if(number_to_train_on[rounds] > p_corpus->end() - begin)
 	begin = p_corpus->begin();
       std::vector<auto_parse::Words>::const_iterator end = begin + number_to_train_on[rounds];
       end_read_interval = end;
@@ -186,7 +187,7 @@ main(int argc,char** argv)
 						       begin, end);
       old_model.tweak(model, a.update_rate);
       parser.new_model(old_model);
-      ostrm << print_time("Training");
+      ostrm << print_time("Training") << std::endl;
 
       ///////////////////////////////////////////////
       //                                           //
@@ -203,10 +204,11 @@ main(int argc,char** argv)
 
 	  last_print_time = time(0);
 	  std::vector<int> which_sentences {3643, 2, 4, 10, 17, 26};
+	  ostrm << "Gold standard:" << (gold_begin + 3643)->standard() << std::endl;
 	  ostrm <<   evaluation(rounds, ostrm, latex, dictionary, parser, likelihood, which_sentences, begin, end) << std::endl;
 	  ostrm <<   golden_evaluation(parser, begin, end, gold_begin) << std::endl;
 	  
-	  ostrm << print_time("Evaluation");
+	  ostrm << print_time("Evaluation") << std::endl;
 	}
     }
   auto_parse::latex_footer(latex);
@@ -227,7 +229,7 @@ main(int argc,char** argv)
 
   auto_parse::Likelihood likelihood = model_to_likelihood(parent_dictionary, child_dictionary,
 							  parser, a.scaling, p_corpus->begin(), p_corpus->end());
-  a.print_latex(*p_corpus, likelihood, number_to_train_on, dictionary, parser);
+  print_latex(a,*p_corpus, likelihood, number_to_train_on, dictionary, parser);
 
   std::cout << "\n\n               FINISHED: " << a.comment  << "\n\n\n" << std::endl;
 }

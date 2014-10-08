@@ -27,10 +27,10 @@ namespace auto_parse
       words.push_back(Word(l,"<OOV>"));
       words.push_back(Word(l,"the"));
       words.push_back(Word(l,"the"));
-      Words::const_iterator a = words.begin();
-      Words::const_iterator b = words.begin();
+      Node a = words.begin();
+      Node b = words.begin();
       ++b;
-      Words::const_iterator c = b;
+      Node c = b;
       ++c;
       std::cout << tp(a,b,words) << std::endl;
       std::cout << tp(b,a,words) << std::endl;

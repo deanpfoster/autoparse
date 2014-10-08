@@ -45,7 +45,7 @@ current_target: test learn.main golden.main
 #
 #          (This code should not depend on any other code)
 #
-only0: word.OK  history.OK forecast.OK feature.OK
+only0: word.OK  history.OK forecast.OK feature.OK parse_args.OK
 ################################################################################
 word.test: word.o
 
@@ -54,6 +54,8 @@ history.test: history.o history.test.o
 forecast.test:
 
 feature.test:
+
+parse_args:
 
 ################################################################################
 #
@@ -196,7 +198,7 @@ learn.test: history.o dependency.o lr.o word.o redo_parse.o model.o \
              feature_generator.o feature.o feature_one_dimensional.o \
              contrast.o eigenwords.o tp_eigenwords.o feature_eigenwords.o maximum_likelihood.o \
              train_forecast_linear.o forecast_linear.o row.o value_of_forecasts.o tokenize.o decorated_dependency.o\
-             feature_interaction.o feature_shorten.o tp_iid.o golden_contrast.o contrast_helper.o gold_standard.o
+             feature_interaction.o feature_shorten.o tp_iid.o golden_contrast.o contrast_helper.o gold_standard.o parse_args.o
 
 
 ################################################################################
@@ -218,7 +220,7 @@ learn.main: history.o dependency.o lr.o word.o redo_parse.o model.o  \
              contrast.o eigenwords.o tp_eigenwords.o feature_eigenwords.o maximum_likelihood.o \
              train_forecast_linear.o forecast_linear.o row.o value_of_forecasts.o tokenize.o learn.o \
              feature_interaction.o decorated_dependency.o feature_shorten.o tp_iid.o \
-             golden_contrast.o contrast_helper.o gold_standard.o
+             golden_contrast.o contrast_helper.o gold_standard.o parse_args.o
 
 golden.main: history.o dependency.o lr.o word.o redo_parse.o model.o  \
              statistical_parse.o value_of_forecasts.o \
@@ -227,7 +229,7 @@ golden.main: history.o dependency.o lr.o word.o redo_parse.o model.o  \
              contrast.o eigenwords.o tp_eigenwords.o feature_eigenwords.o maximum_likelihood.o \
              train_forecast_linear.o forecast_linear.o row.o value_of_forecasts.o tokenize.o learn.o \
              feature_interaction.o decorated_dependency.o feature_shorten.o tp_iid.o \
-             golden_contrast.o contrast_helper.o gold_standard.o conll_2006.o
+             golden_contrast.o contrast_helper.o gold_standard.o conll_2006.o parse_args.o
 
 
 restore.main: history.o dependency.o lr.o word.o redo_parse.o model.o  \

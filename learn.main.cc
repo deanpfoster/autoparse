@@ -66,7 +66,7 @@ main(int argc,char** argv)
   //
   //////////////////////////////////////////////////////////////////////////////////
 
-  std::cout << a.friendly_message(dictionary, *p_corpus);
+  std::cout << friendly_message(a,dictionary, *p_corpus);
 
   //////////////////////////////////////////////////////////////////////////////////
   //
@@ -227,7 +227,7 @@ main(int argc,char** argv)
   //
   ///////////////////////////////////////////////////////////////////
 
-  a.print_latex(*p_corpus, likelihood, number_to_train_on, dictionary, parser);
+  print_latex(a,*p_corpus, likelihood, number_to_train_on, dictionary, parser);
 
   std::cout << "\n\n               FINISHED: " << a.comment  << "\n\n\n" << std::endl;
 }

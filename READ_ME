@@ -37,6 +37,14 @@ Actions:
 		shift_eager, left_eager, right_eager, head_reduce.
 	To generate non-projective, include right_2, right 3, etc.
 
+Searn in practice (Daume, Langford, Marcu)
+	left_reduce
+	right_reduce
+	shift
+	(Ends with a single item on the stack)
+
+
+
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 Overall work flow.

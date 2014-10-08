@@ -58,6 +58,29 @@ namespace auto_parse
 #endif
   };
 
+  
+  // class Node
+  // {
+  // public:
+  //   Node(const Node& other):m_value(other.m_value){};
+  //   Node(const std::vector<Word>::const_iterator& other):m_value(other){};
+  //   bool operator<(const Node& other) const{return m_value < other.m_value;};
+  //   std::vector<Word>::const_iterator operator->() const{return m_value;};
+  //   const Word& operator*() const{return *m_value;};
+  //   Node operator+(int i) const{return m_value+i;};
+  //   int operator-(const Node& n) const{return m_value-n.m_value;};
+  //   void operator++(){++m_value;};
+  //   bool operator!=(const Node& n) const{return m_value != n.m_value;};
+  //   bool operator==(const Node& n) const{return m_value == n.m_value;};
+  //   bool operator>=(const Node& n) const{return m_value >= n.m_value;};
+  //   bool operator>(const Node& n) const{return m_value > n.m_value;};
+
+  // private:
+  //   std::vector<Word>::const_iterator m_value; 
+  // };
+
+  typedef std::vector<Word>::const_iterator Node;
+
   class Words
   {
   public:
@@ -72,8 +95,8 @@ namespace auto_parse
     Word operator[](int i) const{return m_words[i];};
     const Lexicon* p_lexicon() const{return mp_l;};
     const Lexicon& lexicon() const{return *mp_l;};
-    const_iterator begin() const{return m_words.begin();};
-    const_iterator end() const{return m_words.end();};
+    Node begin() const{return Node(m_words.begin());};
+    Node end() const{return m_words.end();};
     const_reverse_iterator rbegin() const{return m_words.rbegin();};
     const_reverse_iterator rend() const{return m_words.rend();};
     int size() const{return m_words.size();};
@@ -84,8 +107,8 @@ namespace auto_parse
 
   };
 
-  typedef Words::const_iterator Node; 
 
+  
   Words reverse(const Words&);
   std::vector<Words> reverse(const std::vector<Words>&);
 

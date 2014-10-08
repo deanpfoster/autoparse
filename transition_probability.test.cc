@@ -56,8 +56,8 @@ namespace auto_parse
       Words words(&l);
       words.push_back(Word(l,"A"));
       words.push_back(Word(l,"B"));
-      Words::const_iterator a = words.begin();
-      Words::const_iterator b = words.begin();
+      Node a = words.begin();
+      Node b = words.begin();
       ++b;
       std::cout << t(a, b, words) << " should be 2/3" << std::endl;
       std::cout << t(b, a, words) << " should be 1/3" << std::endl;

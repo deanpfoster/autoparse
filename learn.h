@@ -9,6 +9,7 @@
 #include "likelihood.h"
 #include "statistical_parse.h"
 #include "gold_standard.h"
+#include "parse_args.h"
 
 
 namespace auto_parse
@@ -62,29 +63,18 @@ namespace auto_parse
   
   typedef boost::tuple<std::string, std::string, int, std::string> File_names;
 
-  class Parse_args
-  {
-  public:
-    Parse_args(int argc, char** argv);  // constructs and packs all the variables into a bundle
+  std::string friendly_message(const Parse_args&,
+			       const auto_parse::Eigenwords&,
+			       const std::vector<auto_parse::Words>&) ; 
 
-    std::string friendly_message(const auto_parse::Eigenwords&,
-				 const std::vector<auto_parse::Words>&) const; 
+  void print_latex(const Parse_args&,
+		   const std::vector<auto_parse::Words>& corpus,
+		   const auto_parse::Likelihood& likelihood,
+		   const std::vector<int>& number_to_train_on,
+		   const auto_parse::Eigenwords& dictionary,
+		   const auto_parse::Statistical_parse& parser) ;
 
-    void print_latex(const std::vector<auto_parse::Words>& corpus,
-		     const auto_parse::Likelihood& likelihood,
-		     const std::vector<int>& number_to_train_on,
-		     const auto_parse::Eigenwords& dictionary,
-		     const auto_parse::Statistical_parse& parser) const;
 
-    // DATA  (exposed to the world)
-    std::string golden_file, sentence_file, eigen_file, latex_prefix;
-    int gram_number, repeats_per_level;
-    double update_rate,scaling, noise;
-    bool use_eager, r2l;
-    std::string comment;
-    time_t start_time = time(0);  // used for final timing
-
-  };
 
   std::string print_time(const std::string& h);
 

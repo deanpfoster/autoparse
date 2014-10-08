@@ -32,8 +32,8 @@ auto_parse::LR::LR(const LR & other)
   m_next_input(other.m_next_input)
 {
   for(auto i = other.m_stack.begin(); i != other.m_stack.end(); ++i)
-    m_stack.push_back(*i - other.m_parse.sentence().begin() + m_parse.sentence().begin());
-  m_next_input = other.m_next_input - other.m_parse.sentence().begin() + m_parse.sentence().begin();
+    m_stack.push_back(m_parse.sentence().begin() + (*i - other.m_parse.sentence().begin()));
+  m_next_input =  m_parse.sentence().begin() + (other.m_next_input - other.m_parse.sentence().begin());
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
@@ -103,7 +103,7 @@ auto_parse::LR::right_eager()
   Node left = *m_stack.rbegin();
   Node right = m_next_input;
   m_parse.add(left - m_parse.sentence().begin(), Right_arrow(), right - m_parse.sentence().begin());
-  m_next_input++;
+  ++m_next_input;
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 void
@@ -223,7 +223,7 @@ auto_parse::LR::check_shift_eager() const
 {
   if(m_parse.sentence().end() - m_next_input > 1)
     return true; // we still have something in the queue
-  if(m_parse.sentence().end() == m_next_input)
+  if(m_next_input == m_parse.sentence().end())
     return false; // nothing in the queue to shift
   return(m_stack.empty());  // we will follow this by a head_reduce and be done.
 }

@@ -126,7 +126,7 @@ auto_parse::Likelihood::decorate(const Dependency& parse, const Eigenwords& dict
 {
   Decorated_dependency result(parse,dictionary);
   for(auto i = result.links().begin(); i != result.links().end(); ++i)
-    result.describe_link(*i,link_probability(*i,parse.sentence()));
+    result.describe_link(*i,link_probability(*i,result.sentence()));
   double root = (*mp_root)(parse.sentence().end(), parse.root(), parse.sentence());
   result.describe_root(root);
   return result;
