@@ -4,7 +4,7 @@
 #
 #  Possible command:
 #
-#  qsub -pe parallel 15-16 -j y golden_run --repeats_per_level=20 --noise=.2  --scaling=.0001 -c "Some noise  New contrast.  long run."
+#  qsub -pe parallel 15-16 -j y golden_run --gold ~/on5-trn-auto.conll2006.txt --repeats_per_level=20 --noise=.2  --scaling=.0001 -c "Some noise  New contrast.  long run."
 #
 #               -j y  means combine both standard error and error into one file
 #               -pe parallel 15-16 says use nodes 15-16.  THis is ignored.  What is imporanat is it won't then use nlpgrid itself
