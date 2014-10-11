@@ -119,6 +119,7 @@ auto_parse::Feature_generator::features(const LR& parser) const
   for(auto i  = m_features.begin(); i != m_features.end(); ++i)
     {
       int number_to_add = (*i)->dimension();
+      assert(current_location + number_to_add < m_number_features);
       result.segment(current_location,number_to_add) = (**i)(parser);
       current_location += number_to_add;
     }
