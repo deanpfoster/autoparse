@@ -33,6 +33,8 @@ auto_parse::History::History(const History & other)
 void
 auto_parse::History::push_back(Action a)
 {
+  assert(a >= Action::shift);
+  assert(a < Action::last_action);
   m_actions.push_back(a);
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -41,53 +43,53 @@ auto_parse::History::pop_back()
 {
   m_actions.pop_back();
 }
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+ /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 
-////////////////////////////////////////////////////////////////////////////////////////////
-//                               A C C E S S O R S                                 accessors
-bool
-auto_parse::History::operator==(const History& other) const
-{
-  if(other.m_actions.size() != m_actions.size())
-    return false;
-  for(unsigned int i = 0; i < m_actions.size(); ++i)
-    if(other[i] != (*this)[i])
-      return false;
-  return true;
-}
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-void
-auto_parse::History::print_on(std::ostream & ostrm) const
-{
-  for(auto i = m_actions.begin(); i != m_actions.end(); ++i)
-    {
-      ostrm << *i << " ";
-    }
-};
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-auto_parse::Action
-auto_parse::History::last() const
-{
-  return *m_actions.rbegin();
-}
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-int
-auto_parse::History::size() const
-{
-  return static_cast<int>(m_actions.size());
-}
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-int stack_increment(auto_parse::Action a)
-{
-  switch(a)
-    {
-    case auto_parse::Action::shift       : return +1;
-    case auto_parse::Action::shift_eager : return +1;
-    case auto_parse::Action::left_eager  : return -1;
-    case auto_parse::Action::right_eager : return  0;
-    case auto_parse::Action::left_reduce : return -1;
-    case auto_parse::Action::right_reduce: return -1;
+ ////////////////////////////////////////////////////////////////////////////////////////////
+ //                               A C C E S S O R S                                 accessors
+ bool
+ auto_parse::History::operator==(const History& other) const
+ {
+   if(other.m_actions.size() != m_actions.size())
+     return false;
+   for(unsigned int i = 0; i < m_actions.size(); ++i)
+     if(other[i] != (*this)[i])
+       return false;
+   return true;
+ }
+ /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+ void
+ auto_parse::History::print_on(std::ostream & ostrm) const
+ {
+   for(auto i = m_actions.begin(); i != m_actions.end(); ++i)
+     {
+       ostrm << *i << " ";
+     }
+ };
+ /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+ auto_parse::Action
+ auto_parse::History::last() const
+ {
+   return *m_actions.rbegin();
+ }
+ /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+ int
+ auto_parse::History::size() const
+ {
+   return static_cast<int>(m_actions.size());
+ }
+ /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+ int stack_increment(auto_parse::Action a)
+ {
+   switch(a)
+     {
+     case auto_parse::Action::shift       : return +1;
+     case auto_parse::Action::shift_eager : return +1;
+     case auto_parse::Action::left_eager  : return -1;
+     case auto_parse::Action::right_eager : return  0;
+     case auto_parse::Action::left_reduce : return -1;
+     case auto_parse::Action::right_reduce: return -1;
     case auto_parse::Action::head_reduce : return -1;
     case auto_parse::Action::right_2     : return -1;
     case auto_parse::Action::right_3     : return -1;

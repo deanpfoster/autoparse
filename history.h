@@ -8,7 +8,8 @@
 
 namespace auto_parse
 {
-  enum class Action {shift, shift_eager, left_eager, right_eager, left_reduce, head_reduce, right_reduce, right_2, right_3 };
+  enum class Action {shift, shift_eager, left_eager, right_eager, left_reduce, head_reduce, right_reduce, right_2, right_3,last_action };
+  // last_action is like an end(Action).
   const Action all_possible_actions[] = { Action::shift,
 					Action::left_reduce, Action::right_reduce, Action::head_reduce,
 					Action::right_2, Action::right_3};

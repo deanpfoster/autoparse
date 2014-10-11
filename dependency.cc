@@ -376,6 +376,8 @@ auto_parse::Dependency::full_parse() const
 	{
 	  //	  int from_index = i->first - m_words.begin();
 	  int to_index = i->child() - m_words.begin();
+	  assert(to_index >= 0);
+	  assert(to_index < m_words.end() - m_words.begin());
 	  assert(!is_pointed_to[to_index]);  // might as well check double pointers
 	  is_pointed_to[to_index] = true;
 	}

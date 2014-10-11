@@ -1,5 +1,20 @@
 		FACTS LEARNED FROM RUNS:				-*- text -*- 
 
+
+
+Debugging chasing:
+
+on NLP using malloc:
+	old code crashes fast
+	both golden.main learn.main crash fas
+on NLP using jemalloc:
+	NLP golden runs for 102 rounds crashes
+	NLP10 ran golden 12 rounds crashed
+
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+
 Look at latex:
 	3193 3202 3197
 	3202 u=0.05, s=0 eager, --noise = 0.5 rep=500
