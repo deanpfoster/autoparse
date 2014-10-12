@@ -272,6 +272,6 @@ SOURCES = $(wildcard *.cc)
 clean.local:
 
 
-# flags: utilities/flags.sample
-#	if [  -f ../flags ];  then touch ../flags; ln -s ../flags; else cp $< $@; fi
+flags: utilities/flags.sample
+	if [  -f ../flags ];  then touch ../flags; ln -s ../flags; else cp $< $@; fi
 
