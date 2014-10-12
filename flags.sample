@@ -1,23 +1,28 @@
 #  NOTE: The follow works under linux. (using open_mp).  -*- makefile -*-
 
-#OPT = -O3 -DNDEBUG
-OPT = -O0
+# OPT =  -O2 -DNDEBUG -Wno-unused-variable -Wno-unused-parameter
+# OPT = -O0  -D _GLIBCXX_DEBUG_PEDANTIC -D _GLIBCXX_DEBUG  
+OPT = -O0  -D _GLIBCXX_DEBUG_PEDANTIC -D _GLIBCXX_DEBUG  
 INCLUDES =  -Iboost $(LOCALINCLUDES) -I/usr/include/eigen3
-LDFLAGS = -L/usr/local/lib $(LOCALLDFLAGS)
-LDLIBS = $(LOCALLDLIBS) -lboost_regex -lboost_thread -lboost_filesystem  -fopenmp -lboost_iostreams -lboost_system -lboost_program_options 
+LDFLAGS = -L/usr/local/lib $(LOCALLDFLAGS) -L/home1/f/foster/jemalloc-3.6.0/lib -Wl,-rpath,/home1/f/foster/jemalloc-3.6.0/lib -ljemalloc
+LDLIBS = -lboost_regex -lboost_thread -lboost_filesystem  -fopenmp -lboost_iostreams -lboost_system -lboost_program_options $(LOCALLDLIBS)
 CFLAGS = -g -Wall -Werror -Wextra -W $(INCLUDES) -Woverloaded-virtual $(OPT) -fmessage-length=0    -fopenmp 
-LINKER = $(CXX) -g $(LDFLAGS) $(LDLIBS)
+LINKER = $(CXX) -g $(LDFLAGS) 
 CXX = g++ -std=c++11
 CC = ${CXX} -g
+
+# LDFLAGS = -L/usr/local/lib $(LOCALLDFLAGS) -L~/jemalloc-3.6.0/lib -Wl, -rpath,~/jemalloc-3.6.0/lib -ljemalloc
+# this is with the jemalloc.  The -rpath makes it be used at run time.
+
+
+
+
 
 
 ##################################################################################################
 #
-#                      g++       g++       g++       g++       g++       g++       g++       g++
-#
-#
-#     -mmmx, -msse, -msse2, -msse3 and -m3dnow
-#                            : Intel only allows micro parallization#
+# to get range checking try:
+# OPT = -O0 -D _GLIBCXX_DEBUG  -D _GLIBCXX_DEBUG_PEDANTIC
 #
 ##################################################################################################
 
