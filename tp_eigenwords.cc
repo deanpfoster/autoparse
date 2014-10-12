@@ -198,7 +198,7 @@ auto_parse::TP_eigenwords::operator()( const auto_parse::Words& sentence) const
 {
   double result = 0;
   for(auto w : sentence)
-    result += log(1 - m_total[w.as_index()]);  // each word needs to be 
+    result += log(1e-100 + (1 - m_total[w.as_index()]));
   assert(std::isnormal(result) || (result == 0));
   return m_scaling * result;
 };

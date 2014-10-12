@@ -52,11 +52,12 @@ auto_parse::Value_of_forecasts::zero_second_best()
 	second_best = p.second;
 
   if(second_best > -1e9)
-    for(std::pair<Action,double> p: m_values)
-      p.second = p.second - second_best;
+    for(auto i= m_values.begin(); i != m_values.end();++i)
+      i->second = i->second - second_best;
   else
-    for(std::pair<Action,double> p: m_values)
-      p.second = p.second - best.second;
+    for(auto i= m_values.begin(); i != m_values.end();++i)
+      i->second = i->second - best.second;
+  assert(m_values[best.first] >= 0.0);
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 ////////////////////////////////////////////////////////////////////////////////////////////
