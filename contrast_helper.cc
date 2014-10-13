@@ -35,9 +35,9 @@ auto_parse::Contrast_helper::suggest_alternative_history(const Words& w,
 						  const History& h) const
 {
   int n = h.size();
-  int location = (n - 1.5) * my_random::U_thread_safe();
+  int location = std::floor((n - .1) * my_random::U_thread_safe());
   assert(location >= 0);
-  assert(location < n - 1);
+  assert(location <= n - 1); 
   Action action_taken = h[location];
   History result;
   for(int i = 0; i < location; ++i)
@@ -48,7 +48,7 @@ auto_parse::Contrast_helper::suggest_alternative_history(const Words& w,
     number_alternatives += parser.legal(a);
   assert(number_alternatives != 0);
   if(number_alternatives == 1)
-    return History();  // oops.  We missed.  No legal alternative available.  Try the next sentence.
+    return History();  // oops.  We missed.  No legal alternative available. 
   int which_one = (number_alternatives - 1) * my_random::U_thread_safe();
   assert(which_one <= number_alternatives);
   Action alternative_action = action_taken;
@@ -60,6 +60,7 @@ auto_parse::Contrast_helper::suggest_alternative_history(const Words& w,
   if(alternative_action == action_taken)
     {
       std::cout << "Reached 1 in a million times.  Why? " << action_taken << " @ " << number_alternatives << " , " << which_one << std::endl;
+      assert(0);
       return History();  // return empty
     }
   result.push_back(alternative_action);

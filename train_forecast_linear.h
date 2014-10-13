@@ -22,9 +22,11 @@ namespace auto_parse
     void merge(const Train_forecast_linear&);
     // ACCESSORS
     Forecast_linear result() const;
+    int n() const{return m_sample_size;};
 
   protected:
   private:
+    int m_sample_size;
     double m_sampling_rate;
     Forecast_linear m_old_model;
     Eigen::MatrixXd m_XtX;  // X'X

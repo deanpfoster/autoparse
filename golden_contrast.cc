@@ -32,7 +32,15 @@ auto_parse::Golden_contrast::operator()(const Gold_standard& g, const Words& sen
 {
   History h = m_parser(sentence);
   History alt;
-  for(int i = 0; i < 5; ++i)  // make 5 attempts to find a legal alternative
+  // Change in policy:
+  //   There is no reason to sample a sentence more than once.
+  //   If we do so (for example 5 times like I used to do)
+  //   then we will be oversampling sentences with few alternatives.
+  //   This bias probably doesn't matter--but why introduce it at all?
+  //   We grab about 1/3 of the sentences anyway.  This number only goes up
+  //   to 55% if we sample 10 times.  Why?  I don't know.
+  int number_of_attempts = 1;
+  for(int i = 0; i < number_of_attempts; ++i) 
     if(alt.size() == 0)
       alt =  suggest_alternative_history(sentence, h);
   if(alt.size() == 0)

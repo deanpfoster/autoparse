@@ -17,7 +17,7 @@ int
 main(int argc,char** argv)
 {
   Eigen::initParallel();  // this will help eigen not walk on top of itself.
-  omp_set_num_threads(0);
+  omp_set_num_threads(1);
   
   //////////////////////////////////////////////////////////////////////////////////
   //

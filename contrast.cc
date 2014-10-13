@@ -34,7 +34,7 @@ auto_parse::Contrast::operator()(const Words& sentence) const
 {
   History h = m_parser(sentence);
   History alt;
-  for(int i = 0; i < 5; ++i)  // make 5 attempts to find a legal alternative
+  for(int i = 0; i < 10; ++i)  // make 10 attempts to find a legal alternative
     if(alt.size() == 0)
       alt =  suggest_alternative_history(sentence, h);
   if(alt.size() == 0)

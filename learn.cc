@@ -225,6 +225,7 @@ auto_parse::gold_standard_to_model(const auto_parse::Statistical_parse& parser,
     for(auto_parse::Action a: parser.all_actions())
       all_training[a].merge(training[a]);
   }
+  std::cout << "Sample size used for training: " << all_training[Action::shift].n() << std::endl;
 
   auto_parse::Model new_model; //  = parser.model();
   for(auto_parse::Action a : parser.all_actions())
