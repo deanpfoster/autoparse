@@ -59,8 +59,17 @@ auto_parse::Interaction::operator()(const auto_parse::LR& parser) const
 {
   Vector v_x1 = (*mp_x1)(parser);
   Vector v_x2 = (*mp_x2)(parser);
+#ifdef AVOID_EIGEN
+  Vector result(v_x1.size() * v_x2.size());
+  int location = 0;
+  for(int i = 0; i < v_x1.size(); ++i)
+    for(int j = 0; j < v_x2.size(); ++j)
+      result[location++] = v_x1[i] * v_x2[j];
+  return result;
+#else
   Eigen::MatrixXd outer_product = v_x1 * (v_x2.transpose());
   Eigen::Map<Vector> result(outer_product.data(),dimension());
+#endif
   return result;
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */

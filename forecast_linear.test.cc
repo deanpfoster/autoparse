@@ -18,8 +18,12 @@ namespace auto_parse
 
     Forecast_linear::register_forecast(new Forecast_linear);
     {
+#ifdef AVOID_EIGEN
+      auto_parse::Vector beta { 1. ,  2. , 3. };
+#else
       auto_parse::Vector beta(3);
       beta << 1. ,  2. , 3.;
+#endif
       Forecast_linear example(beta);
 
       std::stringstream s;

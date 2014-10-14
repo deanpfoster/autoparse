@@ -9,6 +9,12 @@
 
 // #define AVOID_EIGEN
 
+#ifdef AVOID_EIGEN
+#include <vector>
+#else
+#include <Eigen/Core>
+#endif
+
 namespace auto_parse
 {
   // Note:  typedef Matrix<double, Dynamic, Dynamic, RowMajor> Eigen::MatrixXd;
@@ -24,8 +30,40 @@ namespace auto_parse
   //    typedef Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic, Eigen::ColMajor> Matrix;
   // This assumes that I haven't found my memory leak!
   //
+
+#ifdef AVOID_EIGEN
+  typedef std::vector<double> Vector;
+  typedef std::vector<std::vector<double> > Matrix;
+  
+  inline double norm(const Vector& vec)
+  {
+    double ss = 0;
+    for(double x: vec)
+      ss += x * x;
+    return(sqrt(ss));
+  }
+
+  inline Eigen::VectorXd to_VectorXd(const Vector& vec)
+  {
+    Eigen::VectorXd result(vec.size());
+    for(int i = 0; i < vec.size(); ++i)
+      result(i) = vec[i];
+    return result;
+  }
+
+#else
   typedef Eigen::MatrixXd Matrix;
   typedef Eigen::VectorXd Vector;
+  inline double norm(const Vector& vec)
+  {
+    return vec.norm();
+  }
+
+  inline Eigen::VectorXd to_VectorXd(const Vector& vec)
+  {
+    return vec;
+  }
+#endif
 }
 
 

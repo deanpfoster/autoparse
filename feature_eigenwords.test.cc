@@ -28,10 +28,21 @@ namespace auto_parse
 	Words w = Words(&l) + "A" + "hearing" + "on" + "the" + "issue" + "is" + "scheduled" + "today" + ".";
 	auto_parse::LR lr(w);  // testing construction
 	Feature_eigenwords<Stack_top>  s1(g);
+#ifdef AVOID_EIGEN
+	for(double x : s1(lr))
+	  std::cout << x << " ";
+	std::cout << std::endl;
+#else
 	std::cout << s1(lr) << std::endl;
+#endif
 	lr.shift(); // A
+#ifdef AVOID_EIGEN
+	for(double x : s1(lr))
+	  std::cout << x << " ";
+	std::cout << std::endl;
+#else
 	std::cout << s1(lr) << std::endl;
-
+#endif
 	//  INSERT A LR parser and cause it to crash!!!
 
 	Feature_eigenwords<Stack_top>  s(g);

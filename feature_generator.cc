@@ -110,6 +110,22 @@ auto_parse::Feature_generator::print_on(std::ostream & ostrm) const
   ostrm << std::endl<< std::endl;
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+Eigen::VectorXd
+auto_parse::Feature_generator::operator()(const auto_parse::LR& lr) const
+{
+#ifdef AVOID_EIGEN
+  Vector tmp = features(lr);
+  Eigen::VectorXd result(tmp.size());
+  for(int i = 0; i < tmp.size(); ++i)
+    result(i) = tmp[i];
+  return result;
+#else
+  return features(lr);
+#endif
+}
+
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Vector
 auto_parse::Feature_generator::features(const LR& parser) const
 {
@@ -120,7 +136,14 @@ auto_parse::Feature_generator::features(const LR& parser) const
     {
       int number_to_add = (*i)->dimension();
       assert(current_location + number_to_add <= m_number_features);
+#ifdef AVOID_EIGEN
+      Vector tmp = (**i)(parser);
+      assert(tmp.size() == number_to_add);
+      for(int i = 0; i < tmp.size(); ++i)
+	result[current_location + i] = tmp[i];
+#else
       result.segment(current_location,number_to_add) = (**i)(parser);
+#endif
       current_location += number_to_add;
     }
   return result;

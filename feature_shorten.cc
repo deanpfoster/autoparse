@@ -56,7 +56,15 @@ auto_parse::Shorten::private_restore(std::istream& in) const
 auto_parse::Vector
 auto_parse::Shorten::operator()(const auto_parse::LR& parser) const
 {
+#ifdef AVOID_EIGEN
+  Vector result(m_dimension);
+  Vector tmp = (*mp_long)(parser);
+  for(int i = 0; i < m_dimension; ++i)
+    result[i] = tmp[i];
+  return result;
+#else
   return (*mp_long)(parser).head(m_dimension);
+#endif
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 

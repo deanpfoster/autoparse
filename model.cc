@@ -117,7 +117,7 @@ auto_parse::Model::operator=(const auto_parse::Model& rhs)
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                               A C C E S S O R S                                 accessors
 auto_parse::Value_of_forecasts
-auto_parse::Model::operator()(const Eigen::VectorXd& features) const
+auto_parse::Model::operator()(const Vector& features) const
 {
   Value_of_forecasts result;
   for(Action a: all_actions())

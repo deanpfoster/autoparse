@@ -43,7 +43,11 @@ auto_parse::Eigenwords::~Eigenwords()
       if(brave)
 	{
 	  // delete(s_cache[m_cache_index]); // no longer a pointer
+#ifdef AVOID_EIGEN
+	  s_data[m_cache_index] = new Matrix(0);
+#else
           s_data[m_cache_index] = new Matrix(0,0); // this effectively deletes it
+#endif
 	}
       else
 	{
@@ -66,9 +70,15 @@ auto_parse::Eigenwords::Eigenwords(std::istream& in, int gram_number)
   Lexicon lexicon(raw_lex);
   int d = from_disk.begin()->second.size();
   int n = raw_lex.size();
+#ifdef AVOID_EIGEN
+  Matrix data(n,std::vector<double>(d,0));
+  for(unsigned int i = 0; i < raw_lex.size(); ++i)
+    data[i] = from_disk[raw_lex[i]];
+#else
   Matrix data(n,d);
   for(unsigned int i = 0; i < raw_lex.size(); ++i)
     data.row(i) = from_disk[raw_lex[i]];
+#endif
 
   m_cache_index = s_data.size();
   m_lexicon_index = s_lexicon.size();
@@ -126,10 +136,17 @@ auto_parse::Eigenwords::Eigenwords(std::istream& in)
       int cache_index, dimension, n;
       in >> cache_index >> dimension >> n >> std::ws;
       assert(m_cache_index == cache_index);
+#ifdef AVOID_EIGEN
+      Matrix data(n,Vector(dimension,0));
+      for(int i = 0; i < n; ++i)
+	for(int j = 0; j < dimension; ++j)
+	  in >> data[i][j] >> std::ws;
+#else
       Matrix data(n,dimension);
       for(int i = 0; i < n; ++i)
 	for(int j = 0; j < dimension; ++j)
 	  in >> data(i,j) >> std::ws;
+#endif
       s_data.push_back(new Matrix(data));
       s_which_lexicon.push_back(m_lexicon_index);
       s_cache_counter.push_back(1);
@@ -185,9 +202,13 @@ auto_parse::Eigenwords::create_root_dictionary(const auto_parse::Lexicon& lexico
     { // no root_dictionary created yet
       root_dictionary_id = s_data.size();
       s_cache_counter.push_back(0); // we aren't keeping a copy
+#ifdef AVOID_EIGEN
+      s_data.push_back(new Matrix(lexicon.size(),Vector(1,1)));
+#else
       s_data.push_back(new Matrix(lexicon.size(),1));
       for(int i = 0; i < lexicon.size(); ++i)
 	(*s_data[root_dictionary_id])(i,0) = 1.0; // set it up to be a constand matrix
+#endif 
       s_which_lexicon.push_back(lexicon.cache_id());
     }
   return Eigenwords(root_dictionary_id, root_dictionary_id, root_dictionary_id);  // use secret password constructor
@@ -207,12 +228,17 @@ auto_parse::Eigenwords::operator[](const auto_parse::Word& w) const
       std::cout << "Struggling with " << location << " :" << w.convert_to_string(lexicon()) << std::endl;
       assert(0);
     };
+#ifdef AVOID_EIGEN
+  if(location < 0)
+    if(w == Word())
+      return Vector(dimension(),0);
+  Vector result = (*mp_data)[location];
+#else
   if(location < 0)
     if(w == Word())
       return Vector::Zero(dimension());
-  assert(location >= 0);
-  assert(location < mp_data->rows());
   Vector result = mp_data->row(location);
+#endif
   return result;
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -228,7 +254,11 @@ auto_parse::Eigenwords::operator()(const auto_parse::Node& pointer, const auto_p
 int
 auto_parse::Eigenwords::dimension() const
 {
+#ifdef AVOID_EIGEN
+  return mp_data->begin()->size();
+#else
   return mp_data->cols();
+#endif
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::Eigenwords
@@ -239,8 +269,14 @@ auto_parse::Eigenwords::with_constant_row_sum_squares() const
   s_cache_counter.push_back(1);
   s_which_lexicon.push_back(m_lexicon_index);
   int index = s_cache_counter.size()-1;
+#ifdef AVOID_EIGEN
+  for(int i = 0; i < mp_data->size(); ++i)
+    for(int j = 0; j < dimension(); ++j)
+      (*s_data[index])[i][j] = (*mp_data)[i][j] / norm((*mp_data)[i]);
+#else
   for(int i = 0; i < mp_data->rows(); ++i)
     (*s_data[index]).row(i) = mp_data->row(i) / mp_data->row(i).norm();
+#endif
   return   auto_parse::Eigenwords(index,index,index);  
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -346,7 +382,15 @@ read_CSV(std::istream& in, int pos, int gram_number)
   std::map<std::string,auto_parse::Vector> result;
   for(auto i = tmp.begin(); i != tmp.end(); ++i)
     {
-      result[i->first] = i->second.m_counts.segment(pos * state_size, (pos+1) * state_size); // segment(start, length)
+#ifdef AVOID_EIGEN
+      Vector tmp(state_size);
+      for(int j = 0; j < state_size; ++j)
+	tmp[j] = i->second.m_counts[pos * state_size + j];
+      result[i->first] = tmp;
+#else
+      //      result[i->first] = i->second.m_counts.segment(pos * state_size, (pos+1) * state_size); // segment(start, length)
+      result[i->first] = i->second.m_counts.segment(pos * state_size, state_size); // segment(start, length)
+#endif
     };
   return result;
 }

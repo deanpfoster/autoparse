@@ -86,8 +86,13 @@ auto_parse::TP_eigenwords::clone() const
 void
 auto_parse::TP_eigenwords::accumulate(const Node& p, const Node& c, const Words& w) 
 {
-  auto_parse::Vector pv = m_parent(p,w);
-  auto_parse::Vector cv = m_child(c,w);
+#ifdef AVOID_EIGEN
+  Eigen::VectorXd pv = to_VectorXd(m_parent(p,w));
+  Eigen::VectorXd cv = to_VectorXd(m_child(c,w));
+#else
+  Eigen::VectorXd pv = m_parent(p,w);
+  Eigen::VectorXd cv = m_child(c,w);
+#endif
   unsigned int distance = abs(p - c);
   if(distance >= m_distance.size())
     distance = m_distance.size() - 1;

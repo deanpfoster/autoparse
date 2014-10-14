@@ -53,7 +53,7 @@ auto_parse::Forecast_linear::Forecast_linear(const auto_parse::Vector& d)
     m_weights(d)
 {
   int number_zeros = 0;
-  for(int i = 0; i < d.size(); ++i)
+  for(unsigned int i = 0; i < d.size(); ++i)
     {
       if(isnan(m_weights[i]))
 	{
@@ -98,7 +98,12 @@ void
 auto_parse::Forecast_linear:: tweak(const Forecast& forecast_other, double movement) 
 {  // movement = 1 means replace old with new, movement=0 means use old
   const Forecast_linear& other = dynamic_cast<const Forecast_linear&>(forecast_other);
+#ifdef AVOID_EIGEN
+  for(int i; i < m_weights.size(); ++i)
+    m_weights[i] = (1 - movement) * m_weights[i] + movement * other.m_weights[i];
+#else
   m_weights = (1 - movement) * m_weights + movement * other.m_weights;
+#endif
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
@@ -112,7 +117,14 @@ double
 auto_parse::Forecast_linear::operator()(const auto_parse::Vector& row) const
 {
   assert(row.size() == m_weights.size());
+#ifdef AVOID_EIGEN
+  assert(m_weights.size() == row.size());
+  double result = 0;
+  for(int i = 0; i < m_weights.size(); ++i)
+    result += m_weights[i] * row[i];
+#else
   double result = m_weights.transpose() * row;
+#endif
   assert(!isnan(result));
   return result;
 }
