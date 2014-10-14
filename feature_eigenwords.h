@@ -141,7 +141,7 @@ namespace auto_parse
     Feature_eigenwords(std::istream&);
     Feature_eigenwords* clone() const;
     // ACCESSORS
-    Eigen::VectorXd operator()(const LR&) const;  
+    Vector operator()(const LR&) const;  
     std::vector<std::string> variable_names() const;
     std::string   name() const;
     int           dimension() const;

@@ -31,7 +31,7 @@ auto_parse::Forecast_linear::Forecast_linear(std::istream & in)
 {
   int number;
   in >> number;
-  m_weights = Eigen::VectorXd(number);
+  m_weights = auto_parse::Vector(number);
   for(int i = 0; i < number; ++i)
     {
       double d;
@@ -48,7 +48,7 @@ auto_parse::Forecast_linear::operator=(const Forecast_linear &rhs)
 }
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-auto_parse::Forecast_linear::Forecast_linear(const Eigen::VectorXd& d) 
+auto_parse::Forecast_linear::Forecast_linear(const auto_parse::Vector& d) 
   : Forecast(),
     m_weights(d)
 {
@@ -109,7 +109,7 @@ auto_parse::Forecast_linear:: tweak(const Forecast& forecast_other, double movem
 //                               A C C E S S O R S                                 accessors
 
 double
-auto_parse::Forecast_linear::operator()(const Eigen::VectorXd& row) const
+auto_parse::Forecast_linear::operator()(const auto_parse::Vector& row) const
 {
   assert(row.size() == m_weights.size());
   double result = m_weights.transpose() * row;

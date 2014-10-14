@@ -32,7 +32,7 @@ namespace auto_parse
 
     // MANIPULATORS
     // ACCESSORS
-    virtual double operator()(const Eigen::VectorXd&) const ;
+    virtual double operator()(const auto_parse::Vector&) const ;
 
   protected:
   private:

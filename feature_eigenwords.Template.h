@@ -53,7 +53,7 @@ auto_parse::Feature_eigenwords<T>::private_restore(std::istream& in) const
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                               A C C E S S O R S                                 accessors
 template<class T>
-Eigen::VectorXd
+auto_parse::Vector
 auto_parse::Feature_eigenwords<T>::operator()(const auto_parse::LR& parser) const
 {
   return m_eigenwords(T()(parser));

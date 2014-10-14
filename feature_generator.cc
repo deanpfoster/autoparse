@@ -110,10 +110,10 @@ auto_parse::Feature_generator::print_on(std::ostream & ostrm) const
   ostrm << std::endl<< std::endl;
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-Eigen::VectorXd
+auto_parse::Vector
 auto_parse::Feature_generator::features(const LR& parser) const
 {
-  Eigen::VectorXd result(m_number_features);
+  Vector result(m_number_features);
 
   int current_location = 0;
   for(auto i  = m_features.begin(); i != m_features.end(); ++i)

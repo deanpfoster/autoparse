@@ -21,7 +21,7 @@ namespace auto_parse
 
 
     // ACCESSORS
-    virtual Eigen::VectorXd operator()(const LR& parser) const;
+    virtual Vector operator()(const LR& parser) const;
     std::vector<std::string> variable_names() const;
     std::string   name() const;
     int dimension() const;

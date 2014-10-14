@@ -54,13 +54,13 @@ auto_parse::Interaction::private_restore(std::istream& in) const
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                               A C C E S S O R S                                 accessors
-Eigen::VectorXd
+auto_parse::Vector
 auto_parse::Interaction::operator()(const auto_parse::LR& parser) const
 {
-  Eigen::VectorXd v_x1 = (*mp_x1)(parser);
-  Eigen::VectorXd v_x2 = (*mp_x2)(parser);
+  Vector v_x1 = (*mp_x1)(parser);
+  Vector v_x2 = (*mp_x2)(parser);
   Eigen::MatrixXd outer_product = v_x1 * (v_x2.transpose());
-  Eigen::Map<Eigen::VectorXd> result(outer_product.data(),dimension());
+  Eigen::Map<Vector> result(outer_product.data(),dimension());
   return result;
 }
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */

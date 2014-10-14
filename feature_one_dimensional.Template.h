@@ -49,10 +49,10 @@ auto_parse::Feature_one_dimensional<T>::private_restore(std::istream& in) const
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                               A C C E S S O R S                                 accessors
 template<class T>
-Eigen::VectorXd
+auto_parse::Vector
 auto_parse::Feature_one_dimensional<T>::operator()(const auto_parse::LR& parser) const
 {
-  Eigen::VectorXd result(1);
+  Vector result(1);
   result[0] = T()(parser);
   return result;
 }

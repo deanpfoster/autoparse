@@ -18,7 +18,7 @@ namespace auto_parse
 
     Forecast_linear::register_forecast(new Forecast_linear);
     {
-      Eigen::VectorXd beta(3);
+      auto_parse::Vector beta(3);
       beta << 1. ,  2. , 3.;
       Forecast_linear example(beta);
 

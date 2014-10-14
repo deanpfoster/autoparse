@@ -6,6 +6,7 @@
 #include <iosfwd>
 #include <vector>
 #include <Eigen/Core>
+#include "eigenwords.h"
 
 namespace auto_parse
 {
@@ -22,7 +23,7 @@ namespace auto_parse
     static Feature* restore(std::istream&);
     // MANIPULATORS
     // ACCESSORS
-    virtual Eigen::VectorXd operator()(const LR&) const = 0;
+    virtual auto_parse::Vector operator()(const LR&) const = 0;
     virtual std::vector<std::string> variable_names() const = 0;
     virtual std::string   name() const = 0;
     virtual int           dimension() const = 0;

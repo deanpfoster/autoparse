@@ -51,7 +51,7 @@ public:
   std::string key() const {return "sample";};
   
   // Finally!  The purpose of this class, namely make a prediction.
-  double operator()(const Eigen::VectorXd&) const{ return m_d;}
+  double operator()(const auto_parse::Vector&) const{ return m_d;}
 
 
 private:

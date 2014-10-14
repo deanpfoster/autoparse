@@ -6,6 +6,7 @@
 #include <iosfwd>
 #include <map>
 #include <Eigen/Core>
+#include "eigenwords.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -40,7 +41,7 @@ namespace auto_parse
     virtual void tweak(const Forecast& other, double movement) = 0; // movement = 1 means replace old with new, movement=0 means use old
 
     // ACCESSORS
-    virtual double operator()(const Eigen::VectorXd&) const = 0;
+    virtual double operator()(const auto_parse::Vector&) const = 0;
 
   protected:
   private:

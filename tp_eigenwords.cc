@@ -86,8 +86,8 @@ auto_parse::TP_eigenwords::clone() const
 void
 auto_parse::TP_eigenwords::accumulate(const Node& p, const Node& c, const Words& w) 
 {
-  Eigen::VectorXd pv = m_parent(p,w);
-  Eigen::VectorXd cv = m_child(c,w);
+  auto_parse::Vector pv = m_parent(p,w);
+  auto_parse::Vector cv = m_child(c,w);
   unsigned int distance = abs(p - c);
   if(distance >= m_distance.size())
     distance = m_distance.size() - 1;
@@ -134,7 +134,7 @@ auto_parse::TP_eigenwords::renormalize() const
   Eigen::MatrixXd new_XtY = inv * m_XtY;
 
   //  more stable
-  //  Eigen::VectorXd new_XtY = m_XtX.colPivHouseholderQr().solve(m_XtY);
+  //  auto_parse::Vector new_XtY = m_XtX.colPivHouseholderQr().solve(m_XtY);
   for(int i = 0; i < new_XtY.rows(); ++i)
     for(int j = 0; j < new_XtY.cols(); ++j)
       assert(!isnan(new_XtY(i,j)));
@@ -146,7 +146,7 @@ auto_parse::TP_eigenwords::renormalize() const
   for(unsigned int i = 0; i < m_distance.size(); ++i)
     distance[i] = m_distance[i]/n;
   // no NaN?
-  //  Eigen::VectorXd new_XtY = m_XtY;
+  //  auto_parse::Vector new_XtY = m_XtY;
   Eigen::MatrixXd new_XtX = Eigen::MatrixXd::Identity(m_parent.dimension(),m_parent.dimension());
 
   assert(m_total.size() == m_count.size());
@@ -170,10 +170,10 @@ auto_parse::TP_eigenwords::operator()(const auto_parse::Node& parent,
 				      const auto_parse::Node& child,
 				      const auto_parse::Words& sentence) const
 {
-  const Eigen::VectorXd& p = m_parent(parent,sentence);
-  const Eigen::VectorXd& c = m_child(child,sentence);
-  Eigen::VectorXd prediction = p.transpose() * m_XtY; // only works since XtX = I
-  Eigen::VectorXd error = c - prediction;
+  const auto_parse::Vector& p = m_parent(parent,sentence);
+  const auto_parse::Vector& c = m_child(child,sentence);
+  auto_parse::Vector prediction = p.transpose() * m_XtY; // only works since XtX = I
+  auto_parse::Vector error = c - prediction;
   unsigned int distance = abs(parent - child);
   if(distance >= m_distance.size())
     distance = m_distance.size() - 1;

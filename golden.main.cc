@@ -17,7 +17,9 @@ int
 main(int argc,char** argv)
 {
   Eigen::initParallel();  // this will help eigen not walk on top of itself.
-  omp_set_num_threads(1);
+  Eigen::setNbThreads(1); // turning off eigen threads... are they our problem?
+  
+  //  omp_set_num_threads(1);
   
   //////////////////////////////////////////////////////////////////////////////////
   //
@@ -66,6 +68,7 @@ main(int argc,char** argv)
       assert(0); // need to write code to reverse the parses
     };
   std::cout << "Running on " << gold_parses.size() << " gold standard sentences." << std::endl;
+  assert(gold_parses.size() > 100);  // make sure we read something
 
   //////////////////////////////////////////////////////////////////////////////////
   //
@@ -181,11 +184,13 @@ main(int argc,char** argv)
       //                                           //
       ///////////////////////////////////////////////
 
+      std::cout << "starting gold_standard_to_model" << std::endl;
       auto_parse::Model model = gold_standard_to_model(parser,
 						       *p_feature_generator,
 						       sampling_rate,
 						       gold_begin, 
 						       begin, end);
+      std::cout << "returned gold_standard_to_model." << std::endl;
       old_model.tweak(model, a.update_rate);
       parser.new_model(old_model);
       ostrm << print_time("Training") << std::endl;

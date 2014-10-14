@@ -53,7 +53,7 @@ auto_parse::Shorten::private_restore(std::istream& in) const
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                               A C C E S S O R S                                 accessors
 
-Eigen::VectorXd
+auto_parse::Vector
 auto_parse::Shorten::operator()(const auto_parse::LR& parser) const
 {
   return (*mp_long)(parser).head(m_dimension);

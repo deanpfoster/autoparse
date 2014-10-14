@@ -22,7 +22,7 @@ std::vector<int> auto_parse::Eigenwords::s_cache_counter;
 //  The following function is defined at the end of this file.
 //  It was cribbed from wiki/code/google/CSV_grams.*
 //
-std::map<std::string,Eigen::VectorXd>
+std::map<std::string,auto_parse::Vector>
 read_CSV(std::istream& in, int pos, int gram_number);
 
 ////////////////////////////////////////////////////////////////////////////////////////////
@@ -60,7 +60,7 @@ auto_parse::Eigenwords::Eigenwords(std::istream& in, int gram_number)
      mp_data(),
      mp_lexicon()
 {
-  std::map<std::string,Eigen::VectorXd> from_disk = read_CSV(in, 0, gram_number);
+  std::map<std::string,auto_parse::Vector> from_disk = read_CSV(in, 0, gram_number);
   assert(from_disk.size() != 0); // assume we have read something real
   std::vector<std::string> raw_lex = generate_lexicon(from_disk);
   Lexicon lexicon(raw_lex);
@@ -198,7 +198,7 @@ auto_parse::Eigenwords::create_root_dictionary(const auto_parse::Lexicon& lexico
 //                             M A N I P U L A T O R S                          manipulators
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                               A C C E S S O R S                                 accessors
-Eigen::VectorXd
+auto_parse::Vector
 auto_parse::Eigenwords::operator[](const auto_parse::Word& w) const
 {
   int location = w.as_index();
@@ -209,14 +209,14 @@ auto_parse::Eigenwords::operator[](const auto_parse::Word& w) const
     };
   if(location < 0)
     if(w == Word())
-      return Eigen::VectorXd::Zero(dimension());
+      return Vector::Zero(dimension());
   assert(location >= 0);
   assert(location < mp_data->rows());
-  Eigen::VectorXd result = mp_data->row(location);
+  Vector result = mp_data->row(location);
   return result;
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-Eigen::VectorXd
+auto_parse::Vector
 auto_parse::Eigenwords::operator()(const auto_parse::Node& pointer, const auto_parse::Words& sentence) const
 {
   if(pointer == sentence.end())
@@ -249,7 +249,7 @@ auto_parse::Eigenwords::with_constant_row_sum_squares() const
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                           P R I V A T E                                           private
 std::vector<std::string>
-auto_parse::Eigenwords::generate_lexicon(const std::map<std::string,Eigen::VectorXd>& from_disk) const
+auto_parse::Eigenwords::generate_lexicon(const std::map<std::string,Vector>& from_disk) const
 {
   std::vector<std::string> result;
   for(auto a : from_disk)
@@ -292,7 +292,7 @@ public:
   double m_freq;
   std::string m_POS;
   int m_index;
-  Eigen::VectorXd m_counts;
+  auto_parse::Vector m_counts;
 };
 
 std::istream&
@@ -311,7 +311,7 @@ operator>>(std::istream& in, std::pair<std::string, Rest_of_row>& full)
   std::vector<double> tmp;
   while(iterator != toker.end())
     tmp.push_back(my_lex<double>(*iterator++));
-  Eigen::VectorXd tmp2(tmp.size());
+  auto_parse::Vector tmp2(tmp.size());
   for(unsigned int i = 0; i < tmp.size(); ++i)
     tmp2[i] = tmp[i];
   full.second.m_counts = tmp2;
@@ -320,7 +320,7 @@ operator>>(std::istream& in, std::pair<std::string, Rest_of_row>& full)
 
 
 //////////////////////////////////////////////////////////////////////////////////////////
-std::map<std::string,Eigen::VectorXd>
+std::map<std::string,auto_parse::Vector>
 read_CSV(std::istream& in, int pos, int gram_number)
 {
   std::vector<std::string> headers;
@@ -343,7 +343,7 @@ read_CSV(std::istream& in, int pos, int gram_number)
   }
   int data_size = tmp.begin()->second.m_counts.size();
   int state_size = data_size / gram_number;
-  std::map<std::string,Eigen::VectorXd> result;
+  std::map<std::string,auto_parse::Vector> result;
   for(auto i = tmp.begin(); i != tmp.end(); ++i)
     {
       result[i->first] = i->second.m_counts.segment(pos * state_size, (pos+1) * state_size); // segment(start, length)

@@ -97,12 +97,7 @@ main()
       
     for(int rounds = 0; rounds < 10; ++rounds)
       {
-	///////////////////////////////////////////////
-	//                                           //
 	//           Likelihood --> Model            //
-	//                                           //
-	///////////////////////////////////////////////
-
 	std::stringstream s;
 	s << "  " << rounds << "    ";
 	std::string debugging_prefix = s.str();
@@ -118,45 +113,33 @@ main()
 							  corpus_in_memory.end(),
 							  std::cout);
 	parser.new_model(new_model);
-	
-	///////////////////////////////////////////////
-	//                                           //
 	//  Model  --> Parsed corpus -->  MLE        //
-	//                                           //
-	///////////////////////////////////////////////
-
 	debugging << debugging_prefix << "MLE" << std::endl;
 	likelihood = model_to_likelihood(parent_dictionary, child_dictionary,  parser, 1.0, corpus_in_memory.begin(), corpus_in_memory.end());
-	debugging << debugging_prefix <<  likelihood << std::endl;
-
-	///////////////////////////////////////////////
-	//                                           //
+	//	debugging << debugging_prefix <<  likelihood << std::endl;
 	//               EVALUATION                  //
-	//                                           //
-	///////////////////////////////////////////////
-
-	double sqrt_sum = 0;
-
+      }
+    double sqrt_sum = 0;
 #pragma omp parallel for 
-	for(unsigned int i = 0; i <  corpus_in_memory.size(); ++i)
-	  {
-	    auto_parse::Words sentence = corpus_in_memory[i];
-	    auto_parse::Dependency parse = redo_parse(sentence, parser(sentence)).parse();
-	    double prob = likelihood(parse);
-	    sqrt_sum += sqrt(fabs(prob));
-	  };
+    for(unsigned int i = 0; i <  corpus_in_memory.size(); ++i)
+      {
+	auto_parse::Words sentence = corpus_in_memory[i];
+	auto_parse::Dependency parse = redo_parse(sentence, parser(sentence)).parse();
+	double prob = likelihood(parse);
+	sqrt_sum += sqrt(fabs(prob));
+      };
 
-	std::cout << debugging_prefix << " * * * * " << sqrt_sum << " * * * * " << std::endl;
+    std::cout << " * * * * " << sqrt_sum << " * * * * " << std::endl;
 
-	auto_parse::Dependency parse1 = redo_parse(corpus_in_memory[1], parser(corpus_in_memory[1])).parse();
-	auto_parse::Dependency parse3 = redo_parse(corpus_in_memory[3], parser(corpus_in_memory[3])).parse();
-	auto_parse::Dependency parse5 = redo_parse(corpus_in_memory[5], parser(corpus_in_memory[5])).parse();
-	latex << "\\section{likelihood index: " << sqrt_sum << "}\n\n" << std::endl;
-	parse1.latex(latex);
-	parse3.latex(latex);
-	parse5.latex(latex);
-	std::cout << likelihood.decorate(parse1,dictionary) << std::endl;
-	}
+    auto_parse::Dependency parse1 = redo_parse(corpus_in_memory[1], parser(corpus_in_memory[1])).parse();
+    auto_parse::Dependency parse3 = redo_parse(corpus_in_memory[3], parser(corpus_in_memory[3])).parse();
+    auto_parse::Dependency parse5 = redo_parse(corpus_in_memory[5], parser(corpus_in_memory[5])).parse();
+    latex << "\\section{likelihood index: " << sqrt_sum << "}\n\n" << std::endl;
+    parse1.latex(latex);
+    parse3.latex(latex);
+    parse5.latex(latex);
+    std::cout << likelihood.decorate(parse1,dictionary) << std::endl;
+
     auto_parse::latex_footer(latex);
     debugging << "Finished!" << std::endl;
 }

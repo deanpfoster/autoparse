@@ -78,7 +78,7 @@ auto_parse::Forecast_constant::tweak(const Forecast& o, double movement)
 //                               A C C E S S O R S                                 accessors
 
 double
-auto_parse::Forecast_constant::operator()(const Eigen::VectorXd&) const
+auto_parse::Forecast_constant::operator()(const auto_parse::Vector&) const
 {
   return m_constant;
 }

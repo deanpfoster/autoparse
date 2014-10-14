@@ -30,10 +30,10 @@ public:
 
   Sample* private_restore(std::istream&) const {return new Sample(*this);};
 
-  Eigen::VectorXd
+  auto_parse::Vector
   operator()(const auto_parse::LR&) const
   {
-    Eigen::VectorXd result(dimension());
+    auto_parse::Vector result(dimension());
     for(unsigned int i = 0; i <  m_fixed.size();++i)
       {
 	result[i] = m_fixed[i];

@@ -279,8 +279,8 @@ auto_parse::evaluation(int rounds,
 {
   int number_to_read = end - begin;
   double log_like = 0;
-  double total_left_links = 0;
   double total_links = 0;
+  double total_left_links = 0;
   double total_stack_depth = 0;
   Eigen::VectorXd  pieces = Eigen::VectorXd::Zero(6);
 #pragma omp parallel
@@ -292,14 +292,14 @@ auto_parse::evaluation(int rounds,
 	{
 	  const auto_parse::Words& sentence = *(begin + counter);
 	  History h = parser.best_parse(sentence);  // by using best_parse here we can compare noisy methods with noise free methods.
-	  total_stack_depth += h.maximum_stack_size();
 	  auto_parse::Dependency parse = redo_parse(sentence, h).parse();
 	  int n = sentence.end() - sentence.begin();
 	  double prob = likelihood(parse) / n;
-	   piece += likelihood.pieces(parse);
-	   total_left_links += parse.number_left_links();
-	   log_like += prob;
-	   total_links += n;
+	  piece += likelihood.pieces(parse);
+	  log_like += prob;
+	  total_links += n;
+	  total_stack_depth += h.maximum_stack_size();
+	  total_left_links += parse.number_left_links();
 	};
 #pragma omp critical
       pieces += piece; // update global copy

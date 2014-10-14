@@ -72,7 +72,7 @@ namespace auto_parse
     Feature_one_dimensional<T>(std::istream&);
 
     // ACCESSORS
-    virtual Eigen::VectorXd operator()(const LR&) const;
+    virtual Vector operator()(const LR&) const;
     std::vector<std::string> variable_names() const;
     std::string   name() const;
     int           dimension() const;

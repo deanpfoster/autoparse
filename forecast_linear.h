@@ -23,7 +23,7 @@ namespace auto_parse
     virtual ~Forecast_linear();
     Forecast_linear();
     Forecast_linear(std::istream&);
-    Forecast_linear(const Eigen::VectorXd&);
+    Forecast_linear(const auto_parse::Vector&);
     Forecast_linear(const Forecast_linear &); 
     virtual Forecast* restore(std::istream&) const ;
     virtual void save(std::ostream &) const ;
@@ -34,12 +34,12 @@ namespace auto_parse
     
     // MANIPULATORS
     // ACCESSORS
-    double operator()(const Eigen::VectorXd&) const ;
+    double operator()(const auto_parse::Vector&) const ;
     int dimension() const {return m_weights.size();};
 
   protected:
   private:
-    Eigen::VectorXd m_weights;
+    auto_parse::Vector m_weights;
   };
 }
 
