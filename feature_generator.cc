@@ -113,15 +113,7 @@ auto_parse::Feature_generator::print_on(std::ostream & ostrm) const
 Eigen::VectorXd
 auto_parse::Feature_generator::operator()(const auto_parse::LR& lr) const
 {
-#ifdef AVOID_EIGEN
-  Vector tmp = features(lr);
-  Eigen::VectorXd result(tmp.size());
-  for(int i = 0; i < tmp.size(); ++i)
-    result(i) = tmp[i];
-  return result;
-#else
-  return features(lr);
-#endif
+  return to_VectorXd(features(lr));
 }
 
 

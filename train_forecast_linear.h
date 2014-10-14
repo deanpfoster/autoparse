@@ -18,7 +18,7 @@ namespace auto_parse
     Train_forecast_linear& operator=(const Train_forecast_linear &);
 
     // MANIPULATORS
-    void operator()(const auto_parse::Vector&, double Y);
+    void operator()(const Eigen::VectorXd&, double Y);
     void merge(const Train_forecast_linear&);
     // ACCESSORS
     Forecast_linear result() const;

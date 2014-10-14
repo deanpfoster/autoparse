@@ -29,7 +29,7 @@ namespace auto_parse
 
     // MANIPULATORS
     // ACCESSORS
-    Eigen::VectorXd operator()(const LR& lr) const;
+    Eigen::VectorXd operator()(const LR& lr) const; // use features() for auto_parse::Vector.
     void print_on(std::ostream &) const;
     
     Vector features(const LR&) const;

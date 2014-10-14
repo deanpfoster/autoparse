@@ -30,16 +30,14 @@ namespace auto_parse
 	Feature_eigenwords<Stack_top>  s1(g);
 #ifdef AVOID_EIGEN
 	for(double x : s1(lr))
-	  std::cout << x << " ";
-	std::cout << std::endl;
+	  std::cout << x << std::endl;
 #else
 	std::cout << s1(lr) << std::endl;
 #endif
 	lr.shift(); // A
 #ifdef AVOID_EIGEN
 	for(double x : s1(lr))
-	  std::cout << x << " ";
-	std::cout << std::endl;
+	  std::cout << x << std::endl;
 #else
 	std::cout << s1(lr) << std::endl;
 #endif

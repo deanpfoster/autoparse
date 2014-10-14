@@ -7,7 +7,7 @@
 // It probably should have some testing code when it starts
 // making a std::vector look like an Eigen::VectorXd
 
-// #define AVOID_EIGEN
+#define AVOID_EIGEN
 
 #ifdef AVOID_EIGEN
 #include <vector>
@@ -51,6 +51,14 @@ namespace auto_parse
     return result;
   }
 
+  inline Vector from_VectorXd(const Eigen::VectorXd& vec)
+  {
+    Vector result(vec.size());
+    for(int i = 0; i < vec.size(); ++i)
+      result[i] = vec(i);
+    return result;
+  }
+
 #else
   typedef Eigen::MatrixXd Matrix;
   typedef Eigen::VectorXd Vector;
@@ -60,6 +68,11 @@ namespace auto_parse
   }
 
   inline Eigen::VectorXd to_VectorXd(const Vector& vec)
+  {
+    return vec;
+  }
+
+  inline Vector from_VectorXd(const Eigen::VectorXd& vec)
   {
     return vec;
   }

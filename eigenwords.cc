@@ -383,7 +383,7 @@ read_CSV(std::istream& in, int pos, int gram_number)
   for(auto i = tmp.begin(); i != tmp.end(); ++i)
     {
 #ifdef AVOID_EIGEN
-      Vector tmp(state_size);
+      auto_parse::Vector tmp(state_size);
       for(int j = 0; j < state_size; ++j)
 	tmp[j] = i->second.m_counts[pos * state_size + j];
       result[i->first] = tmp;

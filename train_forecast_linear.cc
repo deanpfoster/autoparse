@@ -89,7 +89,8 @@ auto_parse::Train_forecast_linear::result() const
   //  Eigen::VectorXd beta = m_XtX.colPivHouseholderQr().solve(m_XtY);
   Eigen::MatrixXd inv = m_XtX.inverse();  // this version is paralizable
   Eigen::VectorXd beta = inv * m_XtY;
-  return Forecast_linear(beta * m_sampling_rate);
+  Vector result = from_VectorXd(beta * m_sampling_rate);
+  return Forecast_linear(result);
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 

@@ -117,7 +117,11 @@ auto_parse::generate_linear_model(int num_features, const std::vector<auto_parse
 {
   Model result;
   for(auto_parse::Action a: actions)
-    result.add_forecast(a, Forecast_linear(Eigen::VectorXd::Zero(num_features)));
+#ifdef AVOID_EIGEN
+    result.add_forecast(a, Forecast_linear(Vector(num_features,0)));
+#else
+    result.add_forecast(a, Forecast_linear(Vector::Zero(num_features)));
+#endif
   return result;
 }
 

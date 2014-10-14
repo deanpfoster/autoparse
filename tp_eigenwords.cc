@@ -175,10 +175,11 @@ auto_parse::TP_eigenwords::operator()(const auto_parse::Node& parent,
 				      const auto_parse::Node& child,
 				      const auto_parse::Words& sentence) const
 {
-  const auto_parse::Vector& p = m_parent(parent,sentence);
-  const auto_parse::Vector& c = m_child(child,sentence);
-  auto_parse::Vector prediction = p.transpose() * m_XtY; // only works since XtX = I
-  auto_parse::Vector error = c - prediction;
+  //  This is slower than it needs to be if we settle on using Eigen ???
+  Eigen::VectorXd p = to_VectorXd(m_parent(parent,sentence));
+  Eigen::VectorXd c = to_VectorXd(m_child(child,sentence));
+  Eigen::VectorXd prediction = p.transpose() * m_XtY; // only works since XtX = I
+  Eigen::VectorXd error = c - prediction;
   unsigned int distance = abs(parent - child);
   if(distance >= m_distance.size())
     distance = m_distance.size() - 1;

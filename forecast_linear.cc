@@ -99,7 +99,7 @@ auto_parse::Forecast_linear:: tweak(const Forecast& forecast_other, double movem
 {  // movement = 1 means replace old with new, movement=0 means use old
   const Forecast_linear& other = dynamic_cast<const Forecast_linear&>(forecast_other);
 #ifdef AVOID_EIGEN
-  for(int i; i < m_weights.size(); ++i)
+  for(int i = 0; i < m_weights.size(); ++i)
     m_weights[i] = (1 - movement) * m_weights[i] + movement * other.m_weights[i];
 #else
   m_weights = (1 - movement) * m_weights + movement * other.m_weights;

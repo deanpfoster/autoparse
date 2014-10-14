@@ -42,7 +42,7 @@ namespace auto_parse
       Words sentence(&l);
 #ifdef AVOID_EIGEN
       for(auto x : root(sentence.end(),sentence))
-	std::cout << x << " ";
+	std::cout << x;
       std::cout << std::endl;
 #else
       std::cout << root(sentence.end(),sentence) << std::endl;
