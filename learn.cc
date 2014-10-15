@@ -27,7 +27,7 @@
 ////////////////////////////////////////////////////////////////////////////////////////////
 //                     F R E E   F U N C T I O N S                            free functions
 
-static int POS_length = 10; // Enough of the top eigen directions to compute a POS. (guessed value.)
+static int POS_length = 15; // Enough of the top eigen directions to compute a POS. (guessed value.)
 
 auto_parse::Feature_generator
 auto_parse::fast_features()
@@ -87,7 +87,11 @@ auto_parse::standard_features(const Eigenwords& dictionary)
 				 Feature_eigenwords<Stack_1>  (dictionary),
 				 POS_length))
     .add(Feature_eigenwords<Next_word>(dictionary))
+    .add(Feature_eigenwords<Next_word_1>(dictionary))
     .add(Feature_eigenwords<Stack_top>(dictionary))
+    .add(shorten(Feature_eigenwords<Stack_top_left_most>(dictionary),POS_length))
+    .add(shorten(Feature_eigenwords<Stack_top_right_most>(dictionary),POS_length))
+    .add(shorten(Feature_eigenwords<Next_word_left_most>(dictionary),POS_length)) // can't have any right children...
     .add(Feature_eigenwords<Stack_1>(dictionary));
 };
 
@@ -212,9 +216,9 @@ auto_parse::gold_standard_to_model(const auto_parse::Statistical_parse& parser,
     all_training[a] = auto_parse::Train_forecast_linear(lr_model.forecast(a),sampling_rate);
   int number_to_read = end - begin;
 
-  auto_parse::Golden_contrast contrast(parser, feature_generator);
+ auto_parse::Golden_contrast contrast(parser, feature_generator);
 
-#pragma omp parallel default(shared)
+#pragma omp parallel default(none), shared(contrast, all_training, number_to_read, begin, gold_begin, parser)
   {
     std::map<auto_parse::Action, auto_parse::Train_forecast_linear> training = all_training;
 

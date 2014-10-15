@@ -53,7 +53,6 @@ auto_parse::Train_forecast_linear::operator=(const Train_forecast_linear & other
   m_old_model = other.m_old_model;
   m_XtX = other.m_XtX;
   m_XtY =other.m_XtY;
-  assert(m_sampling_rate == other.m_sampling_rate);  // we can't merge them otherwise
   return *this;
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -74,6 +73,8 @@ auto_parse::Train_forecast_linear::operator()(const Eigen::VectorXd& X, double Y
 void
 auto_parse::Train_forecast_linear::merge(const auto_parse::Train_forecast_linear& other)
 {
+  assert(m_sampling_rate == other.m_sampling_rate);
+  assert(m_old_model == other.m_old_model);
   m_sample_size += other.m_sample_size;
   m_XtX += other.m_XtX;
   m_XtY += other.m_XtY;

@@ -8,18 +8,18 @@
 #include "conll_2006.h"
 #include "utilities/iostream_box.h"
 
-// It should be random for production code. 
-// #define REPRODUCIBLE
-#define TRULY_RANDOM
+// It should be random for production code. Will I ever be in production?
+#define REPRODUCIBLE
+//#define TRULY_RANDOM
 #include "utilities/z.Template.h"
 
 int
 main(int argc,char** argv)
 {
-  Eigen::initParallel();  // this will help eigen not walk on top of itself.
+  //  Eigen::initParallel();  // this will help eigen not walk on top of itself.
   Eigen::setNbThreads(1); // turning off eigen threads... are they our problem?
   
-  //  omp_set_num_threads(1);
+  omp_set_num_threads(1);
   
   //////////////////////////////////////////////////////////////////////////////////
   //

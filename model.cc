@@ -105,6 +105,8 @@ auto_parse::Model::tweak(const Model& m, double fraction)
 auto_parse::Model&
 auto_parse::Model::operator=(const auto_parse::Model& rhs)
 {
+  assert(this != &rhs);
+  assert((m_all_actions.size() == 0) || (m_all_actions == rhs.m_all_actions));
   m_all_actions = rhs.m_all_actions;
   for(Action a : all_actions())
     {

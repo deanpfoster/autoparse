@@ -18,7 +18,10 @@ auto_parse::History::~History()
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::History::History()
+  :
+  m_actions()
 {
+  m_actions.reserve(128);
 };
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 auto_parse::History::History(const History & other)

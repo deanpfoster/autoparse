@@ -59,6 +59,7 @@ namespace auto_parse
     return result;
   }
 
+
 #else
   typedef Eigen::MatrixXd Matrix;
   typedef Eigen::VectorXd Vector;
@@ -76,6 +77,7 @@ namespace auto_parse
   {
     return vec;
   }
+
 #endif
 }
 
