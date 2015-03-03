@@ -1,0 +1,64 @@
+	                         -*- text -*-
+
+Immediate improvements:
+
+
+o  Added the ability to make a new eigen-dictionary based off of
+   bigrams computed between parent-child pairs.
+
+o  add construction of eigen dictionary, so we can start from zero and
+   work forward.  (i.e. no google eigenwords.)
+
+o  save models (can already restore them).
+
+o  scale randomness based on how big the typical difference is
+
+
+Future logic:
+
+o  Add the ability to do continous contrasts.  Namely, don't break into
+   sentence.  Just use free flowing text, html tags and everything.  Then
+   every 10 or so words, try a different direction and let it rip for 20
+   words.  Now compute the likelihood of both paths.  Be careful of
+   pushing stuff to the future--so links that never come down should be
+   penalized. 
+
+
+Experiments:
+
+o  Insert random "orit"'s in the corpus and see if they get hung on
+   leaves. 
+
+o  Find some labelled data to run on.  Write a likelihood estimator based
+   on the correct parse.  Number of edges correct?  Right direction of
+   dependence? guess as to distance?  What is the liklihood of these
+   hand labelled sentences?  
+
+o  Lyle says there is a overlapping regions statistic.  I can compare
+   random sentences to correct sentences to see if I'm beating
+   chance. 
+
+o  Make limited strategies: all left.  all right.  stack limited.
+   Pure random guessing.  Use these as strawmen.
+
+Runs:
+
+Build a new google grams dictionary which doesn't downcase.  This
+might help with understanding start of sentences etc.
+
+Parse wiki into sentences and run on that.
+
+LOW PRIORITY
+
+speedup: There is a map in value_of_forecasts which should be replaced
+by an vector for speed.
+
+speedup: profile code to see what actually is taking time.
+
+speedup: compute matrix*vector for parser to generate new vector.
+This should make parsing instantaneous.  Since this isn't actually the
+slow step, it may be more for show, i.e. I can parse 100k per second.
+
+o  Try doing the ConstRowXpr thing instead of a vector in eigenwords.  This probably
+   doesn't matter for speed.
+

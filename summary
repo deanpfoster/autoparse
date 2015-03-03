@@ -1,0 +1,75 @@
+		FACTS LEARNED FROM RUNS:				-*- text -*- 
+
+
+
+Debugging chasing:
+
+on NLP using malloc:
+	old code crashes fast
+	both golden.main learn.main crash fas
+on NLP using jemalloc:
+	NLP golden runs for 102 rounds crashes
+	NLP10 ran golden 12 rounds crashed
+
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+
+Look at latex:
+	3193 3202 3197
+	3202 u=0.05, s=0 eager, --noise = 0.5 rep=500
+	3197 u=0.05, s=0 standard, --noise = 0.0 rep=500
+
+
+experiment: R2L vs L2R and standard vs eager
+		Forward			Reverse
+Eager		3214,22,27,32,45	3213,24,26,34,44
+Standard	3215,21,28,31,48	3216,20,29,30,47
+
+
+run		  	ID	LL   
+r50 u.05 n.1 s.01 EF	3214  -.241
+		  Er	3213  -.288
+		  sF	3215  -.242
+		  sr	3216  -.266
+r100u.05 n.1 s.01 EF	3222  -.237 (disaster)
+		  Er	3224  -.280 (not good)
+		  sF	3221  -.238 (not good)
+		  sr	3220  -.253 (looks pretty!)
+
+Haven't looked at the output for the following
+r200u.05 n.1 s.01 EF    3227  -.232
+		  Er	3226  -.275
+		  sF	3228  -.234
+		  sF	3229  -.247
+r400u.05 n.1 s.01 EF    3232  -.221<<
+		  Er    3234  -.274==
+		  sF	3231  -.230=		  
+		  sr    3230  -.246
+r400.u.025n.1s.01 EF	3245  -.231  (NOTE: these likelihoods are slightly worse)
+		  Er	3244  -.275
+		  sF	3248  -.233
+		  sr	3247  -.247
+
+
+Large scaling leads to 100% lefts:
+	3200 (standard, scaling=1, -.25, 77% left)
+	3201 (eager, scaling=1, -.2396, 88% left)
+*	3107 (update_rate 0.1, scaling = 10 noise = 1.5)
+
+Low scaling leads to more balance:
+*    64% lefts @    3106 (update_rate = 0.1 scaling = 0.001 noise = 1.5  repeats_per_level= 150)
+*    73% lefts @    3102 (update_rate = 0.1 scaling = 0.001 noise = 0.5  repeats_per_level= 30)
+
+
+Eager:
+*	3183 -up = 0.1 --scal = 0.01 --eager = 1 --noise = 0.01 repeats_per_level=300 all lefts
+
+
+BUGS:
+*	3104	update_rate = 0.1 scaling = 0.001 noise = 0.1 repeats_per_level= 300 (CRASHED)
+	3203	u=.05, eager, nice output (.204, 60% left)--but assert caught noise, fixed (CRASHED)
+	3193   u=0.1 s=0.1, standard, --noise = 2 LL=-.46 Difficult to compare noisy to regular: (fixed)
+
+* means very old results
+

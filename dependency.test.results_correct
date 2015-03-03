@@ -1,0 +1,79 @@
+
+
+
+			 DEPENDENCY  DEPENDENCY  DEPENDENCY
+
+
+
+four 
+     	           four  <---  ROOT                                                   four
+
+
+four five 
+     	           four  <---  ROOT                                                   four   --->  five
+     	           five  <---  four                                                   five
+
+
+four five six 
+     	           four  <---  six                                                    four   --->  five
+     	           five  <---  four                                                   five
+     	            six  <---  ROOT                                      four  <---   six
+
+
+constructed!
+four five six 
+     	           four  <---  six                                                    four   --->  five
+     	           five  <---  four                                                   five
+     	            six  <---  ROOT                                      four  <---   six
+
+A hearing on the issue is scheduled today . 
+     	              A  <---  hearing                                                A
+     	        hearing  <---  is                                           A  <---   hearing   --->  on
+     	             on  <---  hearing                                                on   --->  issue
+     	            the  <---  issue                                                  the
+     	          issue  <---  on                                         the  <---   issue
+     	             is  <---  ROOT                                   hearing  <---   is   --->  scheduled, .
+     	      scheduled  <---  is                                                     scheduled   --->  today
+     	          today  <---  scheduled                                              today
+     	              .  <---  is                                                     .
+
+
+A hearing on the issue is scheduled today . 
+			 * * * * Incomplete parse structure:   3 / 9 * * * *
+     	              A  <---  hearing                                                A
+     	        hearing  <---                                               A  <---   hearing
+     	             on  <---                                                         on   --->  issue
+     	            the  <---  issue                                                  the
+     	          issue  <---  on                                         the  <---   issue
+     	             is  <---  ROOT                                                   is
+     	      scheduled  <---                                                         scheduled
+     	          today  <---                                                         today
+     	              .  <---                                                         .
+
+
+A hearing on the issue is scheduled today . 
+     	              A  <---  hearing                                                A
+     	        hearing  <---  is                                           A  <---   hearing   --->  on
+     	             on  <---  hearing                                                on   --->  issue
+     	            the  <---  issue                                                  the
+     	          issue  <---  on                                         the  <---   issue
+     	             is  <---  ROOT                                   hearing  <---   is   --->  scheduled, .
+     	      scheduled  <---  is                                                     scheduled   --->  today
+     	          today  <---  scheduled                                              today
+     	              .  <---  is                                                     .
+
+
+Number left links: 3
+hearing -> A
+hearing -> on
+on -> issue
+issue -> the
+is -> hearing
+is -> scheduled
+is -> .
+scheduled -> today
+rightmost of is = .
+leftmost of is = hearing
+
+
+DONE.

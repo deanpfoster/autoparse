@@ -1,0 +1,41 @@
+ 
+
+
+			 TOKENIZE  TOKENIZE  TOKENIZE 
+ 
+ 
+ 
+// , -*- , c++ , -*- , 
+#include , <iostream> , 
+#include , <assert.h> , 
+#include , "tokenize.h" , 
+namespace , auto_parse , 
+{ , 
+void , test_tokenize() , 
+{ , 
+std::cout , << , QUOTE , \n\n\n\t\t\t , tokenize , tokenize , tokenize , \n , \n , \n , QUOTE , << , std::endl; , 
+{ , 
+lexicon , l , {"<oov>", , "iostream", , "#include", , "namespace", , "std", , "while", , 
+"auto", , "parse", , "{" , , , "}","std::cout", , "std::endl;","tokenize","\\n", , "," , "\"", , "quote", , 
+"main()","int","while","<<"}; , 
+auto_parse::tokenize , in("tokenize.test.cc",&l); , // , testing , construction , 
+while(!in.eof()) , 
+{ , 
+std::cout , << , in.next_sentence() , << , std::endl; , 
+} , 
+std::cout , << , "constructed!" , << , std::endl; , 
+}; , 
+} , 
+} , 
+#ifndef , no_main , 
+int , 
+main() , 
+{ , 
+auto_parse::test_tokenize(); ,  , 
+std::cout , << , "\n\ndone." , << , std::endl; ,  , 
+}; , 
+#endif , 
+constructed!
+
+
+DONE.

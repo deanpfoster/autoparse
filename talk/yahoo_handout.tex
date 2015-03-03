@@ -1,0 +1,251 @@
+\documentclass[12pt]{extarticle}
+
+\usepackage{multicol}
+
+\renewcommand{\baselinestretch}{1.0}
+\date{\today}
+
+\raggedright
+\raggedbottom
+
+\usepackage[usenames]{color}
+\newcommand{\note}[1]{\noindent{\textcolor{red}{\{{\bf NOTE:} \em #1\}}}}
+\newcommand{\old}[1]{\noindent{\textcolor{gray}{\{{\bf OLD:} \em #1\}}}}
+% The following works as \@@{foo} to make something Howard likes.
+% Notice it redefines \@, so if you use that command, kill this one!
+\renewcommand{\@}[2]{{{\color{red}{@@ }}{\textcolor{blue}{#2}}\color{red}{ @@}}}
+
+\usepackage[left=.25in,top=.75in,bottom=.25in,right=.25in]{geometry}
+\usepackage{tikz-dependency}
+
+%\addtolength{\columnsep}{.25in}
+%\setlength{\columnseprule}{1pt}
+
+\begin{document}
+\sloppy
+\begin{multicols*}{2}[
+\centerline{\Huge\bf Dependency parsing without training data}
+\vspace{2ex}
+]
+
+\section*{Why, Why, Why?}
+\begin{itemize}
+\item When I heard how accurate and fast an LR(1) parser was for English,
+it seem tailor made for automatic methods
+\item I had lots of free time during the evenings of science week
+\item Wrote several 5000 lines of C++ for fun
+\item Now it has grown out of control (9k lines)
+\end{itemize}
+
+\section*{LR(1) parser}
+\begin{itemize}
+\item Implemented a parser that will do any subset of the
+following commands:
+\begin{itemize}
+\item shift
+\item arc-eager: top + head to make a tree
+\item regular: top + one-deep to make a tree
+\item generate head from last item
+\item non-projective: top + two-deep to make a tree
+\end{itemize}
+\item Implemented a regression based oracle
+\begin{itemize}
+\item Uses ``eigenwords'' for features
+\item Does interactions between two words
+\item Keeps track of basic statistics (length of sentence, number
+words left, etc)
+\item Even does 3-way interactions
+\item Missing: No concept of ``arity'' for verbs
+\item Missing: No official POS
+\end{itemize}
+\item Can run L2R, or R2L, in either arc-eager or regular.  
+\end{itemize}
+
+\section*{Likelihood}
+\begin{itemize}
+\item If we had a large corpus of parsed sentences we can estimate a
+likelihood as a model for parsing.
+\item Model is simple
+\begin{itemize}
+\item  there is a probability of each parent
+generating a number of left children and a number of right children.
+\item There is a distribution of left children generated
+\item Likewise for right children
+\end{itemize}
+\item These are easy to estimate by simply counting
+\end{itemize}
+
+\section*{Training the LR(1) Oracle}
+\begin{itemize}
+\item Pick a word and consider the action associated with it
+\item Change that action and Parse the rest of the sentence
+\item Compute likelihood for both actions and following.
+\item Voila!  We now have a ``labeled'' training set.
+\end{itemize}
+
+\section*{So it runs}
+\begin{itemize}
+\item Fast: on a single box, 500k sentences in about a minute. (64 threads)
+\item It takes another 20 seconds to estimate the likelihood.
+\item Parses not so pretty (see reverse for examples)
+\end{itemize}
+
+\section*{Questions for you}
+\begin{itemize}
+\item How can the model be improved?  Hopefully to one that generates
+better parses.
+\item What is the easiest test you can think of to test a parser?\footnote{I
+flunked the easiest one I could think of: Joel liked random parses as
+well as mine.}
+\item What should I be reading?
+\item Assuming it actually does better than chance, do you have any
+useful things to do with it?
+\end{itemize}
+
+\end{multicols*}
+
+
+
+\cleardoublepage
+\centerline{\Huge\bf Example parses (run=t3247)}
+
+\vfill
+
+\centerline{log(Likelihood) of each ``edge'' is shown.  Numbers closer to zero are
+higher likelihoods.}
+
+\vfill
+
+		%	 Include in header: \usepackage{tikz-dependency}
+\begin{dependency}[theme = simple]
+\begin{deptext}[column sep=1em]
+     every \& person \& who \& is \& alone \& is \& alone \& because \& they \& are \& afraid \& of \& others \& .  \\
+\end{deptext}
+\deproot{4}{ROOT -0.12}
+\depedge{13}{14}{-0.04}
+\depedge{12}{13}{-0.27}
+\depedge{12}{11}{-0.59}
+\depedge{10}{12}{-0.38}
+\depedge{10}{9}{-0.23}
+\depedge{8}{10}{-0.2}
+\depedge{8}{7}{-0.22}
+\depedge{6}{8}{-0.29}
+\depedge{6}{5}{-0.29}
+\depedge{4}{6}{-0.25}
+\depedge{4}{3}{-0.18}
+\depedge{4}{2}{-0.39}
+\depedge{2}{1}{-0.04}
+\end{dependency}
+
+		%	 Include in header: \usepackage{tikz-dependency}
+\begin{dependency}[theme = simple]
+\begin{deptext}[column sep=1em]
+     america \& is \& a \& lovely \& place \& to \& be \& , \& if \& you \& are \& here \& to \& earn \& money \& .  \\
+\end{deptext}
+\deproot{2}{ROOT -0.1}
+\depedge{15}{16}{-0.01}
+\depedge{14}{15}{-0.23}
+\depedge{13}{14}{-0.35}
+\depedge{13}{12}{-0.25}
+\depedge{11}{13}{-0.22}
+\depedge{11}{10}{-0.14}
+\depedge{9}{11}{-0.22}
+\depedge{7}{8}{-0.31}
+\depedge{6}{9}{-0.31}
+\depedge{6}{7}{-0.49}
+\depedge{6}{5}{-0.18}
+\depedge{5}{4}{-0.43}
+\depedge{4}{3}{-0.04}
+\depedge{2}{6}{-0.2}
+\depedge{2}{1}{-0.28}
+\end{dependency}
+
+
+		%	 Include in header: \usepackage{tikz-dependency}
+\begin{dependency}[theme = simple]
+\begin{deptext}[column sep=1em]
+     democracy \& is \& the \& worst \& form \& of \& government \& , \& except \& all \& the \& others \& that \& have \& been \& tried \& .  \\
+\end{deptext}
+\deproot{2}{ROOT -0.1}
+\depedge{16}{17}{-0.59}
+\depedge{15}{16}{-0.51}
+\depedge{14}{15}{-0.33}
+\depedge{14}{13}{-0.25}
+\depedge{13}{12}{-0.27}
+\depedge{13}{10}{-0.19}
+\depedge{12}{11}{-0.25}
+\depedge{8}{14}{-0.39}
+\depedge{8}{9}{-0.25}
+\depedge{8}{7}{-0.22}
+\depedge{6}{8}{-0.34}
+\depedge{6}{5}{-0.21}
+\depedge{6}{4}{-0.38}
+\depedge{4}{3}{-0.01}
+\depedge{2}{6}{-0.36}
+\depedge{2}{1}{-0.21}
+\end{dependency}
+
+		%	 Include in header: \usepackage{tikz-dependency}
+\begin{dependency}[theme = simple]
+\begin{deptext}[column sep=1em]
+     i \& hate \& it \& when \& there \& are \& a \& lot \& of \& people \& .  \\
+\end{deptext}
+\deproot{6}{ROOT -0.08}
+\depedge{10}{11}{-0.11}
+\depedge{9}{10}{-0.23}
+\depedge{9}{8}{-0.59}
+\depedge{8}{7}{-0.1}
+\depedge{6}{9}{-0.38}
+\depedge{6}{5}{-0.16}
+\depedge{6}{4}{-0.26}
+\depedge{4}{3}{-0.2}
+\depedge{4}{2}{-0.22}
+\depedge{2}{1}{-0.13}
+\end{dependency}
+
+{\scriptsize
+		%	 Include in header: \usepackage{tikz-dependency}
+\begin{dependency}[theme = simple]
+\begin{deptext}[column sep=1em]
+     there \& are \& 10 \& types \& of \& people \& in \& the \& world \& : \& those \& who \& understand \& binary \& , \& and \& those \& who \& don't \& .  \\
+\end{deptext}
+\deproot{2}{ROOT -0.06}
+\depedge{19}{20}{-0.31}
+\depedge{19}{18}{-0.24}
+\depedge{18}{17}{-0.34}
+\depedge{16}{19}{-0.81}
+\depedge{15}{16}{-0.23}
+\depedge{15}{14}{-0.28}
+\depedge{13}{15}{-0.29}
+\depedge{13}{12}{-0.21}
+\depedge{12}{11}{-0.34}
+\depedge{10}{9}{-0.27}
+\depedge{9}{8}{-0.02}
+\depedge{7}{13}{-0.64}
+\depedge{7}{10}{-0.33}
+\depedge{7}{6}{-0.2}
+\depedge{5}{4}{-0.44}
+\depedge{2}{7}{-0.23}
+\depedge{2}{5}{-0.38}
+\depedge{2}{3}{-0.38}
+\depedge{2}{1}{-0.16}
+\end{dependency}
+}
+\vfill
+\begin{center}
+\begin{minipage}{6in}
+\begin{itemize}
+\item Regular (not eager) parsing
+\item Done backwards! (i.e. R2L).
+\item Trained on 462604 sentence.    
+\item 400 rounds on full data training (+2000 rounds of pre-training).
+\item Threads used: 64.
+\item Total time: 51515 seconds  (14:18 h:m)
+\item corpus: English sentences from tatoeba (average length is only
+10 words)
+\end{itemize}
+\end{minipage}
+\end{center}
+
+\end{document}
+

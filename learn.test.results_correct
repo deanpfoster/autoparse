@@ -1,0 +1,102 @@
+Read a dictionary of size: 100 x 30
+  0    Training
+
+-0.02 = shift's average value in a contrast.
+0.02 = <--'s average value in a contrast.
+0 = -->'s average value in a contrast.
+0 = HEAD's average value in a contrast.
+Typical deviation from zero is:0.16
+
+  0    MLE
+  1    Training
+
+-0.14 = shift's average value in a contrast.
+0.54 = <--'s average value in a contrast.
+-0.4 = -->'s average value in a contrast.
+0 = HEAD's average value in a contrast.
+Typical deviation from zero is:1.77
+
+  1    MLE
+  2    Training
+
+-0.27 = shift's average value in a contrast.
+0.64 = <--'s average value in a contrast.
+-0.36 = -->'s average value in a contrast.
+0 = HEAD's average value in a contrast.
+Typical deviation from zero is:1.48
+
+  2    MLE
+  3    Training
+
+-0.35 = shift's average value in a contrast.
+0.95 = <--'s average value in a contrast.
+-0.59 = -->'s average value in a contrast.
+0 = HEAD's average value in a contrast.
+Typical deviation from zero is:1.64
+
+  3    MLE
+  4    Training
+
+-0.95 = shift's average value in a contrast.
+2.34 = <--'s average value in a contrast.
+-1.38 = -->'s average value in a contrast.
+0 = HEAD's average value in a contrast.
+Typical deviation from zero is:2.75
+
+  4    MLE
+  5    Training
+
+-0.69 = shift's average value in a contrast.
+2.59 = <--'s average value in a contrast.
+-1.9 = -->'s average value in a contrast.
+0 = HEAD's average value in a contrast.
+Typical deviation from zero is:2.84
+
+  5    MLE
+  6    Training
+
+-2.42 = shift's average value in a contrast.
+4.34 = <--'s average value in a contrast.
+-1.92 = -->'s average value in a contrast.
+0 = HEAD's average value in a contrast.
+Typical deviation from zero is:4.74
+
+  6    MLE
+  7    Training
+
+-1.96 = shift's average value in a contrast.
+4.52 = <--'s average value in a contrast.
+-2.55 = -->'s average value in a contrast.
+0 = HEAD's average value in a contrast.
+Typical deviation from zero is:4.62
+
+  7    MLE
+  8    Training
+
+-1.4 = shift's average value in a contrast.
+3.93 = <--'s average value in a contrast.
+-2.52 = -->'s average value in a contrast.
+0 = HEAD's average value in a contrast.
+Typical deviation from zero is:3.96
+
+  8    MLE
+  9    Training
+
+-1.25 = shift's average value in a contrast.
+4.24 = <--'s average value in a contrast.
+-2.98 = -->'s average value in a contrast.
+0 = HEAD's average value in a contrast.
+Typical deviation from zero is:4.24
+
+  9    MLE
+ * * * * 357.445 * * * * 
+on that by this with . 
+-0.72	             on  <---  that                                                   on
+-0.72	           that  <---  by                                          on  <---   that
+-0.72	             by  <---  this                                      that  <---   by
+-0.72	           this  <---  with                                        by  <---   this
+-0.72	           with  <---  .                                         this  <---   with
+-0.74	              .  <---  ROOT                                      with  <---   .
+
+
+Finished!

@@ -1,0 +1,37 @@
+
+
+
+			 DECORATED_DEPENDENCY  DECORATED_DEPENDENCY  DECORATED_DEPENDENCY
+
+
+
+A hearing on the issue is scheduled today . 
+prob 	              A  <---  hearing                                                A
+prob 	        hearing  <---  is                                           A  <---   hearing   --->  on
+prob 	             on  <---  hearing                                                on   --->  issue
+prob 	            the  <---  issue                                                  the
+prob 	          issue  <---  on                                         the  <---   issue
+r00t 	             is  <---  ROOT                                   hearing  <---   is   --->  scheduled, .
+prob 	      scheduled  <---  is                                                     scheduled   --->  today
+prob 	          today  <---  scheduled                                              today
+prob 	              .  <---  is                                                     .
+
+		%	 Include in header: \usepackage{tikz-dependency}
+\begin{dependency}[theme = simple]
+\begin{deptext}[column sep=1em]
+     A \& hearing \& on \& the \& issue \& is \& scheduled \& today \& .  \\
+\end{deptext}
+\deproot{6}{ROOT r00t}
+\depedge{2}{1}{prob}
+\depedge{2}{3}{prob}
+\depedge{3}{5}{prob}
+\depedge{5}{4}{prob}
+\depedge{6}{2}{prob}
+\depedge{6}{7}{prob}
+\depedge{6}{9}{prob}
+\depedge{7}{8}{prob}
+\end{dependency}
+
+
+
+DONE.

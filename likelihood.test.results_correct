@@ -1,0 +1,58 @@
+
+
+
+			 LIKELIHOOD  LIKELIHOOD  LIKELIHOOD
+
+
+
+Likelihood model:
+	Eigenword with transition matrix.
+	max = 0.999906
+	min = 3.71966e-05
+	mean= -0.00625997
+	 sd = 0.582915
+	Eigenword with transition matrix.
+	max = 0.999906
+	min = 3.71966e-05
+	mean= -0.00625997
+	 sd = 0.582915
+	IID transition matrix.
+
+-3468.05
+constructed!
+A B C D E 
+     	              A  <---  B                                                      A
+     	              B  <---  C                                            A  <---   B
+     	              C  <---  D                                            B  <---   C
+     	              D  <---  E                                            C  <---   D
+     	              E  <---  ROOT                                         D  <---   E
+
+Sorted: 0
+A B C D E 
+     	              A  <---  ROOT                                                   A   --->  B, C, D, E
+     	              B  <---  A                                                      B
+     	              C  <---  A                                                      C
+     	              D  <---  A                                                      D
+     	              E  <---  A                                                      E
+
+right hanging: 0
+E D C B A 
+     	              E  <---  D                                                      E
+     	              D  <---  C                                            E  <---   D
+     	              C  <---  B                                            D  <---   C
+     	              B  <---  A                                            C  <---   B
+     	              A  <---  ROOT                                         B  <---   A
+
+reverse: 0
+Pretty version: E D C B A 
+0    	              E  <---  D                                                      E
+0    	              D  <---  C                                            E  <---   D
+0    	              C  <---  B                                            D  <---   C
+0    	              B  <---  A                                            C  <---   B
+0    	              A  <---  ROOT                                         B  <---   A
+
+
+log(like) = 0 = 80\% lefts @ 0 + 0\% rights @ -nan + 20\% roots @ 0
+
+
+DONE.

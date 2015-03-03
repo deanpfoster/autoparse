@@ -1,0 +1,17 @@
+
+
+
+			 FEATURE_ONE_DIMENSIONAL<T>  FEATURE_ONE_DIMENSIONAL<T>  FEATURE_ONE_DIMENSIONAL<T>
+
+
+
+number of words left in the sentence.
+Full sentence length.
+Size of the current stack.
+1
+1
+1
+number_words_left : sentence_length : stack_size : 
+
+
+DONE.

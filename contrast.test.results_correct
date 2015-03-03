@@ -1,0 +1,21 @@
+
+
+
+			 CONTRAST  CONTRAST  CONTRAST
+
+
+
+  common: shift shift 
+original: shift shift <-- shift --> shift <-- shift --> shift --> shift <-- shift <-- shift <-- HEAD 
+ new seq: shift shift shift shift <-- <-- shift <-- --> shift --> shift --> shift <-- shift <-- HEAD 
+  prefix: shift shift shift 
+    last: <--
+new last: shift
+0,"<--",7,2,9
+-0,"shift",7,2,9
+0.0123255,"<--",4,2,9
+-0.0123255,"-->",4,2,9
+constructed!
+
+
+DONE.

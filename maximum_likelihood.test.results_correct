@@ -1,0 +1,22 @@
+
+
+
+			 MAXIMUM_LIKELIHOOD  MAXIMUM_LIKELIHOOD  MAXIMUM_LIKELIHOOD
+
+
+
+Likelihood model:
+	Eigenword with transition matrix.
+	max = 0.995083
+	min = 1.41999e-08
+	mean= 0.00104143
+	 sd = 0.0335185
+	Eigenword with transition matrix.
+	max = 0.994198
+	min = 1.37366e-06
+	mean= 0.00126049
+	 sd = 0.0342451
+	IID transition matrix.
+
+
+DONE.
